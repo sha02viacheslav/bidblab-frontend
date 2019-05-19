@@ -120,7 +120,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   isMediaActive(breakpoint) {
-    // return this.media.isActive(breakpoint);
     return this.mediaObserver.isActive(breakpoint)
   }
 

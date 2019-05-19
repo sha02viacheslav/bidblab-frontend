@@ -1,7 +1,6 @@
 <mat-sidenav-container>
-  <!-- <mat-sidenav *ngIf="!isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
-    class="sidenav mat-elevation-z6"> -->
-  <mat-sidenav [opened]="'false'" [mode]="'over'" #sidenav class="sidenav mat-elevation-z6">
+  <mat-sidenav *ngIf="!isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
+    class="sidenav mat-elevation-z6">
     <mat-toolbar [fxLayoutAlign]="'space-between center'" class="sidenav-header">
       <a class="logo" style="display: flex;" routerLink="/" (click)="closeSubMenus()">
         <img class="logo-wrap" src="assets/icons/logo.svg" />
@@ -42,7 +41,7 @@
         <div class="app-content-wrap">
           <header>
             <mat-toolbar style="background-color: white;">
-              <div class="container" fxLayout="row">
+              <div class="container" fxLayout="row" fxLayoutAlign="start center">
                 <div class="fill-remaining-space">
                   <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
                     <img class="logo-wrap" src="assets/icons/logo.svg" />
