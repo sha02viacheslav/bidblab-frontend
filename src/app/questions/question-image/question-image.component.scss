@@ -1,0 +1,19 @@
+.image-block {
+  padding: 1rem;
+  width: 100%;
+}
+
+.question-image {
+  height: 200px;
+  width: 100%;
+  border-radius: 4px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+}
+.question-category.mat-standard-chip{
+  display: initial !important;
+  text-align: center;
+  width: 200px;
+}

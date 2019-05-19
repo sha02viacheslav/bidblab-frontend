@@ -1,21 +1,128 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-sidenav-container>
+  <!-- <mat-sidenav *ngIf="!isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
+    class="sidenav mat-elevation-z6"> -->
+  <mat-sidenav [opened]="'false'" [mode]="'over'" #sidenav class="sidenav mat-elevation-z6">
+    <mat-toolbar [fxLayoutAlign]="'space-between center'" class="sidenav-header">
+      <a class="logo" style="display: flex;" routerLink="/" (click)="closeSubMenus()">
+        <img class="logo-wrap" src="assets/icons/logo.svg" />
+      </a>
+    </mat-toolbar>
 
-<router-outlet></router-outlet>
+    <div fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2" [class.show]="true">
+      <div [fxLayout]="'row'" [fxLayoutAlign]="'space-around center'" class="user-info-wrapper">
+        <img [src]="user?.profilePicture?.path? serverUrl +'/' + user.profilePicture.path : 'assets/imgs/user.svg'"
+          alt="user-image">
+        <div class="user-info">
+          <p class="name">{{user?.username}}</p>
+          <p class="position">Web developer <br> <small class="muted-text">Member since May. 2016</small></p>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 muted-text">
+        <a mat-icon-button (click)="logout(); toggleSidenav();">
+          <mat-icon>power_settings_new</mat-icon>
+        </a>
+      </div>
+    </div>
+
+    <perfect-scrollbar #sidenavPS class="sidenav-menu-outer" [class.user-block-show]="true">
+      <span *ngIf="!menuItems">loading....</span>
+      <app-menu [menuItems]="menuItems" [menuParentId]="0" (onClickMenuItem)="updatePS($event)">
+      </app-menu>
+      <mat-divider></mat-divider>
+      <app-menu [menuItems]="menuItems" [menuParentId]="1" (onClickMenuItem)="updatePS($event)">
+      </app-menu>
+      <mat-divider></mat-divider>
+      <app-menu [menuItems]="menuItems" [menuParentId]="2" (onClickMenuItem)="updatePS($event)">
+      </app-menu>
+    </perfect-scrollbar>
+  </mat-sidenav>
+  <mat-sidenav-content id="main">
+    <block-ui>
+      <div class="app-wrapper" id="main-nicescrollable">
+        <div class="app-content-wrap">
+          <header>
+            <mat-toolbar style="background-color: white;">
+              <div class="container" fxLayout="row">
+                <div class="fill-remaining-space">
+                  <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
+                    <img class="logo-wrap" src="assets/icons/logo.svg" />
+                  </button>
+                </div>
+                <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
+                  <mat-menu #userMenu="matMenu">
+                    <button (click)="openProfile()" mat-menu-item>Account Information</button>
+                    <button (click)="logout()" mat-menu-item>Logout</button>
+                    <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
+                  </mat-menu>
+                  <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
+                    [matMenuTriggerFor]="userMenu">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
+                        'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                      </div>
+                      <small class="">{{user.username}}</small>
+                    </div>
+                  </button>
+                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
+                    (click)="toggleSidenav()">
+                    <mat-icon>menu</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-template #notAuthenticated>
+                  <mat-menu #authMenu="matMenu">
+                    <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
+                    <button (click)="openDialog('login')" mat-menu-item>Login</button>
+                  </mat-menu>
+                  <ng-container *ngIf="isMediaActive('gt-xs')">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                      <button (click)="openDialog('signup')" mat-button>Signup</button>
+                      <button (click)="openDialog('login')" mat-button>Login</button>
+                    </div>
+                  </ng-container>
+                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </mat-toolbar>
+          </header>
+          <div *ngIf="isMediaActive('gt-xs')" class="container">
+            <div class="tab-nav-wrap">
+              <div mat-tab-nav-bar>
+                <a mat-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.link" routerLinkActive
+                  #rla="routerLinkActive" [active]="rla.isActive">
+                  {{link.label}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="container main-page-wrap">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <div class="sticky-footer-wrap">
+          <footer>
+            <mat-toolbar fxLayout="column" fxLayoutAlign="none" color="primary" style="height:inherit;">
+              <div class="footer-main" fxLayout="row" fxLayoutAlign="space-between center">
+                <div [className]="isMediaActive('gt-xs')? 'desktop-favorite' : 'mobile-favorite'">
+                  <a class="margin-right-1rem" routerLink="/questions/about">About</a>
+                  <a class="margin-right-1rem" href="/">Contact us</a>
+                  <a routerLink="/sitemanager/how">How it works</a>
+                </div>
+                <div class="social-wrap" fxLayout="row" fxLayoutAlign="space-around center">
+                  <a href="http://www.facebook.com/awwards/"><img src="assets/icons/icons8-facebook.svg" /></a>
+                  <a href="http://www.instagram.com/awwards/"><img src="assets/icons/icons8-instagram.svg" /></a>
+                  <a href="http://www.google.com/awwards/"><img src="assets/icons/icons8-google-plus.svg" /></a>
+                  <a href="http://twitter.com/awwards/"><img src="assets/icons/icons8-twitter.svg" /></a>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center" class="copyright-wrap">
+                <small class="copyrights">&copy; Dev Pony 2018</small>
+              </div>
+            </mat-toolbar>
+          </footer>
+        </div>
+      </div>
+    </block-ui>
+  </mat-sidenav-content>
+</mat-sidenav-container>

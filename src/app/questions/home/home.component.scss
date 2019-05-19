@@ -1,0 +1,31 @@
+@import "../../../assets/scss/variables";
+
+@media (min-width: 599px) {
+  .search-box {
+    padding: 0rem 1rem 1rem 1rem;
+  }
+}
+
+.search-label-w {
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.ask-btn-w {
+  height: 100%;
+  padding: 1rem 0;
+
+  button {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .infiniteScroll-area {
+    height: calc(100vh - (#{$toolbar-mobile-height}*2 + #{$footer-mobile-height} + 32px)) !important;
+  }  
+}
+.infiniteScroll-area {
+  height: calc(100vh - (#{$toolbar-desktop-height}*2 + #{$main-tab-height} + #{$footer-desktop-height} + 48px));
+  overflow-y: scroll;
+}

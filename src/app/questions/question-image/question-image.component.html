@@ -1,0 +1,10 @@
+<div class="image-block" fxLayout="column" fxLayoutAlign="space-between center">
+  <div class="question-image" [style.background-image]="question?.questionPicture?.path?
+    'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+  </div>
+  <div class="TV-show">
+    <mat-chip-list>
+      <mat-chip class="question-category" color="basic" selected>Category:&nbsp;{{ question.tag }}</mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
