@@ -1,0 +1,40 @@
+.crop-wrap {
+  width: 100%;
+}
+
+.cloud-image {
+  width: 240px;
+  height: 180px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: auto !important;
+  border: 1px solid rgb(240, 240, 240);
+  text-align: center;
+  padding: 1rem;
+}
+
+mat-radio-button {
+  margin: 0.5rem;
+  width: 5rem
+}
+
+.question-wrap {
+  margin-top: 1rem;
+}
+
+.button {
+  margin-left: 2rem;
+}
+
+.catagories-wrap {
+  margin-left: 1rem;
+}
+
+.catagories-select-wrap {
+  margin-bottom: 1rem;
+}
+
+.dialog-title-wrap {
+  margin: -20px 0px;
+}

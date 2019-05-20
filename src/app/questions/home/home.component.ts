@@ -8,7 +8,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
 // import { Question } from '../../shared/models/question.model';
-// import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
+import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
 // import { LoginComponent } from '../../shared/components/login/login.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 // import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 // import { Answer } from '../../shared/models/answer.model';
 // import { SocketsService } from '../../shared/services/sockets.service';
-// import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
+import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { resource } from 'selenium-webdriver/http';
 
 
@@ -107,49 +107,49 @@ export class HomeComponent implements OnInit, OnDestroy {
     // this.socketEventsSubscription.unsubscribe();
   }
 
-  // openQuestionDialog(newTitle?: String, question?: Question) {
-  //   if (this.authenticationService.isAuthenticated()) {
-  //     this.dialogService
-  //       .open(QuestionDialogComponent, {
-  //         data: {
-  //           question,
-  //           newTitle,
-  //         },
-  //         width: '800px'
-  //       })
-  //       .afterClosed()
-  //       .subscribe(newQuestion => {
-  //         if (newQuestion) {
-  //           if (question) {
-  //             const index = this.questions.findIndex(
-  //               currentQuestion => currentQuestion._id === question._id
-  //             );
-  //             if (index !== -1) {
-  //               this.questions[index] = newQuestion;
-  //             }
-  //           } else {
-  //             this.questions.push(newQuestion);
-  //           }
-  //           this.dialogService.
-  //               open(AlertDialogComponent, {
-  //                 data: {
-  //                   title: "Question submitted",
-  //                   comment: " ",
-  //                   dialog_type: "ask" 
-  //                 },
-  //                 width: '320px',
-  //               }).afterClosed().subscribe(result => {
-  //                 if(result == 'more'){
-  //                   this.openQuestionDialog();
-  //                 }
-  //               });
-  //         }
-  //       });
-  //   }
-  //   else{
-  //     this.dialogService.open(LoginComponent);
-  //   }
-  // }
+  openQuestionDialog(newTitle?: String, question?: any) {
+    if (this.authenticationService.isAuthenticated()) {
+      this.dialogService
+        .open(QuestionDialogComponent, {
+          data: {
+            question,
+            newTitle,
+          },
+          width: '600px'
+        })
+        .afterClosed()
+        .subscribe(newQuestion => {
+          if (newQuestion) {
+            if (question) {
+              const index = this.questions.findIndex(
+                currentQuestion => currentQuestion._id === question._id
+              );
+              if (index !== -1) {
+                this.questions[index] = newQuestion;
+              }
+            } else {
+              this.questions.push(newQuestion);
+            }
+            this.dialogService.
+                open(AlertDialogComponent, {
+                  data: {
+                    title: "Question submitted",
+                    comment: " ",
+                    dialog_type: "ask" 
+                  },
+                  width: '320px',
+                }).afterClosed().subscribe(result => {
+                  if(result == 'more'){
+                    this.openQuestionDialog();
+                  }
+                });
+          }
+        });
+    }
+    else{
+      this.router.navigateByUrl('/');
+    }
+  }
 
 
   // openLogin(){
@@ -200,17 +200,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  // searchBoxAction(){
-  //   if(this.newQuestionFlag){
-  //     this.newQuestionFlag = false;
-  //     this.openQuestionDialog(this.form.value.search);
-  //   }
-  //   else{
-  //     this.pageIndex = 0;
-  //     this.questions = [];
-  //     this.getQuestions();
-  //   }
-  // }
+  searchBoxAction(){
+    if(this.newQuestionFlag){
+      this.newQuestionFlag = false;
+      this.openQuestionDialog(this.form.value.search);
+    }
+    else{
+      this.pageIndex = 0;
+      this.questions = [];
+      this.getQuestions();
+    }
+  }
 
   getQuestions() {
     this.autocomplete.splice(0);

@@ -1,0 +1,22 @@
+<div class="alert_dialog_wrap" fxLayout="column" fxLayoutAlign="space-between center">
+  <div class="alert_dialog_title">
+    {{data.title}}
+  </div>
+  <div class="alert_dialog_comment">
+    {{data.comment}}
+  </div>
+  <div class="alert_dialog_button_wrap" fxLayout="row">
+    <div>
+      <button *ngIf="data.dialog_type == 'answer'" mat-raised-button mat-dialog-close tabindex="-1">Answer more</button>
+      <button *ngIf="data.dialog_type == 'ask'" mat-raised-button (click)="onNoClick('more')">Ask more</button>
+      <button *ngIf="data.dialog_type == 'bid'" mat-raised-button (click)="onNoClick('more')">Bid more</button>
+      <button *ngIf="data.dialog_type == 'alert'" mat-raised-button (click)="onNoClick('more')">Blab</button>
+      <button *ngIf="data.dialog_type == 'confirm'" mat-raised-button (click)="onNoClick('more')">OK</button>
+    </div>
+    <div>
+      <button *ngIf="data.dialog_type == 'answer' || data.dialog_type == 'ask' || data.dialog_type == 'bid'"
+        mat-raised-button (click)="onNoClick('dismiss')">Dismiss</button>
+      <button *ngIf="data.dialog_type == 'confirm'" mat-raised-button (click)="onNoClick('dismiss')">Cancel</button>
+    </div>
+  </div>
+</div>

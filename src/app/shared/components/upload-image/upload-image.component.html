@@ -1,0 +1,39 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <div class="block-wrap">
+    <input id="fileToUpload" type="file" accept="image/*" (change)="fileChangeEvent($event)" style="display:none;">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="picture-wrap">
+        <label for="fileToUpload">
+          <p *ngIf="!croppedImage">Add image for extra BidBlab Credits.
+          </p>
+        </label>
+        <img *ngIf="croppedImage && !imageSource" class="cropped-img" [ngClass]="{'opecity': viewMenuFlag}"
+          [src]="croppedImage" (click)="viewMenu();" />
+        <div class="picture-menu-wrap">
+          <mat-icon color="accent" class="picture-delete" *ngIf="viewMenuFlag"
+            (click)="deletePicture(); viewMenuFlag = false; $event.stopPropagation();">
+            delete
+          </mat-icon>
+          <mat-icon color="accent" class="picture-delete" *ngIf="viewMenuFlag && !imageSource"
+            (click)="startCrop(); viewMenuFlag = false; $event.stopPropagation();">
+            crop
+          </mat-icon>
+          <label for="fileToUpload">
+            <mat-icon color="accent" class="picture-delete" *ngIf="viewMenuFlag"
+              (click)="viewMenuFlag = false; $event.stopPropagation();">
+              cloud_upload
+            </mat-icon>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="cropper-wrap" *ngIf="imageSource">
+      <image-cropper [ngClass]="{'display-none': !imageSource}" [maintainAspectRatio]="true"
+        [roundCropper]="roundCropper" [aspectRatio]="aspectRatio? aspectRatio : 4/3" [imageFileChanged]="imageSource"
+        [resizeToWidth]="270" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+      </image-cropper>
+      <button mat-mini-fab color="accent" (click)="saveCrop(); $event.preventDefault();">save</button>
+    </div>
+  </div>
+</div>

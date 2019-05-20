@@ -1,0 +1,59 @@
+<div class="dialog-title-wrap" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2>Add Question</h2>
+  <button mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form [formGroup]="infoForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+  <mat-dialog-content class="question-wrap" fxLayout="column">
+    <mat-form-field appearance="outline">
+      <mat-label>Question</mat-label>
+      <textarea rows="5" type="text" matInput formControlName="title" required></textarea>
+      <mat-hint align="end">{{infoForm.get('title').value.length}} / 500</mat-hint>
+      <mat-error *ngIf="checkError(infoForm, 'title', ['required', 'blank'])">
+        Required.
+      </mat-error>
+      <mat-error *ngIf="checkError(infoForm, 'title', 'maxlength')">
+        Question has a maximum length of 500 characters.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="standardInterests">
+      <mat-select placeholder="Select Catagory for question" formControlName="tag">
+        <mat-option *ngFor="let interest of standardInterests;" [value]="interest">
+          {{interest}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="checkError(infoForm, 'tag', ['required', 'blank'])">
+        Required.
+      </mat-error>
+    </mat-form-field>
+    <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center center" class="form-field-outer">
+      <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="picture-wrap"
+        *ngFor="let uploadFile of uploadFiles; let index = index">
+        <img *ngIf="selectedFileIndex != index" class="cropped-img" [src]="uploadFile.croppedImage"
+          (click)="openCrop(index)" />
+        <div class="crop-wrap">
+          <app-upload-image *ngIf="selectedFileIndex == index" (sendData)="addPicture($event)"
+            [originalImage]="uploadFiles[index].originalFile" [firstCrop]="uploadFiles[index].croppedFile == ''">
+          </app-upload-image>
+        </div>
+      </div>
+      <input id="fileToUpload" type="file" accept="image/*" (change)="addFile($event)" style="display:none;">
+      <div class="w-25" *ngIf="uploadFiles.length == 0">
+        <label for="fileToUpload">
+          <div class="cloud-image" [style.background-image]="'url(assets/icons/icons8-upload-to-cloud-96.png)'">
+            Add image for ({{defaultCredits?.defaultOptionalImageCredit}}) extra BidBlab Credits.
+          </div>
+        </label>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close tabindex="-1">
+      Cancel
+    </button>
+    <button class="" mat-raised-button color="accent" [disabled]="infoForm.invalid || submitted" type="submit">
+      Submit
+    </button>
+  </mat-dialog-actions>
+</form>

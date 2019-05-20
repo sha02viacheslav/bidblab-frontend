@@ -34,7 +34,7 @@ import { MatAutocompleteModule,
   MatToolbarModule,
   MatTooltipModule,
   MatStepperModule } from '@angular/material';
-// import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCropperModule } from 'ngx-image-cropper';
 // import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
 // import { LoginComponent } from './components/login/login.component';
 // import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -53,6 +53,9 @@ import { MatAutocompleteModule,
 // import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
 // import { BidListComponent } from './components/bid-list/bid-list.component';
 // import { AuctionDetailComponent } from './components/bid-list/auction-detail/auction-detail.component';
 // import { AuctionGridComponent } from './components/bid-list/auction-grid/auction-grid.component';
@@ -102,7 +105,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
-    // ImageCropperModule,
+    ImageCropperModule,
     PerfectScrollbarModule,
    // QuillModule
   ],
@@ -124,6 +127,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     // SearchComponent,
     // UploadImageComponent,
     MenuComponent,
+    QuestionDialogComponent,
+    AlertDialogComponent,
+    UploadImageComponent,
     // BidListComponent,
     // AuctionDetailComponent,
     // AuctionGridComponent,
@@ -138,9 +144,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     // SignupDialogComponent,
     // ResetPasswordComponent,
     // AnswerDialogComponent,
-    // AlertDialogComponent,
+    AlertDialogComponent,
     // ImageblockComponent,
-    // QuestionDialogComponent,
+    QuestionDialogComponent,
     // ReportDialogComponent,
     // AuctionDialogComponent
   ],
@@ -185,7 +191,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     // AnswerBoxComponent,
     // FollowBoxComponent,
     // SearchComponent,
-    // UploadImageComponent,
+    UploadImageComponent,
     MenuComponent,
     // BidListComponent,
     // NumericDirective,
