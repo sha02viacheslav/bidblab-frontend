@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, TimeoutError } from 'rxjs';
 import * as jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,15 @@ export class AuthenticationService {
 
   constructor(
     private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.token = localStorage.getItem('jwt');
-    const user =
-      JSON.parse(localStorage.getItem('user')) ||
-      (this.token ? jwtDecode(this.token).user : null);
-    this.userSubject = new BehaviorSubject<any>(user);
+    if (isPlatformBrowser(this.platformId)) {
+      this.token = localStorage.getItem('jwt');
+      const user =
+        JSON.parse(localStorage.getItem('user')) ||
+        (this.token ? jwtDecode(this.token).user : null);
+      this.userSubject = new BehaviorSubject<any>(user);
+    }
   }
 
   getToken() {

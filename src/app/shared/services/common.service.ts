@@ -60,6 +60,7 @@ export class CommonService {
   }
 
   getQuestions(limit?, offset?, search?) {
+    console.log(search);
     return this.httpClient.get(
       `${environment.apiUrl}/api/common/getQuestions?limit=${limit ||
         10}&offset=${offset || 0}&search=${search || ''}`

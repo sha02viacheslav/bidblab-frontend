@@ -85,6 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .get('search')
       .valueChanges.pipe(debounceTime(100))
       .subscribe(text => {
+          console.log('valuechaange');
         if (text.trim()) {
           this.commonService
             .getQuestions(null, null, text)
@@ -210,6 +211,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.openQuestionDialog(this.form.value.search);
     }
     else{
+      console.log("search");
       this.pageIndex = 0;
       this.questions = [];
       this.getQuestions();
@@ -218,12 +220,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getQuestions() {
     this.autocomplete.splice(0);
+    console.log('getquestions', this.form.value.search);
     this.commonService.getQuestions(
         this.pageSize,
         this.pageIndex,
         this.form.value.search).subscribe(
       (res: any) => {
         this.totalQuestionsCount = res.data.count;
+        console.log(this.form.value.search, res.data.questions);
         res.data.questions.forEach(element => {
           this.questions.push(element);
         });
@@ -242,10 +246,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       question.asker &&
       question.asker._id === this.authenticationService.getUser()._id
     );
-  }
-
-  isAdmin() {
-    return this.authenticationService.isAdmin();
   }
 
   canAnswer(questionId) {

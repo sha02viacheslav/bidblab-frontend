@@ -2,23 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { QuestionsRoutingModule } from './questions-routing.module';
-// import {
-//   MatAutocompleteModule,
-//   MatButtonModule,
-//   MatCardModule,
-//   MatChipsModule,
-//   MatDividerModule,
-//   MatIconModule,
-//   MatInputModule,
-//   MatPaginatorModule,
-//   MatSnackBarModule
-// } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDividerModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatSnackBarModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionsComponent } from './questions.component';
 import { HomeComponent } from './home/home.component';
 import { QuestionBoxComponent } from './question-box/question-box.component';
 import { QuestionImageComponent } from './question-image/question-image.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
+import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
 // import { QuestionDetailComponent } from './question-detail/question-detail.component';
 // import { BlabComponent } from './blab/blab.component';
 // import { BidComponent } from './bid/bid.component';
@@ -37,7 +38,7 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
     // MatSnackBarModule,
     // MatCardModule,
     // MatChipsModule,
-    // MatAutocompleteModule,
+    MatAutocompleteModule,
     // MatPaginatorModule,
     // MatDividerModule,
     SharedModule,
@@ -50,7 +51,8 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
     HomeComponent,
     QuestionBoxComponent,
     QuestionImageComponent,
-    QuestionDetailComponent, 
+    QuestionDetailComponent,
+    AnswerDialogComponent, 
     // QuestionDetailComponent, 
     // BlabComponent, 
     // BidComponent, 
