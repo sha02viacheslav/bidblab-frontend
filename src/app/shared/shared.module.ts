@@ -76,6 +76,7 @@ import { AuctionGridComponent } from './components/bid-list/auction-grid/auction
 import { AuctionLayerComponent } from './components/bid-list/auction-layer/auction-layer.component';
 import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
 import { SearchComponent } from './components/search/search.component';
+import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
 @NgModule({
   imports: [
@@ -148,6 +149,7 @@ import { SearchComponent } from './components/search/search.component';
     AuctionResultComponent,
     NumericDirective,
     SearchComponent,
+    ReportDialogComponent,
   ],
   entryComponents: [
     // LoginComponent,
@@ -157,7 +159,7 @@ import { SearchComponent } from './components/search/search.component';
     AlertDialogComponent,
     // ImageblockComponent,
     QuestionDialogComponent,
-    // ReportDialogComponent,
+    ReportDialogComponent,
     AuctionDialogComponent
   ],
   exports: [

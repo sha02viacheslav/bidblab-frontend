@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
-// import { ReportDialogComponent } from '../../shared/components/report-dialog/report-dialog.component';
+import { ReportDialogComponent } from '../../shared/components/report-dialog/report-dialog.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -63,26 +63,26 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  // openReportDialog(answerId){
-  //   if (this.authenticationService.isAuthenticated()) {
-  //     this.dialogService
-  //       .open(ReportDialogComponent, {
-  //         data: {
-  //           questionId: this.question._id,
-  //           answerId: answerId,
-  //         }
-  //       })
-  //       .afterClosed()
-  //       .subscribe(newRport => {
-  //         if (newRport) {
-  //           this.reports.push(newRport);  
-  //         }
-  //       });
-  //   }
-  //   else{
-  //     this.dialogService.open(LoginComponent);
-  //   }
-  // }
+  openReportDialog(answerId){
+    if (this.authenticationService.isAuthenticated()) {
+      this.dialogService
+        .open(ReportDialogComponent, {
+          data: {
+            questionId: this.question._id,
+            answerId: answerId,
+          }
+        })
+        .afterClosed()
+        .subscribe(newRport => {
+          if (newRport) {
+            this.reports.push(newRport);  
+          }
+        });
+    }
+    else{
+      this.router.navigateByUrl('/extra/login');
+    }
+  }
 
   getQuestionByQuestionId(questionId) {
     this.blockUIService.setBlockStatus(true);
