@@ -2,7 +2,7 @@
   <ng-container *ngTemplateOutlet="forgotMode ? forgotPassword : login"></ng-container>
 
   <ng-template #login>
-    <form class="py-1" [formGroup]="loginForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+    <form class="py-1 w-100" [formGroup]="loginForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
       <mat-card class="custom-card">
         <mat-card-header class="p-1" fxLayoutAlign="center center">
           <mat-card-title class="m-0">
@@ -55,11 +55,11 @@
   </ng-template>
 
   <ng-template #forgotPassword>
-    <form class="py-1" [formGroup]="forgotForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+    <form class="py-1 w-100" [formGroup]="forgotForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
       <mat-card class="custom-card">
         <mat-card-header class="p-1" fxLayoutAlign="center center">
           <mat-card-title class="m-0">
-            <h2>Reset your password'</h2>
+            <h2>Reset your password</h2>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content fxLayout="column">
