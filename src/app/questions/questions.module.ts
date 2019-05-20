@@ -21,6 +21,7 @@ import { QuestionImageComponent } from './question-image/question-image.componen
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { BlabComponent } from './blab/blab.component';
 import { AnswerBoxComponent } from './answer-box/answer-box.component';
+import { BidComponent } from './bid/bid.component';
 // import { BidComponent } from './bid/bid.component';
 // import { AboutComponent } from './about/about.component';
 
@@ -43,6 +44,7 @@ import { AnswerBoxComponent } from './answer-box/answer-box.component';
     QuestionDetailComponent,
     BlabComponent,
     AnswerBoxComponent,
+    BidComponent,
     // QuestionDetailComponent, 
     // BidComponent, 
     // AboutComponent, 

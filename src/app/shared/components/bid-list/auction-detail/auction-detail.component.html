@@ -1,0 +1,9 @@
+<div class="auction-detail-box">
+  <div class="auction-detail-title">
+    Item Detail Page
+  </div>
+  <div class="auction-detail-content main-color">
+    <div *ngIf="auction.auctionDetail; else noDetail" [innerHTML]="auction.auctionDetail"></div>
+    <ng-template #noDetail>There are no detail description.</ng-template>
+  </div>
+</div>

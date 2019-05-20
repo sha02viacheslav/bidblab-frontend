@@ -1,0 +1,95 @@
+<div class="credits-sticky-wrap">Credits: {{bidService.availuableCredits}}</div>
+<div *ngIf="topAuction && !myBidsFlag" class="top-auction-block">
+  <app-auction-layer [auction]=topAuction [auctionType]="'top'"></app-auction-layer>
+  <app-auction-detail [auction]=topAuction></app-auction-detail>
+</div>
+
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card class="custom-card no-content">
+      <mat-card-header fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
+        <mat-card-title class="m-0">
+          <h3 class="live-auction-title main-color">{{listType == 0? 'Live' : 'Closed'}}&nbsp;Auctions</h3>
+        </mat-card-title>
+        <div fxLayoutAlign="space-between start">
+          <div class="sort-item-wrap">
+            <mat-form-field>
+              <mat-select #select [(ngModel)]="selectedSortField" (closed)="applySort()">
+                <mat-option *ngFor="let sortField of sortFields" [value]="sortField.value">{{sortField.viewValue}}
+                </mat-option>
+              </mat-select>
+              <button class="direction-btn" mat-button *ngIf="selectedSortField" matSuffix mat-icon-button
+                aria-label="Clear" (click)="changeSortDirection($event)">
+                <mat-icon *ngIf="sortDirection == 1">arrow_upward</mat-icon>
+                <mat-icon *ngIf="sortDirection == -1">arrow_downward</mat-icon>
+                <mat-icon *ngIf="sortDirection == 0">close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="mobile-display-none margin-right-1rem">
+            <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy">
+              <mat-button-toggle value="grid" checked="true">
+                <mat-icon>view_module</mat-icon>
+              </mat-button-toggle>
+              <mat-button-toggle value="list">
+                <mat-icon>view_list</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+          <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
+            <span (mouseleave)="moreMenuTrigger.closeMenu()">
+              <button mat-menu-item (click)="listType = 0; applyFilter()">Live Auctions</button>
+              <button mat-menu-item (click)="listType = 1; applyFilter()">Closed Auctions</button>
+            </span>
+          </mat-menu>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>
+<div class="auction-list-wrap" fxLayout="column" fxLayoutAlign=" none">
+  <div *ngIf="auctions" class="auction-list-content">
+    <div *ngIf="viewType.value == 'grid'" fxLayout="column" fxLayout.gt-sm="row wrap">
+      <ng-container *ngFor="let auction of auctions;">
+        <app-auction-grid fxFlex.gt-sm="50" [auction]=auction></app-auction-grid>
+        <div fxFlex="100" *ngIf="bidService.detailAuction && 
+            (
+              (!commonService.isMediaActive('gt-sm') && auction.index % 1 == 0 
+                && auction.index >= bidService.detailAuction?.index && auction.index < bidService.detailAuction?.index + 1
+              )
+              ||
+              (commonService.isMediaActive('gt-sm') 
+                && auction.index >= bidService.detailAuction?.index && auction.index < bidService.detailAuction?.index + 2 
+                && ( auction.index % 2 == 1 || (auction.index == cntAuctionsCount - 1 
+                    && (auction.index - bidService.detailAuction?.index) <= auction.index % 2))
+              )
+            )">
+          <app-auction-layer [auction]=bidService.detailAuction [auctionType]="'detail'"></app-auction-layer>
+          <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
+          <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
+        </div>
+      </ng-container>
+    </div>
+    <div *ngIf="viewType.value == 'list'">
+      <div *ngFor="let auction of auctions">
+        <app-auction-layer *ngIf="!(bidService.detailAuction && bidService.detailAuction?.display 
+        && auction.index == bidService.detailAuction?.index)" [auction]=auction [auctionType]="'layer'">
+        </app-auction-layer>
+        <div *ngIf="bidService.detailAuction && bidService.detailAuction?.display 
+          && auction.index == bidService.detailAuction?.index">
+          <app-auction-layer [auction]=bidService.detailAuction [auctionType]="'detail'"></app-auction-layer>
+          <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noQuestions>
+    <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+  </ng-template>
+</div>

@@ -62,13 +62,20 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 // import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
 // import { AuctionLayerComponent } from './components/bid-list/auction-layer/auction-layer.component';
 // import { AuctionDialogComponent } from './components/bid-list/auction-dialog/auction-dialog.component';
-// import { NumericDirective } from './directives/number.directive';
+import { NumericDirective } from './directives/number.directive';
 // import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 //import { QuillModule } from 'ngx-quill';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horizontal-menu.component';
+import { BidListComponent } from './components/bid-list/bid-list.component';
+import { AuctionDetailComponent } from './components/bid-list/auction-detail/auction-detail.component';
+import { AuctionDialogComponent } from './components/bid-list/auction-dialog/auction-dialog.component';
+import { AuctionGridComponent } from './components/bid-list/auction-grid/auction-grid.component';
+import { AuctionLayerComponent } from './components/bid-list/auction-layer/auction-layer.component';
+import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   imports: [
@@ -128,21 +135,19 @@ import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horiz
     // AnswerBoxComponent,
     // FollowBoxComponent,
     // ReportDialogComponent,
-    // SearchComponent,
-    // UploadImageComponent,
     MenuComponent,
     QuestionDialogComponent,
     AlertDialogComponent,
     UploadImageComponent,
     HorizontalMenuComponent,
-    // BidListComponent,
-    // AuctionDetailComponent,
-    // AuctionGridComponent,
-    // AuctionResultComponent,
-    // AuctionLayerComponent,
-    // AuctionDialogComponent,
-    // NumericDirective,
-    // DetectScrollDirective
+    BidListComponent,
+    AuctionDetailComponent,
+    AuctionDialogComponent,
+    AuctionGridComponent,
+    AuctionLayerComponent,
+    AuctionResultComponent,
+    NumericDirective,
+    SearchComponent,
   ],
   entryComponents: [
     // LoginComponent,
@@ -153,7 +158,7 @@ import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horiz
     // ImageblockComponent,
     QuestionDialogComponent,
     // ReportDialogComponent,
-    // AuctionDialogComponent
+    AuctionDialogComponent
   ],
   exports: [
     FlexLayoutModule,
@@ -196,12 +201,12 @@ import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horiz
     // AccountNavComponent,
     // AnswerBoxComponent,
     // FollowBoxComponent,
-    // SearchComponent,
+    SearchComponent,
     UploadImageComponent,
     MenuComponent,
     HorizontalMenuComponent,
-    // BidListComponent,
-    // NumericDirective,
+    BidListComponent,
+    NumericDirective,
     // DetectScrollDirective
   ]
 })

@@ -1,0 +1,68 @@
+<form [formGroup]="infoForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h4>{{auction.auctionTitle}}</h4>
+    <button mat-icon-button mat-dialog-close tabindex="-1" color="accent">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content fxLayout="column">
+    <div class="catagory-content-wrap">
+      <div class="row no-gutters">
+        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+          <div class="auction-image" [style.background-image]="auction?.auctionPicture?.length?
+              'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' : 'url(assets/imgs/empty-image.png)'">
+          </div>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7 col-xl-7 auction-description-block">
+          <div class="auction-description-wrap">
+            <div>Auction Id:</div>
+            <div>#{{("0000000" + auction.auctionSerial).slice(-7)}}</div>
+          </div>
+          <div class="auction-description-wrap">
+            <div>BidBlab Price:</div>
+            <div>{{auction.bidblabPrice | currency:'USD':'symbol':'1.2-2'}}</div>
+          </div>
+          <div class="auction-description-wrap">
+            <div>Retail Price:</div>
+            <div>{{auction.retailPrice | currency:'USD':'symbol':'1.2-2'}}</div>
+          </div>
+          <div class="auction-description-wrap">
+            <div>Bid Fee:</div>
+            <div>{{auction.bidFee}}&nbsp;Credits</div>
+          </div>
+          <div class="auction-description-wrap">
+            <div>Auction Closes:</div>
+            <div>{{auction.closes| date:"dd MMMM, yyyy hh:mm:ss a" }}</div>
+          </div>
+          <div class="auction-description-wrap">
+            <div>Max Bid:</div>
+            <div>{{auction.bidblabPrice | currency:'USD':'symbol':'1.2-2'}}</div>
+          </div>
+          <mat-form-field class="bidprice-wrap" appearance="outline">
+            <mat-label>Bid Price</mat-label>
+            <input numeric numericType="decimal" type="tel" matInput formControlName="bidPrice" required>
+            <mat-error *ngIf="checkError(infoForm, 'bidPrice', ['required', 'blank'])">
+              Required.
+            </mat-error>
+            <mat-error *ngIf="checkError(infoForm, 'bidPrice', 'max')">
+              Must be equal or lower than bidblab price.
+            </mat-error>
+            <mat-error *ngIf="checkError(infoForm, 'bidPrice', 'min')">
+              Must be equal or higher than 0.01.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <div class="button-wrap">
+      <button class="" mat-raised-button color="accent" [disabled]="infoForm.invalid || submitted" type="submit">
+        Submit
+      </button>
+      <button mat-raised-button mat-dialog-close tabindex="-1">
+        Cancel
+      </button>
+    </div>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,28 @@
+<div class="search-box-wrap" fxLayout="row wrap" fxLayoutAlign="center center">
+  <div class="search-label-w mobile-display-none main-color">
+    Submit your question to earn BidBlab credit
+  </div>
+  <div class="fill-remaining-space search-box" fxLayout="row" fxLayoutAlign="center center">
+    <form fxFlex class="stretch" [formGroup]="form" (ngSubmit)="searchBoxAction()" autocomplete="off" novalidate>
+      <mat-form-field class="" appearance="outline">
+        <mat-label>Search</mat-label>
+        <button type="submit" mat-icon-button matSuffix>
+          <mat-icon *ngIf="!newQuestionFlag">search</mat-icon>
+          <mat-icon *ngIf="newQuestionFlag">add_comment</mat-icon>
+        </button>
+        <input type="text" formControlName="search" matInput [matAutocomplete]="auto">
+        <mat-autocomplete (optionSelected)="getQuestions()" (closed)="searchBoxAction()" #auto="matAutocomplete">
+          <mat-option *ngFor="let question of autocomplete" [value]="question.title">
+            {{question.title}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="ask-btn-w" fxLayout="row" fxLayoutAlign="end center">
+    <button (click)="openQuestionDialog()" mat-raised-button color="accent">
+      Ask
+      Question&nbsp;({{defaultCredits?.defaultQuestionCredit? defaultCredits.defaultQuestionCredit : 8}}&nbsp;Credits)
+    </button>
+  </div>
+</div>
