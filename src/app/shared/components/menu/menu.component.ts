@@ -24,7 +24,6 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.menuItems);
     this.parentMenu = this.menuItems.filter(item => item.parentId == this.menuParentId);  
   }
 

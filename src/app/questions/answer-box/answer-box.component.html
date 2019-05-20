@@ -1,0 +1,42 @@
+<div *ngIf="visibleState" class="question-block">
+  <!-- <div *ngIf="visibleState" [@flyInOut] class="question-block"> -->
+  <div class="row no-gutters">
+    <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
+      <app-question-image [question]="question"></app-question-image>
+    </div>
+    <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8">
+      <div fxFlex class="question-answer" fxLayout="column">
+        <div fxLayout="row">
+          <div class="avatar-image">
+            <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
+                'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+              <button mat-icon-button color="primary" class="no-hover-effect"
+                routerLink="/user/{{question.asker?._id}}">
+              </button>
+            </div>
+          </div>
+          <div class="text-block-wrap" fxFlex fxLayout="row">
+            <div>
+              <span class="accent">Q:&nbsp;</span>
+            </div>
+            <div routerLink="/questions/question-detail/{{question._id}}"
+              class="text-wrapper question-title main-color">
+              {{question.title}}
+            </div>
+          </div>
+        </div>
+        <div class="answer-button-wrap">
+          <button mat-raised-button color="accent" (click)="openAnswerDialog(question)">
+            ANSWER&nbsp;
+            (
+            {{ question.answerCredit? question.answerCredit : 
+                  (defaultCredits?.defaultPublicAnswerCredit? defaultCredits.defaultPublicAnswerCredit : 8)
+                }}&nbsp;Credits
+            )
+          </button>
+        </div>
+        <!-- </ng-template> -->
+      </div>
+    </div>
+  </div>
+</div>

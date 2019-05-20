@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subject, TimeoutError } from 'rxjs';
 
 @Injectable({
@@ -11,11 +11,16 @@ import { Subject, TimeoutError } from 'rxjs';
 export class CommonService {
   constructor(
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private mediaObserver: MediaObserver,
   ) {}
 
   private scrollEventEmitter = new Subject();
   scrollEventReciver$ = this.scrollEventEmitter.asObservable();
+
+  public isMediaActive(breakpoint) {
+    return this.mediaObserver.isActive(breakpoint)
+  }
 
   infiniteScrolled() {
     this.scrollEventEmitter.next();
@@ -60,7 +65,6 @@ export class CommonService {
   }
 
   getQuestions(limit?, offset?, search?) {
-    console.log(search);
     return this.httpClient.get(
       `${environment.apiUrl}/api/common/getQuestions?limit=${limit ||
         10}&offset=${offset || 0}&search=${search || ''}`

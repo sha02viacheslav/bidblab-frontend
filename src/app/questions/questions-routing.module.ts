@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { QuestionsComponent } from './questions.component';
 import { HomeComponent } from './home/home.component';
 // import { BidComponent } from './bid/bid.component';
-// import { BlabComponent } from './blab/blab.component';
+import { BlabComponent } from './blab/blab.component';
 // import { AboutComponent } from './about/about.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 
@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       // { path: 'bid', component: BidComponent },
-      // { path: 'blab', component: BlabComponent },
+      { path: 'blab', component: BlabComponent },
       // { path: 'about', component: AboutComponent },
       { path: 'question-detail/:questionId', component: QuestionDetailComponent },
       { path: '**', redirectTo: 'home' }

@@ -11,11 +11,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { DialogService } from './shared/services/dialog.service';
 // import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
-import { MediaChange, MediaObserver } from '@angular/flex-layout';
 declare var $: any;
 
 import { Location } from '@angular/common';
-// import { User } from './shared/models/user.model';
 import { environment } from '../environments/environment';
 import { ChangeDetectorRef } from '@angular/core';
 import { MenuService } from './shared/components/menu/menu.service';
@@ -57,7 +55,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,
-    private mediaObserver: MediaObserver,
     private location: Location,
     public menuService:MenuService,
   ) {
@@ -115,10 +112,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSubscription.unsubscribe();
     this.blockingSubscription.unsubscribe();
     this.userUpdatesSubscription.unsubscribe();
-  }
-
-  isMediaActive(breakpoint) {
-    return this.mediaObserver.isActive(breakpoint)
   }
 
   public toggleSidenav(){
@@ -188,14 +181,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   closeMenu(){
     this.menuHidden = false;
-  }
-
-  openDialog(componentName: string) {
-    // this.dialogService.open(
-    //   componentName === 'login' ? LoginComponent : SignupDialogComponent, {
-    //     data: { }
-    //   }
-    // );
   }
 
   openProfile() {

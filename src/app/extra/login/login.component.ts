@@ -99,7 +99,6 @@ export class LoginComponent implements OnInit {
   }
 
   private forgotPassword() {
-    console.log(this.forgotForm.value)
     this.commonService.forgotPassword(this.forgotForm.value).subscribe(
       (res: any) => {
         this.blockUIService.setBlockStatus(false);

@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormValidationService } from '../../shared/services/form-validation.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
+import { FormValidationService } from '../../services/form-validation.service';
+import { BlockUIService } from '../../services/block-ui.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CommonService } from '../../shared/services/common.service';
-import { SocketsService } from '../../shared/services/sockets.service';
+import { CommonService } from '../../services/common.service';
+import { SocketsService } from '../../services/sockets.service';
 
 @Component({
   selector: 'app-answer-dialog',

@@ -39,7 +39,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 // import { LoginComponent } from './components/login/login.component';
 // import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 // import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
-// import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
+import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
 // import { EmptyComponent } from './components/empty/empty.component';
 // import { QuestionBoxComponent } from './components/question-box/question-box.component';
 // import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
@@ -118,7 +118,7 @@ import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horiz
     // LoginComponent,
     // SignupDialogComponent,
     // ResetPasswordComponent,
-    // AnswerDialogComponent,
+    AnswerDialogComponent,
     // QuestionDialogComponent,
     // EmptyComponent,
     // QuestionBoxComponent,
@@ -148,7 +148,7 @@ import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horiz
     // LoginComponent,
     // SignupDialogComponent,
     // ResetPasswordComponent,
-    // AnswerDialogComponent,
+    AnswerDialogComponent,
     AlertDialogComponent,
     // ImageblockComponent,
     QuestionDialogComponent,

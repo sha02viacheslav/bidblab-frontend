@@ -1,43 +1,37 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 import { CommonService } from '../../shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { DialogService } from '../../shared/services/dialog.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
-// import { Question } from '../../shared/models/question.model';
 import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
-// import { LoginComponent } from '../../shared/components/login/login.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-// import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
-// import { Answer } from '../../shared/models/answer.model';
+import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 import { SocketsService } from '../../shared/services/sockets.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
-import { resource } from 'selenium-webdriver/http';
-
 
 @Component({
-  selector: 'app-home-questions',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-blab',
+  templateUrl: './blab.component.html',
+  styleUrls: ['./blab.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  public form: FormGroup;
-  public questions: any[] = [];
-  public totalQuestionsCount: number;
-  public autocomplete: any[];
+export class BlabComponent implements OnInit, OnDestroy {
+  form: FormGroup;
+  questions: any[] = [];
+  totalQuestionsCount: number;
+  autocomplete: any[];
   private autocompleteSubscription: Subscription;
   private socketEventsSubscription: Subscription;
   private pageSize: number = 10;
-  public pageIndex: number = 0;
-  public newQuestionFlag: boolean;
-  public returnUrl: string = '';
-  public defaultCredits: any;
-
+  pageIndex: number = 0;
+  isInit: boolean;
+  newQuestionFlag: boolean;
+  defaultCredits: any;
+  
  
   constructor(
     private fb: FormBuilder,
@@ -47,8 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
     commonService.scrollEventReciver$.subscribe(params => {
       this.onScroll();
@@ -56,31 +49,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe(params => {
-        this.returnUrl = params['returnUrl'] || '/';
-        if(params['returnUrl']){
-          this.router.navigateByUrl('/extra/login');
-        }
-        else{
-          this.router.navigate(['/questions/home'], {
-            queryParams: { }
-          });
-        }
-      });  
-
-    this.commonService.getDefaultCredits().subscribe(
-      (res: any) => {
-          this.defaultCredits = res.data;
-        },
-      (err: HttpErrorResponse) => {
-        }
-      );  
     this.newQuestionFlag = false;
+    this.isInit = false;
+    this.form = this.fb.group({
+      search: ''
+    });
+    this.isInit = true;
     this.autocomplete = [];
     this.form = this.fb.group({
       search: ''
     });
+
+		this.commonService.getDefaultCredits().subscribe(
+			(res: any) => {
+					this.defaultCredits = res.data;
+				},
+			(err: HttpErrorResponse) => {
+				}
+      );
     this.autocompleteSubscription = this.form
       .get('search')
       .valueChanges.pipe(debounceTime(100))
@@ -103,12 +89,27 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       });
     this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
-    this.listenToSocket();
+    this.listenToSocket();   
   }
 
   ngOnDestroy() {
-    this.autocompleteSubscription.unsubscribe();
-    // this.socketEventsSubscription.unsubscribe();
+    if(this.isInit){
+      this.autocompleteSubscription.unsubscribe();
+      this.socketEventsSubscription.unsubscribe();
+    }
+  }
+
+  searchBoxAction(){
+    if(this.newQuestionFlag){
+      this.newQuestionFlag = false;
+      this.openQuestionDialog(this.form.value.search);
+    }
+    else{
+      this.questions = [];
+      this.pageIndex = 0;
+      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+      this.autocomplete = [];
+    }
   }
 
   openQuestionDialog(newTitle?: String, question?: any) {
@@ -119,21 +120,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             question,
             newTitle,
           },
-          width: '600px'
+          width: '800px'
         })
         .afterClosed()
         .subscribe(newQuestion => {
           if (newQuestion) {
-            if (question) {
-              const index = this.questions.findIndex(
-                currentQuestion => currentQuestion._id === question._id
-              );
-              if (index !== -1) {
-                this.questions[index] = newQuestion;
-              }
-            } else {
-              this.questions.push(newQuestion);
-            }
             this.dialogService.
                 open(AlertDialogComponent, {
                   data: {
@@ -149,71 +140,72 @@ export class HomeComponent implements OnInit, OnDestroy {
                 });
           }
         });
-    }
-    else{
+    } else {
       this.router.navigateByUrl('/extra/login');
     }
   }
 
-  // openAnswerDialog(questionId, answer?: Answer) {
-  //   if (this.authenticationService.isAuthenticated()) {
-  //     this.dialogService
-  //       .open(AnswerDialogComponent, {
-  //         data: {
-  //           questionId,
-  //           answer
-  //         }
-  //       })
-  //       .afterClosed()
-  //       .subscribe(newAnswer => {
-  //         if (newAnswer) {
-  //           let index = this.questions.findIndex(
-  //             question => question._id === questionId
-  //           );
-  //           if (index !== -1) {
-  //             const question = this.questions[index];
-  //             if (answer) {
-  //               index = question.answers.findIndex(
-  //                 currentAnswer => currentAnswer._id === answer._id
-  //               );
-  //               if (index !== -1) {
-  //                 question.answers[index] = newAnswer;
-  //               }
-  //             } else {
-  //               question.answers.push(newAnswer);
-  //             }
-  //           }
-  //         }
-  //       });
-  //   } else {
-  //     this.dialogService.open(LoginComponent);
-  //   }
-  // }
-
-  searchBoxAction(){
-    if(this.newQuestionFlag){
-      this.newQuestionFlag = false;
-      this.openQuestionDialog(this.form.value.search);
-    }
-    else{
-      this.questions = [];
-      this.pageIndex = 0;
-      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
-      this.autocomplete = [];
+  openAnswerDialog(questionId, answer?: any) {
+    if (this.authenticationService.isAuthenticated()) {
+      this.dialogService
+        .open(AnswerDialogComponent, {
+          data: {
+            questionId,
+            answer
+          }
+        })
+        .afterClosed()
+        .subscribe(newAnswer => {
+          if (newAnswer) {
+            let index = this.questions.findIndex(
+              question => question._id === questionId
+            );
+            if (index !== -1) {
+              const question = this.questions[index];
+              if (answer) {
+                index = question.answers.findIndex(
+                  currentAnswer => currentAnswer._id === answer._id
+                );
+                if (index !== -1) {
+                  question.answers[index] = newAnswer;
+                }
+              } else {
+                question.answers.push(newAnswer);
+              }
+            }
+          }
+        });
+    } 
+    else {
+      this.router.navigateByUrl('/extra/login');
     }
   }
 
   getQuestions(pageSize, pageIndex, search) {
-    this.commonService.getQuestions(pageSize, pageIndex, search).subscribe(
-      (res: any) => {
-        this.totalQuestionsCount = res.data.count;
-        res.data.questions.forEach(element => {
-          this.questions.push(element);
-        });
-      },
-      (err: HttpErrorResponse) => {
-      }
-    );
+    if (this.authenticationService.isAuthenticated()) {
+      this.commonService.getQuestionsCanAnswer(pageSize, pageIndex, search).subscribe(
+        (res: any) => {
+          this.totalQuestionsCount = res.data.count;
+          res.data.questions.forEach(element => {
+            this.questions.push(element);
+          });
+        },
+        (err: HttpErrorResponse) => {
+        }
+      );
+    }
+    else {
+      this.commonService.getQuestions(pageSize, pageIndex, search).subscribe(
+        (res: any) => {
+          this.totalQuestionsCount = res.data.count;
+          res.data.questions.forEach(element => {
+            this.questions.push(element);
+          });
+        },
+        (err: HttpErrorResponse) => {
+        }
+      );
+    }
   }
 
   isAsker(questionId) {
@@ -293,12 +285,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  onScroll() {
+  onScroll() {  
     if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
       this.pageIndex = this.pageIndex + 1;
       this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
     } 
-  }  
-  
+  } 
+
 }
 

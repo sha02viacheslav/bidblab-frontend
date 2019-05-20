@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav *ngIf="!isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
+  <mat-sidenav *ngIf="!commonService.isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
     class="sidenav mat-elevation-z6">
     <mat-toolbar [fxLayoutAlign]="'space-between center'" class="sidenav-header">
       <a class="logo" style="display: flex;" routerLink="/" (click)="closeSubMenus()">
@@ -48,14 +48,14 @@
                     <img class="logo-wrap" src="assets/icons/logo.svg" />
                   </button>
                 </div>
-                <app-horizontal-menu [menuParentId]="0" *ngIf="isMediaActive('gt-xs')"></app-horizontal-menu>
+                <app-horizontal-menu [menuParentId]="0" *ngIf="commonService.isMediaActive('gt-xs')"></app-horizontal-menu>
                 <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
                   <mat-menu #userMenu="matMenu">
                     <button (click)="openProfile()" mat-menu-item>Account Information</button>
                     <button (click)="logout()" mat-menu-item>Logout</button>
                     <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
                   </mat-menu>
-                  <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
+                  <button *ngIf="commonService.isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
                     [matMenuTriggerFor]="userMenu">
                     <div fxLayout="row" fxLayoutAlign="start center">
                       <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
@@ -64,13 +64,13 @@
                       <small class="">{{user.username}}</small>
                     </div>
                   </button>
-                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
+                  <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
                     (click)="toggleSidenav()">
                     <mat-icon>menu</mat-icon>
                   </button>
                 </ng-container>
                 <ng-template #notAuthenticated>
-                  <ng-container *ngIf="isMediaActive('gt-xs')">
+                  <ng-container *ngIf="commonService.isMediaActive('gt-xs')">
                     <div fxLayout="row" fxLayoutAlign="start center">
                       <button routerLink="/extra/signup" mat-button>Signup</button>
                       <button routerLink="/extra/login" mat-button>Login</button>
@@ -80,7 +80,7 @@
                     <button routerLink="/extra/signup" mat-menu-item>Signup</button>
                     <button routerLink="/extra/login" mat-menu-item>Login</button>
                   </mat-menu>
-                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
+                  <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </ng-template>
@@ -96,7 +96,7 @@
             <footer>
               <mat-toolbar fxLayout="column" fxLayoutAlign="none" color="primary" style="height:inherit;">
                 <div class="footer-main" fxLayout="row" fxLayoutAlign="space-between center">
-                  <div [className]="isMediaActive('gt-xs')? 'desktop-favorite' : 'mobile-favorite'">
+                  <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-favorite' : 'mobile-favorite'">
                     <a class="margin-right-1rem" routerLink="/questions/about">About</a>
                     <a class="margin-right-1rem" href="/">Contact us</a>
                     <a routerLink="/sitemanager/how">How it works</a>

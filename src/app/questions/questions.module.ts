@@ -19,28 +19,17 @@ import { HomeComponent } from './home/home.component';
 import { QuestionBoxComponent } from './question-box/question-box.component';
 import { QuestionImageComponent } from './question-image/question-image.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
-import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
-// import { QuestionDetailComponent } from './question-detail/question-detail.component';
-// import { BlabComponent } from './blab/blab.component';
+import { BlabComponent } from './blab/blab.component';
+import { AnswerBoxComponent } from './answer-box/answer-box.component';
 // import { BidComponent } from './bid/bid.component';
 // import { AboutComponent } from './about/about.component';
-// import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
-    //InfiniteScrollModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // MatInputModule,
-    // MatButtonModule,
-    // MatIconModule,
-    // MatSnackBarModule,
-    // MatCardModule,
-    // MatChipsModule,
     MatAutocompleteModule,
-    // MatPaginatorModule,
-    // MatDividerModule,
     SharedModule,
     QuestionsRoutingModule
   ],
@@ -52,11 +41,14 @@ import { AnswerDialogComponent } from './answer-dialog/answer-dialog.component';
     QuestionBoxComponent,
     QuestionImageComponent,
     QuestionDetailComponent,
-    AnswerDialogComponent, 
+    BlabComponent,
+    AnswerBoxComponent,
     // QuestionDetailComponent, 
-    // BlabComponent, 
     // BidComponent, 
     // AboutComponent, 
+  ],
+  exports: [
+    AnswerBoxComponent,
   ]
 })
 export class QuestionsModule {}
