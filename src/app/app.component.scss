@@ -198,3 +198,14 @@ footer {
     }
   }
 }
+
+@media (max-width: 599px) {
+  .infiniteScroll-area {
+    height: 100vh;
+  }
+}
+
+.infiniteScroll-area {
+  height: 100vh;
+  overflow-y: scroll;
+}

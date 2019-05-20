@@ -37,89 +37,92 @@
   </mat-sidenav>
   <mat-sidenav-content id="main">
     <block-ui>
-      <div class="app-wrapper" id="main-nicescrollable">
-        <div class="app-content-wrap">
-          <header>
-            <mat-toolbar style="background-color: white;">
-              <div class="container" fxLayout="row" fxLayoutAlign="start center">
-                <div class="fill-remaining-space">
-                  <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
-                    <img class="logo-wrap" src="assets/icons/logo.svg" />
-                  </button>
-                </div>
-                <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
-                  <mat-menu #userMenu="matMenu">
-                    <button (click)="openProfile()" mat-menu-item>Account Information</button>
-                    <button (click)="logout()" mat-menu-item>Logout</button>
-                    <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
-                  </mat-menu>
-                  <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
-                    [matMenuTriggerFor]="userMenu">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                      <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
+      <div class="infiniteScroll-area" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()" [scrollWindow]="false">
+        <div class="app-wrapper" id="main-nicescrollable">
+          <div class="app-content-wrap">
+            <header>
+              <mat-toolbar style="background-color: white;">
+                <div class="container" fxLayout="row" fxLayoutAlign="start center">
+                  <div class="fill-remaining-space">
+                    <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
+                      <img class="logo-wrap" src="assets/icons/logo.svg" />
+                    </button>
+                  </div>
+                  <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
+                    <mat-menu #userMenu="matMenu">
+                      <button (click)="openProfile()" mat-menu-item>Account Information</button>
+                      <button (click)="logout()" mat-menu-item>Logout</button>
+                      <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
+                    </mat-menu>
+                    <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
+                      [matMenuTriggerFor]="userMenu">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
                         'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                        </div>
+                        <small class="">{{user.username}}</small>
                       </div>
-                      <small class="">{{user.username}}</small>
-                    </div>
-                  </button>
-                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
-                    (click)="toggleSidenav()">
-                    <mat-icon>menu</mat-icon>
-                  </button>
-                </ng-container>
-                <ng-template #notAuthenticated>
-                  <mat-menu #authMenu="matMenu">
-                    <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
-                    <button routerLink="/extra/login" mat-menu-item>Login</button>
-                  </mat-menu>
-                  <ng-container *ngIf="isMediaActive('gt-xs')">
-                    <div fxLayout="row" fxLayoutAlign="start center">
-                      <button (click)="openDialog('signup')" mat-button>Signup</button>
-                      <button routerLink="/extra/login" mat-button>Login</button>
-                    </div>
+                    </button>
+                    <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
+                      (click)="toggleSidenav()">
+                      <mat-icon>menu</mat-icon>
+                    </button>
                   </ng-container>
-                  <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </ng-template>
-              </div>
-            </mat-toolbar>
-          </header>
-          <div *ngIf="isMediaActive('gt-xs')" class="container">
-            <div class="tab-nav-wrap">
-              <div mat-tab-nav-bar>
-                <a mat-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.link" routerLinkActive
-                  #rla="routerLinkActive" [active]="rla.isActive">
-                  {{link.label}}
-                </a>
+                  <ng-template #notAuthenticated>
+                    <mat-menu #authMenu="matMenu">
+                      <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
+                      <button routerLink="/extra/login" mat-menu-item>Login</button>
+                    </mat-menu>
+                    <ng-container *ngIf="isMediaActive('gt-xs')">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <button (click)="openDialog('signup')" mat-button>Signup</button>
+                        <button routerLink="/extra/login" mat-button>Login</button>
+                      </div>
+                    </ng-container>
+                    <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </ng-template>
+                </div>
+              </mat-toolbar>
+            </header>
+            <div *ngIf="isMediaActive('gt-xs')" class="container">
+              <div class="tab-nav-wrap">
+                <div mat-tab-nav-bar>
+                  <a mat-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.link" routerLinkActive
+                    #rla="routerLinkActive" [active]="rla.isActive">
+                    {{link.label}}
+                  </a>
+                </div>
               </div>
             </div>
+            <div class="container main-page-wrap">
+              <router-outlet></router-outlet>
+            </div>
           </div>
-          <div class="container main-page-wrap">
-            <router-outlet></router-outlet>
+          <div class="sticky-footer-wrap">
+            <footer>
+              <mat-toolbar fxLayout="column" fxLayoutAlign="none" color="primary" style="height:inherit;">
+                <div class="footer-main" fxLayout="row" fxLayoutAlign="space-between center">
+                  <div [className]="isMediaActive('gt-xs')? 'desktop-favorite' : 'mobile-favorite'">
+                    <a class="margin-right-1rem" routerLink="/questions/about">About</a>
+                    <a class="margin-right-1rem" href="/">Contact us</a>
+                    <a routerLink="/sitemanager/how">How it works</a>
+                  </div>
+                  <div class="social-wrap" fxLayout="row" fxLayoutAlign="space-around center">
+                    <a href="http://www.facebook.com/awwards/"><img src="assets/icons/icons8-facebook.svg" /></a>
+                    <a href="http://www.instagram.com/awwards/"><img src="assets/icons/icons8-instagram.svg" /></a>
+                    <a href="http://www.google.com/awwards/"><img src="assets/icons/icons8-google-plus.svg" /></a>
+                    <a href="http://twitter.com/awwards/"><img src="assets/icons/icons8-twitter.svg" /></a>
+                  </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" class="copyright-wrap">
+                  <small class="copyrights">&copy; Dev Pony 2018</small>
+                </div>
+              </mat-toolbar>
+            </footer>
           </div>
-        </div>
-        <div class="sticky-footer-wrap">
-          <footer>
-            <mat-toolbar fxLayout="column" fxLayoutAlign="none" color="primary" style="height:inherit;">
-              <div class="footer-main" fxLayout="row" fxLayoutAlign="space-between center">
-                <div [className]="isMediaActive('gt-xs')? 'desktop-favorite' : 'mobile-favorite'">
-                  <a class="margin-right-1rem" routerLink="/questions/about">About</a>
-                  <a class="margin-right-1rem" href="/">Contact us</a>
-                  <a routerLink="/sitemanager/how">How it works</a>
-                </div>
-                <div class="social-wrap" fxLayout="row" fxLayoutAlign="space-around center">
-                  <a href="http://www.facebook.com/awwards/"><img src="assets/icons/icons8-facebook.svg" /></a>
-                  <a href="http://www.instagram.com/awwards/"><img src="assets/icons/icons8-instagram.svg" /></a>
-                  <a href="http://www.google.com/awwards/"><img src="assets/icons/icons8-google-plus.svg" /></a>
-                  <a href="http://twitter.com/awwards/"><img src="assets/icons/icons8-twitter.svg" /></a>
-                </div>
-              </div>
-              <div fxLayout="row" fxLayoutAlign="center center" class="copyright-wrap">
-                <small class="copyrights">&copy; Dev Pony 2018</small>
-              </div>
-            </mat-toolbar>
-          </footer>
         </div>
       </div>
     </block-ui>

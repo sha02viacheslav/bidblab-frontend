@@ -246,6 +246,15 @@ export class AppComponent implements OnInit, OnDestroy {
   public updatePS(e){
     this.sidenavPS.directiveRef.update();
   }
+
+  onScroll() {  
+
+    console.log("scrolled")
+    // if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
+    //   this.pageIndex = this.pageIndex + 1;
+    //   this.getQuestions();
+    // } 
+  }  
 }
 
 
