@@ -26,17 +26,17 @@ import { resource } from 'selenium-webdriver/http';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  form: FormGroup;
-  questions: any[] = [];
-  totalQuestionsCount: number;
-  autocomplete: any[];
+  public form: FormGroup;
+  public questions: any[] = [];
+  public totalQuestionsCount: number;
+  public autocomplete: any[];
   private autocompleteSubscription: Subscription;
   private socketEventsSubscription: Subscription;
   private pageSize: number = 10;
-  pageIndex: number = 0;
-  newQuestionFlag: boolean;
-  returnUrl: string = '';
-  defaultCredits: any;
+  public pageIndex: number = 0;
+  public newQuestionFlag: boolean;
+  public returnUrl: string = '';
+  public defaultCredits: any;
 
  
   constructor(
@@ -85,12 +85,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       .get('search')
       .valueChanges.pipe(debounceTime(100))
       .subscribe(text => {
-          console.log('valuechaange');
+          console.log('valuechange');
         if (text.trim()) {
           this.commonService
             .getQuestions(null, null, text)
             .subscribe((res: any) => {
               this.autocomplete = res.data.questions;
+              console.log(res.data.questions);
               if(!this.autocomplete.length){
                 this.newQuestionFlag = true;
               }
@@ -103,7 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.newQuestionFlag = false;
         }
       });
-    this.getQuestions();
+    this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
     // this.listenToSocket();
   }
 
@@ -212,22 +213,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     else{
       console.log("search");
-      this.pageIndex = 0;
       this.questions = [];
-      this.getQuestions();
+      this.pageIndex = 0;
+      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+      this.autocomplete = [];
     }
   }
 
-  getQuestions() {
-    this.autocomplete.splice(0);
+  getQuestions(pageSize, pageIndex, search) {
+    // this.autocomplete = [];
     console.log('getquestions', this.form.value.search);
     this.commonService.getQuestions(
-        this.pageSize,
-        this.pageIndex,
-        this.form.value.search).subscribe(
+        pageSize,
+        pageIndex,
+        search).subscribe(
       (res: any) => {
         this.totalQuestionsCount = res.data.count;
-        console.log(this.form.value.search, res.data.questions);
         res.data.questions.forEach(element => {
           this.questions.push(element);
         });
@@ -317,7 +318,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   onScroll() {
     if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
       this.pageIndex = this.pageIndex + 1;
-      this.getQuestions();
+      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
     } 
   }  
   
