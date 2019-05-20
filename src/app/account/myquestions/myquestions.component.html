@@ -1,3 +1,21 @@
-<p>
-  myquestions works!
-</p>
+  <div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page">
+    <div *ngFor="let question of myquestions">
+      <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
+        fxLayoutAlign=" none">
+        <div class="text-block-wrap" fxLayout="row">
+          <div>
+            <span class="accent">Q:&nbsp;</span>
+          </div>
+          <div class="content">
+            {{question.title}}
+          </div>
+        </div>
+        <div class="credit-wrap">
+          Earned <span class="accent">{{question.credit}}</span> BidBlab Credits
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #nomyQuestions>
+    <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+  </ng-template>

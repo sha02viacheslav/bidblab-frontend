@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MatAutocompleteModule,
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -11,6 +14,7 @@ import { MatAutocompleteModule,
   MatChipsModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatDividerModule,
   MatExpansionModule,
   MatGridListModule,
   MatIconModule,
@@ -29,11 +33,12 @@ import { MatAutocompleteModule,
   MatSlideToggleModule,
   MatSnackBarModule,
   MatSortModule,
+  MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule } from '@angular/material';
+  MatTreeModule } from '@angular/material';
 import { ImageCropperModule } from 'ngx-image-cropper';
 // import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
 // import { LoginComponent } from './components/login/login.component';
@@ -51,19 +56,12 @@ import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.
 // import { SearchComponent } from './components/search/search.component';
 // import { FooterComponent } from './components/footer/footer.component';
 // import { UploadImageComponent } from './components/upload-image/upload-image.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { VerticalMenuComponent } from './components/menu/vertical-menu/vertical-menu.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
-// import { BidListComponent } from './components/bid-list/bid-list.component';
-// import { AuctionDetailComponent } from './components/bid-list/auction-detail/auction-detail.component';
-// import { AuctionGridComponent } from './components/bid-list/auction-grid/auction-grid.component';
-// import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
-// import { AuctionLayerComponent } from './components/bid-list/auction-layer/auction-layer.component';
-// import { AuctionDialogComponent } from './components/bid-list/auction-dialog/auction-dialog.component';
 import { NumericDirective } from './directives/number.directive';
-// import { DetectScrollDirective } from './directives/detect-scroll.directive';
 
 //import { QuillModule } from 'ngx-quill';
 
@@ -86,6 +84,8 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     ReactiveFormsModule,
     RouterModule,
     MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -93,6 +93,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatDividerModule,
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
@@ -111,32 +112,21 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule,
+    MatTreeModule,
     ImageCropperModule,
     PerfectScrollbarModule,
     InfiniteScrollModule,
-   // QuillModule
+    // QuillModule
   ],
   declarations: [
-    // FooterComponent,
-    // LoginComponent,
-    // SignupDialogComponent,
     // ResetPasswordComponent,
     AnswerDialogComponent,
-    // QuestionDialogComponent,
-    // EmptyComponent,
-    // QuestionBoxComponent,
-    // AlertDialogComponent,
-    // ImageblockComponent,
-    // AccountNavComponent,
-    // AnswerBoxComponent,
-    // FollowBoxComponent,
-    // ReportDialogComponent,
-    MenuComponent,
+    VerticalMenuComponent,
     QuestionDialogComponent,
     AlertDialogComponent,
     UploadImageComponent,
@@ -152,12 +142,9 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     ReportDialogComponent,
   ],
   entryComponents: [
-    // LoginComponent,
-    // SignupDialogComponent,
     // ResetPasswordComponent,
     AnswerDialogComponent,
     AlertDialogComponent,
-    // ImageblockComponent,
     QuestionDialogComponent,
     ReportDialogComponent,
     AuctionDialogComponent
@@ -166,6 +153,8 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     FlexLayoutModule,
     FlexLayoutModule,
     MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -173,6 +162,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     MatChipsModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatDividerModule,
     MatExpansionModule,
     MatGridListModule,
     MatIconModule,
@@ -191,25 +181,19 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
+    MatStepperModule,
     MatTableModule,
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule,
+    MatTreeModule,
     InfiniteScrollModule,
-    // FooterComponent,
-    // QuestionBoxComponent,
-    // ImageblockComponent,
-    // AccountNavComponent,
-    // AnswerBoxComponent,
-    // FollowBoxComponent,
     SearchComponent,
     UploadImageComponent,
-    MenuComponent,
+    VerticalMenuComponent,
     HorizontalMenuComponent,
     BidListComponent,
     NumericDirective,
-    // DetectScrollDirective
   ]
 })
 export class SharedModule {}

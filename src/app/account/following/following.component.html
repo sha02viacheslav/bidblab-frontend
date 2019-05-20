@@ -1,3 +1,43 @@
-<p>
-  following works!
-</p>
+<div *ngIf="isInit">
+  <div *ngIf="(followingQuestionsCount || followingUsersCount); else noFollowingQuestion" class="follow-page">
+    <div class="row no-gutters">
+      <div *ngFor="let question of followingQuestions" class="col-sm-12 col-md-6 col-lg-4">
+        <div class="follow-box-wrap" fxLayout="column" fxLayoutAlign="space-around center">
+          <div class="avatar" [style.background-image]="question?.questionPicture?.path?
+            'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+          </div>
+          <div class="username-wrap main-font">{{question.tag}}</div>
+          <div class="title-wrap main-font">{{question.title}}</div>
+          <div class="row">
+            <div class="col-6">
+              <button mat-raised-button color="accent" routerLink="/questions/question-detail/{{question._id}}">View</button>
+            </div>
+            <div class="col-6">
+              <button mat-raised-button color="accent" (click)="deleteFollow('question', question._id)">Unfollow</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let user of followingUsers" class="col-sm-12 col-md-6 col-lg-4">
+        <div class="follow-box-wrap" fxLayout="column" fxLayoutAlign="space-around center">
+          <div class="avatar" [style.background-image]="user?.profilePicture?.path?
+            'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+          </div>
+          <div class="username-wrap main-font">{{user.username}}</div>
+          <div class="title-wrap main-font">{{user.physicaladdress}},{{user.physicalstate}}</div>
+          <div class="row">
+            <div class="col-6">
+              <button mat-raised-button color="accent" routerLink="/user/{{user._id}}">View</button>
+            </div>
+            <div class="col-6">
+              <button mat-raised-button color="accent" (click)="deleteFollow('user', user._id)">Unfollow</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noFollowingQuestion>
+    <h3 class="accent stretch" style="text-align: center">No questions and users following</h3>
+  </ng-template>
+</div>

@@ -75,13 +75,13 @@
 }
 
 .app-content-wrap {
-  padding-top: $toolbar-desktop-height;
+  padding-top: calc(#{$toolbar-desktop-height} + 16px);
   flex: 1 0 auto;
 }
 
 @media (max-width: 599px) {
   .app-content-wrap {
-    padding-top: $toolbar-mobile-height !important;
+    padding-top: calc(#{$toolbar-mobile-height} + 16px) !important;
   }
 }
 

@@ -1,3 +1,23 @@
-<p>
-  credits works!
-</p>
+<div *ngIf="isInit" class="credits-block main-border" fxLayout="column" fxLayoutAlign=" none" >
+  <div class="credits-wrap">
+    <span>Question Credits: </span><span class="accent">{{questionCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Optional Image Credits: </span><span class="accent">{{optionalImageCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Answer Credits: </span><span class="accent">{{answerCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Referral Credits: </span><span class="accent">{{referalCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Total Credits earned: </span><span class="accent">{{totalCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Credits Used for Bidding: </span><span class="accent">{{loseCredits}}</span>
+  </div>
+  <div class="credits-wrap">
+    <span>Available Credits: </span><span class="accent">{{availableCredits}}</span>
+  </div>
+</div>

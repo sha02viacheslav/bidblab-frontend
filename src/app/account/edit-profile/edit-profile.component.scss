@@ -1,0 +1,122 @@
+.crop-wrap {
+  width: 100%;
+}
+
+.cloud-image {
+  width: 240px;
+  height: 240px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+@media (max-width: 599px) {
+  .profile-picture-container {
+    width: calc(100vw - 16px) !important;
+  }
+}
+
+
+.form-wrap {
+  width: 100%;
+}
+
+form {
+  margin-top: 20px;
+  // overflow-y: auto;
+  // overflow-x: hidden;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+textarea{
+  overflow: hidden !important;
+}
+
+.shipping-address-check-wrap {
+  padding-bottom: 1rem;
+}
+
+.gender-wrap {
+  padding-bottom: 1rem;
+}
+
+.tags-check-wrap {
+  padding-bottom: 1rem;
+}
+
+mat-checkbox {
+  margin-left: 1rem;
+}
+
+.btn-savechange {
+  width: 10rem;
+}
+
+// ::ng-deep {
+//   .mat-tab-labels {
+//     -webkit-box-pack: justify;
+//     -ms-flex-pack: justify;
+//     justify-content: center;
+//   }
+
+//   .mat-tab-label {
+//     min-width: 0 !important;
+//     width: 50% !important;
+
+//     &:focus {
+//       background-color: transparent !important;
+//     }
+//   }
+
+//   .mat-tab-header-pagination {
+//     display: none !important;
+//   }
+// }
+
+.mat-form-field {
+  font-size: 16px;
+}
+
+.mat-radio-button~.mat-radio-button {
+  margin-left: 16px;
+}
+
+@media (min-width: 600px) {
+  .firstname-wrap {
+    padding-right: 1rem;
+  }
+
+  .city-wrap {
+    padding-right: 1rem;
+  }
+
+  .state-wrap {
+    padding-right: 1rem;
+  }
+
+  .address-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .username-wrap {
+    padding-right: 1rem;
+  }
+
+  .email-wrap {
+    padding-right: 1rem;
+  }
+}
+
+.interest-wrap {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  width: 7rem;
+}
+
+.interest-label-wrap {
+  margin-bottom: 1rem;
+}

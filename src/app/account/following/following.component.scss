@@ -1,0 +1,33 @@
+.follow-page {}
+
+.follow-box-wrap {
+  margin: 0.5rem;
+  padding: 1rem;
+
+  border: solid 1px rgb(240, 240, 240);
+  border-radius: 4px;
+}
+
+div.avatar {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 1rem;
+}
+
+button {
+  margin: 0.5rem 0.5rem;
+}
+
+.title-wrap {
+  margin-bottom: 1rem;
+  width: 8rem;
+  overflow: hidden;
+  height: 1.3rem;
+  text-align: center;
+}

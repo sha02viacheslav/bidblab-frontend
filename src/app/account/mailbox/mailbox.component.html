@@ -1,3 +1,147 @@
-<p>
-  mailbox works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card class="p-0 mailbox">
+      <mat-sidenav-container>
+        <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'"
+          class="mailbox-sidenav mat-elevation-z1">
+          <mat-toolbar color="primary" class="p-0" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-icon-button [matMenuTriggerFor]="filterMenu" #filterMenuTrigger="matMenuTrigger">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <div class="fill-remaining-space"></div>
+            <input *ngIf="!selection.selected.length" [(ngModel)]="searchText" type="text" placeholder="Search mail..."
+              class="search mat-elevation-z3">
+            <button *ngIf="selection.selected.length" mat-icon-button (click)="applyRoleOfMails(3, true)"
+              matTooltip="Move to trash" matTooltipPosition="above">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button *ngIf="selection.selected.length" mat-icon-button matTooltip="Restore"
+              (click)="applyRoleOfMails(3, false)" matTooltipPosition="above">
+              <mat-icon>reply</mat-icon>
+            </button>
+            <mat-checkbox class="select-all-mail" (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </mat-toolbar>
+          <mat-menu #filterMenu="matMenu" xPosition="before" overlapTrigger="true">
+            <span (mouseleave)="filterMenuTrigger.closeMenu()">
+              <button mat-menu-item (click)="type = 'all';getMails();">All</button>
+              <button mat-menu-item (click)="type = 'inbox';getMails();">In-Box</button>
+              <button mat-menu-item (click)="type = 'sent';getMails();">SentMail</button>
+              <button mat-menu-item (click)="type = 'archived';getMails();">Archived</button>
+            </span>
+          </mat-menu>
+          <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
+            <div *ngFor="let mail of mails" (click)="viewDetail(mail)">
+              <mat-list-item class="mail-list-block" [ngClass]="{'unread': mail.role, 'selected': mail.selected}">
+                <mat-checkbox class="select-mail" (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(mail) : null" [checked]="selection.isSelected(mail)">
+                </mat-checkbox>
+                <img matListAvatar class="transition-2" [src]="mail.sender?
+                  serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/admin_avata.png'">
+                <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
+                  <h4 class="text-truncate sender">{{mail.sender? mail.sender.username : 'Admin'}}
+                  </h4>
+                  <small>{{mail.createdAt | date}}</small>
+                </div>
+                <p matLine class="text-truncate subject">{{mail.subject}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </div>
+            <mat-paginator #paginator [pageSize]="10" [length]="totalMails" [pageIndex]="pageIndex"
+              [pageSizeOptions]="[5, 10, 20]" (page)="getMails($event)">
+            </mat-paginator>
+          </mat-nav-list>
+        </mat-sidenav>
+        <div>
+          <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>list</mat-icon>
+              </button>
+              <button *ngIf="newMail" mat-icon-button (click)="newMail = false;" matTooltip="Back"
+                matTooltipPosition="above">
+                <mat-icon>arrow_back</mat-icon>
+              </button>
+              <button *ngIf="mail && !mail.isDeleted" mat-icon-button (click)="applyRoleOfMail(mail._id, 3, true)"
+                matTooltip="Move to trash" matTooltipPosition="above">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button *ngIf="mail && mail.isDeleted" mat-icon-button matTooltip="Restore"
+                (click)="applyRoleOfMail(mail._id, 3, false)" matTooltipPosition="above">
+                <mat-icon>reply</mat-icon>
+              </button>
+              <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger"
+                [style.display]="(mail) ? 'block' : 'none'">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </div>
+            <button mat-raised-button color="warn" (click)="compose()">Compose</button>
+          </mat-toolbar>
+          <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
+            <span (mouseleave)="moreMenuTrigger.closeMenu()">
+              <button mat-menu-item (click)="setAsRead()">Mark as read</button>
+              <button mat-menu-item (click)="setAsUnRead()">Mark as unread</button>
+              <button mat-menu-item (click)="delete()">Delete</button>
+            </span>
+          </mat-menu>
+          <div class="mailbox-content" perfectScrollbar>
+            <div *ngIf="mail">
+              <mat-list class="p-0">
+                <mat-list-item class="h-100 py-1">
+                  <div matLine fxLayout="row" fxLayoutAlign="space-between center">
+                    <h2 class="subject">{{mail.subject}}</h2>
+                    <mat-icon class="muted-text">print</mat-icon>
+                  </div>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item class="h-100 py-1">
+                  <img matListAvatar class="transition-2" [src]="mail.sender?
+                                        serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/admin_avata.png'">
+                  <h6 matLine fxLayout="row" fxLayoutAlign="space-between center">
+                    <span>
+                      <strong class="text-truncate">{{mail.sender? mail.sender.username : 'Admin'}}</strong>
+                      <span class="email">&lt;{{mail.sender? mail.sender.email : '***'}}&gt;</span>
+                    </span>
+                    <span>{{mail.createdAt | date}}</span>
+                  </h6>
+                  <span matLine>to&nbsp;{{ mail.recievers? 'Me' : 'Admin' }}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+              </mat-list>
+              <div class="mail-body" [innerHTML]="mail.message"></div>
+            </div>
+            <div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
+              <mat-icon>mail_outline</mat-icon>
+              <p>Select a mail to read</p>
+            </div>
+            <form *ngIf="newMail" [formGroup]="form" (ngSubmit)="sendMessage(form.value)" class="mail-body">
+              <mat-form-field class="w-100">
+                <input matInput placeholder="To" formControlName="recievers">
+                <mat-error *ngIf="form.controls.recievers.errors?.required">Required</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100">
+                <input matInput placeholder="Subject" formControlName="subject">
+                <mat-error *ngIf="form.controls.subject.errors?.required">Subject is required</mat-error>
+              </mat-form-field>
+              <!-- <quill-editor formControlName="message"></quill-editor> -->
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Message</mat-label>
+                <textarea matInput formControlName="message" matTextareaAutosize matAutosizeMinRows=2
+                  matAutosizeMaxRows=5></textarea>
+              </mat-form-field>
+
+
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-raised-button (click)="cancelSendMessage(form.value);" type="button">Cancel</button>
+                <button mat-raised-button color="primary" type="submit">Send</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-sidenav-container>
+    </mat-card>
+  </div>
+</div>

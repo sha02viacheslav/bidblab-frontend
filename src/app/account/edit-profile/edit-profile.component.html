@@ -1,3 +1,265 @@
-<p>
-  edit-profile works!
-</p>
+<div *ngIf="user">
+  <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center center" class="form-field-outer">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="picture-wrap"
+      *ngFor="let uploadFile of uploadFiles; let index = index">
+      <img *ngIf="selectedFileIndex != index" class="cropped-img round" [src]="uploadFile.croppedImage"
+        (click)="openCrop(index)" />
+      <div class="crop-wrap">
+        <app-upload-image *ngIf="selectedFileIndex == index" (sendData)="addPicture($event)" [aspectRatio]="3/3"
+          [originalImage]="uploadFiles[index].originalFile" [firstCrop]="uploadFiles[index].croppedFile == ''"
+          [roundCropper]="true">
+        </app-upload-image>
+      </div>
+    </div>
+    <input id="fileToUpload" type="file" accept="image/*" (change)="addFile($event)" style="display:none;">
+    <div class="w-25" *ngIf="uploadFiles.length == 0">
+      <label for="fileToUpload">
+        <div class="cloud-image" [style.background-image]="'url(assets/imgs/user.svg)'">
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="form-wrap" fxLayout="column">
+    <!-- <mat-tab-group [disableRipple]="true"> -->
+      <!-- <mat-tab label="Profile"> -->
+        <form [formGroup]="infoForm" (ngSubmit)="submitInfoForm()" autocomplete="off" novalidate>
+          <mat-card-content class="" fxLayout="column">
+            <div class="row no-gutters">
+              <div class="col-sm-12 col-md-6">
+                <div>
+                  <mat-form-field class="username-wrap" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput formControlName="username" required>
+                    <mat-error *ngIf="checkError(infoForm, 'username', ['required', 'blank'])">
+                      Required.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field class="email-wrap" appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput formControlName="email" required>
+                  <mat-error *ngIf="checkError(infoForm, 'email', ['required', 'blank'])">
+                    Required.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="checkError(infoForm, 'email', 'email') && !checkError(infoForm, 'email', ['required', 'blank'])">
+                    Must be a valid email address.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row no-gutters">
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field class="firstname-wrap" appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input type="text" matInput ng-minlength="10" ng-maxlength="10" formControlName="firstName" required>
+                  <mat-error *ngIf="checkError(infoForm, 'firstName', ['required', 'blank'])">
+                    Required.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <mat-form-field class="lastname-wrap" appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input type="text" matInput ng-minlength="10" ng-maxlength="10" formControlName="lastName" required>
+                  <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
+                    Required.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>About Me</mat-label>
+              <textarea matInput formControlName="aboutme" matTextareaAutosize matAutosizeMinRows=2 matAutosizeMaxRows=100></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input matInput type="text" ng-minlength="10" ng-maxlength="10" formControlName="phone">
+            </mat-form-field>
+            <div class="tags-check-wrap" appearance="outline">
+              <ng-container formArrayName="tags">
+                <div class="interest-label-wrap">Interests</div>
+                <div class="row no-gutters">
+                  <div class="interest-wrap" *ngFor="let interest of standardInterests; let i = index">
+                    <mat-checkbox class="" [formControlName]="i">
+                      {{interest}}
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </ng-container>
+              <mat-form-field appearance="outline">
+                <mat-label>Custom Tag</mat-label>
+                <input matInput type="text" formControlName="customTag">
+              </mat-form-field>
+              <button class="btn-savechange" mat-raised-button color="primary" (click)="addCustomTag()">
+                Add Custom Tag
+              </button>
+            </div>
+            <mat-form-field class="date-picker-wrap" appearance="outline">
+              <mat-label>Birthday</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
+                Required.
+              </mat-error>
+            </mat-form-field>
+            <div class="gender-wrap">
+              <mat-label>Gender </mat-label>
+              <mat-radio-group formControlName="gender">
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div>
+              <div class="address-label">Physical Address</div>
+              <mat-form-field class="address-wrap" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input type="text" matInput formControlName="physicaladdress" required>
+                <mat-error *ngIf="checkError(infoForm, 'firstName', ['required', 'blank'])">
+                  Required.
+                </mat-error>
+              </mat-form-field>
+              <div class="row no-gutters">
+
+                <div class="col-sm-12 col-md-4">
+                  <div>
+                    <mat-form-field class="city-wrap" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input type="text" matInput formControlName="physicalcity" required>
+                      <mat-error *ngIf="checkError(infoForm, 'firstName', ['required', 'blank'])">
+                        Required.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <div>
+                    <mat-form-field class="state-wrap" appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input type="text" matInput formControlName="physicalstate" required>
+                      <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
+                        Required.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                  <div>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Zip Code</mat-label>
+                      <input type="text" matInput formControlName="physicalzipcode" required>
+                      <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
+                        Required.
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="shipping-address-check-wrap">
+                <mat-checkbox>Shipping Address in the Same</mat-checkbox>
+              </div>
+              <div class="address-label">Shipping Address</div>
+              <mat-form-field class="address-wrap" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input type="text" matInput formControlName="shippingaddress" required>
+              </mat-form-field>
+              <div fxLayout="column" fxLayout.gt-sm="row wrap">
+                <div fxFlex="33.33">
+                  <div>
+                    <mat-form-field class="city-wrap" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input type="text" matInput formControlName="shippingcity" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxFlex="33.33">
+                  <div>
+                    <mat-form-field class="state-wrap" appearance="outline">
+                      <mat-label>State</mat-label>
+                      <input type="text" matInput formControlName="shippingstate" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxFlex="33.33">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Zip Code</mat-label>
+                    <input type="text" matInput formControlName="shippingzipcode" required>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="center-align">
+              <button class="btn-savechange" mat-raised-button color="accent" [disabled]="infoForm.invalid || submitted"
+                type="submit">
+                SAVE CHANGES
+              </button>
+            </div>
+          </mat-card-actions>
+        </form>
+      <!-- </mat-tab> -->
+
+      <!-- <mat-tab label="Password">
+        <form [formGroup]="passwordForm" (ngSubmit)="submitPasswordForm(formDirective)" autocomplete="off" novalidate
+          #formDirective="ngForm">
+          <mat-card-content class="" fxLayout="column">
+            <mat-form-field appearance="outline">
+              <mat-label>Current Password</mat-label>
+              <input [type]="passwordVisibility ? 'text' : 'password'" matInput formControlName="currentPassword"
+                required>
+              <mat-icon matSuffix (touchstart)="togglePasswordVisibility($event)"
+                (touchend)="togglePasswordVisibility($event)" (mousedown)="togglePasswordVisibility($event)"
+                (mouseup)="togglePasswordVisibility($event)" (mouseleave)="togglePasswordVisibility($event)"
+                style="cursor: pointer">
+                {{ passwordVisibility ? 'visibility' : 'visibility_off' }}
+              </mat-icon>
+              <mat-error *ngIf="checkError(passwordForm, 'currentPassword', ['required', 'blank'])">
+                Required.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input [type]="passwordVisibility ? 'text' : 'password'" matInput formControlName="password" required>
+              <mat-icon matSuffix (touchstart)="togglePasswordVisibility($event)"
+                (touchend)="togglePasswordVisibility($event)" (mousedown)="togglePasswordVisibility($event)"
+                (mouseup)="togglePasswordVisibility($event)" (mouseleave)="togglePasswordVisibility($event)"
+                style="cursor: pointer">
+                {{ passwordVisibility ? 'visibility' : 'visibility_off' }}
+              </mat-icon>
+              <mat-error *ngIf="checkError(passwordForm, 'password', ['required', 'blank'])">
+                Required.
+              </mat-error>
+              <mat-error
+                *ngIf="checkError(passwordForm, 'password', 'minlength') && !checkError(passwordForm, 'password', ['required', 'blank'])">
+                Minimum 8 Characters.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <input type="password" matInput formControlName="confirmPassword" required>
+              <mat-error *ngIf="checkError(passwordForm, 'confirmPassword', ['required', 'blank'])">
+                Required.
+              </mat-error>
+              <mat-error
+                *ngIf="checkError(passwordForm, 'confirmPassword', 'passwordsMismatch') && !checkError(passwordForm, 'confirmPassword', ['required', 'blank'])">
+                Passwords do not match.
+              </mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="" mat-raised-button color="accent" [disabled]="passwordForm.invalid || submitted"
+              type="submit">
+              Change
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-tab> -->
+    <!-- </mat-tab-group> -->
+  </div>
+</div>

@@ -1,15 +1,17 @@
 import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { MenuService } from './menu.service';
+// import { AppSettings } from '../../../../app.settings';
+// import { Settings } from '../../../../app.settings.model';
+import { MenuService } from '../menu.service';
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
+  selector: 'app-vertical-menu',
+  templateUrl: './vertical-menu.component.html',
+  styleUrls: ['./vertical-menu.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [ MenuService ]
 })
-export class MenuComponent implements OnInit {
+export class VerticalMenuComponent implements OnInit {
   @Input('menuItems') menuItems;
   @Input('menuParentId') menuParentId;
   @Output() onClickMenuItem:EventEmitter<any> = new EventEmitter<any>();

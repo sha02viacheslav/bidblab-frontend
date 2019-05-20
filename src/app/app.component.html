@@ -25,14 +25,14 @@
 
     <perfect-scrollbar #sidenavPS class="sidenav-menu-outer" [class.user-block-show]="true">
       <span *ngIf="!menuItems">loading....</span>
-      <app-menu [menuItems]="menuItems" [menuParentId]="0" (onClickMenuItem)="updatePS($event)">
-      </app-menu>
+      <app-vertical-menu [menuItems]="menuItems" [menuParentId]="0" (onClickMenuItem)="updatePS($event)">
+      </app-vertical-menu>
       <mat-divider></mat-divider>
-      <app-menu [menuItems]="menuItems" [menuParentId]="1" (onClickMenuItem)="updatePS($event)">
-      </app-menu>
+      <app-vertical-menu [menuItems]="menuItems" [menuParentId]="1" (onClickMenuItem)="updatePS($event)">
+      </app-vertical-menu>
       <mat-divider></mat-divider>
-      <app-menu [menuItems]="menuItems" [menuParentId]="2" (onClickMenuItem)="updatePS($event)">
-      </app-menu>
+      <app-vertical-menu [menuItems]="menuItems" [menuParentId]="2" (onClickMenuItem)="updatePS($event)">
+      </app-vertical-menu>
     </perfect-scrollbar>
   </mat-sidenav>
   <mat-sidenav-content id="main">

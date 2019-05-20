@@ -1,3 +1,49 @@
-<p>
-  myanswers works!
-</p>
+<div *ngIf="isInit">
+  <div *ngIf="totalQuestionsCount; else nomyAnswers" class="page">
+    <div *ngFor="let question of questionsWithYourAnswers">
+      <div class="question-answer-block" fxLayout="column" fxLayoutAlign=" none">
+        <div class="question-block" fxLayout="row">
+          <div class="avatar-image">
+            <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
+                'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question?.asker?._id}}">
+              </button>
+            </div>
+          </div>
+          <div class="text-block-wrap" fxFlex fxLayout="row">
+            <div>
+              <span class="accent">Q:&nbsp;</span>
+            </div>
+            <div routerLink="/questions/question-detail/{{question._id}}" class="text-wrapper question-title">
+              {{question.title}}
+            </div>
+          </div>
+        </div>
+        <div class="question-block" fxLayout="row">
+          <div class="avatar-image">
+            <div class="avatar">
+              <mat-icon *ngIf="question.answers[0].answertype == 'public'; else privateAnswer">publish</mat-icon>
+              <ng-template #privateAnswer>
+              <mat-icon>security</mat-icon>
+              </ng-template>
+            </div>
+          </div>
+          <div class="text-block-wrap" fxLayout="row">
+            <div>
+              <span class="accent">A:&nbsp;</span>
+            </div>
+            <div class="content">
+              {{question.answers[0].content}}
+            </div>
+          </div>
+        </div>
+        <div class="credit-wrap">
+          Earned <span class="accent">{{question.answers[0].credit}}</span> BidBlab Credits
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #nomyAnswers>
+    <h3 class="accent stretch" style="text-align: center">No answers submitted</h3>
+  </ng-template>
+</div>
