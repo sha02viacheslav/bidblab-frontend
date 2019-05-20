@@ -67,6 +67,8 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 
 //import { QuillModule } from 'ngx-quill';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -107,6 +109,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
     MatStepperModule,
     ImageCropperModule,
     PerfectScrollbarModule,
+    InfiniteScrollModule,
    // QuillModule
   ],
   declarations: [
@@ -184,6 +187,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    InfiniteScrollModule,
     // FooterComponent,
     // QuestionBoxComponent,
     // ImageblockComponent,

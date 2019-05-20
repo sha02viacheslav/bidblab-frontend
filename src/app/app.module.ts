@@ -24,7 +24,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
   suppressScrollX: true               
 };
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -45,7 +44,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
       enabled: environment.production
     }),
     PerfectScrollbarModule,
-    InfiniteScrollModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

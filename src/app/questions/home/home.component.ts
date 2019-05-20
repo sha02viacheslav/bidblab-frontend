@@ -49,7 +49,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    commonService.scrollEventReciver$.subscribe(params => {
+      this.onScroll();
+    });
+  }
 
   ngOnInit() {
     this.route.queryParams
@@ -311,11 +315,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   // }
 
   onScroll() {  
+    console.log("internal scroll")
     if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
       this.pageIndex = this.pageIndex + 1;
       this.getQuestions();
     } 
   }  
+
+
+ 
 
 }
 

@@ -30,7 +30,7 @@
   <div *ngIf="questions" class="questions">
     <ng-container *ngIf="questions.length">
       <!-- <div class="infiniteScroll-area" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()" [scrollWindow]="false"> -->
+        (scrolled)="onScroll()" [scrollWindow]="true"> -->
         <div *ngFor="let question of questions" fxLayout="column">
           <app-question-box [question]="question"></app-question-box>
         </div>

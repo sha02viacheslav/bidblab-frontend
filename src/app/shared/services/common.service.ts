@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
+import { Subject, TimeoutError } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +13,13 @@ export class CommonService {
     private router: Router,
     private httpClient: HttpClient
   ) {}
+
+  private scrollEventEmitter = new Subject();
+  scrollEventReciver$ = this.scrollEventEmitter.asObservable();
+
+  infiniteScrolled() {
+    this.scrollEventEmitter.next();
+  }
 
   userLogin(body) {
     return this.httpClient.post(
