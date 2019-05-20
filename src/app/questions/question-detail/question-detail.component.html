@@ -1,0 +1,91 @@
+<div *ngIf="question" class="question-list-w">
+  <div class="question-block ">
+    <div class="row no-gutters">
+      <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
+        <app-question-image [question]="question"></app-question-image>
+      </div>
+      <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8">
+        <div fxFlex class="question-answer" fxLayout="column">
+          <div fxLayout="row">
+            <div class="avatar-image">
+              <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
+                  'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                <button mat-icon-button color="primary" class="no-hover-effect"
+                  routerLink="/user/{{question?.asker?._id}}">
+                </button>
+              </div>
+            </div>
+            <div class="text-block-wrap" fxFlex fxLayout="row">
+              <div>
+                <span class="accent">Q:&nbsp;</span>
+              </div>
+              <div class="text-wrapper question-title">
+                {{question.title}}
+              </div>
+            </div>
+          </div>
+          <div class="button-wrap center-align" fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" (click)="addFollow('question')"
+              [disabled]="followed">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="question.answers.length; else noAnswers" class="answers stretch">
+    <div *ngFor="let answer of question.answers">
+      <div class="question-block " fxLayout="row">
+        <div fxFlex class="question-answer" fxLayout="column">
+          <div fxLayout="row">
+            <div class="avatar-image">
+              <div class="avatar" [style.background-image]="answer?.answerer?.profilePicture?.path?
+                  'url(' + serverUrl +'/' + answer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                <button *ngIf="answer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                  class="no-hover-effect" routerLink="/user/{{answer.answerer?._id}}">
+                </button>
+                <ng-template #noPublic>
+                  <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
+                    <mat-icon>security</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+            <div class="text-block-wrap" fxFlex fxLayout="row">
+              <div>
+                <span class="accent">A:&nbsp;</span>
+              </div>
+              <div class="text-wrapper question-title">
+                {{answer.content}}
+              </div>
+            </div>
+            <div class="report-flag-wrap" *ngIf="!isMyAnswer(answer.answerer?._id)">
+              <mat-icon *ngIf="noReport(answer._id)" (click)="openReportDialog(answer._id)" color="accent">
+                flag
+              </mat-icon>
+              <mat-icon *ngIf="!noReport(answer._id)" color="primary" style="opacity: 0.5">
+                flag
+              </mat-icon>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start none" class="credit-wrap">
+            <div class="thumb-up-wrap" fxLayout="row" fxLayoutAlign="space-around none">
+              <div>
+                <mat-icon (click)="thumbup(answer._id)" color="primary">thumb_up</mat-icon>
+              </div>
+              <div class="thumb-up-number">{{answer.thumbupcnt? answer.thumbupcnt : 0}}</div>
+            </div>
+            <div class="thumb-down-wrap" fxLayout="row" fxLayoutAlign="space-around none">
+              <div>
+                <mat-icon (click)="thumbdown(answer._id)" color="primary">thumb_down</mat-icon>
+              </div>
+              <div class="thumb-up-number">{{answer.thumbdowncnt? answer.thumbdowncnt : 0}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noAnswers>
+  <h3 class="accent stretch" style="text-align: center">No answers available</h3>
+</ng-template>

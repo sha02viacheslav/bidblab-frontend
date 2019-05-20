@@ -18,6 +18,7 @@ import { QuestionsComponent } from './questions.component';
 import { HomeComponent } from './home/home.component';
 import { QuestionBoxComponent } from './question-box/question-box.component';
 import { QuestionImageComponent } from './question-image/question-image.component';
+import { QuestionDetailComponent } from './question-detail/question-detail.component';
 // import { QuestionDetailComponent } from './question-detail/question-detail.component';
 // import { BlabComponent } from './blab/blab.component';
 // import { BidComponent } from './bid/bid.component';
@@ -48,7 +49,8 @@ import { QuestionImageComponent } from './question-image/question-image.componen
     QuestionsComponent,
     HomeComponent,
     QuestionBoxComponent,
-    QuestionImageComponent, 
+    QuestionImageComponent,
+    QuestionDetailComponent, 
     // QuestionDetailComponent, 
     // BlabComponent, 
     // BidComponent, 
