@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-// import { UserGuard } from './shared/guards/user.guard';
+import { UserGuard } from './shared/guards/user.guard';
 
 const routes: Routes = [
   // {
@@ -11,11 +11,11 @@ const routes: Routes = [
     path: 'questions',
     loadChildren: './questions/questions.module#QuestionsModule',
   },
-  // {
-  //   path: 'account',
-  //   loadChildren: './account/account.module#AccountModule',
-  //   canActivate: [UserGuard]
-  // },
+  {
+    path: 'account',
+    loadChildren: './account/account.module#AccountModule',
+    canActivate: [UserGuard]
+  },
   // {
   //   path: 'user',
   //   loadChildren: './user/user.module#UserModule',

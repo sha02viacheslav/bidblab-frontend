@@ -1,0 +1,9 @@
+<div fxLayout="row">
+  <div class="account-nav-wrap" *ngIf="commonService.isMediaActive('gt-xs')">
+    <app-menu *ngIf="menuItems" [menuItems]="menuItems" [menuParentId]="1">
+    </app-menu>
+  </div>
+  <div fxFlex>
+    <router-outlet></router-outlet>
+  </div>
+</div>
