@@ -18,4 +18,7 @@ export const verticalMenuItems = [
   new Menu(120, 'Invite Friend', '/extra/invite', null, 'person_add', null, false, 2),
 ]
 
-export const horizontalMenuItems = []
+export const horizontalMenuItems = [
+  new Menu(20, 'Bid', '/questions/bid', null, '', null, false, 0),
+  new Menu(30, 'Blab', '/questions/blab', null, '', null, false, 0),
+]

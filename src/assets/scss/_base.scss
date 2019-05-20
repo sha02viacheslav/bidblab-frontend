@@ -520,3 +520,10 @@ mat-card.no-content {
 .main-color {
   color: #747373;
 }
+
+.active-link{
+  border-radius: 0;
+  //background-color: $accent; 
+  //opacity: 0.4;
+  color: $accent;
+}

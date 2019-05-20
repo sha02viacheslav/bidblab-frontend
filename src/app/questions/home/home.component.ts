@@ -314,16 +314,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   //     });
   // }
 
-  onScroll() {  
-    console.log("internal scroll")
+  onScroll() {
     if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
       this.pageIndex = this.pageIndex + 1;
       this.getQuestions();
     } 
   }  
-
-
- 
-
+  
 }
 

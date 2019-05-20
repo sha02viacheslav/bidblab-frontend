@@ -49,6 +49,7 @@
                       <img class="logo-wrap" src="assets/icons/logo.svg" />
                     </button>
                   </div>
+                  <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
                   <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
                     <mat-menu #userMenu="matMenu">
                       <button (click)="openProfile()" mat-menu-item>Account Information</button>
@@ -87,16 +88,6 @@
                 </div>
               </mat-toolbar>
             </header>
-            <div *ngIf="isMediaActive('gt-xs')" class="container">
-              <div class="tab-nav-wrap">
-                <div mat-tab-nav-bar>
-                  <a mat-tab-link *ngFor="let link of mainNavLinks" [routerLink]="link.link" routerLinkActive
-                    #rla="routerLinkActive" [active]="rla.isActive">
-                    {{link.label}}
-                  </a>
-                </div>
-              </div>
-            </div>
             <div class="container main-page-wrap">
               <router-outlet></router-outlet>
             </div>

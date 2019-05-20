@@ -68,6 +68,7 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 //import { QuillModule } from 'ngx-quill';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horizontal-menu.component';
 
 @NgModule({
   imports: [
@@ -133,6 +134,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     QuestionDialogComponent,
     AlertDialogComponent,
     UploadImageComponent,
+    HorizontalMenuComponent,
     // BidListComponent,
     // AuctionDetailComponent,
     // AuctionGridComponent,
@@ -197,6 +199,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     // SearchComponent,
     UploadImageComponent,
     MenuComponent,
+    HorizontalMenuComponent,
     // BidListComponent,
     // NumericDirective,
     // DetectScrollDirective

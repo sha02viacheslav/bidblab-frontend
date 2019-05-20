@@ -18,7 +18,7 @@ const routes: Routes = [
       // { path: 'blab', component: BlabComponent },
       // { path: 'about', component: AboutComponent },
       // { path: 'question-detail/:questionId', component: QuestionDetailComponent },
-      { path: '**', redirectTo: '' }
+      { path: '**', redirectTo: 'home' }
     ]
   }
 ];
