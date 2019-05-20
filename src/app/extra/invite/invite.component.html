@@ -1,0 +1,25 @@
+<mat-sidenav-container>
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" fxFlex="100" fxFlex.gt-sm="40" fxFlex.sm="60" autocomplete="off">
+      <mat-card class="p-0 mat-elevation-z24 box">
+        <div fxLayout="column" fxLayoutAlign="center center" class="bg-primary box-header">
+          <h3>Invite a friend, you both get 100 Credits</h3>
+        </div>
+        <mat-card-content fxLayout="column" fxLayoutAlign="end center" class="box-content">
+          <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
+            <span class="box-content-header">INVITE FRIENDS</span>
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Friend's Email" formControlName="friendEmail">
+              <mat-error *ngIf="form.controls.friendEmail.errors?.required">Email is required</mat-error>
+              <mat-error *ngIf="form.controls.friendEmail.hasError('email')">Must be a valid email address.
+              </mat-error>
+            </mat-form-field>
+          </mat-card>
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" type="submit">Send
+            Invite
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</mat-sidenav-container>

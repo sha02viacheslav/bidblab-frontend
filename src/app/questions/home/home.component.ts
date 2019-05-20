@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.autocompleteSubscription.unsubscribe();
-    this.socketEventsSubscription.unsubscribe();
+    // this.socketEventsSubscription.unsubscribe();
   }
 
   // openQuestionDialog(newTitle?: String, question?: Question) {

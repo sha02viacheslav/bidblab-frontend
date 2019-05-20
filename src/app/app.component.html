@@ -70,12 +70,12 @@
                 <ng-template #notAuthenticated>
                   <mat-menu #authMenu="matMenu">
                     <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
-                    <button (click)="openDialog('login')" mat-menu-item>Login</button>
+                    <button routerLink="/extra/login" mat-menu-item>Login</button>
                   </mat-menu>
                   <ng-container *ngIf="isMediaActive('gt-xs')">
                     <div fxLayout="row" fxLayoutAlign="start center">
                       <button (click)="openDialog('signup')" mat-button>Signup</button>
-                      <button (click)="openDialog('login')" mat-button>Login</button>
+                      <button routerLink="/extra/login" mat-button>Login</button>
                     </div>
                   </ng-container>
                   <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">

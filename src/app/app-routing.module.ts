@@ -25,10 +25,10 @@ const routes: Routes = [
   //   path: 'sitemanager',
   //   loadChildren: './sitemanager/sitemanager.module#SitemanagerModule',
   // },
-  // {
-  //   path: 'extra',
-  //   loadChildren: './extra/extra.module#ExtraModule'
-  // },
+  {
+    path: 'extra',
+    loadChildren: './extra/extra.module#ExtraModule'
+  },
   { path: '**', redirectTo: 'questions' }
 ];
 
