@@ -14,8 +14,6 @@ import { DialogService } from './shared/services/dialog.service';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 declare var $: any;
 
-// import { LoginComponent } from './shared/components/login/login.component';
-// import { SignupDialogComponent } from './shared/components/signup-dialog/signup-dialog.component';
 import { Location } from '@angular/common';
 // import { User } from './shared/models/user.model';
 import { environment } from '../environments/environment';
@@ -98,7 +96,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     setInterval(() => {
       $("#main-nicescrollable").getNiceScroll().resize();
-    }, 100);
+    }, 10);
     
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();

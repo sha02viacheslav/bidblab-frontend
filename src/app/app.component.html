@@ -37,57 +37,62 @@
   </mat-sidenav>
   <mat-sidenav-content id="main">
     <block-ui>
-      <div class="infiniteScroll-area" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+
+        <div class="infiniteScroll-area" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()" [scrollWindow]="false" id="main-nicescrollable">
+
+
         <div class="app-wrapper">
-          <div class="app-content-wrap">
-            <header>
-              <mat-toolbar style="background-color: white;">
-                <div class="container" fxLayout="row" fxLayoutAlign="start center">
-                  <div class="fill-remaining-space">
-                    <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
-                      <img class="logo-wrap" src="assets/icons/logo.svg" />
-                    </button>
+      <header>
+        <mat-toolbar >
+          <div class="container" fxLayout="row" fxLayoutAlign="start center">
+            <div class="fill-remaining-space">
+              <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
+                <img class="logo-wrap" src="assets/icons/logo.svg" />
+              </button>
+            </div>
+            <app-horizontal-menu [menuParentId]="0" *ngIf="isMediaActive('gt-xs')"></app-horizontal-menu>
+            <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
+              <mat-menu #userMenu="matMenu">
+                <button (click)="openProfile()" mat-menu-item>Account Information</button>
+                <button (click)="logout()" mat-menu-item>Logout</button>
+                <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
+              </mat-menu>
+              <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
+                [matMenuTriggerFor]="userMenu">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
+                  'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
                   </div>
-                  <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
-                  <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
-                    <mat-menu #userMenu="matMenu">
-                      <button (click)="openProfile()" mat-menu-item>Account Information</button>
-                      <button (click)="logout()" mat-menu-item>Logout</button>
-                      <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
-                    </mat-menu>
-                    <button *ngIf="isMediaActive('gt-xs')" color="primary" class="no-hover-effect" mat-button
-                      [matMenuTriggerFor]="userMenu">
-                      <div fxLayout="row" fxLayoutAlign="start center">
-                        <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
-                        'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                        </div>
-                        <small class="">{{user.username}}</small>
-                      </div>
-                    </button>
-                    <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
-                      (click)="toggleSidenav()">
-                      <mat-icon>menu</mat-icon>
-                    </button>
-                  </ng-container>
-                  <ng-template #notAuthenticated>
-                    <mat-menu #authMenu="matMenu">
-                      <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
-                      <button routerLink="/extra/login" mat-menu-item>Login</button>
-                    </mat-menu>
-                    <ng-container *ngIf="isMediaActive('gt-xs')">
-                      <div fxLayout="row" fxLayoutAlign="start center">
-                        <button (click)="openDialog('signup')" mat-button>Signup</button>
-                        <button routerLink="/extra/login" mat-button>Login</button>
-                      </div>
-                    </ng-container>
-                    <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                  </ng-template>
+                  <small class="">{{user.username}}</small>
                 </div>
-              </mat-toolbar>
-            </header>
+              </button>
+              <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [ngClass]="{'is-active': !menuHidden}"
+                (click)="toggleSidenav()">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </ng-container>
+            <ng-template #notAuthenticated>
+              <mat-menu #authMenu="matMenu">
+                <button (click)="openDialog('signup')" mat-menu-item>Signup</button>
+                <button routerLink="/extra/login" mat-menu-item>Login</button>
+              </mat-menu>
+              <ng-container *ngIf="isMediaActive('gt-xs')">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <button (click)="openDialog('signup')" mat-button>Signup</button>
+                  <button routerLink="/extra/login" mat-button>Login</button>
+                </div>
+              </ng-container>
+              <button *ngIf="!isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </ng-template>
+          </div>
+        </mat-toolbar>
+      </header>
+      <!-- <div class="infiniteScroll-area" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()" [scrollWindow]="false" id="main-nicescrollable"> -->
+          <div class="app-content-wrap">
             <div class="container main-page-wrap">
               <router-outlet></router-outlet>
             </div>
