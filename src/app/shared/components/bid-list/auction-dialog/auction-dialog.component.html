@@ -40,7 +40,8 @@
           </div>
           <mat-form-field class="bidprice-wrap" appearance="outline">
             <mat-label>Bid Price</mat-label>
-            <input numeric numericType="decimal" type="tel" matInput formControlName="bidPrice" required>
+            <input numeric numericType="decimal" type="tel" matInput 
+              formControlName="bidPrice" (keyup.enter)="submitForm()" required>
             <mat-error *ngIf="checkError(infoForm, 'bidPrice', ['required', 'blank'])">
               Required.
             </mat-error>

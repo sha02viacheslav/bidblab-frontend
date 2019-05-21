@@ -77,6 +77,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
+    console.log(this.infoForm.value);
     if (this.infoForm.valid) {
       if(this.auction.bids.some(element => element.bidPrice == this.infoForm.value.bidPrice)){
         this.snackBar.open("You have already bid this price", 'Dismiss', {
