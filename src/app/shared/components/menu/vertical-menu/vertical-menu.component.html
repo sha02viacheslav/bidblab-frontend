@@ -4,7 +4,7 @@
       [routerLink]="[menu.routerLink]" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"
       [matTooltip]="menu.title" matTooltipPosition="after" [matTooltipDisabled]="'true'"
       (click)="onClick(menu.id)" [id]="'menu-item-'+menu.id">
-      <mat-icon class="menu-icon">{{menu.icon}}</mat-icon>
+      <!-- <mat-icon class="menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="menu-title">{{menu.title}}</span>
   </a>
   <a *ngIf="menu.href && !menu.subMenu" mat-button 
@@ -12,14 +12,14 @@
       [attr.href]="menu.href || ''" [attr.target]="menu.target || ''"
       [matTooltip]="menu.title" matTooltipPosition="after" [matTooltipDisabled]="'true'"
       (click)="onClick(menu.id)" [id]="'menu-item-'+menu.id">
-      <mat-icon class="menu-icon">{{menu.icon}}</mat-icon>
+      <!-- <mat-icon class="menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="menu-title">{{menu.title}}</span>
   </a>
   <a *ngIf="menu.hasSubMenu" mat-button 
       fxLayout="row" [fxLayoutAlign]="'start center'"
       [matTooltip]="menu.title" matTooltipPosition="after" [matTooltipDisabled]="'true'"
       (click)="onClick(menu.id)" [id]="'menu-item-'+menu.id">
-      <mat-icon class="menu-icon">{{menu.icon}}</mat-icon>
+      <!-- <mat-icon class="menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="menu-title">{{menu.title}}</span>
       <mat-icon class="menu-expand-icon transition-2">arrow_drop_down</mat-icon>
   </a>
