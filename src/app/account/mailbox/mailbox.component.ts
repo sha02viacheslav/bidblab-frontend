@@ -36,7 +36,7 @@ export class MailboxComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder, 
     public snackBar: MatSnackBar,
-    private commonService: CommonService,
+    public commonService: CommonService,
 		public dialog: MatDialog,
   ) { }
 

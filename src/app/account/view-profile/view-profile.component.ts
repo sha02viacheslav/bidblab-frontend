@@ -49,7 +49,7 @@ export class ViewProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private socketsService: SocketsService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private dialogService: DialogService,
     private fb: FormBuilder,
     private formValidationService: FormValidationService,

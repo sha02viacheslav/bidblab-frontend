@@ -20,7 +20,7 @@ export class InviteComponent implements OnInit{
     public fb: FormBuilder,
     public router:Router,
     private authenticationService: AuthenticationService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private route: ActivatedRoute,
     public snackBar: MatSnackBar,
   ){

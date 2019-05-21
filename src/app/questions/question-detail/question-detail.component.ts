@@ -39,7 +39,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private socketsService: SocketsService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,

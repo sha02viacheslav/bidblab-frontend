@@ -40,7 +40,7 @@ export class AnswerBoxComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private socketsService: SocketsService,
     private blockUIService: BlockUIService,
     private snackBar: MatSnackBar,

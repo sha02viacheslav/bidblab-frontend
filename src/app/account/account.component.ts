@@ -14,7 +14,7 @@ export class AccountComponent implements OnInit {
   constructor(
     private router: Router,
     public menuService:MenuService,
-    private commonService: CommonService,
+    public commonService: CommonService,
   ) { }
 
   ngOnInit() {

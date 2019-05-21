@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private socketsService: SocketsService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,

@@ -58,7 +58,7 @@ export class BidListComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private socketsService: SocketsService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     public bidService: BidService,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,

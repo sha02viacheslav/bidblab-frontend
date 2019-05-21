@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private formValidationService: FormValidationService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute,

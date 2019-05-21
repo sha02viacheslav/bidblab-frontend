@@ -29,7 +29,7 @@ export class MyanswersComponent implements OnInit {
 
   constructor(
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,

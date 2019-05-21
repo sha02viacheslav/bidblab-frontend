@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private formValidationService: FormValidationService,
     private authenticationService: AuthenticationService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private router: Router,
     private snackBar: MatSnackBar,
     private location: Location,

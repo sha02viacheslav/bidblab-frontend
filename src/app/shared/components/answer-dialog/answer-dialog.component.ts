@@ -22,7 +22,7 @@ export class AnswerDialogComponent implements OnInit {
     private formValidationService: FormValidationService,
     private socketsService: SocketsService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<AnswerDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any

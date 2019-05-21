@@ -48,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private swUpdate: SwUpdate,
     private router: Router,
     private route: ActivatedRoute,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,

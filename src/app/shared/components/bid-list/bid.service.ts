@@ -15,7 +15,7 @@ export class BidService {
   public availuableCredits: number = 0;
   
   constructor(
-    private commonService: CommonService,
+    public commonService: CommonService,
   ) { }
 
   public getMyCredits(){

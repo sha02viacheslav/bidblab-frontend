@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private snackBar: MatSnackBar,
     private dialogService: DialogService,
-    private commonService: CommonService,
+    public commonService: CommonService,
   ) {}
 
   ngOnInit() {

@@ -27,7 +27,7 @@ export class QuestionDialogComponent implements OnInit {
     private fb: FormBuilder,
     private formValidationService: FormValidationService,
     private blockUIService: BlockUIService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private socketsService: SocketsService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<QuestionDialogComponent>,
