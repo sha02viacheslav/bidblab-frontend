@@ -57,7 +57,7 @@
         <div>
           <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <button mat-icon-button (click)="sidenav.toggle()">
+              <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>list</mat-icon>
               </button>
               <button *ngIf="newMail" mat-icon-button (click)="newMail = false;" matTooltip="Back"
