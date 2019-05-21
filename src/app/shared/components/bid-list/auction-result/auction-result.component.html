@@ -13,7 +13,7 @@
       <div class="bid-content-wrap" fxLayout="row wrap" fxLayoutAlign="start center">
         <div fxFlex="50" fxFlex.xs="100">
           <div *ngIf="bid.bidStatus == 0">Unique Bid</div>
-          <div *ngIf="bid.bidStatus == 2">Highst Unique Bid</div>
+          <div *ngIf="bid.bidStatus == 2">Highest Unique Bid</div>
           <div *ngIf="bid.bidStatus == 1 || bid.bidStatus == 3">Duplicate Bid</div>
         </div>
         <div class="username-wrap" fxFlex="20" fxFlex.xs="100">
