@@ -27,8 +27,8 @@ import { environment } from '../../../environments/environment';
 })
 export class FollowersComponent implements OnInit {
   private totalFollowers: number;
-  private follows: any[] = [];
-  serverUrl = environment.apiUrl;
+  public follows: any[] = [];
+  public serverUrl = environment.apiUrl;
   
   constructor(
     private blockUIService: BlockUIService,

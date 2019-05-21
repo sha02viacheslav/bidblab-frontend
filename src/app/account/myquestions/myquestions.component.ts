@@ -21,8 +21,8 @@ import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert
 })
 export class MyquestionsComponent implements OnInit {
 
-  private mytotalQuestionsCount: number;
-  private myquestions: any[] = [];
+  public mytotalQuestionsCount: number;
+  public myquestions: any[] = [];
 
   constructor(
     private blockUIService: BlockUIService,
