@@ -32,7 +32,7 @@ export class InviteComponent implements OnInit{
   ngOnInit(){
   }
 
-  public onSubmit() {
+  public submitForm() {
     if (this.form.valid) {
       this.commonService.invite(this.form.value).subscribe(
         (res: any) => {

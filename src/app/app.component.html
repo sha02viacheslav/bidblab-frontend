@@ -54,7 +54,6 @@
                   <mat-menu #userMenu="matMenu">
                     <button (click)="openProfile()" mat-menu-item>Account Information</button>
                     <button (click)="logout()" mat-menu-item>Logout</button>
-                    <button routerLink="/extra/invite" mat-menu-item>Invite Friend</button>
                   </mat-menu>
                   <button *ngIf="commonService.isMediaActive('gt-xs')" color="primary" class="no-hover-effect"
                     mat-button [matMenuTriggerFor]="userMenu">

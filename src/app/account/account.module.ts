@@ -13,6 +13,7 @@ import { MybidsComponent } from './mybids/mybids.component';
 import { MyquestionsComponent } from './myquestions/myquestions.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { InviteComponent } from './invite/invite.component';
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
       { path: 'credits', component: CreditsComponent },
       { path: 'editprofile', component: EditProfileComponent },
       { path: 'viewprofile', component: ViewProfileComponent },
+      { path: 'invite', component: InviteComponent },
       { path: 'mailbox', component: MailboxComponent },
       { path: '**', redirectTo: '' }
     ]
@@ -52,6 +54,7 @@ const routes = [
     MyquestionsComponent,
     EditProfileComponent,
     ViewProfileComponent,
+    InviteComponent,
   ],
   exports: [
     AccountComponent

@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutAlign="start center">
+  <form class="py-1 w-100" [formGroup]="form" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+    <mat-card class="custom-card">
+      <mat-card-header class="p-1" fxLayoutAlign="center center">
+        <mat-card-title class="m-0">
+          <h2>INVITE FRIENDS</h2>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content fxLayout="column">
+        <mat-form-field class="w-100" appearance="outline">
+          <input matInput placeholder="Friend's Email" formControlName="friendEmail">
+          <mat-error *ngIf="form.controls.friendEmail.errors?.required">Email is required</mat-error>
+          <mat-error *ngIf="form.controls.friendEmail.hasError('email')">Must be a valid email address.
+          </mat-error>
+        </mat-form-field>
+        <div class="pt-1">
+          <button class="w-100" mat-raised-button color="accent" [disabled]="form.invalid || submitted" type="submit">
+            Send Invite
+          </button>
+        </div>
+        <div class="py-1">
+          <button class="w-100" mat-raised-button color="primary" routerLink="/">
+            Cancel
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
