@@ -11,7 +11,7 @@
           <mat-icon *ngIf="newQuestionFlag">add_comment</mat-icon>
         </button>
         <input type="text" formControlName="search" matInput [matAutocomplete]="auto">
-        <mat-autocomplete (optionSelected)="getQuestions()" (closed)="searchBoxAction()" #auto="matAutocomplete">
+        <mat-autocomplete (closed)="searchBoxAction()" #auto="matAutocomplete">
           <mat-option *ngFor="let question of autocomplete" [value]="question.title">
             {{question.title}}
           </mat-option>
