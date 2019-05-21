@@ -55,7 +55,7 @@
           </mat-nav-list>
         </mat-sidenav>
         <div>
-          <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-toolbar class="p-1" color="primary" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="row" fxLayoutAlign="start center">
               <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>list</mat-icon>
@@ -92,7 +92,6 @@
                 <mat-list-item class="h-100 py-1">
                   <div matLine fxLayout="row" fxLayoutAlign="space-between center">
                     <h2 class="subject">{{mail.subject}}</h2>
-                    <mat-icon class="muted-text">print</mat-icon>
                   </div>
                 </mat-list-item>
                 <mat-divider></mat-divider>
