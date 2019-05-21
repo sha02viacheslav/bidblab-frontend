@@ -59,6 +59,9 @@
   }
 }
 
+mat-toolbar{
+  padding: 0px !important;
+}
 .logo-wrap {
   height: 50px;
   width: 150px;
@@ -174,6 +177,7 @@ footer {
 
   mat-toolbar {
     padding-top: 0.5rem;
+    height: fit-content !important;
   }
 
   .copyrights {
@@ -181,26 +185,19 @@ footer {
     font-size: 12px;
   }
 
-  .social-wrap {
-    a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  .mobile-favorite {
-    a {
-      display: block;
+  .footer-main {
+    div a {
       color: white;
       font-size: 14px;
+      font-family: initial;
+      padding: 0px 4px;
+      border-right: solid 1px white;
     }
-  }
 
-  .desktop-favorite {
-    a {
-      color: white;
-      font-size: 16px;
+    div:last-child {
+      a {
+        border: unset !important;
+      }
     }
   }
 }
