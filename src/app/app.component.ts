@@ -27,9 +27,6 @@ import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
   providers: [ MenuService ],
 })
 export class AppComponent implements OnInit, OnDestroy {
-
-  title = 'bidblab-frontend';
-
   @ViewChild('sidenav') sidenav:any;
   @ViewChild('sidenavPS') sidenavPS: PerfectScrollbarComponent;
   private blockingSubscription: Subscription;
