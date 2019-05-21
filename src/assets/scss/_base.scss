@@ -523,7 +523,6 @@ mat-card.no-content {
 
 .active-link{
   border-radius: 0;
-  //background-color: $accent; 
-  //opacity: 0.4;
-  color: $accent;
+  background-color: $primary; 
+  color: #fff;
 }
