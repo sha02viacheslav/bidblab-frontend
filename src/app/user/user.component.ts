@@ -3,26 +3,27 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
-import { FormValidationService } from '../../shared/services/form-validation.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { UserService } from '../../shared/services/user.service';
-import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
-import { DialogService } from '../../shared/services/dialog.service';
-import { CommonService } from '../../shared/services/common.service';
+import { FormValidationService } from '../shared/services/form-validation.service';
+import { BlockUIService } from '../shared/services/block-ui.service';
+import { AuthenticationService } from '../shared/services/authentication.service';
+import { UserService } from '../shared/services/user.service';
+import { AnswerDialogComponent } from '../shared/components/answer-dialog/answer-dialog.component';
+import { DialogService } from '../shared/services/dialog.service';
+import { CommonService } from '../shared/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
-import { SocketsService } from '../../shared/services/sockets.service';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
-import { environment } from '../../../environments/environment';
+import { QuestionDialogComponent } from '../shared/components/question-dialog/question-dialog.component';
+import { SocketsService } from '../shared/services/sockets.service';
+import { debounceTime, filter } from 'rxjs/operators';
+import { AlertDialogComponent } from '../shared/components/alert-dialog/alert-dialog.component';
+import { environment } from '../../environments/environment';
 import { MatOption } from '@angular/material';
 
 @Component({
-  selector: 'app-view-profile',
-  templateUrl: './view-profile.component.html',
-  styleUrls: ['./view-profile.component.scss']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
 })
-export class ViewProfileComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user: any;
   submitted: boolean;
   passwordVisibility: boolean;
@@ -59,8 +60,17 @@ export class ViewProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUserUpdates();
-    this.getUserData(this.user._id);
+    this.isInit = false;
+    this.isAuthenticated(); 
+  }
+
+  ngOnDestroy() {
+    if(this.isInit){
+    }
+  }
+
+  initialize(){
+    this.getUserData();
     this.followed = true;
     this.selected_tag = ["alltags"];
     this.tagsOfAnswerForm = this.fb.group({
@@ -69,19 +79,31 @@ export class ViewProfileComponent implements OnInit {
     this.tagsOfQuestionForm = this.fb.group({
       tagsOfQuestion: new FormControl('')
     }); 
+    
   }
 
-  
-  private getUserUpdates() {
-    this.userUpdatesSubscription = this.authenticationService
-      .getUserUpdates()
-      .subscribe(user => (this.user = user));
+  isAuthenticated() {
+    if(this.authenticationService.isAuthenticated()){
+      this.initialize();
+    }
+    else{
+      this.router.navigateByUrl('/extra/login');
+    }
   }
 
-  private getUserData(userId) {
-    this.getUserDataByuserId(userId);
-    this.getUserAnswerByuserId(userId, null);
-    this.getUserQuestionByuserId(userId, null);
+  isAdmin() {
+    return this.authenticationService.isAdmin();
+  }
+
+  private getUserData() {
+    this.route.paramMap.subscribe(params => {
+      if (params.has('userId')) {
+        const userId = params.get('userId');
+        this.getUserDataByuserId(userId);
+        this.getUserAnswerByuserId(userId, null);
+        this.getUserQuestionByuserId(userId, null);
+      }
+    });
   }
 
   getUserDataByuserId(userId){
@@ -144,6 +166,7 @@ export class ViewProfileComponent implements OnInit {
       }
     );
   }
+
 
   changeAnswerTag()
   {

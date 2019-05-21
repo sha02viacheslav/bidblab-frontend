@@ -3,10 +3,10 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { UserGuard } from './shared/guards/user.guard';
 
 const routes: Routes = [
-  // {
-  //   path: 'gateway',
-  //   loadChildren: './gateway/gateway.module#GatewayModule'
-  // },
+  {
+    path: 'gateway',
+    loadChildren: './gateway/gateway.module#GatewayModule'
+  },
   {
     path: 'questions',
     loadChildren: './questions/questions.module#QuestionsModule',
@@ -16,15 +16,15 @@ const routes: Routes = [
     loadChildren: './account/account.module#AccountModule',
     canActivate: [UserGuard]
   },
-  // {
-  //   path: 'user',
-  //   loadChildren: './user/user.module#UserModule',
-  //   canActivate: [UserGuard]
-  // },
-  // {
-  //   path: 'sitemanager',
-  //   loadChildren: './sitemanager/sitemanager.module#SitemanagerModule',
-  // },
+  {
+    path: 'user',
+    loadChildren: './user/user.module#UserModule',
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'sitemanager',
+    loadChildren: './sitemanager/sitemanager.module#SitemanagerModule',
+  },
   {
     path: 'extra',
     loadChildren: './extra/extra.module#ExtraModule'

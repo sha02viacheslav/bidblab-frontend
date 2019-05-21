@@ -13,8 +13,6 @@ import { BlockUIModule } from 'ng-block-ui';
 import { MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { AccountModule } from './account/account.module';
-import { QuestionsModule } from './questions/questions.module';
 import { SharedModule } from './shared/shared.module';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -24,7 +22,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
   suppressScrollX: true               
 };
-
 
 @NgModule({
   declarations: [

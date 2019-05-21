@@ -1,20 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { CommonService } from '../../shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { DialogService } from '../../shared/services/dialog.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
-// import { Question } from '../../shared/models/question.model';
 import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
-// import { LoginComponent } from '../../shared/components/login/login.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 // import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
-// import { Answer } from '../../shared/models/answer.model';
 import { SocketsService } from '../../shared/services/sockets.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { resource } from 'selenium-webdriver/http';
@@ -107,8 +103,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.autocompleteSubscription.unsubscribe();
-    // this.socketEventsSubscription.unsubscribe();
+    if(this.autocompleteSubscription){
+      this.autocompleteSubscription.unsubscribe();
+    }
+    if(this.socketEventsSubscription){
+      this.socketEventsSubscription.unsubscribe();
+    }
   }
 
   openQuestionDialog(newTitle?: String, question?: any) {

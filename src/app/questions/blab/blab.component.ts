@@ -50,11 +50,9 @@ export class BlabComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.newQuestionFlag = false;
-    this.isInit = false;
     this.form = this.fb.group({
       search: ''
     });
-    this.isInit = true;
     this.autocomplete = [];
     this.form = this.fb.group({
       search: ''
@@ -93,10 +91,8 @@ export class BlabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.isInit){
-      this.autocompleteSubscription.unsubscribe();
-      this.socketEventsSubscription.unsubscribe();
-    }
+    this.autocompleteSubscription.unsubscribe();
+    this.socketEventsSubscription.unsubscribe();
   }
 
   searchBoxAction(){

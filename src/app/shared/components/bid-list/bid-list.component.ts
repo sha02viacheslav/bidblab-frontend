@@ -16,7 +16,6 @@ import { resource } from 'selenium-webdriver/http';
 import { environment } from '../../../../environments/environment';
 import { MatSelect } from '@angular/material';
 import { BidService } from './bid.service';
-declare var $: any;
 
 @Component({
   selector: 'app-bid-list',

@@ -1,0 +1,164 @@
+<div *ngIf="user">
+  <div class="user-wrap">
+    <div class="row no-gutters">
+      <div class="col-sm-12 col-md-4">
+        <div class="profile-wrap" fxLayout="column" fxLayoutAlign=" center">
+          <div class="avatar" [style.background-image]="user?.profilePicture?.path?
+            'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+          </div>
+          <div class="username-wrap margin-top-1rem">{{user.username}}</div>
+          <div class="address-wrap">{{user.physicalcity}}, {{user.physicalstate}}</div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-8">
+        <div class="introduction-wrap main-font" fxLayout="column" fxLayoutAlign=" none">
+          <div class="about-wrap margin-bottom-05rem">
+            <div class="about-label-wrap"><span class="accent">About {{user.username}}:</span></div>
+            <div class="about-content-wrap margin-left-1rem">{{user.aboutme}}</div>
+          </div>
+          <div class="interest-wrap margin-bottom-05rem">
+            <div class="interest-label-wrap margin-bottom-05rem"><span class="accent">Interests:</span></div>
+            <div class="margin-left-1rem">
+              <mat-chip-list>
+                <mat-chip *ngFor="let tag of user.tags" color="primary" selected>{{tag}}</mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4">
+              <div class="margin-05rem center-align"><span class="accent">{{total_questions}}&nbsp;</span>Submitted
+                Questions</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+              <div class="margin-05rem center-align"><span class="accent">{{total_answers}}&nbsp;</span>Answered
+                Questions</div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4">
+              <div class="center-align button-wrap">
+                <button class="margin-05rem" mat-raised-button color="primary" (click)="addFollow('user')"
+                  [disabled]="followed">Follow</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-page-wrap" fxLayout="column" fxLayoutAlign=" none">
+    <div class="answer-header-wrap" fxLayout="row wrap" fxLayoutAlign="center center">
+      <div class="margin-05rem main-font fill-remaining-space">
+        Questions <span class="accent">{{user.username}}</span> has answered
+      </div>
+      <div class="filter-wrap">
+        <form [formGroup]="tagsOfAnswerForm" autocomplete="off">
+          <mat-form-field class="no-padding">
+            <mat-select multiple placeholder="Interests" formControlName="tagsOfAnswer" (closed)="changeAnswerTag()"
+              required>
+              <mat-option #allAnswerTagsSelected (click)="toggleAllSelectionOfAnswer()" [value]="0">All</mat-option>
+              <mat-option *ngFor="let tag of answerTags" [value]="tag"
+                (click)="tosslePerOneOfAnswer(allAnswerTagsSelected.viewValue)">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="mobile-display-none">
+        <mat-button-toggle-group #answersViewType="matButtonToggleGroup" appearance="legacy">
+          <mat-button-toggle value="grid" checked="true">
+            <mat-icon>view_module</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="list">
+            <mat-icon>view_list</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+    </div>
+    <div *ngIf="answers; else noAnswers" class="answer-block-wrap">
+      <div *ngIf="answersViewType.value == 'grid'" class="row no-gutters">
+        <div *ngFor="let answer of answers" class="col-sm-6 col-md-4 col-lg-3">
+          <div class="padding-1rem margin-05rem main-border question-grid-wrap" fxLayout="column" fxLayoutAlign="start none">
+            <div class="margin-bottom-1rem catagory-title-wrap">Category <span class="accent">{{answer.tag}}</span>
+            </div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">Q:&nbsp;</span>{{answer.title}}</div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">A:&nbsp;</span>{{answer.content}}</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{answer.credit}} </span>Bid Blab Credits earned</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="answersViewType.value == 'list'" class="row no-gutters">
+        <div *ngFor="let answer of answers" class="col-sm-12 col-md-12 col-lg-12">
+          <div class="padding-1rem margin-05rem main-border question-grid-wrap" fxLayout="column" fxLayoutAlign="start none">
+            <div class="margin-bottom-1rem catagory-title-wrap">Category <span class="accent">{{answer.tag}}</span>
+            </div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">Q:&nbsp;</span>{{answer.title}}</div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">A:&nbsp;</span>{{answer.content}}</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{answer.credit}} </span>Bid Blab Credits earned</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noAnswers>
+      <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+    </ng-template>
+  </div>
+
+  <div class="question-page-wrap" fxLayout="column" fxLayoutAlign=" none">
+    <div class="question-header-wrap" fxLayout="row wrap" fxLayoutAlign="center center">
+      <div class="margin-05rem main-font fill-remaining-space">
+        Questions <span class="accent">{{user.username}}</span> has submitted
+      </div>
+      <div class="filter-wrap">
+        <form [formGroup]="tagsOfQuestionForm" autocomplete="off">
+          <mat-form-field class="no-padding">
+            <mat-select multiple placeholder="Interests" formControlName="tagsOfQuestion"
+              (closed)="changeQuestionTag()">
+              <mat-option #allQuestionTagsSelected (click)="toggleAllSelectionOfQuestion()" [value]="0">All</mat-option>
+              <mat-option *ngFor="let tag of questionTags" [value]="tag"
+                (click)="tosslePerOneOfQuestion(allQuestionTagsSelected.viewValue)">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="mobile-display-none">
+        <mat-button-toggle-group #questionsViewType="matButtonToggleGroup" appearance="legacy">
+          <mat-button-toggle value="grid" checked="true">
+            <mat-icon>view_module</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="list">
+            <mat-icon>view_list</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+
+    </div>
+    <div *ngIf="questions; else noQuestions" class="question-block-wrap">
+      <div *ngIf="questionsViewType.value == 'grid'" class="row no-gutters">
+        <div *ngFor="let question of questions" class="col-sm-6 col-md-4 col-lg-3">
+          <div class="padding-1rem  margin-05rem main-border question-grid-wrap" fxLayout="column" fxLayoutAlign="start none">
+            <div class="margin-bottom-1rem catagory-title-wrap">Category <span class="accent">{{question.tag}}</span>
+            </div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">Q:&nbsp;</span>{{question.title}}</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{question.numberOfAnswers}} </span>Answers</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{question.numberOfFollows}} </span>Followers</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="questionsViewType.value == 'list'" class="row no-gutters">
+        <div *ngFor="let question of questions" class="col-sm-12 col-md-12 col-lg-12">
+          <div class="padding-1rem  margin-05rem main-border question-grid-wrap" fxLayout="column" fxLayoutAlign="start none">
+            <div class="margin-bottom-1rem catagory-title-wrap">Category <span class="accent">{{question.tag}}</span>
+            </div>
+            <div class="text-block-wrap margin-bottom-1rem"><span class="accent">Q:&nbsp;</span>{{question.title}}</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{question.numberOfAnswers}} </span>Answers</div>
+            <div class="margin-bottom-1rem"><span class="accent">{{question.numberOfFollows}} </span>Followers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noQuestions>
+      <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+    </ng-template>
+  </div>
+</div>

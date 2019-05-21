@@ -8,6 +8,7 @@ export class BidService {
 
   public detailAuction: any;
   public questionCredits: number = 0;
+  public optionalImageCredits: number = 0;
   public answerCredits: number = 0;
   public referalCredits: number = 0;
   public totalCredits: number = 0;
