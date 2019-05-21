@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               }
             });
         } else {
-          this.autocomplete.splice(0);
+          this.autocomplete = [];
           this.newQuestionFlag = false;
         }
       });
