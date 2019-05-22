@@ -9,6 +9,7 @@ import { TermsComponent } from './terms/terms.component';
 import { CookieComponent } from './cookie/cookie.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { AboutComponent } from './about/about.component';
+import { InvestorComponent } from './investor/investor.component';
 
 export const routes = [
   { path: 'how', component: HowComponent},
@@ -16,6 +17,7 @@ export const routes = [
   { path: 'cookie', component: CookieComponent},
   { path: 'privacy', component: PrivacyComponent},
   { path: 'about', component: AboutComponent },
+  { path: 'investor', component: InvestorComponent },
 ];
 
 
@@ -34,6 +36,7 @@ export const routes = [
     CookieComponent, 
     PrivacyComponent,
     AboutComponent,
+    InvestorComponent,
   ]
 })
 export class SitemanagerModule { }

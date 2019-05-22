@@ -69,8 +69,8 @@
               )
             )">
           <app-auction-layer [auction]=bidService.detailAuction [auctionType]="'detail'"></app-auction-layer>
-          <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
+          <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
       </ng-container>
     </div>
@@ -82,6 +82,7 @@
         <div *ngIf="bidService.detailAuction && bidService.detailAuction?.display 
           && auction.index == bidService.detailAuction?.index">
           <app-auction-layer [auction]=bidService.detailAuction [auctionType]="'detail'"></app-auction-layer>
+          <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
           <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
       </div>

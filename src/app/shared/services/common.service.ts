@@ -296,6 +296,12 @@ export class CommonService {
 		);
   }
   
+  getInvestorPageContent() {
+		return this.httpClient.get(
+			`${environment.apiUrl}/api/common/getInvestorPageContent`
+		);
+  }
+  
   sendMessage(body) {
     return this.httpClient.post(
       `${environment.apiUrl}/api/common/sendMessage`,
