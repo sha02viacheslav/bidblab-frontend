@@ -1,11 +1,11 @@
 @import "../../../../../assets/scss/theme.scss";
 
-@media (max-width: 599px) {
-  .bid-result-box {
-    padding: 0.5rem !important;
-    //width: calc(100vw - 2rem) !important;
-  }
-}
+// @media (max-width: 599px) {
+//   .bid-result-box {
+//     padding: 0.5rem !important;
+//     //width: calc(100vw - 2rem) !important;
+//   }
+// }
 
 .bid-result-box {
   margin: 0.5rem;
@@ -17,6 +17,7 @@
   * {
     z-index: 1000;
   }
+}
 
   .bid-result-title {
     height: 40px;
@@ -29,62 +30,109 @@
     border-radius: 5px 5px 0px 0px;
   }
 
-  .bid-result-content {
-    padding: 1rem;
+//   .bid-result-content {
+//     padding: 1rem;
 
-    .bid-result-wrap {
-      display: flex;
-      width: 100%;
-      padding: 0.25rem 0rem;
+//     .bid-result-wrap {
+//       display: flex;
+//       width: 100%;
+//       padding: 0.25rem 0rem;
 
-      .bid-price-box {
-        position: relative;
-      }
+//       .bid-price-box {
+//         position: relative;
+//       }
 
-      .bid-price-wrap {
-        width: 60px;
-        height: 60px;
-        border-radius: 60px;
-      }
+//       .bid-price-wrap {
+//         width: 60px;
+//         height: 60px;
+//         border-radius: 60px;
+//       }
 
-      .highst-mark {
-        border-radius: 30px;
-        background-color: #f8498dff;
-      }
+//       .highst-mark {
+//         border-radius: 30px;
+//         background-color: #f8498dff;
+//       }
 
-      .unique-mark {
-        border-radius: 30px;
-        background-color: #9216d0ff;
-      }
+//       .unique-mark {
+//         border-radius: 30px;
+//         background-color: #9216d0ff;
+//       }
 
-      .deplicate-mark {
-        border-radius: 30px;
-        background-color: #666666ff;
-      }
+//       .deplicate-mark {
+//         border-radius: 30px;
+//         background-color: #666666ff;
+//       }
 
-      .bid-price {
-        position: absolute;
-        top: 20px;
-        left: 3px;
-        width: 54px;
-        height: 20px;
-        color: white;
-        text-align: center;
-      }
+//       .bid-price {
+//         position: absolute;
+//         top: 20px;
+//         left: 3px;
+//         width: 54px;
+//         height: 20px;
+//         color: white;
+//         text-align: center;
+//       }
 
-      .bid-content-wrap {
-        display: flex;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0px 1rem;
+//       .bid-content-wrap {
+//         display: flex;
+//         width: 100%;
+//         display: flex;
+//         align-items: center;
+//         padding: 0px 1rem;
 
-        .username-wrap {
-          display: flex;
-          align-items: center;
-        }
-      }
-    }
+//         .username-wrap {
+//           display: flex;
+//           align-items: center;
+//         }
+//       }
+//     }
+//   }
+
+// }
+
+
+@media (max-width: 599px) {
+  .bid-result-box {
+    padding: 0.5rem !important;
+    //width: calc(100vw - 2rem) !important;
   }
+}
 
+.bid-price-box {
+  position: relative;
+  margin-right: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.bid-price-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  box-sizing: border-box;
+}
+
+.highst-mark {
+  border-radius: 30px;
+  background-color: #f8498dff;
+}
+
+.unique-mark {
+  border-radius: 30px;
+  background-color: #9216d0ff;
+}
+
+.deplicate-mark {
+  border-radius: 30px;
+  background-color: #666666ff;
+}
+
+.bid-price {
+  position: absolute;
+  top: 20px;
+  left: 3px;
+  color: white;
+  width: 54px;
+  height: 20px;
+  text-align: center;
 }
