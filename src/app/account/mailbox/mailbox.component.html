@@ -45,7 +45,7 @@
                   </h4>
                   <small>{{mail.createdAt | date}}</small>
                 </div>
-                <p matLine class="text-truncate subject">{{mail.subject}}</p>
+                <p matLine class="text-truncate subject">{{mail.subject? mail.subject : 'No Subject'}}</p>
               </mat-list-item>
               <mat-divider></mat-divider>
             </div>
@@ -91,7 +91,7 @@
               <mat-list class="p-0">
                 <mat-list-item class="h-100 py-1">
                   <div matLine fxLayout="row" fxLayoutAlign="space-between center">
-                    <h2 class="subject">{{mail.subject}}</h2>
+                    <h2 class="subject">{{mail.subject? mail.subject : 'No Subject'}}</h2>
                   </div>
                 </mat-list-item>
                 <mat-divider></mat-divider>
@@ -109,7 +109,7 @@
                 </mat-list-item>
                 <mat-divider></mat-divider>
               </mat-list>
-              <div class="mail-body" [innerHTML]="mail.message"></div>
+              <div class="mail-body" [innerHTML]="mail.message? mail.message : 'No Message'"></div>
               <form *ngIf="!mail.sender" [formGroup]="form" (ngSubmit)="sendMessage(form.value)" class="mail-body">
                 <mat-form-field class="w-100 display-none">
                   <input matInput placeholder="To" formControlName="recievers">

@@ -120,6 +120,7 @@ export class MailboxComponent implements OnInit {
     if(!this.mail.sender){
       this.form.controls.recievers.setValue(String('Admin'));
       this.form.controls.subject.setValue(this.mail.subject);
+      this.form.controls.message.setValue('');
     }
     // this.mail.unread = false;
     this.newMail = false;
@@ -132,6 +133,7 @@ export class MailboxComponent implements OnInit {
     this.mail = null;
     this.form.controls.recievers.setValue(String('Admin'));
     this.form.controls.subject.setValue('');
+    this.form.controls.message.setValue('');
     this.newMail = true;
   }
 
@@ -215,7 +217,7 @@ export class MailboxComponent implements OnInit {
 
   public cancelSendMessage(mail){
     this.newMail = false; 
-    if(mail.recievers && mail.subject && mail.message){
+    if(mail.recievers){
       if(confirm("Will you archive message?")){
         this.commonService.archiveMessage(mail).subscribe(
           (res: any) => {
