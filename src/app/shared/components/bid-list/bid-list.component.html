@@ -1,9 +1,4 @@
 <div class="credits-sticky-wrap">Credits: {{bidService.availuableCredits}}</div>
-<div *ngIf="topAuction && !myBidsFlag" class="top-auction-block">
-  <app-auction-layer [auction]=topAuction [auctionType]="'top'"></app-auction-layer>
-  <app-auction-detail [auction]=topAuction></app-auction-detail>
-</div>
-
 <div fxLayout="row wrap">
   <div fxFlex="100">
     <mat-card class="custom-card no-content">
