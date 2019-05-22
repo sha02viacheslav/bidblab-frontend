@@ -15,7 +15,7 @@ import { SocketsService } from '../../services/sockets.service';
 export class AnswerDialogComponent implements OnInit {
   submitted: boolean;
   form: FormGroup;
-  defaultCredits: any;
+  public defaultCredits: any;
 
   constructor(
     private fb: FormBuilder,
