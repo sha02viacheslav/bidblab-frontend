@@ -154,7 +154,6 @@ export class MailboxComponent implements OnInit {
 	}
 
 	public finalApplyRoleOfMails(mailIds, roleType, apply) {
-    console.log(apply);
 		if(mailIds.length){
 			if(confirm("Are you sure to " + (apply == true? 'delete' : 'restore') + " message?")){
 				this.commonService.applyRoleOfMails(mailIds, roleType, apply)
