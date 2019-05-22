@@ -41,6 +41,7 @@ export class BidListComponent implements OnInit, OnDestroy {
   public pageIndex: number = 0;
   serverUrl = environment.apiUrl;
   auctionType: number = this.auctionRole.process;
+  public selectedSortField: string = '';
   sortFields = [
     {value: 'bidblabPrice', viewValue: 'BidBlab Price'},
     {value: 'retailPrice', viewValue: 'Retail Price'},
@@ -92,7 +93,9 @@ export class BidListComponent implements OnInit, OnDestroy {
       this.commonService.getBiddingAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
         (res: any) => {
           this.totalAuctionsCount = res.data.totalAuctionsCount;
+          var start = this.auctions.length;
           res.data.auctions.forEach(element => {
+            element.index = start++;
             this.auctions.push(element);
           });
         },
@@ -106,7 +109,9 @@ export class BidListComponent implements OnInit, OnDestroy {
         this.commonService.getAuctionsAfterLogin(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
           (res: any) => {
             this.totalAuctionsCount = res.data.totalAuctionsCount;
+            var start = this.auctions.length;
             res.data.auctions.forEach(element => {
+              element.index = start++;
               this.auctions.push(element);
             });
           },
@@ -119,7 +124,9 @@ export class BidListComponent implements OnInit, OnDestroy {
         this.commonService.getAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
           (res: any) => {
             this.totalAuctionsCount = res.data.totalAuctionsCount;
+            var start = this.auctions.length;
             res.data.auctions.forEach(element => {
+              element.index = start++;
               this.auctions.push(element);
             });
           },

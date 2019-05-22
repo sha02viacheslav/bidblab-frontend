@@ -64,7 +64,7 @@
               ||
               (commonService.isMediaActive('gt-sm') 
                 && auction.index >= bidService.detailAuction?.index && auction.index < bidService.detailAuction?.index + 2 
-                && ( auction.index % 2 == 1 || (auction.index == cntAuctionsCount - 1 
+                && ( auction.index % 2 == 1 || (auction.index == totalAuctionsCount - 1 
                     && (auction.index - bidService.detailAuction?.index) <= auction.index % 2))
               )
             )">
