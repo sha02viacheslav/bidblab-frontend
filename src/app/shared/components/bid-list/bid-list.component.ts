@@ -24,18 +24,23 @@ import { BidService } from './bid.service';
 })
 export class BidListComponent implements OnInit, OnDestroy {
 
+  public auctionRole = {
+    pending: 1,
+    process: 2,
+    closed: 4,
+    deleted: 8,
+    all: 15
+  };
   @Input() myBidsFlag: boolean;
   form: FormGroup;
   auctions: any[] = [];
-  allAuctions: any[];
   auction: any;
-  topAuction: any;
-  totalAllAuctionsCount: number;
-  cntAuctionsCount: number;
+  totalAuctionsCount: number;
   private socketEventsSubscription: Subscription;
-  private pageSize: number;
+  public pageSize: number = 10;
+  public pageIndex: number = 0;
   serverUrl = environment.apiUrl;
-  selectedSortField: string = 'closes';
+  auctionType: number = this.auctionRole.process;
   sortFields = [
     {value: 'bidblabPrice', viewValue: 'BidBlab Price'},
     {value: 'retailPrice', viewValue: 'Retail Price'},
@@ -64,28 +69,32 @@ export class BidListComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    commonService.scrollEventReciver$.subscribe(params => {
+      this.onScroll();
+    });
+  }
 
   ngOnInit() {  
     this.pageSize = 10;
     this.getAuctions();
-    this.bidService.getMyCredits();
+    if(this.authenticationService.isAuthenticated()){
+      this.bidService.getMyCredits();
+    }
     this.bidService.detailAuction = '';
-    
   }
 
   ngOnDestroy() {
   }
 
   getAuctions() {
-    this.blockUIService.setBlockStatus(true);
     if(this.myBidsFlag){
-      this.commonService.getBiddingAuctions().subscribe(
+      this.commonService.getBiddingAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
         (res: any) => {
-          this.totalAllAuctionsCount = res.data.totalAllAuctionsCount;
-          this.allAuctions = res.data.auctions;
-          this.applyFilter();
-          this.blockUIService.setBlockStatus(false);
+          this.totalAuctionsCount = res.data.totalAuctionsCount;
+          res.data.auctions.forEach(element => {
+            this.auctions.push(element);
+          });
         },
         (err: HttpErrorResponse) => {
           this.snackBar.open(err.error.msg, 'Dismiss');
@@ -94,12 +103,12 @@ export class BidListComponent implements OnInit, OnDestroy {
     }
     else{
       if(this.authenticationService.isAuthenticated()){
-        this.commonService.getAuctionsAfterLogin().subscribe(
+        this.commonService.getAuctionsAfterLogin(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
           (res: any) => {
-            this.totalAllAuctionsCount = res.data.totalAllAuctionsCount;
-            this.allAuctions = res.data.auctions;
-            this.applyFilter();
-            this.blockUIService.setBlockStatus(false);
+            this.totalAuctionsCount = res.data.totalAuctionsCount;
+            res.data.auctions.forEach(element => {
+              this.auctions.push(element);
+            });
           },
           (err: HttpErrorResponse) => {
             this.snackBar.open(err.error.msg, 'Dismiss');
@@ -107,12 +116,12 @@ export class BidListComponent implements OnInit, OnDestroy {
         );
       }
       else{
-        this.commonService.getAuctions().subscribe(
+        this.commonService.getAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
           (res: any) => {
-            this.totalAllAuctionsCount = res.data.totalAllAuctionsCount;
-            this.allAuctions = res.data.auctions;
-            this.applyFilter();
-            this.blockUIService.setBlockStatus(false);
+            this.totalAuctionsCount = res.data.totalAuctionsCount;
+            res.data.auctions.forEach(element => {
+              this.auctions.push(element);
+            });
           },
           (err: HttpErrorResponse) => {
             this.snackBar.open(err.error.msg, 'Dismiss');
@@ -120,19 +129,6 @@ export class BidListComponent implements OnInit, OnDestroy {
         );
       }
     }
-  }
-
-  applyFilter(){
-    this.auctions = [];
-    this.bidService.detailAuction = '';
-    this.cntAuctionsCount = 0;
-    this.allAuctions.forEach(element => {
-      if(this.listType == 0 && element.role != 'closed' || this.listType == 1 && element.role == 'closed'){
-        element.index = this.cntAuctionsCount++;
-        this.auctions.push(element);
-      }
-    });
-    this.topAuction = this.auctions[0];
   }
 
   applySort() {
@@ -159,6 +155,13 @@ export class BidListComponent implements OnInit, OnDestroy {
     this.sortDirection = (this.sortDirection + 2) % 3 - 1;
     this.applySort();
   }
+
+  onScroll() {
+    if((this.pageIndex + 1) * this.pageSize < this.totalAuctionsCount){
+      this.pageIndex = this.pageIndex + 1;
+      this.getAuctions();
+    } 
+  }  
 
 }
 

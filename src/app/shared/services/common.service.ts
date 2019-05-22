@@ -232,22 +232,25 @@ export class CommonService {
 			`${environment.apiUrl}/api/common/getDefaultCredits`
 		);
   }
-  
-  getAuctions() {
+
+  getAuctions(limit?, offset?, search?, auctionType?) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getAuctions`
+      `${environment.apiUrl}/api/common/getAuctions?limit=${limit ||
+        10}&offset=${offset || 0}&search=${search || ''}&auctionType=${auctionType || ''}`
     );
   }
 
-  getAuctionsAfterLogin() {
+  getAuctionsAfterLogin(limit?, offset?, search?, auctionType?) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getAuctionsAfterLogin`
+      `${environment.apiUrl}/api/common/getAuctionsAfterLogin?limit=${limit ||
+        10}&offset=${offset || 0}&search=${search || ''}&auctionType=${auctionType || ''}`
     );
   }
 
-  getBiddingAuctions() {
+  getBiddingAuctions(limit?, offset?, search?, auctionType?) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getBiddingAuctions`
+      `${environment.apiUrl}/api/common/getBiddingAuctions?limit=${limit ||
+        10}&offset=${offset || 0}&search=${search || ''}&auctionType=${auctionType || ''}`
     );
   }
 

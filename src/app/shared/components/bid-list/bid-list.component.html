@@ -38,8 +38,12 @@
 
           <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
             <span (mouseleave)="moreMenuTrigger.closeMenu()">
-              <button mat-menu-item (click)="listType = 0; applyFilter()">Live Auctions</button>
-              <button mat-menu-item (click)="listType = 1; applyFilter()">Closed Auctions</button>
+              <button mat-menu-item (click)="auctionType = auctionRole.process; auctions = []; getAuctions()">
+                Live Auctions
+              </button>
+              <button mat-menu-item (click)="auctionType = auctionRole.closed; auctions = []; getAuctions()">
+                Closed Auctions
+              </button>
             </span>
           </mat-menu>
         </div>
