@@ -13,13 +13,23 @@ import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert
   templateUrl: './mailbox.component.html',
   styleUrls: ['./mailbox.component.scss'],
 })
+
 export class MailboxComponent implements OnInit {
   @ViewChild('sidenav') sidenav: any;
+
+  public mailRole = {
+    inbox: 1 ,
+    sent: 2,
+    archived: 4,
+    trash: 8,
+    all: 15
+  }
+
   public sidenavOpen:boolean = true;
   public mails: any[];
   public mail: any;
   public newMail: boolean;
-  public type:string = 'all';
+  public mailType:number = this.mailRole.all;
   public totalMails: number;
 	private pageSize: number;
 	public pageIndex: number;
@@ -31,7 +41,9 @@ export class MailboxComponent implements OnInit {
   public searchText: string;
   public form:FormGroup;
 	public selection = new SelectionModel<any>(true, []);
-	serverUrl = environment.apiUrl;
+  serverUrl = environment.apiUrl;
+  
+  
 
   constructor(
     public formBuilder: FormBuilder, 
@@ -47,7 +59,7 @@ export class MailboxComponent implements OnInit {
     }
     this.form = this.formBuilder.group({
       'recievers': ['Admin', Validators.required],
-      'subject': ['', Validators.required],    
+      'subject': '',    
       'message': ''
     }); 
   }
@@ -61,20 +73,12 @@ export class MailboxComponent implements OnInit {
     if (event) {
       this.pageSize = event.pageSize;
       this.pageIndex = event.pageIndex;
-    }
-
-    let role;                        
-    switch(this.type){
-      case 'all': { role = 1 << 0 | 1 << 1 | 1 << 2; break; }
-      case 'inbox': { role = 1 << 0; break; }
-      case 'sent': { role = 1 << 1; break; }
-      case 'archived': { role = 1 << 2; break; }
-    }
+    }   
     this.commonService.getMails(
       this.pageSize,
       this.pageIndex,
       this.search,
-      role,
+      this.mailType,
       this.sortParam.active,
       this.sortParam.direction,
     ).subscribe(
@@ -113,6 +117,10 @@ export class MailboxComponent implements OnInit {
     this.mail = mail;    
     this.mails.forEach(m => m.selected = false);
     this.mail.selected = true;
+    if(!this.mail.sender){
+      this.form.controls.recievers.setValue(String('Admin'));
+      this.form.controls.subject.setValue(this.mail.subject);
+    }
     // this.mail.unread = false;
     this.newMail = false;
     if(window.innerWidth <= 992){
@@ -123,24 +131,8 @@ export class MailboxComponent implements OnInit {
   public compose(){
     this.mail = null;
     this.form.controls.recievers.setValue(String('Admin'));
+    this.form.controls.subject.setValue('');
     this.newMail = true;
-  }
-
-  public setAsRead(){
-    this.mail.unread = false;
-  }
-
-  public setAsUnRead(){
-    this.mail.unread = true;
-  }
-
-  public delete() {
-    this.mail.trash = true;
-    this.mail.sent = false;
-    this.mail.draft = false; 
-    this.mail.starred = false; 
-    this.getMails();
-    this.mail = null;
   }
 
   public applyRoleOfMails(roleType, apply){
@@ -184,13 +176,6 @@ export class MailboxComponent implements OnInit {
     this.getMails(); 
   }
 
-  public restore(){
-    this.mail.trash = false;
-    this.type = 'all';
-    this.getMails();
-    this.mail = null; 
-  }
-
   applySearch(searchValue: string) {
 		this.search = searchValue.trim().toLowerCase();
 		this.getMails();
@@ -201,7 +186,8 @@ export class MailboxComponent implements OnInit {
       this.dialog.
         open(AlertDialogComponent, {
           data: {
-            title: "Are you sure send message?",
+            title: this.form.value.subject? "Are you sure send message?" : 
+              "This message has no subject. Are you sure you want to send it?",
             comment: "",
             dialog_type: "confirm" 
           },
@@ -214,6 +200,7 @@ export class MailboxComponent implements OnInit {
                   duration: 2000,
                 });
                 this.getMails();
+                this.form.reset();
               },
               (err: HttpErrorResponse) => {
                 this.snackBar.open(err.error.msg, 'Dismiss', {
@@ -221,10 +208,8 @@ export class MailboxComponent implements OnInit {
                 });
               }
             );
-            this.form.reset();
           }
         });
-        
     }
   }
 

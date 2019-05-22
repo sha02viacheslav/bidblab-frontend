@@ -11,14 +11,14 @@
             <div class="fill-remaining-space"></div>
             <input *ngIf="!selection.selected.length" [(ngModel)]="searchText" type="text" placeholder="Search mail..."
               class="search mat-elevation-z3">
-            <button *ngIf="selection.selected.length" mat-icon-button (click)="applyRoleOfMails(3, true)"
+            <button *ngIf="selection.selected.length" mat-icon-button (click)="applyRoleOfMails(2, true)"
               matTooltip="Move to trash" matTooltipPosition="above">
               <mat-icon>delete</mat-icon>
             </button>
-            <button *ngIf="selection.selected.length" mat-icon-button matTooltip="Restore"
+            <!-- <button *ngIf="selection.selected.length" mat-icon-button matTooltip="Restore"
               (click)="applyRoleOfMails(3, false)" matTooltipPosition="above">
               <mat-icon>reply</mat-icon>
-            </button>
+            </button> -->
             <mat-checkbox class="select-all-mail" (change)="$event ? masterToggle() : null"
               [checked]="selection.hasValue() && isAllSelected()"
               [indeterminate]="selection.hasValue() && !isAllSelected()">
@@ -26,10 +26,10 @@
           </mat-toolbar>
           <mat-menu #filterMenu="matMenu" xPosition="before" overlapTrigger="true">
             <span (mouseleave)="filterMenuTrigger.closeMenu()">
-              <button mat-menu-item (click)="type = 'all';getMails();">All</button>
-              <button mat-menu-item (click)="type = 'inbox';getMails();">In-Box</button>
-              <button mat-menu-item (click)="type = 'sent';getMails();">SentMail</button>
-              <button mat-menu-item (click)="type = 'archived';getMails();">Archived</button>
+              <button mat-menu-item (click)="mailType = mailRole.all; getMails();">All</button>
+              <button mat-menu-item (click)="mailType = mailRole.inbox; getMails();">In-Box</button>
+              <button mat-menu-item (click)="mailType = mailRole.sent; getMails();">SentMail</button>
+              <button mat-menu-item (click)="mailType = mailRole.archived; getMails();">Archived</button>
             </span>
           </mat-menu>
           <mat-nav-list class="p-0 mailbox-sidenav-list" perfectScrollbar>
@@ -60,7 +60,7 @@
               <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button (click)="sidenav.toggle()">
                 <mat-icon>list</mat-icon>
               </button>
-              <button *ngIf="newMail" mat-icon-button (click)="newMail = false;" matTooltip="Back"
+              <!-- <button *ngIf="newMail" mat-icon-button (click)="newMail = false;" matTooltip="Back"
                 matTooltipPosition="above">
                 <mat-icon>arrow_back</mat-icon>
               </button>
@@ -75,17 +75,17 @@
               <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger"
                 [style.display]="(mail) ? 'block' : 'none'">
                 <mat-icon>more_vert</mat-icon>
-              </button>
+              </button> -->
             </div>
             <button mat-raised-button color="warn" (click)="compose()">Compose</button>
           </mat-toolbar>
-          <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
+          <!-- <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
             <span (mouseleave)="moreMenuTrigger.closeMenu()">
               <button mat-menu-item (click)="setAsRead()">Mark as read</button>
               <button mat-menu-item (click)="setAsUnRead()">Mark as unread</button>
               <button mat-menu-item (click)="delete()">Delete</button>
             </span>
-          </mat-menu>
+          </mat-menu> -->
           <div class="mailbox-content" perfectScrollbar>
             <div *ngIf="mail">
               <mat-list class="p-0">
@@ -110,6 +110,25 @@
                 <mat-divider></mat-divider>
               </mat-list>
               <div class="mail-body" [innerHTML]="mail.message"></div>
+              <form *ngIf="!mail.sender" [formGroup]="form" (ngSubmit)="sendMessage(form.value)" class="mail-body">
+                <mat-form-field class="w-100 display-none">
+                  <input matInput placeholder="To" formControlName="recievers">
+                  <mat-error *ngIf="form.controls.recievers.errors?.required">Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Subject" formControlName="subject">
+                  <mat-error *ngIf="form.controls.subject.errors?.required">Subject is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Message</mat-label>
+                  <textarea matInput formControlName="message" matTextareaAutosize matAutosizeMinRows=2
+                    matAutosizeMaxRows=5></textarea>
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <button mat-raised-button (click)="cancelSendMessage(form.value);" type="button">Cancel</button>
+                  <button mat-raised-button color="primary" type="submit">Reply</button>
+                </div>
+              </form>
             </div>
             <div *ngIf="!mail && !newMail" fxLayout="column" fxLayoutAlign="center center" class="h-100 empty">
               <mat-icon>mail_outline</mat-icon>
