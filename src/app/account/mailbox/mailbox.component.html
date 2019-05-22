@@ -11,7 +11,7 @@
             <div class="fill-remaining-space"></div>
             <input *ngIf="!selection.selected.length" [(ngModel)]="searchText" type="text" placeholder="Search mail..."
               class="search mat-elevation-z3">
-            <button *ngIf="selection.selected.length" mat-icon-button (click)="applyRoleOfMails(2, true)"
+            <button *ngIf="selection.selected.length" mat-icon-button (click)="applyRoleOfMails(mailRole.trash, true)"
               matTooltip="Move to trash" matTooltipPosition="above">
               <mat-icon>delete</mat-icon>
             </button>

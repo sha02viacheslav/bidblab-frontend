@@ -154,8 +154,9 @@ export class MailboxComponent implements OnInit {
 	}
 
 	public finalApplyRoleOfMails(mailIds, roleType, apply) {
+    console.log(apply);
 		if(mailIds.length){
-			if(confirm("Are you sure to " + (apply == 'true'? 'delete' : 'restore') + "?")){
+			if(confirm("Are you sure to " + (apply == true? 'delete' : 'restore') + " message?")){
 				this.commonService.applyRoleOfMails(mailIds, roleType, apply)
 					.subscribe(
 					(res: any) => {
@@ -217,23 +218,23 @@ export class MailboxComponent implements OnInit {
 
   public cancelSendMessage(mail){
     this.newMail = false; 
-    if(mail.recievers){
-      if(confirm("Will you archive message?")){
-        this.commonService.archiveMessage(mail).subscribe(
-          (res: any) => {
-            this.snackBar.open(res.msg, null, {
-              duration: 2000,
-            });
-            this.getMails();
-          },
-          (err: HttpErrorResponse) => {
-            this.snackBar.open(err.error.msg, 'Dismiss', {
-              duration: 2000
-            });
-          }
-        );
-      }
-    }
+    // if(mail.recievers){
+    //   if(confirm("Will you archive message?")){
+    //     this.commonService.archiveMessage(mail).subscribe(
+    //       (res: any) => {
+    //         this.snackBar.open(res.msg, null, {
+    //           duration: 2000,
+    //         });
+    //         this.getMails();
+    //       },
+    //       (err: HttpErrorResponse) => {
+    //         this.snackBar.open(err.error.msg, 'Dismiss', {
+    //           duration: 2000
+    //         });
+    //       }
+    //     );
+    //   }
+    // }
     this.form.reset();  
   }
 
