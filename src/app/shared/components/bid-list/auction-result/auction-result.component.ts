@@ -33,7 +33,6 @@ export class AuctionResultComponent implements OnInit, AfterViewInit {
       element.username = element.bidder.username;
     });
     this.dataSource = new MatTableDataSource<any>(this.auction.bids);
-    console.log(this.dataSource);
   }
   
   ngAfterViewInit() {

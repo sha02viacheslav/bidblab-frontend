@@ -150,30 +150,33 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
       .pipe(filter((event: any) => event.payload))
       .subscribe((event: any) => {
         if (event.payload.type === 'answer') {
-          this.snackBar.open('Answers were updated.', 'Dismiss', {
-            duration: 2000
-          });
-          if (event.name === 'createdData') {
-            this.question.answers.push(event.payload.data);
-          } else {
-            const index = this.question.answers.findIndex(
-              currentAnswer => currentAnswer._id === event.payload.data._id
-            );
-            if (index !== -1) {
-              if (event.name === 'updatedData') {
-                this.question.answers[index] = event.payload.data;
-              } else {
-                this.question.answers.splice(index, 1);
+          if(event.payload.data.questionId == this.question._id){
+            this.snackBar.open('Answers were updated.', 'Dismiss', {duration: 2000});
+            if (event.name === 'createdData') {
+              this.question.answers.push(event.payload.data);
+            } 
+            else {
+              const index = this.question.answers.findIndex(
+                currentAnswer => currentAnswer._id === event.payload.data._id
+              );
+              if (index !== -1) {
+                if (event.name === 'updatedData') {
+                  this.question.answers[index] = event.payload.data;
+                } else {
+                  this.question.answers.splice(index, 1);
+                }
               }
             }
           }
-        } else {
+        } 
+        else if(event.payload.type === 'question') {
           if (event.name === 'updatedData') {
             this.question = event.payload.data;
             this.snackBar.open('Question was updated.', 'Dismiss', {
               duration: 2000
             });
-          } else if (event.name === 'deletedData') {
+          } 
+          else if (event.name === 'deletedData') {
             this.snackBar.open('Question was deleted.', 'Dismiss');
             this.router.navigateByUrl('/');
           }

@@ -124,16 +124,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe(newQuestion => {
           if (newQuestion) {
-            if (question) {
-              const index = this.questions.findIndex(
-                currentQuestion => currentQuestion._id === question._id
-              );
-              if (index !== -1) {
-                this.questions[index] = newQuestion;
-              }
-            } else {
-              this.questions.push(newQuestion);
-            }
+            // if (question) {
+            //   const index = this.questions.findIndex(
+            //     currentQuestion => currentQuestion._id === question._id
+            //   );
+            //   if (index !== -1) {
+            //     this.questions[index] = newQuestion;
+            //   }
+            // } else {
+            //   this.questions.push(newQuestion);
+            // }
             this.dialogService.
                 open(AlertDialogComponent, {
                   data: {
@@ -154,41 +154,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/extra/login');
     }
   }
-
-  // openAnswerDialog(questionId, answer?: Answer) {
-  //   if (this.authenticationService.isAuthenticated()) {
-  //     this.dialogService
-  //       .open(AnswerDialogComponent, {
-  //         data: {
-  //           questionId,
-  //           answer
-  //         }
-  //       })
-  //       .afterClosed()
-  //       .subscribe(newAnswer => {
-  //         if (newAnswer) {
-  //           let index = this.questions.findIndex(
-  //             question => question._id === questionId
-  //           );
-  //           if (index !== -1) {
-  //             const question = this.questions[index];
-  //             if (answer) {
-  //               index = question.answers.findIndex(
-  //                 currentAnswer => currentAnswer._id === answer._id
-  //               );
-  //               if (index !== -1) {
-  //                 question.answers[index] = newAnswer;
-  //               }
-  //             } else {
-  //               question.answers.push(newAnswer);
-  //             }
-  //           }
-  //         }
-  //       });
-  //   } else {
-  //     this.dialogService.open(LoginComponent);
-  //   }
-  // }
 
   searchBoxAction(){
     if(this.newQuestionFlag){
@@ -216,58 +181,42 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  isAsker(questionId) {
-    const question = this.questions.find(
-      currentQuestion => currentQuestion._id === questionId
-    );
-    return (
-      this.authenticationService.getUser() &&
-      question.asker &&
-      question.asker._id === this.authenticationService.getUser()._id
-    );
-  }
-
-  canAnswer(questionId) {
-    return (
-      !this.authenticationService.getUser() ||
-      !this.questions
-        .find(question => question._id === questionId)
-        .answers.some(
-          answer =>
-            answer.answerer &&
-            answer.answerer._id === this.authenticationService.getUser()._id
-        )
-    );
-  }
-
   private listenToSocket() {
     this.socketEventsSubscription = this.socketsService
       .getSocketEvents()
       .pipe(filter((event: any) => event.payload))
       .subscribe((event: any) => {
-        this.snackBar.open('Questions were updated.', 'Dismiss', {
-          duration: 2000
-        });
         if (event.payload.type === 'question') {
           if (event.name === 'createdData') {
-            this.totalQuestionsCount++;
-            if (this.questions.length < this.pageSize) {
-              this.questions.push(event.payload.data);
-            }
-          } else {
+            // this.totalQuestionsCount++;
+            // if (this.questions.length < this.pageSize) {
+            //   this.questions.push(event.payload.data);
+            // }
+            this.snackBar.open('Question was created.', 'Dismiss', {
+              duration: 2000
+            });
+          } 
+          else {
             const index = this.questions.findIndex(
               currentQuestion => currentQuestion._id === event.payload.data._id
             );
             if (index !== -1) {
               if (event.name === 'updatedData') {
                 this.questions[index] = event.payload.data;
+                this.snackBar.open('Question was updated.', 'Dismiss', {
+                  duration: 2000
+                });
               } else {
                 this.questions.splice(index, 1);
                 this.totalQuestionsCount--;
+                this.snackBar.open('Question was deleted.', 'Dismiss', {
+                  duration: 2000
+                });
               }
             }
           }
-        } else {
+        } 
+        else if(event.payload.type === 'answer') {
           let index = this.questions.findIndex(
             currentQuestion =>
               currentQuestion._id === event.payload.data.questionId
@@ -276,6 +225,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             const question = this.questions[index];
             if (event.name === 'createdData') {
               question.answers.push(event.payload.data);
+              this.snackBar.open('Answer was created.', 'Dismiss', {
+                duration: 2000
+              });
             } else {
               index = question.answers.findIndex(
                 currentAnswer => currentAnswer._id === event.payload.data._id
@@ -283,8 +235,14 @@ export class HomeComponent implements OnInit, OnDestroy {
               if (index !== -1) {
                 if (event.name === 'updatedData') {
                   question.answers[index] = event.payload.data;
+                  this.snackBar.open('Answer was updated.', 'Dismiss', {
+                    duration: 2000
+                  });
                 } else {
                   question.answers.splice(index, 1);
+                  this.snackBar.open('Answer was deleted.', 'Dismiss', {
+                    duration: 2000
+                  });
                 }
               }
             }

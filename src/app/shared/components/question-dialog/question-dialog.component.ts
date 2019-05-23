@@ -97,14 +97,8 @@ export class QuestionDialogComponent implements OnInit {
             data: res.data
           });
           this.blockUIService.setBlockStatus(false);
-          this.snackBar.open(res.msg, 'Dismiss', {
-            duration: 1500
-          })
-          .afterOpened()
-          .subscribe(() => {
-            this.submitted = true;
-            this.dialogRef.close(res.data);
-          });
+          this.submitted = true;
+          this.dialogRef.close(res.data);
         },
         (err: HttpErrorResponse) => {
           this.submitted = false;

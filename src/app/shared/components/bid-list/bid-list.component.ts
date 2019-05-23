@@ -83,6 +83,7 @@ export class BidListComponent implements OnInit, OnDestroy {
       this.bidService.getMyCredits();
     }
     this.bidService.detailAuction = null;
+    this.listenToSocket();
   }
 
   ngOnDestroy() {
@@ -169,6 +170,35 @@ export class BidListComponent implements OnInit, OnDestroy {
       this.getAuctions();
     } 
   }  
+
+  private listenToSocket() {
+    this.socketEventsSubscription = this.socketsService
+      .getSocketEvents()
+      .pipe(filter((event: any) => event.payload))
+      .subscribe((event: any) => {
+        this.snackBar.open('Questions were updated.', 'Dismiss', {
+          duration: 2000
+        });
+        if (event.payload.type === 'question') {
+          if (event.name === 'createdData') {
+            console.log("create question")
+          } else {
+            console.log("update question")
+            // const index = this.questions.findIndex(
+            //   currentQuestion => currentQuestion._id === event.payload.data._id
+            // );
+            // if (index !== -1) {
+            //   if (event.name === 'updatedData') {
+            //     this.questions[index] = event.payload.data;
+            //   } else {
+            //     this.questions.splice(index, 1);
+            //     this.totalQuestionsCount--;
+            //   }
+            // }
+          }
+        }
+      });
+  }
 
 }
 
