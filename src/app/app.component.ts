@@ -90,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     setInterval(() => {
       $("#main-nicescrollable").getNiceScroll().resize();
-    }, 100);
+    }, 1000);
     
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();
