@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { BidService } from '../bid.service';
+import { MatTableDataSource, MatOption, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-auction-grid',
@@ -20,12 +21,21 @@ export class AuctionGridComponent implements OnInit {
   }
 
   displayDetail(){
+    this.lessDetail();
+    setTimeout(() => { 
+      this.viewDetail();
+    }, 100);
+    
+  }
+
+  viewDetail(){
     this.bidService.detailAuction = this.auction;
     this.bidService.detailAuction.display = true;
   }
   
   lessDetail(){
     this.bidService.detailAuction = null;
+    this.bidService.dataSource = null;
   }
 }
 

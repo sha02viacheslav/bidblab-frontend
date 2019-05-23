@@ -7,6 +7,7 @@ import { CommonService } from '../../../shared/services/common.service';
 export class BidService {
 
   public detailAuction: any;
+  public dataSource: any; 
   public questionCredits: number = 0;
   public optionalImageCredits: number = 0;
   public answerCredits: number = 0;

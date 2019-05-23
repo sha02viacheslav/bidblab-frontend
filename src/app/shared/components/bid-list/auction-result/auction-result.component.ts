@@ -16,7 +16,7 @@ import { MatTableDataSource, MatOption, MatSort } from '@angular/material';
 })
 export class AuctionResultComponent implements OnInit, AfterViewInit {
 
-  @Input() auction: any;
+  @Input() auction: any; 
   @Input() auctionType: any;
   private serverUrl = environment.apiUrl;
 	public displayedColumns: string[] = ['bidPrice', 'username', 'createdAt'];
@@ -33,6 +33,7 @@ export class AuctionResultComponent implements OnInit, AfterViewInit {
       element.username = element.bidder.username;
     });
     this.dataSource = new MatTableDataSource<any>(this.auction.bids);
+    console.log(this.dataSource);
   }
   
   ngAfterViewInit() {
