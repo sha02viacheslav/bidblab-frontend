@@ -87,6 +87,7 @@ export class BidListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.socketEventsSubscription.unsubscribe();
   }
 
   getAuctions() {
@@ -201,12 +202,9 @@ export class BidListComponent implements OnInit, OnDestroy {
       .getSocketEvents()
       .pipe(filter((event: any) => event.payload))
       .subscribe((event: any) => {
-        this.snackBar.open('Questions were updated.', 'Dismiss', {
-          duration: 2000
-        });
         if (event.payload.type === 'auction') {
           if (event.name === 'createdData') {
-            console.log("create question")
+            console.log("create auction")
           } else if (event.name === 'updatedData') {
             console.log("update auction", event.payload.data);
             this.getAuction(event.payload.data.auctionId);
