@@ -88,10 +88,12 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
         this.blockUIService.setBlockStatus(true);
         this.commonService.addBid(this.auction._id, this.infoForm.value).subscribe(
           (res: any) => {
-            // this.socketsService.notify('createdData', {
-            //   type: 'question',
-            //   data: res.data
-            // });
+            this.socketsService.notify('updatedData', {
+              type: 'auction',
+              data: Object.assign(
+                { auctionId: this.auction._id },
+              )
+            });
             this.blockUIService.setBlockStatus(false);
             this.bidService.getMyCredits();
             this.snackBar.open(res.msg, 'Dismiss', {

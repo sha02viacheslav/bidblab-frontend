@@ -254,6 +254,12 @@ export class CommonService {
     );
   }
 
+  getAuctionById(auctionId) {
+    return this.httpClient.get(
+      `${environment.apiUrl}/api/common/getAuctionById/${auctionId}`
+    );
+  }
+
   addBid(auctionId, body) {
     return this.httpClient.post(
       `${environment.apiUrl}/api/common/addBid/${auctionId}`,

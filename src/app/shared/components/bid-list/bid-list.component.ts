@@ -139,6 +139,31 @@ export class BidListComponent implements OnInit, OnDestroy {
     }
   }
 
+  getAuction(auctionId) {
+    this.commonService.getAuctionById(auctionId).subscribe(
+      (res: any) => {
+        const index = this.auctions.findIndex(
+          currentQuestion => currentQuestion._id === res.data.auction._id
+        );
+        if (index !== -1) {
+          res.data.auction.index = this.auctions[index].index;
+          this.auctions[index] = res.data.auction;
+          if(this.bidService.detailAuction && this.auctions[index].index == this.bidService.detailAuction.index){
+            this.bidService.detailAuction = null;
+            this.bidService.dataSource = null;
+            setTimeout(() => { 
+              this.bidService.detailAuction = this.auctions[index];
+              this.bidService.detailAuction.display = true;
+            }, 100);
+          }
+        }
+      },
+      (err: HttpErrorResponse) => {
+        this.snackBar.open(err.error.msg, 'Dismiss');
+      }
+    );
+  }
+
   applySort() {
     this.sortParam.active = this.selectedSortField;
     this.sortParam.direction = this.sortDirectionList[this.sortDirection];
@@ -179,22 +204,15 @@ export class BidListComponent implements OnInit, OnDestroy {
         this.snackBar.open('Questions were updated.', 'Dismiss', {
           duration: 2000
         });
-        if (event.payload.type === 'question') {
+        if (event.payload.type === 'auction') {
           if (event.name === 'createdData') {
             console.log("create question")
-          } else {
-            console.log("update question")
-            // const index = this.questions.findIndex(
-            //   currentQuestion => currentQuestion._id === event.payload.data._id
-            // );
-            // if (index !== -1) {
-            //   if (event.name === 'updatedData') {
-            //     this.questions[index] = event.payload.data;
-            //   } else {
-            //     this.questions.splice(index, 1);
-            //     this.totalQuestionsCount--;
-            //   }
-            // }
+          } else if (event.name === 'updatedData') {
+            console.log("update auction", event.payload.data);
+            this.getAuction(event.payload.data.auctionId);
+            this.snackBar.open('Auction was updated.', 'Dismiss', {
+              duration: 2000
+            });
           }
         }
       });
