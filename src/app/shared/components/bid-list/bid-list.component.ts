@@ -82,7 +82,7 @@ export class BidListComponent implements OnInit, OnDestroy {
     if(this.authenticationService.isAuthenticated()){
       this.bidService.getMyCredits();
     }
-    this.bidService.detailAuction = '';
+    this.bidService.detailAuction = null;
   }
 
   ngOnDestroy() {

@@ -25,7 +25,7 @@ export class AuctionGridComponent implements OnInit {
   }
   
   lessDetail(){
-    this.bidService.detailAuction = '';
+    this.bidService.detailAuction = null;
   }
 }
 
