@@ -224,17 +224,17 @@ export class HomeComponent implements OnInit, OnDestroy {
           if (index !== -1) {
             const question = this.questions[index];
             if (event.name === 'createdData') {
-              question.answers.push(event.payload.data);
+              question.answers.push(event.payload.data.answer);
               this.snackBar.open('Answer was created.', 'Dismiss', {
                 duration: 2000
               });
             } else {
               index = question.answers.findIndex(
-                currentAnswer => currentAnswer._id === event.payload.data._id
+                currentAnswer => currentAnswer._id === event.payload.data.answer._id
               );
               if (index !== -1) {
                 if (event.name === 'updatedData') {
-                  question.answers[index] = event.payload.data;
+                  question.answers[index] = event.payload.data.answer;
                   this.snackBar.open('Answer was updated.', 'Dismiss', {
                     duration: 2000
                   });

@@ -154,15 +154,15 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
           if(event.payload.data.questionId === this.question._id){
             this.snackBar.open('Answers were updated.', 'Dismiss', {duration: 2000});
             if (event.name === 'createdData') {
-              this.question.answers.push(event.payload.data);
+              this.question.answers.push(event.payload.data.answer);
             } 
             else {
               const index = this.question.answers.findIndex(
-                currentAnswer => currentAnswer._id === event.payload.data._id
+                currentAnswer => currentAnswer._id === event.payload.data.answer._id
               );
               if (index !== -1) {
                 if (event.name === 'updatedData') {
-                  this.question.answers[index] = event.payload.data;
+                  this.question.answers[index] = event.payload.data.answer;
                 } else {
                   this.question.answers.splice(index, 1);
                 }
