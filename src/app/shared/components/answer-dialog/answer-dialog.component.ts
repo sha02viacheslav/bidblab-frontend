@@ -73,7 +73,7 @@ export class AnswerDialogComponent implements OnInit {
               this.socketsService.notify('updatedData', {
                 type: 'answer',
                 data: Object.assign(
-                  { questionId: this.data.questionId, answer: res.data },
+                  { questionId: this.data.question._id, answer: res.data },
                 )
               });
               this.blockUIService.setBlockStatus(false);
@@ -106,7 +106,7 @@ export class AnswerDialogComponent implements OnInit {
               this.socketsService.notify('createdData', {
                 type: 'answer',
                 data: Object.assign(
-                  { questionId: this.data.questionId, answer: res.data },
+                  { questionId: this.data.question._id, answer: res.data },
                 )
               });
               this.blockUIService.setBlockStatus(false);
