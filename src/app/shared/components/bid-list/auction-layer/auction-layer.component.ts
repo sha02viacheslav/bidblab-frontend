@@ -88,7 +88,6 @@ export class AuctionLayerComponent implements OnInit {
 
   displayDetail(){
     this.bidService.detailAuction = this.auction;
-    this.bidService.detailAuction.display = true;
   }
   
 }

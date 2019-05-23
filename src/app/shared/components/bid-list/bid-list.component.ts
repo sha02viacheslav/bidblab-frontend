@@ -154,7 +154,6 @@ export class BidListComponent implements OnInit, OnDestroy {
             this.bidService.dataSource = null;
             setTimeout(() => { 
               this.bidService.detailAuction = this.auctions[index];
-              this.bidService.detailAuction.display = true;
             }, 100);
           }
         }

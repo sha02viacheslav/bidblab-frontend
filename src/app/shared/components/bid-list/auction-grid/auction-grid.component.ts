@@ -30,7 +30,6 @@ export class AuctionGridComponent implements OnInit {
 
   viewDetail(){
     this.bidService.detailAuction = this.auction;
-    this.bidService.detailAuction.display = true;
   }
   
   lessDetail(){
