@@ -8,7 +8,7 @@
   <mat-dialog-content fxLayout="column">
     <div class="catagory-content-wrap">
       <div class="row no-gutters">
-        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 mobile-display-none">
           <div class="auction-image" [style.background-image]="auction?.auctionPicture?.length?
               'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' : 'url(assets/imgs/empty-image.png)'">
           </div>
@@ -40,17 +40,18 @@
           </div>
           <mat-form-field class="bidprice-wrap" appearance="outline">
             <mat-label>Bid Price</mat-label>
-            <input numeric numericType="decimal" type="tel" matInput 
-              formControlName="bidPrice" (keyup.enter)="submitForm()" required>
-            <mat-error *ngIf="checkError(infoForm, 'bidPrice', ['required', 'blank'])">
-              Required.
-            </mat-error>
-            <mat-error *ngIf="checkError(infoForm, 'bidPrice', 'max')">
+            <input *ngIf="commonService.isMediaActive('gt-xs')" numeric numericType="decimal" type="tel" matInput 
+              formControlName="bidPrice" required>
+            <input *ngIf="!commonService.isMediaActive('gt-xs')" numeric numericType="mobiledecimal" type="tel" matInput 
+              formControlName="bidPrice">
+            <!-- <mat-error *ngIf="infoForm.controls.bidPrice.errors?.required">Required.
+            </mat-error> -->
+            <mat-error *ngIf="infoForm.controls.bidPrice.errors?.max">
               Must be equal or lower than bidblab price.
             </mat-error>
-            <mat-error *ngIf="checkError(infoForm, 'bidPrice', 'min')">
+            <!-- <mat-error *ngIf="infoForm.controls.bidPrice.errors?.min">
               Must be equal or higher than 0.01.
-            </mat-error>
+            </mat-error> -->
           </mat-form-field>
         </div>
       </div>

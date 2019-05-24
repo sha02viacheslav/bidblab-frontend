@@ -151,7 +151,6 @@ export class BidListComponent implements OnInit, OnDestroy {
           this.auctions[index] = res.data.auction;
           if(this.bidService.detailAuction && this.auctions[index].index == this.bidService.detailAuction.index){
             this.bidService.detailAuction = null;
-            this.bidService.dataSource = null;
             setTimeout(() => { 
               this.bidService.detailAuction = this.auctions[index];
             }, 100);
@@ -203,9 +202,9 @@ export class BidListComponent implements OnInit, OnDestroy {
       .subscribe((event: any) => {
         if (event.payload.type === 'auction') {
           if (event.name === 'createdData') {
-            console.log("create auction")
+            // console.log("create auction")
           } else if (event.name === 'updatedData') {
-            console.log("update auction", event.payload.data);
+            // console.log("update auction", event.payload.data);
             this.getAuction(event.payload.data.auctionId);
             this.snackBar.open('Auction was updated.', 'Dismiss', {
               duration: 2000

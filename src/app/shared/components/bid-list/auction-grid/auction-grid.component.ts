@@ -34,7 +34,6 @@ export class AuctionGridComponent implements OnInit {
   
   lessDetail(){
     this.bidService.detailAuction = null;
-    this.bidService.dataSource = null;
   }
 }
 

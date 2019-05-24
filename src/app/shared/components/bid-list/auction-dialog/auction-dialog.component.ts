@@ -48,13 +48,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.infoForm = this.fb.group({
       bidPrice: [
-        '',
-        [
-          Validators.required,
-          Validators.min(0.01),
-          Validators.max(this.auction.bidblabPrice),
-          this.formValidationService.isBlank,
-        ]
+        '', Validators.compose([Validators.required, Validators.min(0.01), Validators.max(this.auction.bidblabPrice),])
       ]
     });
     
@@ -86,40 +80,33 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
       }
       else{
         this.blockUIService.setBlockStatus(true);
-        this.commonService.addBid(this.auction._id, this.infoForm.value).subscribe(
-          (res: any) => {
-            this.socketsService.notify('updatedData', {
-              type: 'auction',
-              data: Object.assign(
-                { auctionId: this.auction._id },
-              )
-            });
-            this.blockUIService.setBlockStatus(false);
-            this.bidService.getMyCredits();
-            this.snackBar.open(res.msg, 'Dismiss', {
-              duration: 1500
-            })
-            .afterOpened()
-            .subscribe(() => {
-              this.submitted = true;
-              this.dialogRef.close(res.data);
-            });
-          },
-          (err: HttpErrorResponse) => {
-            this.submitted = false;
-            this.blockUIService.setBlockStatus(false);
-            this.snackBar
-              .open(err.error.msg, 'Dismiss', {
-                duration: 4000
-              })
-              .afterDismissed()
-              .subscribe(() => {
-                this.dialogRef.close(); 
-              });
-          }
-        );
+        this.commonService.addBid(this.auction._id, this.infoForm.value).subscribe((res: any) => {
+          this.socketsService.notify('updatedData', {
+            type: 'auction',
+            data: Object.assign(
+              { auctionId: this.auction._id },
+            )
+          });
+          this.blockUIService.setBlockStatus(false);
+          this.bidService.getMyCredits();
+          this.snackBar.open(res.msg, 'Dismiss', {
+            duration: 1500
+          }).afterOpened().subscribe(() => {
+            this.submitted = true;
+            this.dialogRef.close(res.data);
+          });
+        },(err: HttpErrorResponse) => {
+          this.submitted = false;
+          this.blockUIService.setBlockStatus(false);
+          this.snackBar.open(err.error.msg, 'Dismiss', {
+            duration: 4000
+          }).afterDismissed().subscribe(() => {
+            this.dialogRef.close(); 
+          });
+        });
       }
     }
   }
+
 }
 
