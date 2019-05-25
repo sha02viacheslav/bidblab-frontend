@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {FlexLayoutServerModule} from '@angular/flex-layout/server';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
@@ -80,6 +81,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
   imports: [
     CommonModule,
     FlexLayoutModule,
+    // FlexLayoutServerModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

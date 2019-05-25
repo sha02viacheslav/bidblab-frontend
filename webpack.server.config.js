@@ -15,6 +15,7 @@ module.exports = {
   optimization: {
     minimize: false
   },
+  externals: [/node_modules/, 'bufferutil', 'utf-8-validate'],
   output: {
 	libraryTarget: 'commonjs2',
     // Puts the output at the root of the dist folder

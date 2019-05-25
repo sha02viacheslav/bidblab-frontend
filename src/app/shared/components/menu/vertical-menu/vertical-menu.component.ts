@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-// import { AppSettings } from '../../../../app.settings';
-// import { Settings } from '../../../../app.settings.model';
 import { MenuService } from '../menu.service';
 
 @Component({
@@ -16,14 +14,10 @@ export class VerticalMenuComponent implements OnInit {
   @Input('menuParentId') menuParentId;
   @Output() onClickMenuItem:EventEmitter<any> = new EventEmitter<any>();
   parentMenu:Array<any>;
-  // public settings: Settings;
   constructor(
-    // public appSettings:AppSettings, 
     public menuService:MenuService, 
     public router:Router
-  ) { 
-    // this.settings = this.appSettings.settings;
-  }
+  ) { }
 
   ngOnInit() {
     this.parentMenu = this.menuItems.filter(item => item.parentId == this.menuParentId);  

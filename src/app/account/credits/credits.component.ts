@@ -1,17 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogService } from '../../shared/services/dialog.service';
 import { CommonService } from '../../shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
-import { SocketsService } from '../../shared/services/sockets.service';
-import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 @Component({
   selector: 'app-credits',
   templateUrl: './credits.component.html',
