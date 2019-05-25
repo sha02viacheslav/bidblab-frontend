@@ -40,10 +40,7 @@
           </div>
           <mat-form-field class="bidprice-wrap" appearance="outline">
             <mat-label>Bid Price</mat-label>
-            <input *ngIf="commonService.isMediaActive('gt-xs')" numeric numericType="decimal" type="tel" matInput 
-              formControlName="bidPrice" required>
-            <input *ngIf="!commonService.isMediaActive('gt-xs')" numeric numericType="mobiledecimal" type="tel" matInput 
-              formControlName="bidPrice">
+            <input numeric numericType="decimal" type="tel" matInput formControlName="bidPrice" required>
             <!-- <mat-error *ngIf="infoForm.controls.bidPrice.errors?.required">Required.
             </mat-error> -->
             <mat-error *ngIf="infoForm.controls.bidPrice.errors?.max">
