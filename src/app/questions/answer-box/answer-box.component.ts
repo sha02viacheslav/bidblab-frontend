@@ -54,13 +54,9 @@ export class AnswerBoxComponent implements OnInit {
       content: '', 
     });
     
-		this.commonService.getDefaultCredits().subscribe(
-			(res: any) => {
-					this.defaultCredits = res.data;
-				},
-			(err: HttpErrorResponse) => {
-				}
-			);
+		this.commonService.getDefaultCredits().subscribe((res: any) => {
+      this.defaultCredits = res.data;
+    });
   }
 
   submitForm(answertype) {
@@ -143,19 +139,18 @@ export class AnswerBoxComponent implements OnInit {
               });
             
             
-            this.dialogService.
-              open(AlertDialogComponent, {
-                data: {
-                  title: "Answer submitted",
-                  comment: "You earned 8 BidBlab Credits",
-                  dialog_type: "answer" 
-                },
-                width: '320px',
-              }).afterClosed().subscribe(result => {
-                if(result == 'dismiss'){
-                  this.commonService.goHome();
-                }
-              });
+            this.dialogService.open(AlertDialogComponent, {
+              data: {
+                title: "Answer submitted",
+                comment: "You earned 8 BidBlab Credits",
+                dialog_type: "answer" 
+              },
+              width: '320px',
+            }).afterClosed().subscribe(result => {
+              if(result == 'dismiss'){
+                this.commonService.goHome();
+              }
+            });
           },
           (err: HttpErrorResponse) => {
             //this.submitted = false;

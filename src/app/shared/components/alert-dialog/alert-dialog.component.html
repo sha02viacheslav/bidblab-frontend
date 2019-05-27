@@ -10,7 +10,7 @@
       <button *ngIf="data.dialog_type == 'answer'" mat-raised-button mat-dialog-close tabindex="-1">Answer more</button>
       <button *ngIf="data.dialog_type == 'ask'" mat-raised-button (click)="onNoClick('more')">Ask more</button>
       <button *ngIf="data.dialog_type == 'bid'" mat-raised-button (click)="onNoClick('more')">Bid more</button>
-      <button *ngIf="data.dialog_type == 'alert'" mat-raised-button (click)="onNoClick('more')">Blab</button>
+      <button *ngIf="data.dialog_type == 'alert'" mat-raised-button (click)="onNoClick('more')">OK</button>
       <button *ngIf="data.dialog_type == 'confirm'" mat-raised-button (click)="onNoClick('more')">OK</button>
     </div>
     <div>

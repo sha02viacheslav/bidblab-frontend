@@ -7,7 +7,8 @@ import { FormValidationService } from '../../shared/services/form-validation.ser
 import { BlockUIService } from '../../shared/services/block-ui.service';
 import { MatSnackBar } from '@angular/material';
 import { CommonService } from '../../shared/services/common.service';
-import { LoginComponent } from '../login/login.component';
+import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,6 +28,7 @@ export class SignupComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute,
+    private dialogService: DialogService,
   ) {
   }
 
@@ -91,15 +93,19 @@ export class SignupComponent implements OnInit {
       this.blockUIService.setBlockStatus(true);
       this.commonService.signup(this.form.value).subscribe(
         (res: any) => {
+          console.log(res.data);
           this.blockUIService.setBlockStatus(false);
-          this.snackBar
-            .open(res.msg, 'Dismiss', {
-              duration: 1500
-            })
-            .afterOpened()
-            .subscribe(() => {
-              this.goBack();
-            });
+          this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
+          this.dialogService.open(AlertDialogComponent, {
+            data: {
+              title: "Welcome, " + res.data.user.username + ", your registration was successful.",
+              comment: "An email with further instructions on how to verify your account was sent to you, check your inbox!",
+              dialog_type: "alert" 
+            },
+            width: '320px',
+          }).afterClosed().subscribe(result => {
+            this.commonService.goHome();
+          });
         },
         (err: HttpErrorResponse) => {
           this.submitted = false;
