@@ -102,8 +102,11 @@
               <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Choose a date">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
+              <mat-error *ngIf="checkError(infoForm, 'birthday', ['required'])">
                 Required.
+              </mat-error>
+              <mat-error *ngIf="checkError(infoForm, 'birthday', ['notAdault']) && !checkError(infoForm, 'birthday', ['required'])">
+                Required 18 years of age or older.
               </mat-error>
             </mat-form-field>
             <div class="gender-wrap">
@@ -117,21 +120,14 @@
               <div class="address-label">Physical Address</div>
               <mat-form-field class="address-wrap" appearance="outline">
                 <mat-label>Address</mat-label>
-                <input type="text" matInput formControlName="physicaladdress" required>
-                <mat-error *ngIf="checkError(infoForm, 'firstName', ['required', 'blank'])">
-                  Required.
-                </mat-error>
+                <input type="text" matInput formControlName="physicaladdress">
               </mat-form-field>
               <div class="row no-gutters">
-
                 <div class="col-sm-12 col-md-4">
                   <div>
                     <mat-form-field class="city-wrap" appearance="outline">
                       <mat-label>City</mat-label>
-                      <input type="text" matInput formControlName="physicalcity" required>
-                      <mat-error *ngIf="checkError(infoForm, 'firstName', ['required', 'blank'])">
-                        Required.
-                      </mat-error>
+                      <input type="text" matInput formControlName="physicalcity">
                     </mat-form-field>
                   </div>
                 </div>
@@ -139,10 +135,7 @@
                   <div>
                     <mat-form-field class="state-wrap" appearance="outline">
                       <mat-label>State</mat-label>
-                      <input type="text" matInput formControlName="physicalstate" required>
-                      <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
-                        Required.
-                      </mat-error>
+                      <input type="text" matInput formControlName="physicalstate">
                     </mat-form-field>
                   </div>
                 </div>
@@ -150,10 +143,7 @@
                   <div>
                     <mat-form-field appearance="outline">
                       <mat-label>Zip Code</mat-label>
-                      <input type="text" matInput formControlName="physicalzipcode" required>
-                      <mat-error *ngIf="checkError(infoForm, 'lastName', ['required', 'blank'])">
-                        Required.
-                      </mat-error>
+                      <input type="text" matInput formControlName="physicalzipcode">
                     </mat-form-field>
                   </div>
                 </div>
@@ -166,14 +156,14 @@
               <div class="address-label">Shipping Address</div>
               <mat-form-field class="address-wrap" appearance="outline">
                 <mat-label>Address</mat-label>
-                <input type="text" matInput formControlName="shippingaddress" required>
+                <input type="text" matInput formControlName="shippingaddress">
               </mat-form-field>
               <div fxLayout="column" fxLayout.gt-sm="row wrap">
                 <div fxFlex="33.33">
                   <div>
                     <mat-form-field class="city-wrap" appearance="outline">
                       <mat-label>City</mat-label>
-                      <input type="text" matInput formControlName="shippingcity" required>
+                      <input type="text" matInput formControlName="shippingcity">
                     </mat-form-field>
                   </div>
                 </div>
@@ -181,14 +171,14 @@
                   <div>
                     <mat-form-field class="state-wrap" appearance="outline">
                       <mat-label>State</mat-label>
-                      <input type="text" matInput formControlName="shippingstate" required>
+                      <input type="text" matInput formControlName="shippingstate">
                     </mat-form-field>
                   </div>
                 </div>
                 <div fxFlex="33.33">
                   <mat-form-field appearance="outline">
                     <mat-label>Zip Code</mat-label>
-                    <input type="text" matInput formControlName="shippingzipcode" required>
+                    <input type="text" matInput formControlName="shippingzipcode">
                   </mat-form-field>
                 </div>
               </div>

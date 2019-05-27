@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment';
 export class EditProfileComponent implements OnInit, OnDestroy {
   user: any;
   submitted: boolean;
-  disabled: boolean;
+  disabledShippingAddress: boolean = false;
   passwordVisibility: boolean;
   infoForm: FormGroup;
   passwordForm: FormGroup;
@@ -48,7 +48,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUserUpdates();
     this.passwordVisibility = false;
-    this.disabled = true;
     this.submitted = false;
 
     if(this.user && this.user.profilePicture){
@@ -73,62 +72,45 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       ],
       email: [
         this.user.email,
-        [
-          Validators.required,
-          this.formValidationService.isBlank,
-          Validators.email
-        ]
+        [Validators.required, this.formValidationService.isBlank, Validators.email]
       ],
-      aboutme: [ this.user.aboutme ],
-      phone: [ this.user.phone ],
-      customTag: [ '' ],
+      aboutme: [this.user.aboutme],
+      phone: [this.user.phone],
+      customTag: [''],
       tags: this.fb.array([]),
-      birthday: [ new Date(this.user.birthday) ],
-      gender: [ this.user.gender ],
-      physicaladdress: [ this.user.physicaladdress ],
-      physicalcity: [ this.user.physicalcity ],
-      physicalstate: [ this.user.physicalstate ],
-      physicalzipcode: [ this.user.physicalzipcode ],
-      shippingaddress: [ this.user.shippingaddress ],
-      shippingcity: [ this.user.shippingcity ],
-      shippingstate: [ this.user.shippingstate ],
-      shippingzipcode: [ this.user.shippingzipcode ],
+      birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
+      gender: [this.user.gender],
+      physicaladdress: [this.user.physicaladdress],
+      physicalcity: [this.user.physicalcity],
+      physicalstate: [this.user.physicalstate],
+      physicalzipcode: [this.user.physicalzipcode],
+      shippingaddress: [this.user.shippingaddress],
+      shippingcity: [this.user.shippingcity],
+      shippingstate: [this.user.shippingstate],
+      shippingzipcode: [this.user.shippingzipcode],
     });
 
-    this.commonService.getStandardInterests().subscribe(
-      (res: any) => {
-        this.standardInterests = res.data;
-        this.formArray = this.infoForm.get('tags') as FormArray;
-        this.user.tags.forEach( item => {
-          if(!this.standardInterests.some( x => x == item)){
-            this.standardInterests.push(item);
-          };
-        })
-        this.standardInterests.forEach( item => {
-          if(this.user.tags.some(
-            interest =>
-            interest &&
-            interest === item
-          )){
-            this.formArray.push(new FormControl(true));
-          }
-          else{
-            this.formArray.push(new FormControl(false));
-          }
-          
-        });
-        this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(res.msg, 'Dismiss', {
-          duration: 1500
-        });
-      },
-      (err: HttpErrorResponse) => {
-        this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(err.error.msg, 'Dismiss', {
-          duration: 1500
-        });
-      }
-    );
+    this.commonService.getStandardInterests().subscribe((res: any) => {
+      this.standardInterests = res.data;
+      this.formArray = this.infoForm.get('tags') as FormArray;
+      this.user.tags.forEach( item => {
+        if(!this.standardInterests.some( x => x == item)){
+          this.standardInterests.push(item);
+        };
+      })
+      this.standardInterests.forEach(item => {
+        if(this.user.tags.some(interest => interest && interest === item)) {
+          this.formArray.push(new FormControl(true));
+        } else {
+          this.formArray.push(new FormControl(false));
+        }
+      });
+      this.blockUIService.setBlockStatus(false);
+      this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
+    }, (err: HttpErrorResponse) => {
+      this.blockUIService.setBlockStatus(false);
+      this.snackBar.open(err.error.msg, 'Dismiss', {duration: 1500});
+    });
     
     this.passwordForm = this.fb.group({
       currentPassword: [
@@ -238,23 +220,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
-      this.userService.updateProfile(uploadData).subscribe(
-        (res: any) => {
-          this.authenticationService.setUser(res.data);
-          this.blockUIService.setBlockStatus(false);
-          this.submitted = true;
-          this.snackBar.open(res.msg, 'Dismiss', {
-            duration: 1500
-          });
-        },
-        (err: HttpErrorResponse) => {
-          this.submitted = false;
-          this.blockUIService.setBlockStatus(false);
-          this.snackBar.open(err.error.msg, 'Dismiss', {
-            duration: 4000
-          });
-        }
-      );
+      this.userService.updateProfile(uploadData).subscribe((res: any) => {
+        this.authenticationService.setUser(res.data);
+        this.blockUIService.setBlockStatus(false);
+        this.submitted = false;
+        this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
+      }, (err: HttpErrorResponse) => {
+        this.submitted = false;
+        this.blockUIService.setBlockStatus(false);
+        this.snackBar.open(err.error.msg, 'Dismiss', {duration: 4000});
+      });
     }
   }
 
