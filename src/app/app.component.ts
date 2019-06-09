@@ -77,20 +77,20 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    $("#main-nicescrollable").niceScroll({
-			cursorcolor: "#e91e63",
-			cursorborder: '#e91e63',
-			autohidemode: true,
-			background: "#aaa",
-			cursorminheight: 15,
-			cursorborderradius: 15,
-			cursorwidth: 3,
-			cursoropacitymin: 0.1,
-    });
+    // $("#main-nicescrollable").niceScroll({
+		// 	cursorcolor: "#e91e63",
+		// 	cursorborder: '#e91e63',
+		// 	autohidemode: true,
+		// 	background: "#aaa",
+		// 	cursorminheight: 15,
+		// 	cursorborderradius: 15,
+		// 	cursorwidth: 3,
+		// 	cursoropacitymin: 0.1,
+    // });
 
-    setInterval(() => {
-      $("#main-nicescrollable").getNiceScroll().resize();
-    }, 1000);
+    // setInterval(() => {
+    //   $("#main-nicescrollable").getNiceScroll().resize();
+    // }, 1000);
     
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();
@@ -106,9 +106,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routerSubscription.unsubscribe();
-    this.blockingSubscription.unsubscribe();
-    this.userUpdatesSubscription.unsubscribe();
+    // this.routerSubscription.unsubscribe();
+    // this.blockingSubscription.unsubscribe();
+    // this.userUpdatesSubscription.unsubscribe();
   }
 
   public toggleSidenav(){

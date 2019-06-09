@@ -142,7 +142,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userUpdatesSubscription.unsubscribe();
+    // this.userUpdatesSubscription.unsubscribe();
   }
 
   getInitialImage(index){

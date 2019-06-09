@@ -87,7 +87,7 @@ export class BidListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketEventsSubscription.unsubscribe();
+    // this.socketEventsSubscription.unsubscribe();
   }
 
   getAuctions() {

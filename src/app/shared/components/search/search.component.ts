@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.autocompleteSubscription.unsubscribe();
+    // this.autocompleteSubscription.unsubscribe();
   }
 
   openQuestionDialog(newTitle?: String, question?: any) {

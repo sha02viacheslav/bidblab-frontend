@@ -59,7 +59,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if(this.isInit){
-      this.socketEventsSubscription.unsubscribe();
+      // this.socketEventsSubscription.unsubscribe();
     }
   }
 

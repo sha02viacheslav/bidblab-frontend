@@ -55,7 +55,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userUpdatesSubscription.unsubscribe();
+    // this.userUpdatesSubscription.unsubscribe();
   }
 
   checkError(form, field, error) {

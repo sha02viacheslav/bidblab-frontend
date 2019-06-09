@@ -104,10 +104,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if(this.autocompleteSubscription){
-      this.autocompleteSubscription.unsubscribe();
+      // this.autocompleteSubscription.unsubscribe();
     }
     if(this.socketEventsSubscription){
-      this.socketEventsSubscription.unsubscribe();
+      // this.socketEventsSubscription.unsubscribe();
     }
   }
 

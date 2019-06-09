@@ -91,8 +91,8 @@ export class BlabComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.autocompleteSubscription.unsubscribe();
-    this.socketEventsSubscription.unsubscribe();
+    // this.autocompleteSubscription.unsubscribe();
+    // this.socketEventsSubscription.unsubscribe();
   }
 
   searchBoxAction(){

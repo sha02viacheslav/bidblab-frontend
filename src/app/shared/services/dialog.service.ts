@@ -29,7 +29,7 @@ export class DialogService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.mediaUpdatesSubscription.unsubscribe();
+    // this.mediaUpdatesSubscription.unsubscribe();
   }
 
   open(component, options?) {
