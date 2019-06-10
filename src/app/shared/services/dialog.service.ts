@@ -19,7 +19,7 @@ export class DialogService implements OnDestroy {
         const dialogRef = this.dialog.getDialogById(this.dialogRefId);
         if (dialogRef) {
           if (change.mqAlias === 'xs') {
-            dialogRef.updateSize('100%', '100%');
+            dialogRef.updateSize('100%', '');
           } else {
             dialogRef.updateSize('400px');
           }
@@ -41,8 +41,8 @@ export class DialogService implements OnDestroy {
       : {
           maxWidth: '100vw',
           maxHeight: '100vh',
-          height: '100%',
-          width: '100%'
+          // height: '100%',
+          // width: '100%'
         };
     const dialogRef = this.dialog.open(
       component,

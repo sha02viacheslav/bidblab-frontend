@@ -433,8 +433,6 @@ a {
 
 }
 
-
-
 //default scrollbar
 ::-webkit-scrollbar {
   width: 3px;
@@ -486,7 +484,7 @@ a {
 
 .mat-dialog-container {
   max-height: 100vh !important;
-  overflow-y: scroll !important;
+  // overflow-y: scroll !important;
 }
 
 .opecity {
