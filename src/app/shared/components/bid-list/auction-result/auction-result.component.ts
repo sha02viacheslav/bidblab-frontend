@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { CommonService } from '../../../shared/services/common.service';
+import { CommonService } from '../../../../shared/services/common.service';
 import { HttpErrorResponse } from '@angular/common/http';
 // import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -24,7 +24,7 @@ export class AuctionResultComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    // private bidService: BidService,
+    private commonService: CommonService,
   ) {
   }
 

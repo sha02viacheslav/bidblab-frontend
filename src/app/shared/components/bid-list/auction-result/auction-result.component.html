@@ -33,11 +33,11 @@
   <div class="bid-result-content row no-gutters">
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="w-100">
       <ng-container matColumnDef="bidPrice">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bid Price </th>
-        <td mat-cell *matCellDef="let element">
-          <div fxLayout="row wrap" fxLayoutAlign="start center">
-            <div class="bid-price-box">
-              <div class="bid-price-icon" [ngClass]="{'unique-mark': element.bidStatus == 0, 'highst-mark': element.bidStatus == 2, 
+        <th [ngClass]="{'p-0': !commonService.isMediaActive('gt-xs')}" mat-header-cell *matHeaderCellDef mat-sort-header> Bid Price </th>
+        <td [ngClass]="{'p-0': !commonService.isMediaActive('gt-xs')}" mat-cell *matCellDef="let element">
+          <div class="bid-price-box main-color" fxLayout="row wrap" fxLayoutAlign="start center">
+            <div class="bid-price-wrap">
+              <div class="bid-price-bg" [ngClass]="{'unique-mark': element.bidStatus == 0, 'highst-mark': element.bidStatus == 2, 
               'deplicate-mark': element.bidStatus == 1 || element.bidStatus == 3}">
               </div>
               <div class="bid-price">{{element.bidPrice | currency:'':'':'1.2-2'}}</div>
@@ -50,15 +50,15 @@
       </ng-container>
       <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Bidder </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button class="no-hover-effect" routerLink="/users/userdetail/{{element.bidder._id}}">
+        <td class="main-color" mat-cell *matCellDef="let element">
+          <button class="main-color" mat-icon-button class="no-hover-effect" routerLink="/users/userdetail/{{element.bidder._id}}">
             <mat-icon>person</mat-icon>{{element.bidder.username}}
           </button>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Submitted </th>
-        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}} </td>
+        <th class="mobile-display-none" mat-header-cell *matHeaderCellDef mat-sort-header> Submitted </th>
+        <td class="mobile-display-none main-color" mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,12 +1,5 @@
 @import "../../../../../assets/scss/theme.scss";
 
-// @media (max-width: 599px) {
-//   .bid-result-box {
-//     padding: 0.5rem !important;
-//     //width: calc(100vw - 2rem) !important;
-//   }
-// }
-
 .bid-result-box {
   margin: 0.5rem;
   border: solid 1px rgb(240, 240, 240);
@@ -30,67 +23,6 @@
     border-radius: 5px 5px 0px 0px;
   }
 
-//   .bid-result-content {
-//     padding: 1rem;
-
-//     .bid-result-wrap {
-//       display: flex;
-//       width: 100%;
-//       padding: 0.25rem 0rem;
-
-//       .bid-price-box {
-//         position: relative;
-//       }
-
-//       .bid-price-wrap {
-//         width: 60px;
-//         height: 60px;
-//         border-radius: 60px;
-//       }
-
-//       .highst-mark {
-//         border-radius: 30px;
-//         background-color: #f8498dff;
-//       }
-
-//       .unique-mark {
-//         border-radius: 30px;
-//         background-color: #9216d0ff;
-//       }
-
-//       .deplicate-mark {
-//         border-radius: 30px;
-//         background-color: #666666ff;
-//       }
-
-//       .bid-price {
-//         position: absolute;
-//         top: 20px;
-//         left: 3px;
-//         width: 54px;
-//         height: 20px;
-//         color: white;
-//         text-align: center;
-//       }
-
-//       .bid-content-wrap {
-//         display: flex;
-//         width: 100%;
-//         display: flex;
-//         align-items: center;
-//         padding: 0px 1rem;
-
-//         .username-wrap {
-//           display: flex;
-//           align-items: center;
-//         }
-//       }
-//     }
-//   }
-
-// }
-
-
 @media (max-width: 599px) {
   .bid-result-box {
     padding: 0.5rem !important;
@@ -98,32 +30,36 @@
   }
 }
 
-.bid-price-box {
+
+@media (max-width: 599px) {
+  .bid-price-box {
+    font-size: 12px;
+  }
+}
+
+.bid-price-wrap {
   position: relative;
   margin-right: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.bid-price-icon {
+.bid-price-bg {
   width: 60px;
   height: 60px;
-  border-radius: 60px;
+  border-radius: 50%;
   box-sizing: border-box;
 }
 
 .highst-mark {
-  border-radius: 30px;
   background-color: #f8498dff;
 }
 
 .unique-mark {
-  border-radius: 30px;
   background-color: #9216d0ff;
 }
 
 .deplicate-mark {
-  border-radius: 30px;
   background-color: #666666ff;
 }
 
