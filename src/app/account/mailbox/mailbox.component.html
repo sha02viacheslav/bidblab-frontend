@@ -38,8 +38,9 @@
                 <mat-checkbox class="select-mail" (click)="$event.stopPropagation()"
                   (change)="$event ? selection.toggle(mail) : null" [checked]="selection.isSelected(mail)">
                 </mat-checkbox>
-                <img matListAvatar class="transition-2" [src]="mail.sender?
-                  serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/admin_avata.png'">
+                <img matListAvatar class="transition-2" *ngIf="!mail.sender" [src]="'assets/imgs/admin_avata.png'">
+                <img matListAvatar class="transition-2" *ngIf="mail.sender" [src]="mail.sender?.profilePicture?.path?
+                  serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/user.svg'">
                 <div matLine fxLayout="row" fxLayoutAlign="space-between space-between">
                   <h4 class="text-truncate sender">{{mail.sender? mail.sender.username : 'Admin'}}
                   </h4>
@@ -96,8 +97,9 @@
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item class="h-100 py-1">
-                  <img matListAvatar class="transition-2" [src]="mail.sender?
-                                        serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/admin_avata.png'">
+                  <img matListAvatar class="transition-2" *ngIf="!mail.sender" [src]="'assets/imgs/admin_avata.png'">
+                  <img matListAvatar class="transition-2" *ngIf="mail.sender" [src]="mail.sender?.profilePicture?.path?
+                      serverUrl+'/'+mail.sender.profilePicture.path : 'assets/imgs/user.svg'">
                   <h6 matLine fxLayout="row" fxLayoutAlign="space-between center">
                     <span>
                       <strong class="text-truncate">{{mail.sender? mail.sender.username : 'Admin'}}</strong>
