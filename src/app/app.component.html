@@ -72,13 +72,15 @@
                 <ng-template #notAuthenticated>
                   <ng-container *ngIf="commonService.isMediaActive('gt-xs')">
                     <div fxLayout="row" fxLayoutAlign="start center">
-                      <button routerLink="/extra/signup" mat-button>Signup</button>
-                      <button routerLink="/extra/login" mat-button>Login</button>
+                      <button routerLink="/extra/signup" mat-button>SIGNUP</button>
+                      <button routerLink="/extra/login" mat-button>LOGIN</button>
                     </div>
                   </ng-container>
                   <mat-menu #authMenu="matMenu">
-                    <button routerLink="/extra/signup" mat-menu-item>Signup</button>
-                    <button routerLink="/extra/login" mat-menu-item>Login</button>
+                    <button routerLink="/questions/bid" mat-menu-item>BID</button>
+                    <button routerLink="/questions/blab" mat-menu-item>BLAB</button>
+                    <button routerLink="/extra/signup" mat-menu-item>SIGNUP</button>
+                    <button routerLink="/extra/login" mat-menu-item>LOGIN</button>
                   </mat-menu>
                   <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
                     <mat-icon>more_vert</mat-icon>
