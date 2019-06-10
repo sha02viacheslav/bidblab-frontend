@@ -41,26 +41,12 @@ import {
   MatTooltipModule,
   MatTreeModule } from '@angular/material';
 import { ImageCropperModule } from 'ngx-image-cropper';
-// import { SignupDialogComponent } from './components/signup-dialog/signup-dialog.component';
-// import { LoginComponent } from './components/login/login.component';
-// import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-// import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
 import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.component';
-// import { EmptyComponent } from './components/empty/empty.component';
-// import { QuestionBoxComponent } from './components/question-box/question-box.component';
-// import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
-// import { ImageblockComponent } from './components/imageblock/imageblock.component';
-// import { AccountNavComponent } from './components/account-nav/account-nav.component';
-// import { AnswerBoxComponent } from './components/answer-box/answer-box.component';
-// import { FollowBoxComponent } from './components/follow-box/follow-box.component';
-// import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
-// import { SearchComponent } from './components/search/search.component';
-// import { FooterComponent } from './components/footer/footer.component';
-// import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { VerticalMenuComponent } from './components/menu/vertical-menu/vertical-menu.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { NocreditDialogComponent } from './components/nocredit-dialog/nocredit-dialog.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { NumericDirective } from './directives/number.directive';
 
@@ -131,6 +117,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     VerticalMenuComponent,
     QuestionDialogComponent,
     AlertDialogComponent,
+    NocreditDialogComponent,
     UploadImageComponent,
     HorizontalMenuComponent,
     BidListComponent,
@@ -147,6 +134,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     // ResetPasswordComponent,
     AnswerDialogComponent,
     AlertDialogComponent,
+    NocreditDialogComponent,
     QuestionDialogComponent,
     ReportDialogComponent,
     AuctionDialogComponent

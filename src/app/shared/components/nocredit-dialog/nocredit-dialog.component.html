@@ -1,0 +1,21 @@
+<div class="alert_dialog_wrap main-color" fxLayout="column" fxLayoutAlign="space-between center">
+  <div class="alert_dialog_title">
+    You need more BidBlab Credits to continue bidding!
+  </div>
+  <div class="alert_dialog_comment">
+    You can invite friends and family for {{defaultCredits? defaultCredits.defaultReferralCredit : '50'}} Credits.
+  </div>
+  <div class="alert_dialog_button_wrap" fxLayout="row">
+    <div>
+      <button mat-raised-button color="primary" mat-dialog-close routerLink="/account/invite">Invite</button>
+    </div>
+  </div>
+  <div class="alert_dialog_comment">
+    You can earn more BibBlab Credits by submitting and answering questions.
+  </div>
+  <div class="alert_dialog_button_wrap" fxLayout="row">
+    <div>
+      <button mat-raised-button color="primary" mat-dialog-close routerLink="/questions/blab">Blab</button>
+    </div>
+  </div>
+</div>

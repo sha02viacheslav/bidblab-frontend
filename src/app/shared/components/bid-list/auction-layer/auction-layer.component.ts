@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../../../shared/services/authenticatio
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { DialogService } from '../../../../shared/services/dialog.service';
 import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
+import { NocreditDialogComponent } from '../../../../shared/components/nocredit-dialog/nocredit-dialog.component';
 import { environment } from '../../../../../environments/environment';
 import { BidService } from '../bid.service';
 import { AuctionDialogComponent } from '../auction-dialog/auction-dialog.component';
@@ -43,13 +44,9 @@ export class AuctionLayerComponent implements OnInit {
   openBidDialog(){
     if (this.authenticationService.isAuthenticated()) {
       if(this.bidService.availuableCredits < this.auction.bidFee){
-        this.dialog.open(AlertDialogComponent, 
+        this.dialog.open(NocreditDialogComponent, 
           {
-            data: {
-              title: "You need more BidBlab Credits to continue bidding!",
-              comment: "You can earn more BibBlab Credits by submitting and answering questions",
-              dialog_type: "alert" 
-            },
+            data: {},
             width: '320px',
           });
       }
