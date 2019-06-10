@@ -95,16 +95,21 @@
           <div class="sticky-footer-wrap">
             <footer>
               <mat-toolbar fxLayout="column" fxLayoutAlign="center" color="primary">
-                <div class="footer-main" fxLayout="row wrap" fxLayoutAlign="center center">
-                  <div><a class="" routerLink="/sitemanager/about">About</a></div>
-                  <div><a routerLink="/sitemanager/how">How it works</a></div>
-                  <div><a routerLink="/sitemanager/terms">Terms of Service</a></div>
-                  <div><a routerLink="/sitemanager/privacy">Privacy Policy</a></div>
-                  <div><a routerLink="/sitemanager/cookie">Cookie Policy</a></div>
-                  <div><a routerLink="/sitemanager/investor">Investor Relations</a></div>
+                <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="center center">
+                  <div class="footer-main" fxLayout="row wrap" fxLayoutAlign="center center">
+                    <div><a class="" routerLink="/sitemanager/about">About</a></div>
+                    <div><a routerLink="/sitemanager/how">How it works</a></div>
+                    <div><a routerLink="/sitemanager/investor"
+                        [ngClass]="{'border-none': !commonService.isMediaActive('gt-xs')}">Investor Relations</a></div>
+                  </div>
+                  <div class="footer-main" fxLayout="row wrap" fxLayoutAlign="center center">
+                    <div><a routerLink="/sitemanager/terms">Terms of Service</a></div>
+                    <div><a routerLink="/sitemanager/privacy">Privacy Policy</a></div>
+                    <div><a routerLink="/sitemanager/cookie" class="border-none">Cookie Policy</a></div>
+                  </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center center" class="copyright-wrap">
-                  <small class="copyrights">&copy; Dev Pony 2019</small>
+                  <small class="copyrights">&copy; Dev Pony 2019-2020</small>
                 </div>
               </mat-toolbar>
             </footer>
