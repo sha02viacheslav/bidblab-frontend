@@ -43,11 +43,13 @@
           <div>#{{("0000000" + auction.auctionSerial).slice(-7)}}</div>
         </div>
         <div class="auction-description-wrap">
-          <div>High Bidder:</div>
+          <div>{{auction.role == bidService.auctionRole.closed? 'Winner:': 'High Bidder:'}}</div>
           <div *ngIf="auction.maxUniqueBid else noHighBidder" routerLink="/user/{{auction.maxUniqueBid._id}}">
             {{auction.maxUniqueBid.firstName | titlecase}}.&nbsp;{{auction.maxUniqueBid.lastName.slice(0, 1) | titlecase}}
           </div>
-          <ng-template #noHighBidder><div>No High Bidder</div></ng-template>
+          <ng-template #noHighBidder>
+            <div>{{auction.role == bidService.auctionRole.closed? 'No Winner': 'No High Bidder'}}</div>
+          </ng-template>
         </div>
       </div>
       <div fxFlex="100" fxFlex.gt-sm="30" class="btn-wrap" fxLayout="column" fxLayoutAlign="end end">
