@@ -1,11 +1,11 @@
 <div *ngIf="auction" class="auction-list-box" fxLayout="column" fxLayoutAlign="start none">
   <div class="catagory-header-wrap">BidBlab Price:&nbsp;{{auction.bidblabPrice | currency:'USD':'symbol':'1.2-2'}}</div>
 
-  <div class="catagory-content-wrap" 
-    [ngClass]="{'selected-auction': bidService.detailAuction?.index == auction.index}">
+  <div class="catagory-content-wrap" [ngClass]="{'selected-auction': bidService.detailAuction?.index == auction.index}">
     <div class="row no-gutters">
       <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 auction-image-wrap">
-        <div class="auction-image" [ngClass]="{'closed-auction': auction.role == bidService.auctionRole.closed}" [style.background-image]="auction?.auctionPicture?.length?
+        <div class="auction-image" [ngClass]="{'closed-auction': auction.role == bidService.auctionRole.closed}"
+          [style.background-image]="auction?.auctionPicture?.length?
             'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' : 'url(assets/imgs/empty-image.png)'">
         </div>
         <!-- <img class="auction-image" [ngClass]="{'closed-auction': auction.role == 'closed'}" 
@@ -45,7 +45,9 @@
         </div>
         <div class="auction-description-wrap">
           <div>High Bidder:</div>
-          <div>{{auction.maxUniqueBid.firstName | titlecase}}.&nbsp;{{auction.maxUniqueBid.lastName.slice(0, 1) | titlecase}}</div>
+          <div routerLink="/user/{{auction.maxUniqueBid._id}}">
+            {{auction.maxUniqueBid.firstName | titlecase}}.&nbsp;{{auction.maxUniqueBid.lastName.slice(0, 1) | titlecase}}
+          </div>
         </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
