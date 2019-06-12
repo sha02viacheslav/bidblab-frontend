@@ -57,7 +57,6 @@ export class BidListComponent implements OnInit, OnDestroy {
     'desc',
     ''
   ];
-  listType: number = 0;
  
   constructor(
     private fb: FormBuilder,
