@@ -43,6 +43,10 @@
           <div>Auction Id:</div>
           <div>#{{("0000000" + auction.auctionSerial).slice(-7)}}</div>
         </div>
+        <div class="auction-description-wrap">
+          <div>High Bidder:</div>
+          <div>{{auction.maxUniqueBid.firstName | titlecase}}.&nbsp;{{auction.maxUniqueBid.lastName.slice(0, 1) | titlecase}}</div>
+        </div>
       </div>
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="detail-btn-w" fxLayout="row" fxLayoutAlign="center end">
