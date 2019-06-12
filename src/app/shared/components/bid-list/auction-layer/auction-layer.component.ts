@@ -28,6 +28,7 @@ export class AuctionLayerComponent implements OnInit {
   @Input() auction: any;
   @Input() auctionType: any;
   private serverUrl = environment.apiUrl;
+  user: any;
 
   constructor(
     private bidService: BidService,
@@ -39,6 +40,7 @@ export class AuctionLayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
   }
 
   openBidDialog(){

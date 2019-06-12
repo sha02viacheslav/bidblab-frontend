@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private routerSubscription: Subscription;
   @BlockUI() blockUI: NgBlockUI;
   user: any;
-  private userUpdatesSubscription: Subscription;
+  // private userUpdatesSubscription: Subscription;
   serverUrl = environment.apiUrl;
 
   mainNavLinks: any[];
@@ -203,9 +203,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private getUserUpdates() {
-    this.userUpdatesSubscription = this.authenticationService
-      .getUserUpdates()
-      .subscribe(user => (this.user = user));
+    // this.userUpdatesSubscription = 
+    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
   }
 
   public closeSubMenus(){
