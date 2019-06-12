@@ -24,13 +24,6 @@ import { BidService } from './bid.service';
 })
 export class BidListComponent implements OnInit, OnDestroy {
 
-  public auctionRole = {
-    pending: 1,
-    process: 2,
-    closed: 4,
-    deleted: 8,
-    all: 15
-  };
   @Input() myBidsFlag: boolean;
   form: FormGroup;
   auctions: any[] = [];
@@ -40,7 +33,7 @@ export class BidListComponent implements OnInit, OnDestroy {
   public pageSize: number = 10;
   public pageIndex: number = 0;
   serverUrl = environment.apiUrl;
-  auctionType: number = this.auctionRole.process;
+  auctionType: number = this.bidService.auctionRole.process;
   public selectedSortField: string = '';
   sortFields = [
     {value: 'bidblabPrice', viewValue: 'BidBlab Price'},

@@ -5,13 +5,13 @@
     [ngClass]="{'selected-auction': bidService.detailAuction?.index == auction.index}">
     <div class="row no-gutters">
       <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 auction-image-wrap">
-        <div class="auction-image" [ngClass]="{'closed-auction': auction.role == 'closed'}" [style.background-image]="auction?.auctionPicture?.length?
+        <div class="auction-image" [ngClass]="{'closed-auction': auction.role == bidService.auctionRole.closed}" [style.background-image]="auction?.auctionPicture?.length?
             'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' : 'url(assets/imgs/empty-image.png)'">
         </div>
         <!-- <img class="auction-image" [ngClass]="{'closed-auction': auction.role == 'closed'}" 
             [src]="auction?.auctionPicture?.length?
             serverUrl +'/' + auction.auctionPicture[0] : 'assets/imgs/empty-image.png'" alt=""> -->
-        <div *ngIf="auction.role == 'closed'" class="gavel-image"
+        <div *ngIf="auction.role == bidService.auctionRole.closed" class="gavel-image"
           [style.background-image]="'url(assets/imgs/gavel-red.png)'">
         </div>
       </div>

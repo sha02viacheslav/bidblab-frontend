@@ -4,7 +4,7 @@
     <mat-card class="custom-card no-content">
       <mat-card-header fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
         <mat-card-title class="m-0">
-          <h3 class="live-auction-title main-color">{{auctionType == auctionRole.process? 'Live' : 'Closed'}}&nbsp;Auctions</h3>
+          <h3 class="live-auction-title main-color">{{auctionType == bidService.auctionRole.process? 'Live' : 'Closed'}}&nbsp;Auctions</h3>
         </mat-card-title>
         <div fxLayoutAlign="space-between start">
           <div class="sort-item-wrap">
@@ -38,11 +38,11 @@
 
           <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
             <span (mouseleave)="moreMenuTrigger.closeMenu()">
-              <button mat-menu-item (click)="auctionType = auctionRole.process; 
+              <button mat-menu-item (click)="auctionType = bidService.auctionRole.process; 
                 bidService.detailAuction = null; auctions = []; getAuctions()">
                 Live Auctions
               </button>
-              <button mat-menu-item (click)="auctionType = auctionRole.closed; 
+              <button mat-menu-item (click)="auctionType = bidService.auctionRole.closed; 
                 bidService.detailAuction = null; auctions = []; getAuctions()">
                 Closed Auctions
               </button>

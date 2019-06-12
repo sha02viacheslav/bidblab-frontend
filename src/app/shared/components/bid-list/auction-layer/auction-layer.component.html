@@ -1,9 +1,9 @@
 <div *ngIf="auction" [@flyInOut] class="row no-gutters auction-detail-box">
   <div class="col-sm-5 col-md-5 col-lg-3 col-xl-3 auction-image-wrap">
-    <div class="auction-image" [ngClass]="{'closed-auction': auction.role == 'closed'}" [style.background-image]="auction?.auctionPicture?.length?
+    <div class="auction-image" [ngClass]="{'closed-auction': auction.role == bidService.auctionRole.closed}" [style.background-image]="auction?.auctionPicture?.length?
       'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' : 'url(assets/imgs/empty-image.png)'">
     </div>
-    <div *ngIf="auction.role == 'closed'" class="gavel-image"
+    <div *ngIf="auction.role == bidService.auctionRole.closed" class="gavel-image"
       [style.background-image]="'url(assets/imgs/gavel-red.png)'">
     </div>
   </div>

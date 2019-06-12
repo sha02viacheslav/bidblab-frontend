@@ -6,6 +6,13 @@ import { CommonService } from '../../../shared/services/common.service';
 })
 export class BidService {
 
+  public auctionRole = {
+    pending: 1,
+    process: 2,
+    closed: 4,
+    deleted: 8,
+    all: 15
+  };
   public detailAuction: any;
   public questionCredits: number = 0;
   public optionalImageCredits: number = 0;
