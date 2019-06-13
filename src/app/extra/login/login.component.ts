@@ -69,12 +69,6 @@ export class LoginComponent implements OnInit {
     this.commonService.userLogin(this.loginForm.value).subscribe(
       (res: any) => {
         this.authenticationService.setToken(res.data);
-        this.authenticationService.setUser(jwtDecode(res.data).user);
-        localStorage.setItem('jwt', res.data);
-        localStorage.setItem(
-          'user',
-          JSON.stringify(this.authenticationService.getUser())
-        );
         this.blockUIService.setBlockStatus(false);
         this.snackBar
           .open(res.msg, 'Dismiss', {

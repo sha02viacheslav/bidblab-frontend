@@ -92,13 +92,13 @@ export class AppComponent implements OnInit, OnDestroy {
     //   $("#main-nicescrollable").getNiceScroll().resize();
     // }, 1000);
     
+    this.getUserUpdates();
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();
     this.checkForUpdates();
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => window.scrollTo(0, 0));
-    this.getUserUpdates();
 
     this.router.events.subscribe((res) => {
       this.activeLinkIndex = this.mainNavLinks.indexOf(this.mainNavLinks.find(tab => tab.link === '.' + this.router.url));

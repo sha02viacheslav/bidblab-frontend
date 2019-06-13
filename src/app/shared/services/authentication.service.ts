@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private token: string;
+  // private token: string;
   private userSubject: BehaviorSubject<any>;
 
   constructor(
@@ -17,20 +17,18 @@ export class AuthenticationService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.token = localStorage.getItem('jwt');
-      const user =
-        JSON.parse(localStorage.getItem('user')) ||
-        (this.token ? jwtDecode(this.token).user : null);
+      const user = localStorage.getItem('jwt') ? jwtDecode(localStorage.getItem('jwt')).user : null;
       this.userSubject = new BehaviorSubject<any>(user);
     }
   }
 
   getToken() {
-    return this.token;
+    return localStorage.getItem('jwt');
   }
 
   setToken(token: string) {
-    this.token = token;
+    localStorage.setItem('jwt', token);
+    this.userSubject.next(jwtDecode(localStorage.getItem('jwt')).user);
   }
 
   getUser() {
@@ -41,23 +39,27 @@ export class AuthenticationService {
     return this.userSubject.asObservable();
   }
 
-  setUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-    this.userSubject.next(user);
-  }
+  // setUser(user) {
+  //   localStorage.setItem('user', JSON.stringify(user));
+  //   this.userSubject.next(user);
+  // }
 
   isAuthenticated() {
-    return this.token != null && this.getUser() != null;
+    return localStorage.getItem('jwt') != null;
   }
 
-  isAdmin() {
-    return this.isAuthenticated() && jwtDecode(this.token).admin;
-  }
+  // isAdmin() {
+  //   return this.isAuthenticated() && jwtDecode(this.token).admin;
+  // }
 
   logout() {
-    this.token = null;
+    // this.token = null;
     this.userSubject.next(null);
-    localStorage.clear();
+    this.clearLocalStorage();
     this.router.navigateByUrl('/');
+  }
+
+  clearLocalStorage(){
+    localStorage.removeItem('jwt');
   }
 }

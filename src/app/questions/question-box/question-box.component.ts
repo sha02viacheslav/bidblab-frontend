@@ -25,10 +25,6 @@ export class QuestionBoxComponent implements OnInit {
   ngOnInit() {
   }
 
-  isAdmin() {
-    return this.authenticationService.isAdmin();
-  }
-
   canAnswer(questionId) {
     return (
       !this.authenticationService.getUser() ||

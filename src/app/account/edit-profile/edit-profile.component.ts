@@ -221,7 +221,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
       this.userService.updateProfile(uploadData).subscribe((res: any) => {
-        this.authenticationService.setUser(res.data);
+        this.authenticationService.setToken(JSON.stringify(res.data));
         this.blockUIService.setBlockStatus(false);
         this.submitted = false;
         this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});

@@ -77,12 +77,12 @@ export class VerifyAccountComponent implements OnInit {
           .afterOpened()
           .subscribe(() => {
             this.authenticationService.setToken(res.data);
-            this.authenticationService.setUser(jwtDecode(res.data).user);
-            localStorage.setItem('jwt', res.data);
-            localStorage.setItem(
-              'user',
-              JSON.stringify(this.authenticationService.getUser())
-            );
+            // this.authenticationService.setUser(jwtDecode(res.data).user);
+            // localStorage.setItem('jwt', res.data);
+            // localStorage.setItem(
+            //   'user',
+            //   JSON.stringify(this.authenticationService.getUser())
+            // );
             this.blockUIService.setBlockStatus(false);
             this.commonService.goHome();
           });

@@ -91,10 +91,6 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  isAdmin() {
-    return this.authenticationService.isAdmin();
-  }
-
   private getUserData() {
     this.route.paramMap.subscribe(params => {
       if (params.has('userId')) {
