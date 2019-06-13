@@ -40,7 +40,7 @@ export class AuctionLayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
+    this.user = this.authenticationService.getUser();
   }
 
   openBidDialog(){

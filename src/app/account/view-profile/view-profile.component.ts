@@ -57,7 +57,7 @@ export class ViewProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getUserUpdates();
+    this.user = this.authenticationService.getUser();
     this.getUserData(this.user._id);
     this.followed = true;
     this.selected_tag = ["alltags"];
@@ -67,13 +67,6 @@ export class ViewProfileComponent implements OnInit {
     this.tagsOfQuestionForm = this.fb.group({
       tagsOfQuestion: new FormControl('')
     }); 
-  }
-
-  
-  private getUserUpdates() {
-    this.userUpdatesSubscription = this.authenticationService
-      .getUserUpdates()
-      .subscribe(user => (this.user = user));
   }
 
   private getUserData(userId) {

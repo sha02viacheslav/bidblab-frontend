@@ -44,7 +44,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getUserUpdates();
+    this.user = this.authenticationService.getUser();
     this.passwordVisibility = false;
     this.submitted = false;
 
@@ -288,9 +288,4 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getUserUpdates() {
-    this.userUpdatesSubscription = this.authenticationService
-      .getUserUpdates()
-      .subscribe(user => (this.user = user));
-  }
 }

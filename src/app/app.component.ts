@@ -92,7 +92,7 @@ export class AppComponent implements OnInit, OnDestroy {
     //   $("#main-nicescrollable").getNiceScroll().resize();
     // }, 1000);
     
-    this.getUserUpdates();
+    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();
     this.checkForUpdates();
@@ -200,11 +200,6 @@ export class AppComponent implements OnInit, OnDestroy {
   logout() {
     this.authenticationService.logout();
     this.closeMenu();
-  }
-
-  private getUserUpdates() {
-    // this.userUpdatesSubscription = 
-    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
   }
 
   public closeSubMenus(){

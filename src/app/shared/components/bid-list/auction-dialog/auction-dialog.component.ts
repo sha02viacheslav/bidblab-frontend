@@ -41,7 +41,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getUserUpdates();
+    this.user = this.authenticationService.getUser();
     this.auction = this.data.auction;
     this.submitted = false;
     this.infoForm = this.fb.group({
@@ -58,14 +58,6 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
 
   checkError(form, field, error) {
     return this.formValidationService.checkError(form, field, error);
-  }
-
-  private getUserUpdates() {
-    this.userUpdatesSubscription = this.authenticationService
-      .getUserUpdates()
-      .subscribe(user => (
-        this.user = user
-      ));
   }
 
   submitForm() {
