@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
-import { UserService } from '../../shared/services/user.service';
 import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 import { DialogService } from '../../shared/services/dialog.service';
 import { CommonService } from '../../shared/services/common.service';
@@ -54,7 +53,6 @@ export class ViewProfileComponent implements OnInit {
     private formValidationService: FormValidationService,
     private authenticationService: AuthenticationService,
     private blockUIService: BlockUIService,
-    private userService: UserService,
     private snackBar: MatSnackBar,
   ) {}
 

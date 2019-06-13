@@ -8,7 +8,6 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@
 import { CommonService } from '../../services/common.service';
 import { SocketsService } from '../../services/sockets.service';
 import { AuthenticationService } from '../../../shared/services/authentication.service';
-import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-report-dialog',
@@ -28,7 +27,6 @@ export class ReportDialogComponent implements OnInit {
     private socketsService: SocketsService,
     private authenticationService: AuthenticationService,
     private snackBar: MatSnackBar,
-    private userService: UserService,
     private dialogRef: MatDialogRef<ReportDialogComponent>,
     @Optional()
     @Inject(MAT_DIALOG_DATA) public data: any

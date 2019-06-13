@@ -8,7 +8,6 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@
 import { CommonService } from '../../../../shared/services/common.service';
 import { SocketsService } from '../../../../shared/services/sockets.service';
 import { AuthenticationService } from '../../../../shared/services/authentication.service';
-import { UserService } from '../../../../shared/services/user.service';
 import { BidService } from '../bid.service';
 import { environment } from '../../../../../environments/environment';
 
@@ -35,7 +34,6 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
     private socketsService: SocketsService,
     private authenticationService: AuthenticationService,
     private snackBar: MatSnackBar,
-    private userService: UserService,
     private bidService: BidService,
     private dialogRef: MatDialogRef<AuctionDialogComponent>,
     @Optional()

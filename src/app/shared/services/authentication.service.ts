@@ -39,10 +39,10 @@ export class AuthenticationService {
     return this.userSubject.asObservable();
   }
 
-  // setUser(user) {
-  //   localStorage.setItem('user', JSON.stringify(user));
-  //   this.userSubject.next(user);
-  // }
+  setUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.userSubject.next(user);
+  }
 
   isAuthenticated() {
     return localStorage.getItem('jwt') != null;

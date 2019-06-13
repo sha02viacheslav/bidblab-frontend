@@ -64,6 +64,23 @@ export class CommonService {
     );
   }
 
+  updateProfile(body) {
+    return this.httpClient.patch(
+      `${environment.apiUrl}/api/auth/updateProfile`,
+      body,
+      {
+        reportProgress: true,
+      }
+    );
+  }
+
+  changePassword(body) {
+    return this.httpClient.patch(
+      `${environment.apiUrl}/api/auth/changePassword`,
+      body
+    );
+  }
+
   getQuestions(limit?, offset?, search?) {
     return this.httpClient.get(
       `${environment.apiUrl}/api/common/getQuestions?limit=${limit ||

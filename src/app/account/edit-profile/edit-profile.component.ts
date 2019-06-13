@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material';
 import { FormValidationService } from '../../shared/services/form-validation.service';
 import { BlockUIService } from '../../shared/services/block-ui.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
-import { UserService } from '../../shared/services/user.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { CommonService } from '../../shared/services/common.service';
 import { environment } from '../../../environments/environment';
@@ -39,7 +38,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private formValidationService: FormValidationService,
     private authenticationService: AuthenticationService,
     private blockUIService: BlockUIService,
-    private userService: UserService,
     private snackBar: MatSnackBar,
     private dialogService: DialogService,
     public commonService: CommonService,
@@ -220,8 +218,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
-      this.userService.updateProfile(uploadData).subscribe((res: any) => {
-        this.authenticationService.setToken(JSON.stringify(res.data));
+      this.commonService.updateProfile(uploadData).subscribe((res: any) => {
+        this.authenticationService.setToken(res.data);
         this.blockUIService.setBlockStatus(false);
         this.submitted = false;
         this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
@@ -237,7 +235,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     if (this.passwordForm.valid) {
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
-      this.userService.changePassword(this.passwordForm.value).subscribe(
+      this.commonService.changePassword(this.passwordForm.value).subscribe(
         (res: any) => {
           this.blockUIService.setBlockStatus(false);
           this.passwordForm.reset();
