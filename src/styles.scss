@@ -6,6 +6,7 @@
 @import "assets/scss/theme.scss";
 @import "assets/scss/base.scss";
 @import "assets/scss/libs-override";
+@import "assets/scss/sq-payment-form.scss";
 
 html,
 body {
@@ -184,3 +185,6 @@ mat-dialog-content {
 .border-none {
   border: unset !important;
 }
+
+
+

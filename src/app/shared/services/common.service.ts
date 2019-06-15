@@ -360,6 +360,13 @@ export class CommonService {
       body
     );
   } 
+  
+  squarePay(body) {
+    return this.httpClient.post(
+      `${environment.apiUrl}/api/common/squarePay`,
+      body
+    );
+  } 
 
   goHome() {
     this.router.navigateByUrl('/');

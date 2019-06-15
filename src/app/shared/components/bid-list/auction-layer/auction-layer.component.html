@@ -62,7 +62,7 @@
           Bid Now
         </button>
         <button *ngIf="auctionType != 'layer' && auction.role == bidService.auctionRole.closed && auction.maxUniqueBid?._id == user._id" class="bid-btn"
-          mat-raised-button color="accent">
+        (click)="openSquareDialog()" mat-raised-button color="accent">
           WON IT
         </button>
         <button *ngIf="auctionType != 'layer' && auction.role == bidService.auctionRole.closed && auction.maxUniqueBid?._id != user._id" class="bid-btn"

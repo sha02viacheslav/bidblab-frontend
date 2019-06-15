@@ -7,6 +7,7 @@ import { NocreditDialogComponent } from '../../../../shared/components/nocredit-
 import { environment } from '../../../../../environments/environment';
 import { BidService } from '../bid.service';
 import { AuctionDialogComponent } from '../auction-dialog/auction-dialog.component';
+import { SquareDialogComponent } from '../../../../shared/components/square-dialog/square-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -79,6 +80,32 @@ export class AuctionLayerComponent implements OnInit {
             }
           });
       }
+    }
+    else{
+      this.router.navigateByUrl('/extra/login');
+    }
+  }
+
+  openSquareDialog(){
+    if (this.authenticationService.isAuthenticated()) {
+      this.dialog
+        .open(SquareDialogComponent, {
+          data: '',
+          width: '400px'
+        })
+        .afterClosed()
+        .subscribe(newBid => {
+          if (newBid) {
+            this.dialog.open(AlertDialogComponent, {
+              data: {
+                title: "Pay successfully submitted!",
+                comment: "",
+                dialog_type: "alert" 
+              },
+              width: '320px',
+            });
+          }
+        });
     }
     else{
       this.router.navigateByUrl('/extra/login');

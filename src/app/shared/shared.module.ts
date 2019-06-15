@@ -47,6 +47,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { QuestionDialogComponent } from './components/question-dialog/question-dialog.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { NocreditDialogComponent } from './components/nocredit-dialog/nocredit-dialog.component';
+import { SquareDialogComponent } from './components/square-dialog/square-dialog.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
 import { NumericDirective } from './directives/number.directive';
 
@@ -118,6 +119,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     QuestionDialogComponent,
     AlertDialogComponent,
     NocreditDialogComponent,
+    SquareDialogComponent,
     UploadImageComponent,
     HorizontalMenuComponent,
     BidListComponent,
@@ -135,6 +137,7 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     AnswerDialogComponent,
     AlertDialogComponent,
     NocreditDialogComponent,
+    SquareDialogComponent,
     QuestionDialogComponent,
     ReportDialogComponent,
     AuctionDialogComponent
