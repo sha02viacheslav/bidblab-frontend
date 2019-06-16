@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  // private token: string;
+  private token: string = null;
   private userSubject: BehaviorSubject<any>;
 
   constructor(
@@ -17,16 +17,18 @@ export class AuthenticationService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
+      this.token = localStorage.getItem('jwt');
       const user = localStorage.getItem('jwt') ? jwtDecode(localStorage.getItem('jwt')).user : null;
       this.userSubject = new BehaviorSubject<any>(user);
     }
   }
 
   getToken() {
-    return localStorage.getItem('jwt');
+    return this.token;
   }
 
   setToken(token: string) {
+    this.token = token;
     localStorage.setItem('jwt', token);
     this.userSubject.next(jwtDecode(localStorage.getItem('jwt')).user);
   }
@@ -45,7 +47,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return localStorage.getItem('jwt') != null;
+    return this.token != null;
   }
 
   // isAdmin() {
