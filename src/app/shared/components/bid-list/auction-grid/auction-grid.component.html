@@ -46,7 +46,7 @@
         <div class="auction-description-wrap">
           <div>{{auction.role == bidService.auctionRole.closed? 'Winner:': 'High Bidder:'}}</div>
           <div *ngIf="auction.maxUniqueBid else noHighBidder" routerLink="/user/{{auction.maxUniqueBid._id}}">
-            {{auction.maxUniqueBid.firstName | titlecase}}.&nbsp;{{auction.maxUniqueBid.lastName.slice(0, 1) | titlecase}}
+            {{auction.maxUniqueBid.username}}
           </div>
           <ng-template #noHighBidder>
             <div>{{auction.role == bidService.auctionRole.closed? 'No Winner': 'No High Bidder'}}</div>
