@@ -60,7 +60,7 @@
                       <div class="avatar margin-right-1rem" [style.background-image]="user?.profilePicture?.path?
                         'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
                       </div>
-                      <small class="">{{user.username}}</small>
+                      <small class="">{{user?.username}}</small>
                     </div>
                   </button>
                   <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button

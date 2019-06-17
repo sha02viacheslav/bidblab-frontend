@@ -41,10 +41,10 @@ export class AuthenticationService {
     return this.userSubject.asObservable();
   }
 
-  setUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-    this.userSubject.next(user);
-  }
+  // setUser(user) {
+  //   localStorage.setItem('user', JSON.stringify(user));
+  //   this.userSubject.next(user);
+  // }
 
   isAuthenticated() {
     return this.token != null;
@@ -55,7 +55,7 @@ export class AuthenticationService {
   // }
 
   logout() {
-    // this.token = null;
+    this.token = null;
     this.userSubject.next(null);
     this.clearLocalStorage();
     this.router.navigateByUrl('/');
