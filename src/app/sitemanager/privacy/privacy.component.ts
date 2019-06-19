@@ -22,11 +22,7 @@ export class PrivacyComponent implements OnInit {
     this.commonService.getPrivacyPageContent().subscribe(
       (res: any) => {
         if (res.data) {
-          var temp = res.data.quillContent;
-          temp = temp.replace(new RegExp("\n", "g"), "");
-          temp = temp.replace(new RegExp("&gt;", "g"), ">");
-          temp = temp.replace(new RegExp("&lt;", "g"), "<");
-          var result = this.commonService.processQuill(temp);
+          var result = this.commonService.processQuill(res.data.quillContent);
           this.privacyPageContent = result.innerHtml;
           var scriptDiv = result.script;
           scriptDiv.id = 'privacyScript';
