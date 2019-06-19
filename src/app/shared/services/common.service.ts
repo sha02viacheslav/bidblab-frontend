@@ -26,6 +26,25 @@ export class CommonService {
     this.scrollEventEmitter.next();
   }
 
+  processQuill(originQuill) {
+    var a = document.createElement('div');
+    a.innerHTML = originQuill
+    while(a.querySelector('pre')){
+      a.querySelector('pre').outerHTML = a.querySelector('pre').innerHTML;
+    }
+    
+    let scriptDiv = document.createElement('div');
+    while(a.querySelector('script')){
+      let s = document.createElement('script');
+      s.type = `text/javascript`;
+      s.text = a.querySelector('script').innerHTML;
+      scriptDiv.appendChild(s);
+      a.querySelector('script').outerHTML = '';
+    }
+    var result = {innerHtml: a.innerHTML, script: scriptDiv}
+    return result;
+  }
+
   userLogin(body) {
     return this.httpClient.post(
       `${environment.apiUrl}/api/auth/userLogin`,

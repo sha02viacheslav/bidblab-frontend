@@ -9,9 +9,8 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss']
 })
-export class PrivacyComponent implements OnInit, AfterViewInit {
+export class PrivacyComponent implements OnInit {
   privacyPageContent: string = '';
-  scriptDiv: any;
   constructor(
     public commonService: CommonService,
     private snackBar: MatSnackBar,
@@ -27,8 +26,15 @@ export class PrivacyComponent implements OnInit, AfterViewInit {
           temp = temp.replace(new RegExp("\n", "g"), "");
           temp = temp.replace(new RegExp("&gt;", "g"), ">");
           temp = temp.replace(new RegExp("&lt;", "g"), "<");
-          this.privacyPageContent = this.processQuill(temp);
-          this._renderer2.appendChild(this._document.body, this.scriptDiv);
+          var result = this.commonService.processQuill(temp);
+          this.privacyPageContent = result.innerHtml;
+          var scriptDiv = result.script;
+          scriptDiv.id = 'privacyScript';
+
+          if(document.body.querySelector('div#privacyScript')){
+            document.body.querySelector('div#privacyScript').remove();
+          }
+          this._renderer2.appendChild(this._document.body, scriptDiv);
         }
         else {
           this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
@@ -39,36 +45,6 @@ export class PrivacyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-  ngAfterViewInit(){
-  }
-
-  processQuill(originQuill) {
-    var a = document.createElement('div');
-    a.innerHTML = originQuill
-    while(a.querySelector('pre')){
-      a.querySelector('pre').outerHTML = a.querySelector('pre').innerHTML;
-    }
-    
-    this.scriptDiv = this._renderer2.createElement('div');
-    this.scriptDiv.id = 'privacyScript';
-    
-    while(a.querySelector('script')){
-      let s = this._renderer2.createElement('script');
-      s.type = `text/javascript`;
-      s.text = a.querySelector('script').innerHTML;
-      this.scriptDiv.appendChild(s);
-      a.querySelector('script').outerHTML = '';
-    }
-    if(document.body.querySelector('div#privacyScript')){
-      document.body.querySelector('div#privacyScript').remove();
-    }
-    return a.innerHTML;
-  }
-
-
-
-
 
 }
 
