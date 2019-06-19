@@ -1,4 +1,4 @@
-import { Renderer2, Component, OnInit, Inject, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, Renderer2, AfterViewInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
