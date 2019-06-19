@@ -25,10 +25,10 @@ export class CookieComponent implements OnInit {
         var result = this.commonService.processQuill(res.data.quillContent);
         this.cookiePageContent = result.innerHtml;
         var scriptDiv = result.script;
-        scriptDiv.id = 'privacyScript';
+        scriptDiv.id = 'cookieScript';
 
-        if(document.body.querySelector('div#privacyScript')){
-          document.body.querySelector('div#privacyScript').remove();
+        if(document.body.querySelector('div#cookieScript')){
+          document.body.querySelector('div#cookieScript').remove();
         }
         this._renderer2.appendChild(this._document.body, scriptDiv);
       }
