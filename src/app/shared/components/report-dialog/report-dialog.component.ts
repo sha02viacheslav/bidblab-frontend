@@ -34,7 +34,7 @@ export class ReportDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.reports = ["spam", "abuse", "unappropriated"];
+    this.reports = ["spam", "abuse", "inappropriate"];
     this.form = this.fb.group({
       reportType: [
         this.reports[0],
