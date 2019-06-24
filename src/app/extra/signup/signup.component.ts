@@ -20,6 +20,8 @@ export class SignupComponent implements OnInit {
   passwordVisibility: boolean;
   form: FormGroup;
   private friendEmail: string = '';
+  public defaultCredits: any;
+  
   constructor(
     private fb: FormBuilder,
     private formValidationService: FormValidationService,
@@ -38,6 +40,12 @@ export class SignupComponent implements OnInit {
       if (params.has('friendEmail')) {
         this.friendEmail = params.get('friendEmail');
       }
+    });
+
+    this.blockUIService.setBlockStatus(true);
+    this.commonService.getDefaultCredits().subscribe((res: any) => {
+      this.defaultCredits = res.data;
+      this.blockUIService.setBlockStatus(false);
     });
 
     this.passwordVisibility = false;
