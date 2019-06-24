@@ -17,6 +17,7 @@ export class CreditsComponent implements OnInit {
   private answerCredits: number = 0;
   private referalCredits: number = 0;
   private totalCredits: number = 0;
+  private signupCredits: number = 0;
   private loseCredits: number = 0;
   private availableCredits: number = 0;
   isInit: boolean;
@@ -39,7 +40,8 @@ export class CreditsComponent implements OnInit {
         this.optionalImageCredits = res.data.credits.optionalImageCredits;
         this.answerCredits = res.data.credits.answerCredits;
         this.referalCredits = res.data.credits.referalCredits;
-        this.totalCredits = this.questionCredits + this.optionalImageCredits + this.answerCredits + this.referalCredits;
+        this.signupCredits = res.data.credits.signupCredits;
+        this.totalCredits = this.questionCredits + this.optionalImageCredits + this.answerCredits + this.referalCredits + this.signupCredits;
         this.loseCredits = res.data.credits.loseCredits;
         this.availableCredits = this.totalCredits - this.loseCredits;
         this.blockUIService.setBlockStatus(false);
