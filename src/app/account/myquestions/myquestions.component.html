@@ -1,24 +1,25 @@
-  <div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page main-color">
-    <div *ngFor="let question of myquestions">
-      <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
-        fxLayoutAlign=" none">
-        <div class="text-block-wrap" fxLayout="row">
-          <div>
-            <span class="accent">Q:&nbsp;</span>
-          </div>
-          <div class="content">
-            {{question.title}}
-          </div>
+<app-search></app-search>
+<div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page main-color">
+  <div *ngFor="let question of myquestions">
+    <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
+      fxLayoutAlign=" none">
+      <div class="text-block-wrap" fxLayout="row">
+        <div>
+          <span class="accent">Q:&nbsp;</span>
         </div>
-        <div class="main-pt pl-1">
-          Earned <span class="accent">{{question.credit}}</span> BidBlab Credits
+        <div class="content">
+          {{question.title}}
         </div>
-        <div class="mt-1 pl-1">
-          {{question.createdAt| date:"dd MMMM, yyyy hh:mm:ss a" }}
-        </div>
+      </div>
+      <div class="main-pt pl-1">
+        Earned <span class="accent">{{question.credit}}</span> BidBlab Credits
+      </div>
+      <div class="mt-1 pl-1">
+        {{question.createdAt| date:"dd MMMM, yyyy hh:mm:ss a" }}
       </div>
     </div>
   </div>
-  <ng-template #nomyQuestions>
-    <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
-  </ng-template>
+</div>
+<ng-template #nomyQuestions>
+  <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+</ng-template>
