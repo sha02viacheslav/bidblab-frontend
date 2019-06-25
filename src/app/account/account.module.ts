@@ -30,7 +30,7 @@ const routes = [
       { path: 'viewprofile', component: ViewProfileComponent },
       { path: 'invite', component: InviteComponent },
       { path: 'mailbox', component: MailboxComponent },
-      { path: '**', redirectTo: '' }
+      { path: '**', redirectTo: 'myquestions' }
     ]
   }
 ];
