@@ -1,4 +1,4 @@
-  <div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page">
+  <div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page main-color">
     <div *ngFor="let question of myquestions">
       <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
         fxLayoutAlign=" none">
@@ -10,8 +10,11 @@
             {{question.title}}
           </div>
         </div>
-        <div class="credit-wrap">
+        <div class="main-pt pl-1">
           Earned <span class="accent">{{question.credit}}</span> BidBlab Credits
+        </div>
+        <div class="mt-1 pl-1">
+          {{question.createdAt| date:"dd MMMM, yyyy hh:mm:ss a" }}
         </div>
       </div>
     </div>
