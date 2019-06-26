@@ -25,23 +25,8 @@ export class QuestionBoxComponent implements OnInit {
   ngOnInit() {
   }
 
-  canAnswer(questionId) {
-    return (
-      !this.authenticationService.getUser() ||
-      !this.question
-        .answers.some(
-          answer =>
-            answer.answerer &&
-            answer.answerer._id === this.authenticationService.getUser()._id
-        )
-    );
-  }
-
   alert(){
-    this.snackBar
-      .open("You can't see private answerer", 'Dismiss', {
-        duration: 4000
-      })
+    this.snackBar.open("You can't see private answerer", 'Dismiss', {duration: 4000});
   }
 
 }

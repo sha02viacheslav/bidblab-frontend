@@ -215,19 +215,6 @@ export class BlabComponent implements OnInit, OnDestroy {
     );
   }
 
-  canAnswer(questionId) {
-    return (
-      !this.authenticationService.getUser() ||
-      !this.questions
-        .find(question => question._id === questionId)
-        .answers.some(
-          answer =>
-            answer.answerer &&
-            answer.answerer._id === this.authenticationService.getUser()._id
-        )
-    );
-  }
-
   private listenToSocket() {
     this.socketEventsSubscription = this.socketsService
       .getSocketEvents()
