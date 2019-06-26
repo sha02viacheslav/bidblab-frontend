@@ -141,6 +141,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  canAnswer(question) {
+    return !!this.authenticationService.getUser() &&
+      !!question.answers.some( answer => answer.answerer && answer.answerer._id === this.authenticationService.getUser()._id);
+  }
+
   isAsker() {
     return (
       this.authenticationService.getUser() &&

@@ -28,7 +28,7 @@
             <button mat-raised-button color="primary" (click)="addFollow('question')"
               [disabled]="followed">Follow</button>
             <button *ngIf="question.answers.length" mat-raised-button color="accent"
-              (click)="openAnswerDialog(question)">
+              (click)="openAnswerDialog(question)" [disabled]="canAnswer(question)">
               ANSWER&nbsp;
               (
               {{ question.answerCredit? question.answerCredit : 
@@ -37,7 +37,7 @@
               )
             </button>
             <button *ngIf="!question.answers.length" mat-raised-button color="accent"
-              (click)="openAnswerDialog(question)">
+              (click)="openAnswerDialog(question)" [disabled]="canAnswer(question)">
               FIRST TO ANSWER&nbsp;
               (
               {{ question.answerCredit? question.answerCredit : 
