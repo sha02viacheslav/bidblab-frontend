@@ -35,6 +35,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
   isInit: boolean;
   serverUrl = environment.apiUrl;
   defaultCredits: any;
+  user: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +49,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.user = this.authenticationService.getUser();
     this.isInit = false;
     this.isInit = true;
     this.getQuestion();
@@ -89,9 +91,18 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  getQuestionByQuestionId(questionId) {
+  private getQuestion() {
+    this.route.paramMap.subscribe(params => {
+      if (params.has('questionId')) {
+        const questionId = params.get('questionId');
+        this.getQuestionByQuestionId(questionId, this.user? this.user._id: null);
+      }
+    });
+  }
+
+  getQuestionByQuestionId(questionId, userId) {
     this.blockUIService.setBlockStatus(true);
-    this.commonService.getQuestionByQuestionId(questionId).subscribe(
+    this.commonService.getQuestionByQuestionId(questionId, userId).subscribe(
       (res: any) => {
         this.question = res.data.question;
         this.sortAnswers(this.question.answers);
@@ -207,15 +218,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
           }
         }
       });
-  }
-
-  private getQuestion() {
-    this.route.paramMap.subscribe(params => {
-      if (params.has('questionId')) {
-        const questionId = params.get('questionId');
-        this.getQuestionByQuestionId(questionId);
-      }
-    });
   }
 
   addFollow(followType) {

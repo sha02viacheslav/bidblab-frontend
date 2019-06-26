@@ -117,9 +117,9 @@ export class CommonService {
     );
   }
 
-  getQuestionByQuestionId(questionId) {
+  getQuestionByQuestionId(questionId, userId) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getQuestionByQuestionId/${questionId}`
+      `${environment.apiUrl}/api/common/getQuestionByQuestionId/${questionId}/${userId}`
     );
   }
 
