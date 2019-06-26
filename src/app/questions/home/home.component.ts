@@ -10,11 +10,8 @@ import { QuestionDialogComponent } from '../../shared/components/question-dialog
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-// import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 import { SocketsService } from '../../shared/services/sockets.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
-import { resource } from 'selenium-webdriver/http';
-
 
 @Component({
   selector: 'app-home-questions',
@@ -52,26 +49,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.queryParams
-      .subscribe(params => {
-        this.returnUrl = params['returnUrl'] || '/';
-        if(params['returnUrl']){
-          this.router.navigateByUrl('/extra/login');
-        }
-        else{
-          this.router.navigate(['/questions/home'], {
-            queryParams: { }
-          });
-        }
-      });  
-
-    this.commonService.getDefaultCredits().subscribe(
-      (res: any) => {
-          this.defaultCredits = res.data;
-        },
-      (err: HttpErrorResponse) => {
-        }
-      );  
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || '/';
+      if (params['returnUrl']) {
+        this.router.navigateByUrl('/extra/login');
+      } else {
+        this.router.navigate(['/questions/home'], {queryParams: {}});
+      }
+    });
+    this.commonService.getDefaultCredits().subscribe((res: any) => {
+      this.defaultCredits = res.data;
+    });  
     this.newQuestionFlag = false;
     this.autocomplete = [];
     this.form = this.fb.group({
@@ -86,10 +74,9 @@ export class HomeComponent implements OnInit, OnDestroy {
             .getQuestions(null, null, text)
             .subscribe((res: any) => {
               this.autocomplete = res.data.questions;
-              if(!this.autocomplete.length){
+              if (!this.autocomplete.length) {
                 this.newQuestionFlag = true;
-              }
-              else{
+              } else {
                 this.newQuestionFlag = false;
               }
             });
@@ -124,43 +111,30 @@ export class HomeComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe(newQuestion => {
           if (newQuestion) {
-            // if (question) {
-            //   const index = this.questions.findIndex(
-            //     currentQuestion => currentQuestion._id === question._id
-            //   );
-            //   if (index !== -1) {
-            //     this.questions[index] = newQuestion;
-            //   }
-            // } else {
-            //   this.questions.push(newQuestion);
-            // }
-            this.dialogService.
-                open(AlertDialogComponent, {
-                  data: {
-                    title: "Question submitted",
-                    comment: " ",
-                    dialog_type: "ask" 
-                  },
-                  width: '320px',
-                }).afterClosed().subscribe(result => {
-                  if(result == 'more'){
-                    this.openQuestionDialog();
-                  }
-                });
+            this.dialogService.open(AlertDialogComponent, {
+              data: {
+                title: "Question submitted",
+                comment: " ",
+                dialog_type: "ask" 
+              },
+              width: '320px',
+            }).afterClosed().subscribe(result => {
+              if (result == 'more') {
+                this.openQuestionDialog();
+              }
+            });
           }
         });
-    }
-    else{
+    } else {
       this.router.navigateByUrl('/extra/login');
     }
   }
 
-  searchBoxAction(){
-    if(this.newQuestionFlag){
+  searchBoxAction() {
+    if (this.newQuestionFlag) {
       this.newQuestionFlag = false;
       this.openQuestionDialog(this.form.value.search);
-    }
-    else{
+    } else {
       this.questions = [];
       this.pageIndex = 0;
       this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
@@ -195,8 +169,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.snackBar.open('Question was created.', 'Dismiss', {
               duration: 2000
             });
-          } 
-          else {
+          } else {
             const index = this.questions.findIndex(
               currentQuestion => currentQuestion._id === event.payload.data._id
             );
@@ -215,8 +188,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               }
             }
           }
-        } 
-        else if(event.payload.type === 'answer') {
+        } else if (event.payload.type === 'answer') {
           let index = this.questions.findIndex(
             currentQuestion =>
               currentQuestion._id === event.payload.data.questionId

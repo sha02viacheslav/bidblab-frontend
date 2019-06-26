@@ -220,14 +220,6 @@ export class CommonService {
       .toPromise();
   }
 
-  deleteAnswer(questionId, answerId) {
-    return this.httpClient
-      .delete(
-        `${environment.apiUrl}/api/admin/deleteAnswer/${questionId}/${answerId}`
-      )
-      .toPromise();
-  }
-
   changeQuestionPicture(body) {
     return this.httpClient.patch(
       `${environment.apiUrl}/api/common/changeQuestionPicture`,
