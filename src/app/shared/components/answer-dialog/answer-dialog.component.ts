@@ -55,82 +55,29 @@ export class AnswerDialogComponent implements OnInit {
   }
 
   submitForm(answertype) {
-    if(answertype == 'skip'){
+    if(answertype == 'skip') {
       this.dialogRef.close(true);
-    }
-    else if (this.form.valid) {
+    } else if (this.form.valid) {
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
-      if (this.data.answer) {
-        this.commonService
-          .updateAnswer(
-            this.data.question._id,
-            this.data.answer._id,
-            this.form.value
-          )
-          .subscribe(
-            (res: any) => {
-              this.socketsService.notify('updatedData', {
-                type: 'answer',
-                data: Object.assign(
-                  { questionId: this.data.question._id, answer: res.data },
-                )
-              });
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(res.msg, 'Dismiss', {
-                  duration: 1500
-                })
-                .afterOpened()
-                .subscribe(() => {
-                  res.data.answerer = this.data.answer.answerer;
-                  this.dialogRef.close(res.data);
-                });
-            },
-            (err: HttpErrorResponse) => {
-              this.submitted = false;
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(err.error.msg, 'Dismiss', {
-                  duration: 4000
-                })
-                .afterDismissed()
-                .subscribe(() => {});
-            }
-          );
-      } else {
-        this.commonService
-          .addAnswer(this.data.question._id, answertype, this.form.value)
-          .subscribe(
-            (res: any) => {
-              this.socketsService.notify('createdData', {
-                type: 'answer',
-                data: Object.assign(
-                  { questionId: this.data.question._id, answer: res.data },
-                )
-              });
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(res.msg, 'Dismiss', {
-                  duration: 1500
-                })
-                .afterOpened()
-                .subscribe(() => {
-                  this.dialogRef.close(true);
-                });
-            },
-            (err: HttpErrorResponse) => {
-              this.submitted = false;
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(err.error.msg, 'Dismiss', {
-                  duration: 4000
-                })
-                .afterDismissed()
-                .subscribe(() => {});
-            }
-          );
-      }
+      this.commonService.addAnswer(this.data.question._id, answertype, this.form.value).subscribe((res: any) => {
+        if(res.data) {
+          this.socketsService.notify('createdData', {
+            type: 'answer',
+            data: Object.assign(
+              { questionId: this.data.question._id, answer: res.data },
+            )
+          });
+          this.blockUIService.setBlockStatus(false);
+          this.snackBar.open(res.msg, 'Dismiss', {duration: 1500}).afterOpened().subscribe(() => {
+            this.dialogRef.close(true);
+          });
+        } else {
+          this.submitted = false;
+          this.blockUIService.setBlockStatus(false);
+          this.snackBar.open(res.msg, 'Dismiss', {duration: 4000});
+        }
+      });
     }
   }
 }
