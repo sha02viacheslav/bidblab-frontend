@@ -84,50 +84,41 @@ export class BidListComponent implements OnInit, OnDestroy {
 
   getAuctions() {
     if(this.myBidsFlag){
-      this.commonService.getBiddingAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
-        (res: any) => {
+      this.commonService.getBiddingAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe((res: any) => {
+        this.totalAuctionsCount = res.data.totalAuctionsCount;
+        var start = this.auctions.length;
+        res.data.auctions.forEach(element => {
+          element.index = start++;
+          this.auctions.push(element);
+        });
+      }, (err: HttpErrorResponse) => {
+        this.snackBar.open(err.error.msg, 'Dismiss');
+      });
+    } else {
+      if(this.authenticationService.isAuthenticated()) {
+        this.commonService.getAuctionsAfterLogin(this.pageSize, this.pageIndex, null, this.auctionType)
+        .subscribe((res: any) => {
           this.totalAuctionsCount = res.data.totalAuctionsCount;
           var start = this.auctions.length;
           res.data.auctions.forEach(element => {
             element.index = start++;
             this.auctions.push(element);
           });
-        },
-        (err: HttpErrorResponse) => {
+        }, (err: HttpErrorResponse) => {
           this.snackBar.open(err.error.msg, 'Dismiss');
-        }
-      );
-    }
-    else{
-      if(this.authenticationService.isAuthenticated()){
-        this.commonService.getAuctionsAfterLogin(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
-          (res: any) => {
-            this.totalAuctionsCount = res.data.totalAuctionsCount;
-            var start = this.auctions.length;
-            res.data.auctions.forEach(element => {
-              element.index = start++;
-              this.auctions.push(element);
-            });
-          },
-          (err: HttpErrorResponse) => {
-            this.snackBar.open(err.error.msg, 'Dismiss');
-          }
-        );
-      }
-      else{
-        this.commonService.getAuctions(this.pageSize, this.pageIndex, null, this.auctionType).subscribe(
-          (res: any) => {
-            this.totalAuctionsCount = res.data.totalAuctionsCount;
-            var start = this.auctions.length;
-            res.data.auctions.forEach(element => {
-              element.index = start++;
-              this.auctions.push(element);
-            });
-          },
-          (err: HttpErrorResponse) => {
-            this.snackBar.open(err.error.msg, 'Dismiss');
-          }
-        );
+        });
+      } else {
+        this.commonService.getAuctions(this.pageSize, this.pageIndex, null, this.auctionType)
+        .subscribe((res: any) => {
+          this.totalAuctionsCount = res.data.totalAuctionsCount;
+          var start = this.auctions.length;
+          res.data.auctions.forEach(element => {
+            element.index = start++;
+            this.auctions.push(element);
+          });
+        }, (err: HttpErrorResponse) => {
+          this.snackBar.open(err.error.msg, 'Dismiss');
+        });
       }
     }
   }

@@ -1,6 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="start center">
   <ng-container *ngTemplateOutlet="forgotMode ? forgotPassword : login"></ng-container>
-
   <ng-template #login>
     <form class="py-1 w-100" [formGroup]="loginForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
       <mat-card class="custom-card">

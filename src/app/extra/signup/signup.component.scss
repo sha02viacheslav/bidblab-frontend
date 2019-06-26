@@ -1,7 +1,19 @@
+.page-title {
+  font-size: 20px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+@media (max-width: 599px) {
+  .page-title {
+    font-size: 18px !important;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
 .accept-wrap {
   display: flex;
 
-  >div:first-child {
+  > div:first-child {
     margin-right: 0.5rem;
   }
 }
@@ -9,7 +21,7 @@
 @media (min-width: 600px) {
   mat-card {
     width: 400px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   }
 
   form {
