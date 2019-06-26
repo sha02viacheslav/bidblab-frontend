@@ -59,115 +59,6 @@ export class AnswerBoxComponent implements OnInit {
     });
   }
 
-  submitForm(answertype) {
-    this.pre_answer = this.question.answers.find(
-      answer =>
-        answer.answerer &&
-        answer.answerer._id === this.authenticationService.getUser()._id
-    );
-
-    if(answertype == 'skip'){
-      this.visibleState = false;
-    }
-
-    if (this.form.valid) {
-      this.blockUIService.setBlockStatus(true);
-      //update answer
-      if (this.pre_answer) {
-        this.commonService
-          .updateAnswer(
-            this.question._id,
-            this.pre_answer._id,
-            this.form.value
-          )
-          .subscribe(
-            (res: any) => {
-              this.socketsService.notify('updatedData', {
-                type: 'answer',
-                data: Object.assign({
-                    questionId: this.question._id
-                  },
-                  res.data
-                )
-              });
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(res.msg, 'Dismiss', {
-                  duration: 1500
-                })
-                .afterOpened()
-                .subscribe(() => {
-                  res.data.answerer = this.authenticationService.getUser()._id;
-                  this.respons_submitAnswer(res.data);
-                });
-            },
-            (err: HttpErrorResponse) => {
-              //this.submitted = false;
-              this.blockUIService.setBlockStatus(false);
-              this.snackBar
-                .open(err.error.msg, 'Dismiss', {
-                  duration: 4000
-                })
-                .afterDismissed()
-                .subscribe(() => {});
-            }
-          );
-    } else {
-      //add answer
-      this.commonService
-        .addAnswer(this.question._id, answertype, this.form.value)
-        .subscribe(
-          (res: any) => {
-            this.blockUIService.setBlockStatus(false);
-            this.visibleState = false;
-            this.socketsService.notify('createdData', {
-              type: 'answer',
-              data: Object.assign(
-                { questionId: this.question._id },
-                res.data
-              )
-            });
-           
-            this.snackBar
-              .open(res.msg, 'Dismiss', {
-                duration: 1500
-              })
-              .afterOpened()
-              .subscribe(() => {
-               // this.dialogRef.close(res.data);
-               //this.respons_submitAnswer(res.data);
-              });
-            
-            
-            this.dialogService.open(AlertDialogComponent, {
-              data: {
-                title: "Answer submitted",
-                comment: "You earned 8 BidBlab Credits",
-                dialog_type: "answer" 
-              },
-              width: '320px',
-            }).afterClosed().subscribe(result => {
-              if(result == 'dismiss'){
-                this.commonService.goHome();
-              }
-            });
-          },
-          (err: HttpErrorResponse) => {
-            //this.submitted = false;
-            this.blockUIService.setBlockStatus(false);
-            this.snackBar
-              .open(err.error.msg, 'Dismiss', {
-                duration: 4000
-              })
-              .afterDismissed()
-              .subscribe(() => {});
-          }
-        );
-      }
-
-    }
-  }
-
   openAnswerDialog(question, answer?: any) {
     if (this.authenticationService.isAuthenticated()) {
       this.dialogService
@@ -183,11 +74,9 @@ export class AnswerBoxComponent implements OnInit {
             this.visibleState = false;
           }
         });
-    }
-    else {
+    } else {
       this.router.navigateByUrl('/extra/login');
     }
-
   }
 
   respons_submitAnswer(newAnswer?: any) {

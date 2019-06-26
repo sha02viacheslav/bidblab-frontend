@@ -28,7 +28,7 @@
   .question-answer {
     padding: 1rem;
 
-    &>div {
+    &>div:first-child {
       margin-bottom: 1rem;
     }
   }
@@ -74,34 +74,18 @@
   }
 
   .button-wrap {
+    margin: auto;
+    text-align: center;
     button {
-      font-size: 18px;
-      width: 120px;
-    }
-
-    button:first-child {
-      margin-right: 10px;
+      margin: 0.5rem;
+      width: 100%;
+      max-width: 300px;
     }
   }
 
   .credit-wrap {
     div {
       margin-left: 0.5rem;
-    }
-  }
-
-  .button-wrapper {
-    font: 14px sans-serif;
-    padding: 10px 0;
-
-    button {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    .description-credits {
-      padding: 0 1rem;
-      color: #666;
     }
   }
 

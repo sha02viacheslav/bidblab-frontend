@@ -13,6 +13,7 @@ import { debounceTime, filter } from 'rxjs/operators';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { ReportDialogComponent } from '../../shared/components/report-dialog/report-dialog.component';
 import { environment } from '../../../environments/environment';
+import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
 
 @Component({
   selector: 'app-question-detail',
@@ -33,6 +34,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
   followed: boolean;
   isInit: boolean;
   serverUrl = environment.apiUrl;
+  defaultCredits: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +57,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.thumbstate = 0;
     this.followed = true;
+    this.commonService.getDefaultCredits().subscribe((res: any) => {
+      this.defaultCredits = res.data;
+    });
   }
 
   ngOnDestroy() {
@@ -142,6 +147,20 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
       this.question.asker &&
       this.question.asker._id === this.authenticationService.getUser()._id
     );
+  }
+
+  openAnswerDialog(question, answer?: any) {
+    if (this.authenticationService.isAuthenticated()) {
+      this.dialogService
+        .open(AnswerDialogComponent, {
+          data: {
+            question,
+            answer
+          }
+        })
+    } else {
+      this.router.navigateByUrl('/extra/login');
+    }
   }
 
   private listenToSocket() {
