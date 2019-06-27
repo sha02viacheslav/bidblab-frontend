@@ -38,12 +38,10 @@
 
           <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
             <span (mouseleave)="moreMenuTrigger.closeMenu()">
-              <button mat-menu-item (click)="auctionType = bidService.auctionRole.process; 
-                bidService.detailAuction = null; auctions = []; getAuctions()">
+              <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.process)">
                 Live Auctions
               </button>
-              <button mat-menu-item (click)="auctionType = bidService.auctionRole.closed; 
-                bidService.detailAuction = null; auctions = []; getAuctions()">
+              <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.closed)">
                 Closed Auctions
               </button>
             </span>

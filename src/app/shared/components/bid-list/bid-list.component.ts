@@ -171,6 +171,14 @@ export class BidListComponent implements OnInit, OnDestroy {
     this.applySort();
   }
 
+  changeAuctinType(auctionType){
+    this.auctionType = auctionType;
+    this.auctions = [];
+    this.pageIndex = 0;
+    this.bidService.detailAuction = null;
+    this.getAuctions();
+  }
+
   onScroll() {
     if((this.pageIndex + 1) * this.pageSize < this.totalAuctionsCount){
       this.pageIndex = this.pageIndex + 1;
