@@ -17,21 +17,20 @@
         Question has a maximum length of 500 characters.
       </mat-error>
     </mat-form-field>
-    <mat-form-field *ngIf="standardInterests">
-      <mat-select placeholder="Select Catagory for question" formControlName="tag">
-        <mat-option *ngFor="let interest of standardInterests;" [value]="interest">
-          {{interest}}
+    <mat-form-field appearance="outline">
+      <mat-label>Tag</mat-label>
+      <input type="text" (keydown.enter)="$event.preventDefault()" formControlName="tag" matInput [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let tag of autocomplete" [value]="tag">
+          {{tag}}
         </mat-option>
-      </mat-select>
-      <mat-error *ngIf="checkError(infoForm, 'tag', ['required', 'blank'])">
-        Required.
-      </mat-error>
+      </mat-autocomplete>
     </mat-form-field>
     <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center center" class="form-field-outer">
       <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="picture-wrap"
         *ngFor="let uploadFile of uploadFiles; let index = index">
         <img *ngIf="selectedFileIndex != index" class="cropped-img" [src]="uploadFile.croppedImage"
-          (click)="openCrop(index)" />
+          (click)="openCrop(index)"/>
         <div class="crop-wrap">
           <app-upload-image *ngIf="selectedFileIndex == index" (sendData)="addPicture($event)"
             [originalImage]="uploadFiles[index].originalFile" [firstCrop]="uploadFiles[index].croppedFile == ''">

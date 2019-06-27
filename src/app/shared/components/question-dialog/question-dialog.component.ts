@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormValidationService } from '../../services/form-validation.service';
 import { BlockUIService } from '../../services/block-ui.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@angular/material';
+import { debounceTime, filter } from 'rxjs/operators';
 import { CommonService } from '../../services/common.service';
 import { SocketsService } from '../../services/sockets.service';
 
@@ -22,6 +23,8 @@ export class QuestionDialogComponent implements OnInit {
   uploadFiles: any[] = [];
   defaultCredits: any;
   selectedFileIndex: number = -1;
+  public autocomplete: any[] = [];
+  private autocompleteSubscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +58,17 @@ export class QuestionDialogComponent implements OnInit {
       ]
     });
 
+    this.autocompleteSubscription = this.infoForm
+      .get('tag')
+      .valueChanges.pipe(debounceTime(100))
+      .subscribe(text => {
+        if (text.trim()) {
+          this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
+          console.log(text);
+        } else {
+          this.autocomplete = [];
+        }
+      });
 
     this.commonService.getStandardInterests().subscribe(
       (res: any) => {
