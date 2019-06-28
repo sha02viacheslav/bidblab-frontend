@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material';
 import { CommonService } from '../../shared/services/common.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { DialogService } from '../../shared/services/dialog.service';
+import { DOCUMENT } from '@angular/common';
+import Rolldate from 'rolldate';
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +32,10 @@ export class SignupComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute,
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
     private dialogService: DialogService,
+    private elementRef:ElementRef
   ) {
   }
 
@@ -81,6 +86,19 @@ export class SignupComponent implements OnInit {
         ]
       ]
     });
+
+    new Rolldate({
+      el: '#roll-date-picker',
+      format: 'YYYY-MM-DD',
+      beginYear: 1920,
+      endYear: 2020,
+      lang: {title:'Select A Date', confirm:'Set', cancel:'Cancel', year:'', month:'', day:''},
+      value: '2017-10-21',
+      confirm: (date) =>  {
+        this.form.controls.birthday.setValue(new Date(date));
+      }
+    })
+    
   }
 
   checkError(form, field, error) {
