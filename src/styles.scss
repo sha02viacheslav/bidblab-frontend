@@ -186,5 +186,12 @@ mat-dialog-content {
   border: unset !important;
 }
 
+@media (min-width: 600px) {
+.rolldate-container .rolldate-panel {
+  left: calc(50vw - 190px) !important;
+  width: 380px !important;
+}
+}
+
 
 

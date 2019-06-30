@@ -89,7 +89,7 @@ export class SignupComponent implements OnInit {
 
     new Rolldate({
       el: '#roll-date-picker',
-      format: 'YYYY-MM-DD',
+      format: 'MM-DD-YYYY',
       beginYear: 1920,
       endYear: 2020,
       lang: {title:'Select A Date', confirm:'Set', cancel:'Cancel', year:'', month:'', day:''},
@@ -119,7 +119,6 @@ export class SignupComponent implements OnInit {
       this.blockUIService.setBlockStatus(true);
       this.commonService.signup(this.form.value).subscribe(
         (res: any) => {
-          console.log(res.data);
           this.blockUIService.setBlockStatus(false);
           this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
           this.dialogService.open(AlertDialogComponent, {
