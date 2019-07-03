@@ -146,9 +146,7 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
           cardNonceResponseReceived: function (errors, nonce, cardData)  {
             if (errors) {
               // Log errors from nonce generation to the Javascript console
-              console.log("Encountered errors:");
               errors.forEach(function(error) {
-                console.log('  ' + error.message);
               });
               return;
             }

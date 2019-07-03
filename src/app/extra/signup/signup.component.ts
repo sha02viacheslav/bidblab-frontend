@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, Inject, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,19 +10,23 @@ import { CommonService } from '../../shared/services/common.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { DialogService } from '../../shared/services/dialog.service';
 import { DOCUMENT } from '@angular/common';
-import Rolldate from 'rolldate';
+import * as $ from 'jquery';
+import 'datetimepicker';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit {
   submitted: boolean;
   passwordVisibility: boolean;
   form: FormGroup;
   private friendEmail: string = '';
   public defaultCredits: any;
+
+  @ViewChild('datepicker') datepicker: ElementRef;
+  @ViewChild('dateinput') dateinput: ElementRef;
   
   constructor(
     private fb: FormBuilder,
@@ -40,7 +44,6 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe(params => {
       if (params.has('friendEmail')) {
         this.friendEmail = params.get('friendEmail');
@@ -86,19 +89,40 @@ export class SignupComponent implements OnInit {
         ]
       ]
     });
+  }
 
-    new Rolldate({
-      el: '#roll-date-picker',
-      format: 'MM-DD-YYYY',
-      beginYear: 1920,
-      endYear: 2020,
-      lang: {title:'Select A Date', confirm:'Set', cancel:'Cancel', year:'', month:'', day:''},
-      value: '2017-10-21',
-      confirm: (date) =>  {
-        this.form.controls.birthday.setValue(new Date(date));
+  ngAfterViewInit() {
+    var self = this;
+    $(this.datepicker.nativeElement).DateTimePicker({
+      dateFormat: "MM-dd-yyyy",
+      isPopup: false,
+      parentElement: ".cont-datetime",
+      formatHumanDate: function (oDate, sMode, sFormat) {
+        var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+        if (timeTemp === "") {
+          self.form.controls.birthday.setValue('');
+        } else {
+          self.form.controls.birthday.setValue(new Date(timeTemp));
+          self.dateinput.nativeElement.value = timeTemp;
+        }
+        if (sMode === "date") {
+          return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy;
+        } else if (sMode === "time") {
+          return oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+        } else if (sMode === "datetime") {
+          return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy + " " + oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+        }
+      },
+      settingValueOfElement: function (sValue, dDateTime, oInputElement) {
+        var timeTemp = oInputElement.val();
+        if (timeTemp === "") {
+          self.form.controls.birthday.setValue('');
+        } else {
+          self.form.controls.birthday.setValue(new Date(timeTemp));
+          self.dateinput.nativeElement.value = timeTemp;
+        }
       }
     })
-    
   }
 
   checkError(form, field, error) {

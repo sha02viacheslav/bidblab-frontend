@@ -64,7 +64,6 @@ export class QuestionDialogComponent implements OnInit {
       .subscribe(text => {
         if (text.trim()) {
           this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
-          console.log(text);
         } else {
           this.autocomplete = [];
         }

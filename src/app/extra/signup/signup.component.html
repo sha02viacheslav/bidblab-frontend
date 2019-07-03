@@ -3,7 +3,8 @@
     <mat-card class="custom-card">
       <mat-card-header class="p-1" fxLayoutAlign="center center">
         <mat-card-title class="m-0">
-          <div class="page-title">Sign Up Today for {{defaultCredits? defaultCredits.defaultSignupCredit : '50'}} Bid Credits!</div>
+          <div class="page-title">Sign Up Today for {{defaultCredits? defaultCredits.defaultSignupCredit : '50'}} Bid
+            Credits!</div>
         </mat-card-title>
       </mat-card-header>
       <mat-card-content fxLayout="row wrap" fxLayoutAlign="space-between">
@@ -23,10 +24,10 @@
         </mat-form-field>
         <mat-form-field appearance="outline" fxFlex="100">
           <mat-label>Birthday</mat-label>
-          <input matInput readonly formControlName="birthday" placeholder="1990-01-01" type="text" id="roll-date-picker">
-          <!-- <input matInput [matDatepicker]="picker" formControlName="birthday">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker> -->
+          <div class="cont-datetime">
+            <input #dateinput matInput readonly formControlName="birthday" type="text" data-field="date">
+          </div>
+          <div #datepicker></div>
           <mat-error *ngIf="checkError(form, 'birthday', ['required'])">
             Required.
           </mat-error>
