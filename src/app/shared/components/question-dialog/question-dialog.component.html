@@ -17,20 +17,27 @@
         Question has a maximum length of 500 characters.
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field class="w-100" appearance="outline">
       <mat-label>Tag</mat-label>
-      <input type="text" (keydown.enter)="$event.preventDefault()" formControlName="tag" matInput [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let tag of autocomplete" [value]="tag">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let tag of tags; let i = index;" [selectable]="true" [removable]="true">
           {{tag}}
-        </mat-option>
-      </mat-autocomplete>
+          <mat-icon matChipRemove (click)="removeTag(i)">cancel</mat-icon>
+        </mat-chip>
+        <input matInput type="text" formControlName="tag" [matChipInputFor]="chipList" #inputForTag
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false"
+          (matChipInputTokenEnd)="addTag()" [matAutocomplete]="auto">
+        <mat-autocomplete #autocompleteTag (optionSelected)="addTag();" (keydown.enter)="$event.stopPropagation()"
+          #auto="matAutocomplete">
+          <mat-option *ngFor="let tag of autocomplete" [value]="tag">{{tag}}</mat-option>
+        </mat-autocomplete>
+      </mat-chip-list>
     </mat-form-field>
     <div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center center" class="form-field-outer">
       <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center" class="picture-wrap"
         *ngFor="let uploadFile of uploadFiles; let index = index">
         <img *ngIf="selectedFileIndex != index" class="cropped-img" [src]="uploadFile.croppedImage"
-          (click)="openCrop(index)"/>
+          (click)="openCrop(index)" />
         <div class="crop-wrap">
           <app-upload-image *ngIf="selectedFileIndex == index" (sendData)="addPicture($event)"
             [originalImage]="uploadFiles[index].originalFile" [firstCrop]="uploadFiles[index].croppedFile == ''">

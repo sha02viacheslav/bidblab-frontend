@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Inject, OnInit, Optional, AfterViewInit, AfterContentInit, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, Inject, OnInit, Optional, AfterViewInit, AfterContentInit, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormArray, FormBuilder, FormGroup, Validators,  FormControl  } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -8,6 +8,8 @@ import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@
 import { debounceTime, filter } from 'rxjs/operators';
 import { CommonService } from '../../services/common.service';
 import { SocketsService } from '../../services/sockets.service';
+import { ENTER } from '@angular/cdk/keycodes';
+const COMMA = 188;
 
 @Component({
   selector: 'app-question-dialog',
@@ -16,7 +18,8 @@ import { SocketsService } from '../../services/sockets.service';
 })
 export class QuestionDialogComponent implements OnInit {
 
-  @ViewChildren('input') vc;
+  @ViewChild('autocompleteTag') autocompleteTag: ElementRef;
+  @ViewChild('inputForTag') inputForTag: ElementRef;
   submitted: boolean;
   infoForm: FormGroup;
   standardInterests: string[];
@@ -25,6 +28,9 @@ export class QuestionDialogComponent implements OnInit {
   selectedFileIndex: number = -1;
   public autocomplete: any[] = [];
   private autocompleteSubscription: Subscription;
+
+  separatorKeysCodes = [ENTER, COMMA];
+  tags = [];
 
   constructor(
     private fb: FormBuilder,
@@ -49,13 +55,7 @@ export class QuestionDialogComponent implements OnInit {
           this.formValidationService.isBlank
         ]
       ],
-      tag: [
-        '',
-        [
-          Validators.required,
-          this.formValidationService.isBlank
-        ]
-      ]
+      tag: ['']
     });
 
     this.autocompleteSubscription = this.infoForm
@@ -87,24 +87,41 @@ export class QuestionDialogComponent implements OnInit {
     
   }
 
+  addTag() {
+    let value = this.infoForm.value.tag;
+    if ((value || '').trim()) {
+      this.tags.push(value.trim());
+    }
+    this.infoForm.controls.tag.setValue('');
+    this.inputForTag.nativeElement.value = '';
+  }
+
+  removeTag(index: any) {
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
+
   checkError(form, field, error) {
     return this.formValidationService.checkError(form, field, error);
   }
 
   submitForm() {
     if (this.infoForm.valid) {
-      let uploadData = new FormData();
-      this.uploadFiles.forEach(element => {
-        if(element.croppedFile){
-          uploadData.append('file', element.croppedFile, element.croppedFile.name);
-        }
-      });
+      if(!this.tags.length) {
+        this.snackBar.open('You must input tags more than one.', 'Dismiss', {duration: 4000});
+      } else {
+        let uploadData = new FormData();
+        this.uploadFiles.forEach(element => {
+          if(element.croppedFile){
+            uploadData.append('file', element.croppedFile, element.croppedFile.name);
+          }
+        });
 
-      uploadData.append('title', this.infoForm.value.title);
-      uploadData.append('tag', this.infoForm.value.tag);
-      this.blockUIService.setBlockStatus(true);
-      this.commonService.addQuestion(uploadData).subscribe(
-        (res: any) => {
+        uploadData.append('title', this.infoForm.value.title);
+        uploadData.append('tags', JSON.stringify(this.tags));
+        this.blockUIService.setBlockStatus(true);
+        this.commonService.addQuestion(uploadData).subscribe((res: any) => {
           this.socketsService.notify('createdData', {
             type: 'question',
             data: res.data
@@ -112,19 +129,12 @@ export class QuestionDialogComponent implements OnInit {
           this.blockUIService.setBlockStatus(false);
           this.submitted = true;
           this.dialogRef.close(res.data);
-        },
-        (err: HttpErrorResponse) => {
+        }, (err: HttpErrorResponse) => {
           this.submitted = false;
           this.blockUIService.setBlockStatus(false);
-          this.snackBar
-            .open(err.error.msg, 'Dismiss', {
-              duration: 4000
-            })
-            .afterDismissed()
-            .subscribe(() => {
-            });
-        }
-      );
+          this.snackBar.open(err.error.msg, 'Dismiss', {duration: 4000});
+        });
+      }
     }
   }
 
