@@ -1,38 +1,35 @@
 <mat-sidenav-container>
   <mat-sidenav *ngIf="!commonService.isMediaActive('gt-xs')" [opened]="'false'" [mode]="'over'" #sidenav
     class="sidenav mat-elevation-z6">
-    <mat-toolbar [fxLayoutAlign]="'space-between center'" class="sidenav-header">
+    <mat-toolbar fxLayoutAlign="space-between center" class="sidenav-header">
       <a class="logo" style="display: flex;" routerLink="/" (click)="closeSubMenus()">
         <img class="logo-wrap" src="assets/icons/logo.svg" />
       </a>
     </mat-toolbar>
 
     <div fxLayout="column" fxLayoutAlign="center center" class="user-block transition-2" [class.show]="true">
-      <div [fxLayout]="'row'" [fxLayoutAlign]="'space-around center'" class="user-info-wrapper">
+      <div fxLayout="column" fxLayoutAlign="start center" class="user-info-wrapper">
         <img [src]="user?.profilePicture?.path? serverUrl +'/' + user.profilePicture.path : 'assets/imgs/user.svg'"
           alt="user-image">
         <div class="user-info">
           <p class="name">{{user?.username}}</p>
         </div>
       </div>
-      <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 muted-text">
-        <a mat-icon-button (click)="logout(); toggleSidenav();">
-          <mat-icon>power_settings_new</mat-icon>
-        </a>
-      </div>
     </div>
 
-    <perfect-scrollbar #sidenavPS class="sidenav-menu-outer" [class.user-block-show]="true">
+    <perfect-scrollbar #sidenavPS class="sidenav-menu-outer">
       <span *ngIf="!menuItems">loading....</span>
       <app-vertical-menu [menuItems]="menuItems" [menuParentId]="0" (onClickMenuItem)="updatePS($event)">
       </app-vertical-menu>
       <mat-divider></mat-divider>
       <app-vertical-menu [menuItems]="menuItems" [menuParentId]="1" (onClickMenuItem)="updatePS($event)">
       </app-vertical-menu>
-      <mat-divider></mat-divider>
-      <app-vertical-menu [menuItems]="menuItems" [menuParentId]="2" (onClickMenuItem)="updatePS($event)">
-      </app-vertical-menu>
     </perfect-scrollbar>
+    <div class="sidenave-bottom-menu">
+      <a mat-button class="buttom-menu" (click)="logout(); toggleSidenav();">
+        <mat-icon>power_settings_new</mat-icon> Logout
+      </a>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content id="main">
     <block-ui>
