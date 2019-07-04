@@ -88,12 +88,16 @@ export class QuestionDialogComponent implements OnInit {
   }
 
   addTag() {
-    let value = this.infoForm.value.tag;
-    if ((value || '').trim()) {
-      this.tags.push(value.trim());
+    if(this.tags.length < 3) {
+      let value = this.infoForm.value.tag;
+      if ((value || '').trim()) {
+        this.tags.push(value.trim());
+      }
+      this.infoForm.controls.tag.setValue('');
+      this.inputForTag.nativeElement.value = '';
+    } else {
+      this.snackBar.open('You can add tags less than or equal to 3.', 'Dismiss', {duration: 4000});
     }
-    this.infoForm.controls.tag.setValue('');
-    this.inputForTag.nativeElement.value = '';
   }
 
   removeTag(index: any) {
@@ -108,8 +112,8 @@ export class QuestionDialogComponent implements OnInit {
 
   submitForm() {
     if (this.infoForm.valid) {
-      if(!this.tags.length) {
-        this.snackBar.open('You must input tags more than one.', 'Dismiss', {duration: 4000});
+      if(!this.tags.length || this.tags.length > 3) {
+        this.snackBar.open('You must add tags less than or equal to 3.', 'Dismiss', {duration: 4000});
       } else {
         let uploadData = new FormData();
         this.uploadFiles.forEach(element => {
