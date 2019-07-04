@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, Inject, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, Inject, ElementRef, AfterViewInit, ViewChild, PLATFORM_ID} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,9 +9,8 @@ import { MatSnackBar } from '@angular/material';
 import { CommonService } from '../../shared/services/common.service';
 import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
 import { DialogService } from '../../shared/services/dialog.service';
-import { DOCUMENT } from '@angular/common';
-import * as $ from 'jquery';
-import 'datetimepicker';
+import { isPlatformBrowser } from '@angular/common';
+declare var $: any;
 
 @Component({
   selector: 'app-signup',
@@ -37,9 +36,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
     private location: Location,
     private route: ActivatedRoute,
     private renderer2: Renderer2,
-    @Inject(DOCUMENT) private document: Document,
     private dialogService: DialogService,
-    private elementRef:ElementRef
+    private elementRef:ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
   }
 
@@ -92,37 +91,39 @@ export class SignupComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    var self = this;
-    $(this.datepicker.nativeElement).DateTimePicker({
-      dateFormat: "MM-dd-yyyy",
-      isPopup: false,
-      parentElement: ".cont-datetime",
-      formatHumanDate: function (oDate, sMode, sFormat) {
-        var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
-        if (timeTemp === "") {
-          self.form.controls.birthday.setValue('');
-        } else {
-          self.form.controls.birthday.setValue(new Date(timeTemp));
-          self.dateinput.nativeElement.value = timeTemp;
+    if (isPlatformBrowser(this.platformId)) {
+      var self = this;
+      $(this.datepicker.nativeElement).DateTimePicker({
+        dateFormat: "MM-dd-yyyy",
+        isPopup: false,
+        parentElement: ".cont-datetime",
+        formatHumanDate: function (oDate, sMode, sFormat) {
+          var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+          if (timeTemp === "") {
+            self.form.controls.birthday.setValue('');
+          } else {
+            self.form.controls.birthday.setValue(new Date(timeTemp));
+            self.dateinput.nativeElement.value = timeTemp;
+          }
+          if (sMode === "date") {
+            return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy;
+          } else if (sMode === "time") {
+            return oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+          } else if (sMode === "datetime") {
+            return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy + " " + oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+          }
+        },
+        settingValueOfElement: function (sValue, dDateTime, oInputElement) {
+          var timeTemp = oInputElement.val();
+          if (timeTemp === "") {
+            self.form.controls.birthday.setValue('');
+          } else {
+            self.form.controls.birthday.setValue(new Date(timeTemp));
+            self.dateinput.nativeElement.value = timeTemp;
+          }
         }
-        if (sMode === "date") {
-          return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy;
-        } else if (sMode === "time") {
-          return oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
-        } else if (sMode === "datetime") {
-          return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy + " " + oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
-        }
-      },
-      settingValueOfElement: function (sValue, dDateTime, oInputElement) {
-        var timeTemp = oInputElement.val();
-        if (timeTemp === "") {
-          self.form.controls.birthday.setValue('');
-        } else {
-          self.form.controls.birthday.setValue(new Date(timeTemp));
-          self.dateinput.nativeElement.value = timeTemp;
-        }
-      }
-    })
+      })
+    }
   }
 
   checkError(form, field, error) {

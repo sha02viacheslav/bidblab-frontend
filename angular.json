@@ -32,7 +32,8 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.js",
-              "./node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js"
+              "./node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js",
+              "./node_modules/datetimepicker/dist/DateTimePicker.min.js"
             ],
             "es5BrowserSupport": true
           },
@@ -93,7 +94,8 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.js",
-              "./node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js"
+              "./node_modules/jquery.nicescroll/dist/jquery.nicescroll.min.js",
+              "./node_modules/datetimepicker/dist/DateTimePicker.min.js"
             ],
             "assets": [
               "src/favicon.ico",
