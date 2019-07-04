@@ -4,7 +4,7 @@
   </div>
   <div class="TV-show">
     <mat-chip-list>
-      <mat-chip class="question-category" color="basic" selected>Category:&nbsp;{{ question.tag }}</mat-chip>
+      <mat-chip *ngFor="let tag of question.tags" class="question-category" color="accent" selected>{{ tag }}</mat-chip>
     </mat-chip-list>
   </div>
 </div>

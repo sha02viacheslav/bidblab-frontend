@@ -24,10 +24,10 @@
           {{tag}}
           <mat-icon matChipRemove (click)="removeTag(i)">cancel</mat-icon>
         </mat-chip>
-        <input matInput type="text" formControlName="tag" [matChipInputFor]="chipList" #inputForTag
+        <input *ngIf="tags.length < 3" matInput type="text" formControlName="tag" [matChipInputFor]="chipList" #inputForTag
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="false"
           (matChipInputTokenEnd)="addTag()" [matAutocomplete]="auto">
-        <mat-autocomplete #autocompleteTag (optionSelected)="addTag();" (keydown.enter)="$event.stopPropagation()"
+        <mat-autocomplete (optionSelected)="addTag();" (keydown.enter)="$event.stopPropagation()"
           #auto="matAutocomplete">
           <mat-option *ngFor="let tag of autocomplete" [value]="tag">{{tag}}</mat-option>
         </mat-autocomplete>

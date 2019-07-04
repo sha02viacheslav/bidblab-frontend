@@ -5,7 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormValidationService } from '../../services/form-validation.service';
 import { BlockUIService } from '../../services/block-ui.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@angular/material';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { CommonService } from '../../services/common.service';
 import { SocketsService } from '../../services/sockets.service';
 import { ENTER } from '@angular/cdk/keycodes';
@@ -18,7 +18,6 @@ const COMMA = 188;
 })
 export class QuestionDialogComponent implements OnInit {
 
-  @ViewChild('autocompleteTag') autocompleteTag: ElementRef;
   @ViewChild('inputForTag') inputForTag: ElementRef;
   submitted: boolean;
   infoForm: FormGroup;
@@ -28,7 +27,6 @@ export class QuestionDialogComponent implements OnInit {
   selectedFileIndex: number = -1;
   public autocomplete: any[] = [];
   private autocompleteSubscription: Subscription;
-
   separatorKeysCodes = [ENTER, COMMA];
   tags = [];
 
@@ -59,15 +57,15 @@ export class QuestionDialogComponent implements OnInit {
     });
 
     this.autocompleteSubscription = this.infoForm
-      .get('tag')
-      .valueChanges.pipe(debounceTime(100))
-      .subscribe(text => {
-        if (text.trim()) {
-          this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
-        } else {
-          this.autocomplete = [];
-        }
-      });
+    .get('tag')
+    .valueChanges.pipe(debounceTime(100))
+    .subscribe(text => {
+      if (text.trim()) {
+        this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
+      } else {
+        this.autocomplete = [];
+      }
+    });
 
     this.commonService.getStandardInterests().subscribe(
       (res: any) => {
