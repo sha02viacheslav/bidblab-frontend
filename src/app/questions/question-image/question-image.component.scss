@@ -11,6 +11,14 @@
   background-size: cover;
   background-repeat: no-repeat;
   margin-bottom: 1rem;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.8;
+    background-size: 105%;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
 }
 .question-category.mat-standard-chip{
   font-size: 12px;

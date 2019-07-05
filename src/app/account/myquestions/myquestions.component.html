@@ -1,5 +1,5 @@
 <app-search></app-search>
-<div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page main-color">
+<div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page mute-text">
   <div *ngFor="let question of myquestions">
     <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
       fxLayoutAlign=" none">

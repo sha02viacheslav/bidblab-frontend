@@ -44,7 +44,7 @@
                     <img class="logo-wrap" src="assets/icons/logo.svg" />
                   </button>
                 </div>
-                <app-horizontal-menu [menuParentId]="0" *ngIf="commonService.isMediaActive('gt-xs')">
+                <app-horizontal-menu [menuParentId]="0" *ngIf="commonService.isMediaActive('gt-xs')" class="pr-4">
                 </app-horizontal-menu>
                 <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
                   <mat-menu #userMenu="matMenu">

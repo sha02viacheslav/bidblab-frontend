@@ -15,11 +15,11 @@
                 </button>
               </div>
             </div>
-            <div class="text-block-wrap" fxFlex fxLayout="row">
+            <div class="text-block-wrap h-100" fxFlex fxLayout="row">
               <div>
                 <span class="accent">Q:&nbsp;</span>
               </div>
-              <div class="text-wrapper question-title">
+              <div class="text-wrapper mute-text">
                 {{question.title}}
               </div>
             </div>
@@ -73,7 +73,7 @@
               <div>
                 <span class="accent">A:&nbsp;</span>
               </div>
-              <div class="text-wrapper question-title">
+              <div class="text-wrapper mute-text">
                 {{answer.content}}
               </div>
             </div>
@@ -106,5 +106,5 @@
   </div>
 </div>
 <ng-template #noAnswers>
-  <h3 class="accent stretch" style="text-align: center">No answers available</h3>
+  <h3 class="accent stretch mute-text" style="text-align: center">No submitted answers</h3>
 </ng-template>

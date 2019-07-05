@@ -3,13 +3,15 @@
     <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
       <app-question-image [question]="question"></app-question-image>
     </div>
-    <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8">
+    <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
       <div class="question-answer" fxLayout="column">
         <div fxLayout="row">
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
+              <button mat-icon-button color="primary" class="no-hover-effect"
+                matTooltip="Go to user detail page" matTooltipClass="example-tooltip-color"
+                routerLink="/user/{{question.asker?._id}}">
               </button>
             </div>
           </div>
@@ -17,21 +19,23 @@
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>
-            <div routerLink="/questions/question-detail/{{question._id}}" class="text-wrapper question-title main-color">
+            <div class="text-wrapper mute-text">
               {{question.title}}
             </div>
           </div>
         </div>
         <div *ngIf="question.answers.length" fxLayout="row">
           <div class="avatar-image">
-            <div class="avatar" [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
+            <div class="avatar"
+              [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" 
-                mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}">
+              <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}"
+                matTooltip="Go to user detail page" matTooltipClass="example-tooltip-color">
               </button>
               <ng-template #noPublic>
-                <button 
-                  mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
+                <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()"
+                  matTooltip="This is a private answer" matTooltipClass="example-tooltip-color">
                   <mat-icon>security</mat-icon>
                 </button>
               </ng-template>
@@ -41,11 +45,17 @@
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
-            <div class="text-wrapper main-color">
+            <div class="text-wrapper mute-text">
               {{question.answers[0].content}}
             </div>
           </div>
         </div>
+      </div>
+      <div class="button-wrap" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-icon-button routerLink="/questions/question-detail/{{question._id}}"
+          matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
+          <i class="fa fa-info-circle mute-text strong"></i>
+        </button>
       </div>
     </div>
   </div>

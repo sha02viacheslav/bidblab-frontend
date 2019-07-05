@@ -3,6 +3,10 @@
   border-radius: 4px;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 
+  &:hover {
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, .26), 0 4px 20px 0 rgba(0, 0, 0, .22);
+  }
+
   .avatar-image {
     width: 50px;
     margin-right: 1rem;
@@ -19,13 +23,9 @@
   .question-answer {
     padding: 1rem;
 
-    &>div {
+    &>div:first-child {
       margin-bottom: 1rem;
     }
-  }
-
-  .question-title:hover {
-    cursor: pointer;
   }
 
   .answer-wrapper {
@@ -45,28 +45,21 @@
     }
   }
 
-  .button-wrapper {
-    font: 14px sans-serif;
-    padding-left: 5rem;
-    padding-top: 0.5rem;
-
-    button {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    .description-credits {
-      padding: 0 1rem;
-      color: #666;
-    }
-  }
-
   .answer-button-wrap {
     text-align: center;
 
     button {
       width: 100%;
       max-width: 300px;
+    }
+  }
+
+  .button-wrap {
+    padding: 1rem;
+    padding-top: 0;
+
+    &>div {
+      margin-bottom: 1rem;
     }
   }
 }

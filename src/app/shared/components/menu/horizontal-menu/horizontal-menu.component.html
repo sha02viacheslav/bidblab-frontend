@@ -4,21 +4,18 @@
       [routerLink]="[menu.routerLink]" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}"
       [matTooltip]="menu.title" matTooltipPosition="above"
       [matTooltipDisabled]="'true'" [id]="'horizontal-menu-item-'+menu.id">
-      <!-- <mat-icon class="horizontal-menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="horizontal-menu-title">{{menu.title}}</span>
     </a>
     <a *ngIf="menu.href && !menu.subMenu" mat-button fxLayout="row"
       [fxLayoutAlign]="(true) ? 'start center' : 'center center'" [attr.href]="menu.href || ''"
       [attr.target]="menu.target || ''" [matTooltip]="menu.title" matTooltipPosition="above"
       [matTooltipDisabled]="true" [id]="'horizontal-menu-item-'+menu.id">
-      <!-- <mat-icon class="horizontal-menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="horizontal-menu-title">{{menu.title}}</span>
     </a>
     <a *ngIf="menu.hasSubMenu" mat-button fxLayout="row"
       [fxLayoutAlign]="(true) ? 'start center' : 'center center'" [matTooltip]="menu.title"
       matTooltipPosition="above" [matTooltipDisabled]="'true'"
       [id]="'horizontal-menu-item-'+menu.id">
-      <!-- <mat-icon class="horizontal-menu-icon">{{menu.icon}}</mat-icon> -->
       <span class="horizontal-menu-title">{{menu.title}}</span>
     </a>
 

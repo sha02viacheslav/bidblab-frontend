@@ -331,7 +331,7 @@ mat-card.no-content {
 }
 
 
-.main-color {
+.mute-text {
   color: #747373 !important;
 }
 
@@ -339,4 +339,8 @@ mat-card.no-content {
   border-radius: 0;
   background-color: #ccc; 
   color: #fff;
+}
+
+.strong {
+  font-size: 26px;
 }
