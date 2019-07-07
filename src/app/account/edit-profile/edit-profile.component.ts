@@ -11,281 +11,278 @@ import { CommonService } from '../../shared/services/common.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+	selector: 'app-edit-profile',
+	templateUrl: './edit-profile.component.html',
+	styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
-  user: any;
-  submitted: boolean;
-  disabledShippingAddress: boolean = false;
-  passwordVisibility: boolean;
-  infoForm: FormGroup;
-  passwordForm: FormGroup;
-  private userUpdatesSubscription: Subscription;
-  serverUrl = environment.apiUrl;
-  standardInterests: string[];
-  formArray: FormArray;
-  uploadFiles: any[] = [];
-  originalImage: string = '';
-  showImageFlag: boolean = false;
-  selectedFileIndex: number = -1;
-  uploadFile: any;
+	public user: any;
+	public submitted: boolean;
+	public disabledShippingAddress: boolean = false;
+	public passwordVisibility: boolean;
+	public infoForm: FormGroup;
+	public passwordForm: FormGroup;
+	public serverUrl = environment.apiUrl;
+	public standardInterests: string[] = [];
+	public formArray: FormArray;
+	public uploadFiles: any[] = [];
+	public originalImage: string = '';
+	public showImageFlag: boolean = false;
+	public selectedFileIndex: number = -1;
+	public uploadFile: any;
+	private userUpdatesSubscription: Subscription;
 
 
-  constructor(
-    private fb: FormBuilder,
-    private formValidationService: FormValidationService,
-    private authenticationService: AuthenticationService,
-    private blockUIService: BlockUIService,
-    private snackBar: MatSnackBar,
-    private dialogService: DialogService,
-    public commonService: CommonService,
-  ) {}
+	constructor(
+		public commonService: CommonService,
+		private fb: FormBuilder,
+		private formValidationService: FormValidationService,
+		private authenticationService: AuthenticationService,
+		private blockUIService: BlockUIService,
+		private snackBar: MatSnackBar,
+		private dialogService: DialogService,
+	) { }
 
-  ngOnInit() {
-    this.user = this.authenticationService.getUser();
-    this.passwordVisibility = false;
-    this.submitted = false;
+	ngOnInit() {
+		this.user = this.authenticationService.getUser();
+		this.passwordVisibility = false;
+		this.submitted = false;
 
-    if(this.user && this.user.profilePicture){
-      this.getInitialImage(0); 
-    }
-    else{
-      this.showImageFlag = true;
-    }
-    
-    this.infoForm = this.fb.group({
-      firstName: [
-        this.user.firstName,
-        [Validators.required, this.formValidationService.isBlank]
-      ],
-      lastName: [
-        this.user.lastName,
-        [Validators.required, this.formValidationService.isBlank]
-      ],
-      username: [
-        this.user.username,
-        [Validators.required, this.formValidationService.isBlank]
-      ],
-      email: [
-        this.user.email,
-        [Validators.required, this.formValidationService.isBlank, Validators.email]
-      ],
-      aboutme: [this.user.aboutme],
-      phone: [this.user.phone],
-      customTag: [''],
-      tags: this.fb.array([]),
-      birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
-      gender: [this.user.gender],
-      physicaladdress: [this.user.physicaladdress],
-      physicalcity: [this.user.physicalcity],
-      physicalstate: [this.user.physicalstate],
-      physicalzipcode: [this.user.physicalzipcode],
-      shippingaddress: [this.user.shippingaddress],
-      shippingcity: [this.user.shippingcity],
-      shippingstate: [this.user.shippingstate],
-      shippingzipcode: [this.user.shippingzipcode],
-    });
+		if (this.user && this.user.profilePicture) {
+			this.getInitialImage(0);
+		}
+		else {
+			this.showImageFlag = true;
+		}
 
-    this.commonService.getStandardInterests().subscribe((res: any) => {
-      this.standardInterests = res.data;
-      this.formArray = this.infoForm.get('tags') as FormArray;
-      this.user.tags.forEach( item => {
-        if(!this.standardInterests.some( x => x == item)){
-          this.standardInterests.push(item);
-        };
-      })
-      this.standardInterests.forEach(item => {
-        if(this.user.tags.some(interest => interest && interest === item)) {
-          this.formArray.push(new FormControl(true));
-        } else {
-          this.formArray.push(new FormControl(false));
-        }
-      });
-      this.blockUIService.setBlockStatus(false);
-      this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
-    }, (err: HttpErrorResponse) => {
-      this.blockUIService.setBlockStatus(false);
-      this.snackBar.open(err.error.msg, 'Dismiss', {duration: 1500});
-    });
-    
-    this.passwordForm = this.fb.group({
-      currentPassword: [
-        '',
-        [
-          Validators.required,
-          this.formValidationService.isBlank,
-          Validators.minLength(8)
-        ]
-      ],
-      password: [
-        '',
-        [
-          Validators.required,
-          this.formValidationService.isBlank,
-          Validators.minLength(8)
-        ]
-      ],
-      confirmPassword: [
-        '',
-        [
-          Validators.required,
-          this.formValidationService.isBlank,
-          this.formValidationService.arePasswordsMismatching
-        ]
-      ]
-    });
+		this.infoForm = this.fb.group({
+			firstName: [
+				this.user.firstName,
+				[Validators.required, this.formValidationService.isBlank]
+			],
+			lastName: [
+				this.user.lastName,
+				[Validators.required, this.formValidationService.isBlank]
+			],
+			username: [
+				this.user.username,
+				[Validators.required, this.formValidationService.isBlank]
+			],
+			email: [
+				this.user.email,
+				[Validators.required, this.formValidationService.isBlank, Validators.email]
+			],
+			aboutme: [this.user.aboutme],
+			phone: [this.user.phone],
+			customTag: [''],
+			tags: this.fb.array([]),
+			birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
+			gender: [this.user.gender],
+			physicaladdress: [this.user.physicaladdress],
+			physicalcity: [this.user.physicalcity],
+			physicalstate: [this.user.physicalstate],
+			physicalzipcode: [this.user.physicalzipcode],
+			shippingaddress: [this.user.shippingaddress],
+			shippingcity: [this.user.shippingcity],
+			shippingstate: [this.user.shippingstate],
+			shippingzipcode: [this.user.shippingzipcode],
+		});
 
-  }
+		this.formArray = this.infoForm.get('tags') as FormArray;
+		this.commonService.getStandardInterests().subscribe((res: any) => {
+			this.standardInterests = res.data;
+			this.user.tags.forEach(item => {
+				if (!this.standardInterests.some(x => x == item)) {
+					this.standardInterests.push(item);
+				};
+			})
+			this.standardInterests.forEach(item => {
+				if (this.user.tags.some(interest => interest && interest === item)) {
+					this.formArray.push(new FormControl(true));
+				} else {
+					this.formArray.push(new FormControl(false));
+				}
+			});
+			this.blockUIService.setBlockStatus(false);
+			this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
+		}, (err: HttpErrorResponse) => {
+			this.blockUIService.setBlockStatus(false);
+			this.snackBar.open(err.error.msg, 'Dismiss', { duration: 1500 });
+		});
 
-  ngOnDestroy() {
-    // this.userUpdatesSubscription.unsubscribe();
-  }
+		this.passwordForm = this.fb.group({
+			currentPassword: [
+				'',
+				[
+					Validators.required,
+					this.formValidationService.isBlank,
+					Validators.minLength(8)
+				]
+			],
+			password: [
+				'',
+				[
+					Validators.required,
+					this.formValidationService.isBlank,
+					Validators.minLength(8)
+				]
+			],
+			confirmPassword: [
+				'',
+				[
+					Validators.required,
+					this.formValidationService.isBlank,
+					this.formValidationService.arePasswordsMismatching
+				]
+			]
+		});
 
-  getInitialImage(index){
-    var reader = new FileReader();
-    this.commonService.getImage(this.serverUrl + '/' + this.user.profilePicture.path).subscribe(
-      (res: any) => {
-        this.uploadFile = res;
-        reader.readAsDataURL(this.uploadFile);
-        reader.onload = (event) => {
-          this.uploadFiles.push({
-            originalFile: this.uploadFile, 
-            croppedFile: this.uploadFile,  
-            croppedImage: reader.result
-          });
-        }
-      },
-      (err: HttpErrorResponse) => {
-        this.showImageFlag = true;
-      }
-    );  
-  }
+	}
 
-  addCustomTag(){
-    event.preventDefault();
-    if(this.infoForm.value.customTag){
-      if(this.standardInterests.find(x => x == this.infoForm.value.customTag)){
-        this.infoForm.controls.customTag.setValue('');
-      }
-      else{
-        this.standardInterests.push(this.infoForm.value.customTag);
-        this.formArray.push(new FormControl(true));
-        this.infoForm.controls.customTag.setValue('');
-      }
-    }
-  }
+	ngOnDestroy() {
+		// this.userUpdatesSubscription.unsubscribe();
+	}
 
-  checkError(form, field, error) {
-    return this.formValidationService.checkError(form, field, error);
-  }
+	getInitialImage(index) {
+		var reader = new FileReader();
+		this.commonService.getImage(this.serverUrl + '/' + this.user.profilePicture.path).subscribe(
+			(res: any) => {
+				this.uploadFile = res;
+				reader.readAsDataURL(this.uploadFile);
+				reader.onload = (event) => {
+					this.uploadFiles.push({
+						originalFile: this.uploadFile,
+						croppedFile: this.uploadFile,
+						croppedImage: reader.result
+					});
+				}
+			},
+			(err: HttpErrorResponse) => {
+				this.showImageFlag = true;
+			}
+		);
+	}
 
-  togglePasswordVisibility(event) {
-    if (event.type === 'mouseleave' && !this.passwordVisibility) {
-      return event.preventDefault();
-    }
-    this.passwordVisibility = !this.passwordVisibility;
-    return event.preventDefault();
-  }
+	addCustomTag() {
+		event.preventDefault();
+		if (this.infoForm.value.customTag) {
+			if (!this.standardInterests.find(x => x == this.infoForm.value.customTag)) {
+				this.standardInterests.push(this.infoForm.value.customTag);
+				this.formArray.push(new FormControl(true));
+			}
+			this.infoForm.controls.customTag.setValue('');
+		}
+	}
 
-  submitInfoForm() {
-    if (this.infoForm.valid) {
-      var tags = this.standardInterests.filter((x, i) => !!this.infoForm.value.tags[i]);
-      let uploadData = new FormData();
-      this.uploadFiles.forEach(element => {
-        if(element.croppedFile){
-          uploadData.append('file', element.croppedFile, element.croppedFile.name);
-        }
-      });
-      uploadData.append('firstName', this.infoForm.value.firstName);
-      uploadData.append('lastName', this.infoForm.value.lastName);
-      uploadData.append('username', this.infoForm.value.username);
-      uploadData.append('email', this.infoForm.value.email);
-      uploadData.append('aboutme', this.infoForm.value.aboutme);
-      uploadData.append('phone', this.infoForm.value.phone);
-      uploadData.append('tags', JSON.stringify(tags));
-      uploadData.append('birthday', this.infoForm.value.birthday);
-      uploadData.append('gender', this.infoForm.value.gender);
-      uploadData.append('physicaladdress', this.infoForm.value.physicaladdress);
-      uploadData.append('physicalcity', this.infoForm.value.physicalcity);
-      uploadData.append('physicalstate', this.infoForm.value.physicalstate);
-      uploadData.append('physicalzipcode', this.infoForm.value.physicalzipcode);
-      uploadData.append('shippingaddress', this.infoForm.value.shippingaddress);
-      uploadData.append('shippingcity', this.infoForm.value.shippingcity);
-      uploadData.append('shippingstate', this.infoForm.value.shippingstate);
-      uploadData.append('shippingzipcode', this.infoForm.value.shippingzipcode);
+	checkError(form, field, error) {
+		return this.formValidationService.checkError(form, field, error);
+	}
 
-      this.submitted = true;
-      this.blockUIService.setBlockStatus(true);
-      this.commonService.updateProfile(uploadData).subscribe((res: any) => {
-        this.authenticationService.setToken(res.data);
-        this.blockUIService.setBlockStatus(false);
-        this.submitted = false;
-        this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});
-      }, (err: HttpErrorResponse) => {
-        this.submitted = false;
-        this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(err.error.msg, 'Dismiss', {duration: 4000});
-      });
-    }
-  }
+	togglePasswordVisibility(event) {
+		if (event.type === 'mouseleave' && !this.passwordVisibility) {
+			return event.preventDefault();
+		}
+		this.passwordVisibility = !this.passwordVisibility;
+		return event.preventDefault();
+	}
 
-  submitPasswordForm(formDirective) {
-    if (this.passwordForm.valid) {
-      this.submitted = true;
-      this.blockUIService.setBlockStatus(true);
-      this.commonService.changePassword(this.passwordForm.value).subscribe(
-        (res: any) => {
-          this.blockUIService.setBlockStatus(false);
-          this.passwordForm.reset();
-          formDirective.resetForm();
-          this.submitted = false;
-          this.snackBar.open(res.msg, 'Dismiss', {
-            duration: 1500
-          });
-        },
-        (err: HttpErrorResponse) => {
-          this.submitted = false;
-          this.blockUIService.setBlockStatus(false);
-          this.snackBar.open(err.error.msg, 'Dismiss', {
-            duration: 4000
-          });
-        }
-      );
-    }
-  }
+	submitInfoForm() {
+		if (this.infoForm.valid) {
+			var tags = this.standardInterests.filter((x, i) => !!this.infoForm.value.tags[i]);
+			let uploadData = new FormData();
+			this.uploadFiles.forEach(element => {
+				if (element.croppedFile) {
+					uploadData.append('file', element.croppedFile, element.croppedFile.name);
+				}
+			});
+			uploadData.append('firstName', this.infoForm.value.firstName);
+			uploadData.append('lastName', this.infoForm.value.lastName);
+			uploadData.append('username', this.infoForm.value.username);
+			uploadData.append('email', this.infoForm.value.email);
+			uploadData.append('aboutme', this.infoForm.value.aboutme);
+			uploadData.append('phone', this.infoForm.value.phone);
+			uploadData.append('tags', JSON.stringify(tags));
+			uploadData.append('birthday', this.infoForm.value.birthday);
+			uploadData.append('gender', this.infoForm.value.gender);
+			uploadData.append('physicaladdress', this.infoForm.value.physicaladdress);
+			uploadData.append('physicalcity', this.infoForm.value.physicalcity);
+			uploadData.append('physicalstate', this.infoForm.value.physicalstate);
+			uploadData.append('physicalzipcode', this.infoForm.value.physicalzipcode);
+			uploadData.append('shippingaddress', this.infoForm.value.shippingaddress);
+			uploadData.append('shippingcity', this.infoForm.value.shippingcity);
+			uploadData.append('shippingstate', this.infoForm.value.shippingstate);
+			uploadData.append('shippingzipcode', this.infoForm.value.shippingzipcode);
 
-  addPicture(data) {
-    if (data) {
-      this.uploadFiles[this.selectedFileIndex] = {
-        originalFile: data.originalFile,
-        croppedFile: data.croppedFile? data.croppedFile : this.uploadFiles[this.selectedFileIndex].croppedFile,
-        croppedImage: data.croppedImage? data.croppedImage : this.uploadFiles[this.selectedFileIndex].croppedImage
-      };
-    }
-    else{
-      this.uploadFiles.splice(this.selectedFileIndex, 1);
-    }
-    this.selectedFileIndex = -1;
-  }
+			this.submitted = true;
+			this.blockUIService.setBlockStatus(true);
+			this.commonService.updateProfile(uploadData).subscribe((res: any) => {
+				this.authenticationService.setToken(res.data);
+				this.blockUIService.setBlockStatus(false);
+				this.submitted = false;
+				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
+			}, (err: HttpErrorResponse) => {
+				this.submitted = false;
+				this.blockUIService.setBlockStatus(false);
+				this.snackBar.open(err.error.msg, 'Dismiss', { duration: 4000 });
+			});
+		}
+	}
 
-  openCrop(index){
-    if(this.selectedFileIndex != -1 && this.uploadFiles[this.selectedFileIndex].croppedFile == ''){
-      this.uploadFiles.splice(this.selectedFileIndex, 1);
-    }
-    this.selectedFileIndex = index;
-  }
+	submitPasswordForm(formDirective) {
+		if (this.passwordForm.valid) {
+			this.submitted = true;
+			this.blockUIService.setBlockStatus(true);
+			this.commonService.changePassword(this.passwordForm.value).subscribe(
+				(res: any) => {
+					this.blockUIService.setBlockStatus(false);
+					this.passwordForm.reset();
+					formDirective.resetForm();
+					this.submitted = false;
+					this.snackBar.open(res.msg, 'Dismiss', {
+						duration: 1500
+					});
+				},
+				(err: HttpErrorResponse) => {
+					this.submitted = false;
+					this.blockUIService.setBlockStatus(false);
+					this.snackBar.open(err.error.msg, 'Dismiss', {
+						duration: 4000
+					});
+				}
+			);
+		}
+	}
 
-  addFile(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      this.uploadFiles.push({
-        originalFile: event.target.files[0],
-        croppedFile: '',
-        croppedImage: ''
-      });
-      this.selectedFileIndex = this.uploadFiles.length - 1;
-    }
-  }
+	addPicture(data) {
+		if (data) {
+			this.uploadFiles[this.selectedFileIndex] = {
+				originalFile: data.originalFile,
+				croppedFile: data.croppedFile ? data.croppedFile : this.uploadFiles[this.selectedFileIndex].croppedFile,
+				croppedImage: data.croppedImage ? data.croppedImage : this.uploadFiles[this.selectedFileIndex].croppedImage
+			};
+		}
+		else {
+			this.uploadFiles.splice(this.selectedFileIndex, 1);
+		}
+		this.selectedFileIndex = -1;
+	}
+
+	openCrop(index) {
+		if (this.selectedFileIndex != -1 && this.uploadFiles[this.selectedFileIndex].croppedFile == '') {
+			this.uploadFiles.splice(this.selectedFileIndex, 1);
+		}
+		this.selectedFileIndex = index;
+	}
+
+	addFile(event: any): void {
+		if (event.target.files && event.target.files[0]) {
+			this.uploadFiles.push({
+				originalFile: event.target.files[0],
+				croppedFile: '',
+				croppedImage: ''
+			});
+			this.selectedFileIndex = this.uploadFiles.length - 1;
+		}
+	}
 
 }
