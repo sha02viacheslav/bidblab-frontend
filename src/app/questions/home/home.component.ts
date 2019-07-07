@@ -58,7 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
     this.commonService.getDefaultCredits().subscribe((res: any) => {
-      this.defaultCredits = res.data;
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
     });  
     this.newQuestionFlag = false;
     this.autocomplete = [];

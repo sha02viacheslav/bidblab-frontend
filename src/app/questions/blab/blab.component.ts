@@ -50,7 +50,9 @@ export class BlabComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.form = this.fb.group({search: ''});
 		this.commonService.getDefaultCredits().subscribe((res: any) => {
-			this.defaultCredits = res.data;
+			if(res.data) {
+				this.defaultCredits = res.data;
+			}
 		});
 		this.autocompleteSubscription = this.form.get('search')
 		.valueChanges.pipe(debounceTime(100))

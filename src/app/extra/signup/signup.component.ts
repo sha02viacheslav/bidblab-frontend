@@ -51,7 +51,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
 
     this.blockUIService.setBlockStatus(true);
     this.commonService.getDefaultCredits().subscribe((res: any) => {
-      this.defaultCredits = res.data;
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
       this.blockUIService.setBlockStatus(false);
     });
 

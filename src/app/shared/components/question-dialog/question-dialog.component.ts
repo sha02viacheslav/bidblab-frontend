@@ -75,13 +75,11 @@ export class QuestionDialogComponent implements OnInit {
       }
     );
 
-    this.commonService.getDefaultCredits().subscribe(
-			(res: any) => {
-					this.defaultCredits = res.data;
-				},
-			(err: HttpErrorResponse) => {
-				}
-			);
+    this.commonService.getDefaultCredits().subscribe(	(res: any) => {
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
+    });
     
   }
 

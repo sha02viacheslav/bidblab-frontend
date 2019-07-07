@@ -51,13 +51,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       search: ''
     });
 
-		this.commonService.getDefaultCredits().subscribe(
-			(res: any) => {
-					this.defaultCredits = res.data;
-				},
-			(err: HttpErrorResponse) => {
-				}
-      );
+		this.commonService.getDefaultCredits().subscribe((res: any) => {
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
+    });
       
     this.autocompleteSubscription = this.form
       .get('search')

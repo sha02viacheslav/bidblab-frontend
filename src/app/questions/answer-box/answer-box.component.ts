@@ -55,7 +55,9 @@ export class AnswerBoxComponent implements OnInit {
     });
     
 		this.commonService.getDefaultCredits().subscribe((res: any) => {
-      this.defaultCredits = res.data;
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
     });
   }
 

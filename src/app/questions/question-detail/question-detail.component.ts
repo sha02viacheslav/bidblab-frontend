@@ -60,7 +60,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
     this.thumbstate = 0;
     this.followed = true;
     this.commonService.getDefaultCredits().subscribe((res: any) => {
-      this.defaultCredits = res.data;
+      if(res.data) {
+        this.defaultCredits = res.data;
+      }
     });
   }
 
