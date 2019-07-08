@@ -57,23 +57,21 @@ export class QuestionDialogComponent implements OnInit {
 		});
 
 		this.autocompleteSubscription = this.infoForm
-			.get('tag')
-			.valueChanges.pipe(debounceTime(100))
-			.subscribe(text => {
-				if (text.trim()) {
-					this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
-				} else {
-					this.autocomplete = [];
-				}
-			});
-
-		this.commonService.getStandardInterests().subscribe(
-			(res: any) => {
-				this.standardInterests = res.data;
-			},
-			(err: HttpErrorResponse) => {
+		.get('tag')
+		.valueChanges.pipe(debounceTime(100))
+		.subscribe(text => {
+			if (text.trim()) {
+				this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
+			} else {
+				this.autocomplete = [];
 			}
-		);
+		});
+
+		this.commonService.getStandardInterests().subscribe((res: any) => {
+			if(res.data) {
+				this.standardInterests = res.data;
+			}
+		});
 
 		this.commonService.getDefaultCredits().subscribe((res: any) => {
 			if (res.data) {

@@ -39,8 +39,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 		private formValidationService: FormValidationService,
 		private authenticationService: AuthenticationService,
 		private blockUIService: BlockUIService,
-		private snackBar: MatSnackBar,
-		private dialogService: DialogService,
+		private snackBar: MatSnackBar
 	) { }
 
 	ngOnInit() {
@@ -89,25 +88,24 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 		});
 
 		this.formArray = this.infoForm.get('tags') as FormArray;
+		this.blockUIService.setBlockStatus(true);
 		this.commonService.getStandardInterests().subscribe((res: any) => {
-			this.standardInterests = res.data;
-			this.user.tags.forEach(item => {
-				if (!this.standardInterests.some(x => x == item)) {
-					this.standardInterests.push(item);
-				};
-			})
-			this.standardInterests.forEach(item => {
-				if (this.user.tags.some(interest => interest && interest === item)) {
-					this.formArray.push(new FormControl(true));
-				} else {
-					this.formArray.push(new FormControl(false));
-				}
-			});
+			if(res.data) {
+				this.standardInterests = res.data;
+				this.user.tags.forEach(item => {
+					if (!this.standardInterests.some(x => x == item)) {
+						this.standardInterests.push(item);
+					};
+				})
+				this.standardInterests.forEach(item => {
+					if (this.user.tags.some(interest => interest && interest === item)) {
+						this.formArray.push(new FormControl(true));
+					} else {
+						this.formArray.push(new FormControl(false));
+					}
+				});
+			}
 			this.blockUIService.setBlockStatus(false);
-			this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
-		}, (err: HttpErrorResponse) => {
-			this.blockUIService.setBlockStatus(false);
-			this.snackBar.open(err.error.msg, 'Dismiss', { duration: 1500 });
 		});
 
 		this.passwordForm = this.fb.group({
@@ -145,22 +143,19 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
 	getInitialImage(index) {
 		var reader = new FileReader();
-		this.commonService.getImage(this.serverUrl + '/' + this.user.profilePicture.path).subscribe(
-			(res: any) => {
-				this.uploadFile = res;
-				reader.readAsDataURL(this.uploadFile);
-				reader.onload = (event) => {
-					this.uploadFiles.push({
-						originalFile: this.uploadFile,
-						croppedFile: this.uploadFile,
-						croppedImage: reader.result
-					});
-				}
-			},
-			(err: HttpErrorResponse) => {
-				this.showImageFlag = true;
+		this.commonService.getImage(this.serverUrl + '/' + this.user.profilePicture.path).subscribe((res: any) => {
+			this.uploadFile = res;
+			reader.readAsDataURL(this.uploadFile);
+			reader.onload = (event) => {
+				this.uploadFiles.push({
+					originalFile: this.uploadFile,
+					croppedFile: this.uploadFile,
+					croppedImage: reader.result
+				});
 			}
-		);
+		}, (err: HttpErrorResponse) => {
+			this.showImageFlag = true;
+		});
 	}
 
 	addCustomTag() {
