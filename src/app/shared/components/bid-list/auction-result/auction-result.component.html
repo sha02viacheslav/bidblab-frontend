@@ -33,7 +33,8 @@
   <div class="bid-result-content row no-gutters">
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="w-100">
       <ng-container matColumnDef="bidPrice">
-        <th [ngClass]="{'p-0': !commonService.isMediaActive('gt-xs')}" mat-header-cell *matHeaderCellDef mat-sort-header> Bid Price </th>
+        <th [ngClass]="{'p-0': !commonService.isMediaActive('gt-xs')}" mat-header-cell *matHeaderCellDef
+          mat-sort-header> Bid Price </th>
         <td [ngClass]="{'p-0': !commonService.isMediaActive('gt-xs')}" mat-cell *matCellDef="let element">
           <div class="bid-price-box mute-text" fxLayout="row wrap" fxLayoutAlign="start center">
             <div class="bid-price-wrap">
@@ -51,14 +52,19 @@
       <ng-container matColumnDef="username">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Bidder </th>
         <td class="mute-text" mat-cell *matCellDef="let element">
-          <button class="mute-text" mat-icon-button class="no-hover-effect" routerLink="/users/userdetail/{{element.bidder._id}}">
+          <button *ngIf="element.bidder" mat-icon-button class="no-hover-effect"
+            routerLink="/users/userdetail/{{element.bidder._id}}">
             <mat-icon>person</mat-icon>{{element.bidder.username}}
+          </button>
+          <button *ngIf="!element.bidder" mat-icon-button class="no-hover-effect">
+            <mat-icon>person</mat-icon>{{'not found'}}
           </button>
         </td>
       </ng-container>
       <ng-container matColumnDef="createdAt">
         <th class="mobile-display-none" mat-header-cell *matHeaderCellDef mat-sort-header> Submitted </th>
-        <td class="mobile-display-none mute-text" mat-cell *matCellDef="let element"> {{element.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}} </td>
+        <td class="mobile-display-none mute-text" mat-cell *matCellDef="let element">
+          {{element.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

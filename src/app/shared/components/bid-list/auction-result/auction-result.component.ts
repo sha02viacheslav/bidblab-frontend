@@ -30,7 +30,7 @@ export class AuctionResultComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.auction.bids.forEach(element => {
-      element.username = element.bidder.username;
+      element.username = element.bidder? element.bidder.username: '***No bidder';
     });
     this.dataSource = new MatTableDataSource<any>(this.auction.bids);
   }
