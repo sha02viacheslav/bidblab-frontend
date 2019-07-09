@@ -1,7 +1,7 @@
 <div class="question-block">
   <div class="row no-gutters">
     <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
-      <app-question-image [question]="question"></app-question-image>
+      <app-question-image [question]="question" [detailLinkFlag]="true"></app-question-image>
     </div>
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
       <div class="question-answer" fxLayout="column">
@@ -15,7 +15,8 @@
               </button>
             </div>
           </div>
-          <div class="text-block-wrap" fxFlex fxLayout="row">
+          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}"
+            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>
@@ -41,7 +42,8 @@
               </ng-template>
             </div>
           </div>
-          <div class="text-block-wrap" fxFlex fxLayout="row">
+          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}"
+            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
@@ -51,12 +53,12 @@
           </div>
         </div>
       </div>
-      <div class="button-wrap" fxLayout="row" fxLayoutAlign="end center">
+      <!-- <div class="button-wrap" fxLayout="row" fxLayoutAlign="end center">
         <button mat-icon-button routerLink="/questions/question-detail/{{question._id}}"
           matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
           <i class="fa fa-info-circle mute-text strong"></i>
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

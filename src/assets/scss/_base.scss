@@ -344,3 +344,9 @@ mat-card.no-content {
 .strong {
   font-size: 26px;
 }
+
+.pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}

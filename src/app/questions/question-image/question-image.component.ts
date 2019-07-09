@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 export class QuestionImageComponent implements OnInit {
 
   @Input() question: any;
+  @Input() detailLinkFlag: boolean;
   
   serverUrl = environment.apiUrl;
 

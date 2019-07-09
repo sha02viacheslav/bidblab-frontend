@@ -2,7 +2,7 @@
   <!-- <div *ngIf="visibleState" [@flyInOut] class="question-block"> -->
   <div class="row no-gutters">
     <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
-      <app-question-image [question]="question"></app-question-image>
+      <app-question-image [question]="question" [detailLinkFlag]="true"></app-question-image>
     </div>
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
       <div fxFlex class="question-answer" fxLayout="column" fxLayoutAlign="space-between space-between">
@@ -16,7 +16,9 @@
               </button>
             </div>
           </div>
-          <div class="text-block-wrap h-100" fxFlex fxLayout="row">
+          <div class="text-block-wrap pointer h-100" fxFlex fxLayout="row" 
+            routerLink="/questions/question-detail/{{question._id}}"
+            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>
