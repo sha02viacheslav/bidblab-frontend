@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, Inject, OnInit, HostListener, ViewChild, ViewEncapsulation, PLATFORM_ID } from '@angular/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Subscription } from 'rxjs';
 import { BlockUIService } from './shared/services/block-ui.service';
@@ -8,16 +8,17 @@ import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from './shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
+import { environment } from '../environments/environment';
+import { MenuService } from './shared/components/menu/menu.service';
+import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { DialogService } from './shared/services/dialog.service';
 // import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
+import { isPlatformBrowser } from '@angular/common';
 declare var $: any;
 
-import { Location } from '@angular/common';
-import { environment } from '../environments/environment';
-import { ChangeDetectorRef } from '@angular/core';
-import { MenuService } from './shared/components/menu/menu.service';
-import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
+
 
 @Component({
   selector: 'app-root',
@@ -54,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private dialogService: DialogService,
     private location: Location,
     public menuService:MenuService,
+		@Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.mainNavLinks = [
       {
@@ -77,20 +79,22 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // $("#main-nicescrollable").niceScroll({
-		// 	cursorcolor: "#e91e63",
-		// 	cursorborder: '#e91e63',
-		// 	autohidemode: true,
-		// 	background: "#aaa",
-		// 	cursorminheight: 15,
-		// 	cursorborderradius: 15,
-		// 	cursorwidth: 3,
-		// 	cursoropacitymin: 0.1,
-    // });
+    if (isPlatformBrowser(this.platformId)) {
+      $("#main-nicescrollable").niceScroll({
+        cursorcolor: "#e91e63",
+        cursorborder: '#e91e63',
+        autohidemode: true,
+        background: "#aaa",
+        cursorminheight: 15,
+        cursorborderradius: 15,
+        cursorwidth: 3,
+        cursoropacitymin: 0.1,
+      });
 
-    // setInterval(() => {
-    //   $("#main-nicescrollable").getNiceScroll().resize();
-    // }, 1000);
+      setInterval(() => {
+        $("#main-nicescrollable").getNiceScroll().resize();
+      }, 1000);
+    }
     
     this.menuItems = this.menuService.getVerticalMenuItems();
     this.getBlockStatus();
