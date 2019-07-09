@@ -21,7 +21,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 	public disabledShippingAddress: boolean = false;
 	public passwordVisibility: boolean;
 	public infoForm: FormGroup;
-	public passwordForm: FormGroup;
 	public serverUrl = environment.apiUrl;
 	public standardInterests: string[] = [];
 	public formArray: FormArray;
@@ -71,20 +70,20 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 				this.user.email,
 				[Validators.required, this.formValidationService.isBlank, Validators.email]
 			],
-			aboutme: [this.user.aboutme],
-			phone: [this.user.phone],
+			aboutme: [this.user.aboutme? this.user.aboutme: ''],
+			phone: [this.user.phone? this.user.phone: ''],
 			customTag: [''],
 			tags: this.fb.array([]),
 			birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
-			gender: [this.user.gender],
-			physicaladdress: [this.user.physicaladdress],
-			physicalcity: [this.user.physicalcity],
-			physicalstate: [this.user.physicalstate],
-			physicalzipcode: [this.user.physicalzipcode],
-			shippingaddress: [this.user.shippingaddress],
-			shippingcity: [this.user.shippingcity],
-			shippingstate: [this.user.shippingstate],
-			shippingzipcode: [this.user.shippingzipcode],
+			gender: [this.user.gender? this.user.gender: 'male'],
+			physicaladdress: [this.user.physicaladdress? this.user.physicaladdress: ''],
+			physicalcity: [this.user.physicalcity? this.user.physicalcity: ''],
+			physicalstate: [this.user.physicalstate? this.user.physicalstate: ''],
+			physicalzipcode: [this.user.physicalzipcode? this.user.physicalzipcode: ''],
+			shippingaddress: [this.user.shippingaddress? this.user.shippingaddress: ''],
+			shippingcity: [this.user.shippingcity? this.user.shippingcity: ''],
+			shippingstate: [this.user.shippingstate? this.user.shippingstate: ''],
+			shippingzipcode: [this.user.shippingzipcode? this.user.shippingzipcode: ''],
 		});
 
 		this.formArray = this.infoForm.get('tags') as FormArray;
@@ -107,34 +106,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 			}
 			this.blockUIService.setBlockStatus(false);
 		});
-
-		this.passwordForm = this.fb.group({
-			currentPassword: [
-				'',
-				[
-					Validators.required,
-					this.formValidationService.isBlank,
-					Validators.minLength(8)
-				]
-			],
-			password: [
-				'',
-				[
-					Validators.required,
-					this.formValidationService.isBlank,
-					Validators.minLength(8)
-				]
-			],
-			confirmPassword: [
-				'',
-				[
-					Validators.required,
-					this.formValidationService.isBlank,
-					this.formValidationService.arePasswordsMismatching
-				]
-			]
-		});
-
 	}
 
 	ngOnDestroy() {
@@ -173,12 +144,36 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 		return this.formValidationService.checkError(form, field, error);
 	}
 
-	togglePasswordVisibility(event) {
-		if (event.type === 'mouseleave' && !this.passwordVisibility) {
-			return event.preventDefault();
+	addPicture(data) {
+		if (data) {
+			this.uploadFiles[this.selectedFileIndex] = {
+				originalFile: data.originalFile,
+				croppedFile: data.croppedFile ? data.croppedFile : this.uploadFiles[this.selectedFileIndex].croppedFile,
+				croppedImage: data.croppedImage ? data.croppedImage : this.uploadFiles[this.selectedFileIndex].croppedImage
+			};
 		}
-		this.passwordVisibility = !this.passwordVisibility;
-		return event.preventDefault();
+		else {
+			this.uploadFiles.splice(this.selectedFileIndex, 1);
+		}
+		this.selectedFileIndex = -1;
+	}
+
+	openCrop(index) {
+		if (this.selectedFileIndex != -1 && this.uploadFiles[this.selectedFileIndex].croppedFile == '') {
+			this.uploadFiles.splice(this.selectedFileIndex, 1);
+		}
+		this.selectedFileIndex = index;
+	}
+
+	addFile(event: any): void {
+		if (event.target.files && event.target.files[0]) {
+			this.uploadFiles.push({
+				originalFile: event.target.files[0],
+				croppedFile: '',
+				croppedImage: ''
+			});
+			this.selectedFileIndex = this.uploadFiles.length - 1;
+		}
 	}
 
 	submitInfoForm() {
@@ -220,63 +215,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 				this.blockUIService.setBlockStatus(false);
 				this.snackBar.open(err.error.msg, 'Dismiss', { duration: 4000 });
 			});
-		}
-	}
-
-	submitPasswordForm(formDirective) {
-		if (this.passwordForm.valid) {
-			this.submitted = true;
-			this.blockUIService.setBlockStatus(true);
-			this.commonService.changePassword(this.passwordForm.value).subscribe(
-				(res: any) => {
-					this.blockUIService.setBlockStatus(false);
-					this.passwordForm.reset();
-					formDirective.resetForm();
-					this.submitted = false;
-					this.snackBar.open(res.msg, 'Dismiss', {
-						duration: 1500
-					});
-				},
-				(err: HttpErrorResponse) => {
-					this.submitted = false;
-					this.blockUIService.setBlockStatus(false);
-					this.snackBar.open(err.error.msg, 'Dismiss', {
-						duration: 4000
-					});
-				}
-			);
-		}
-	}
-
-	addPicture(data) {
-		if (data) {
-			this.uploadFiles[this.selectedFileIndex] = {
-				originalFile: data.originalFile,
-				croppedFile: data.croppedFile ? data.croppedFile : this.uploadFiles[this.selectedFileIndex].croppedFile,
-				croppedImage: data.croppedImage ? data.croppedImage : this.uploadFiles[this.selectedFileIndex].croppedImage
-			};
-		}
-		else {
-			this.uploadFiles.splice(this.selectedFileIndex, 1);
-		}
-		this.selectedFileIndex = -1;
-	}
-
-	openCrop(index) {
-		if (this.selectedFileIndex != -1 && this.uploadFiles[this.selectedFileIndex].croppedFile == '') {
-			this.uploadFiles.splice(this.selectedFileIndex, 1);
-		}
-		this.selectedFileIndex = index;
-	}
-
-	addFile(event: any): void {
-		if (event.target.files && event.target.files[0]) {
-			this.uploadFiles.push({
-				originalFile: event.target.files[0],
-				croppedFile: '',
-				croppedImage: ''
-			});
-			this.selectedFileIndex = this.uploadFiles.length - 1;
 		}
 	}
 
