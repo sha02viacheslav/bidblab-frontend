@@ -32,6 +32,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     AppRoutingModule,
     CommonModule,
+    // TransferHttpCacheModule installs a Http interceptor that avoids duplicate HttpClient requests on the client, for requests that were already made when the application was rendered on the server side.
     TransferHttpCacheModule,
     HttpClientModule,
     NgtUniversalModule,
