@@ -1,39 +1,57 @@
 <div *ngIf="isInit">
   <div *ngIf="(followingQuestionsCount || followingUsersCount); else noFollowingQuestion" class="follow-page">
     <div class="row no-gutters">
-      <div *ngFor="let question of followingQuestions" class="col-sm-12 col-md-6 col-lg-4">
-        <div class="follow-box-wrap" fxLayout="column" fxLayoutAlign="space-around center">
-          <div class="avatar" [style.background-image]="question?.questionPicture?.path?
-            'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+      <div *ngFor="let question of followingQuestions" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+        <div class="follow-card-wrap">
+          <div class="card-image-wrap">
+            <img [src]="question?.questionPicture?.path?
+            serverUrl +'/' + question.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
           </div>
-          <div class="username-wrap main-font">{{question.tag}}</div>
-          <div class="title-wrap main-font">{{question.title}}</div>
-          <div class="row">
-            <div class="col-6">
-              <button mat-raised-button color="accent" routerLink="/questions/question-detail/{{question._id}}">View</button>
+          <div class="card-avatar-wrap">
+            <img [src]="question?.asker?.profilePicture?.path?
+            serverUrl +'/' + question.asker.profilePicture.path : 'assets/imgs/user.svg'" alt="">
+          </div>
+          <div class="card-body">
+            <div class="card-body-title" fxLayout="column" fxLayoutAlign="space-between center">
+              <mat-chip-list>
+                <mat-chip *ngFor="let tag of question.tags" class="question-category" color="bagic" selected>{{ tag }}
+                </mat-chip>
+              </mat-chip-list>
             </div>
-            <div class="col-6">
-              <button mat-raised-button color="accent" (click)="deleteFollow('question', question._id)">Unfollow</button>
+            <div class="mute-text card-body-content">{{question.title}}</div>
+            <div class="card-action-wrap" fxLayout="row" fxLayoutAlign="space-between space-between">
+              <button mat-raised-button color="accent"
+                routerLink="/questions/question-detail/{{question._id}}">View</button>
+              <button mat-raised-button color="primary"
+                (click)="deleteFollow('question', question._id)">Unfollow</button>
             </div>
           </div>
         </div>
       </div>
-      <div *ngFor="let user of followingUsers" class="col-sm-12 col-md-6 col-lg-4">
-        <div class="follow-box-wrap" fxLayout="column" fxLayoutAlign="space-around center">
-          <div class="avatar" [style.background-image]="user?.profilePicture?.path?
-            'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-          </div>
-          <div class="username-wrap main-font">{{user.username}}</div>
-          <div class="title-wrap main-font">{{user.physicaladdress}},{{user.physicalstate}}</div>
-          <div class="row">
-            <div class="col-6">
-              <button mat-raised-button color="accent" routerLink="/user/{{user._id}}">View</button>
+      <div *ngFor="let user of followingUsers" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+        <div class="follow-card-wrap">
+            <div class="card-image-wrap card-up-bg">
             </div>
-            <div class="col-6">
-              <button mat-raised-button color="accent" (click)="deleteFollow('user', user._id)">Unfollow</button>
+            <div class="card-avatar-wrap">
+              <img [src]="user?.profilePicture?.path?
+              serverUrl +'/' + user.profilePicture.path : 'assets/imgs/user.svg'" alt="">
+            </div>
+            <div class="card-body">
+              <div class="card-body-title mute-text" fxLayout="column" fxLayoutAlign="space-between center">
+                {{user.username}}
+              </div>
+              <div class="mute-text card-body-content">
+                {{user.physicaladdress? user.physicaladdress: '*****'}}&nbsp;{{user.physicalstate? user.physicalstate: '*****'}}
+              </div>
+              <div class="card-action-wrap" fxLayout="row" fxLayoutAlign="space-between space-between">
+                <button mat-raised-button color="accent" routerLink="/user/{{user._id}}">View</button>
+                <button mat-raised-button color="primary"
+                  (click)="deleteFollow('user', user._id)">Unfollow</button>
+              </div>
             </div>
           </div>
-        </div>
+
+
       </div>
     </div>
   </div>

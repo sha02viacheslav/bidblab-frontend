@@ -6,7 +6,7 @@
   <div *ngIf="!detailLinkFlag"  class="question-image" [style.background-image]="question?.questionPicture?.path?
     'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
   </div>
-  <div class="TV-show">
+  <div>
     <mat-chip-list>
       <mat-chip *ngFor="let tag of question.tags" class="question-category" color="accent" selected>{{ tag }}</mat-chip>
     </mat-chip-list>
