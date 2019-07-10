@@ -221,18 +221,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 			if (this.question._id && this.authenticationService.getUser()._id) {
 				this.commonService.addFollow(followType, this.question._id).subscribe((res: any) => {
 					this.blockUIService.setBlockStatus(false);
-					this.snackBar
-						.open(res.msg, 'Dismiss', {
-							duration: 1500
-						})
-						.afterOpened()
-						.subscribe(() => {
-							this.followed = true;
-						});
-				}, (err: HttpErrorResponse) => {
 					this.submitted = false;
-					this.blockUIService.setBlockStatus(false);
-					this.snackBar.open(err.error.msg, 'Dismiss', {duration: 4000});
+					this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
+					if(res.data) {
+						this.followed = true;
+					}
 				});
 			}
 		}

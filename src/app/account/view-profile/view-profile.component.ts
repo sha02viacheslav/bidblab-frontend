@@ -80,7 +80,6 @@ export class ViewProfileComponent implements OnInit {
     this.commonService.getUserDataByuserId(userId).subscribe(
       (res: any) => {
         this.user = res.data.user;
-        this.followed = !this.canFollow();
         this.blockUIService.setBlockStatus(false);
       },
       (err: HttpErrorResponse) => {
@@ -183,70 +182,6 @@ export class ViewProfileComponent implements OnInit {
     } 
     else {
       this.tagsOfQuestionForm.controls.tagsOfQuestion.patchValue([]);
-    }
-  }
-
-  canFollow() {
-    return (
-      !(this.authenticationService.getUser()._id === this.user._id) &&
-      !this.user.follows.some(
-          follow =>
-            follow.follower &&
-            follow.follower === this.authenticationService.getUser()._id
-        )
-    );
-  }
-
-  addFollow(followType) {
-    this.blockUIService.setBlockStatus(true);
-    if (this.user._id && this.authenticationService.getUser()._id) {
-      this.commonService
-        .addFollow(
-          followType,
-          this.user._id
-        )
-        .subscribe(
-          (res: any) => {
-            this.blockUIService.setBlockStatus(false);
-            this.snackBar
-              .open(res.msg, 'Dismiss', {
-                duration: 1500
-              })
-              .afterOpened()
-              .subscribe(() => {
-                this.user = res.data;
-                this.followed = true;
-              });
-          },
-          (err: HttpErrorResponse) => {
-            this.submitted = false;
-            this.blockUIService.setBlockStatus(false);
-            this.snackBar
-              .open(err.error.msg, 'Dismiss', {
-                duration: 4000
-              })
-              .afterDismissed()
-              .subscribe(() => {});
-          }
-        );
-    } 
-  }
-
-  async deleteUser() {
-    try {
-      const res = (await this.commonService.deleteUser(
-        this.user._id
-      )) as any;
-      this.socketsService.notify('deletedData', {
-        type: 'user',
-        data: res.data
-      });
-      this.snackBar.open(res.msg, 'Dismiss', {
-        duration: 1500
-      });
-      this.router.navigateByUrl('/');
-    } catch (err) {
-      this.snackBar.open(err.error.msg, 'Dismiss');
     }
   }
 
