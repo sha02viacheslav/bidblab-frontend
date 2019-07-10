@@ -2,7 +2,7 @@
   <div *ngIf="(followingQuestionsCount || followingUsersCount); else noFollowingQuestion" class="follow-page">
     <div class="row no-gutters">
       <div *ngFor="let question of followingQuestions" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
-        <div class="follow-card-wrap">
+        <div class="follow-card-wrap main-box-shadow">
           <div class="card-image-wrap">
             <img [src]="question?.questionPicture?.path?
             serverUrl +'/' + question.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div *ngFor="let user of followingUsers" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
-        <div class="follow-card-wrap">
+        <div class="follow-card-wrap main-box-shadow">
             <div class="card-image-wrap card-up-bg">
             </div>
             <div class="card-avatar-wrap">
