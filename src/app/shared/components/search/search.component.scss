@@ -3,15 +3,19 @@
 //     padding: 0rem 1rem 1rem 1rem;
 //   }
 // }
+.search-box-wrap {
+  margin-bottom: 1rem;
 
-.search-label-w {
-  text-align: center;
-}
-
-.ask-btn-w {
-  height: 100%;
-
-  button {
-    width: 100% !important;
+  .search-label-w {
+    text-align: center;
   }
+
+  .ask-btn-w {
+    height: 100%;
+
+    button {
+      width: 100% !important;
+    }
+  }
+  
 }
