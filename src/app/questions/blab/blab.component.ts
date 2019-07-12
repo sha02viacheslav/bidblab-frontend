@@ -20,17 +20,12 @@ import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert
 	styleUrls: ['./blab.component.scss']
 })
 export class BlabComponent implements OnInit, OnDestroy {
-	public form: FormGroup;
 	public questions: any[] = [];
 	public totalQuestionsCount: number;
-	public autocomplete: any[] = [];
 	public pageIndex: number = 0;
-	public isInit: boolean;
-	public newQuestionFlag: boolean = false;
-	public defaultCredits: any;
-	private autocompleteSubscription: Subscription;
 	private socketEventsSubscription: Subscription;
 	private pageSize: number = 10;
+	private searchValue: string = '';
 
 	constructor(
 		private fb: FormBuilder,
@@ -48,73 +43,20 @@ export class BlabComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.form = this.fb.group({search: ''});
-		this.commonService.getDefaultCredits().subscribe((res: any) => {
-			if(res.data) {
-				this.defaultCredits = res.data;
-			}
-		});
-		this.autocompleteSubscription = this.form.get('search')
-		.valueChanges.pipe(debounceTime(100))
-		.subscribe(text => {
-			if (text.trim()) {
-				this.commonService.getQuestions(null, null, text).subscribe((res: any) => {
-					this.autocomplete = res.data.questions;
-					if (!this.autocomplete.length) {
-						this.newQuestionFlag = true;
-					} else {
-						this.newQuestionFlag = false;
-					}
-				});
-			} else {
-				this.autocomplete.splice(0);
-				this.newQuestionFlag = false;
-			}
-		});
-		this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+		this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
 		this.listenToSocket();
 	}
 
 	ngOnDestroy() {
-		// this.autocompleteSubscription.unsubscribe();
 		// this.socketEventsSubscription.unsubscribe();
 	}
 
-	searchBoxAction() {
-		if (this.newQuestionFlag) {
-			this.newQuestionFlag = false;
-			this.openQuestionDialog(this.form.value.search);
-		} else {
-			this.pageIndex = 0;
+	getDataFromSearch(data) {
+		if (data) {
+			this.searchValue = data.searchValue;
 			this.questions = [];
-			this.autocomplete = [];
-			this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
-		}
-	}
-
-	openQuestionDialog(newTitle?: String, question?: any) {
-		if (this.authenticationService.isAuthenticated()) {
-			this.dialogService.open(QuestionDialogComponent, {
-				data: { question, newTitle },
-				width: '800px'
-			}).afterClosed().subscribe(newQuestion => {
-				if (newQuestion) {
-					this.dialogService.open(AlertDialogComponent, {
-						data: {
-							title: "Question submitted",
-							comment: " ",
-							dialog_type: "ask"
-						},
-						width: '320px',
-					}).afterClosed().subscribe(result => {
-						if (result == 'more') {
-							this.openQuestionDialog();
-						}
-					});
-				}
-			});
-		} else {
-			this.router.navigateByUrl('/extra/login');
+			this.pageIndex = 0;
+			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
 		}
 	}
 
@@ -152,7 +94,7 @@ export class BlabComponent implements OnInit, OnDestroy {
 		.getSocketEvents()
 		.pipe(filter((event: any) => event.payload))
 		.subscribe((event: any) => {
-			this.snackBar.open('Questions were updated.', 'Dismiss', {duration: 2000});
+			this.snackBar.open('Questions were updated.', 'Dismiss', { duration: 2000 });
 			if (event.payload.type === 'question') {
 				if (event.name === 'createdData') {
 					this.totalQuestionsCount++;
@@ -201,7 +143,7 @@ export class BlabComponent implements OnInit, OnDestroy {
 	onScroll() {
 		if ((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount) {
 			this.pageIndex = this.pageIndex + 1;
-			this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
 		}
 	}
 
