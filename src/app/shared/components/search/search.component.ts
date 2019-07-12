@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -21,6 +21,7 @@ import { AlertDialogComponent } from '../../../shared/components/alert-dialog/al
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  @Output() sendData : EventEmitter <any> = new EventEmitter<any>();
   form: FormGroup;
   questions: any[];
   totalQuestionsCount: number;
@@ -78,7 +79,6 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.newQuestionFlag = false;
         }
       });
-    this.getQuestions();
   }
 
   ngOnDestroy() {
@@ -108,19 +108,18 @@ export class SearchComponent implements OnInit, OnDestroy {
             } else {
               this.questions.push(newQuestion);
             }
-            this.dialogService.
-                open(AlertDialogComponent, {
-                  data: {
-                    title: "Question submitted",
-                    comment: " ",
-                    dialog_type: "ask" 
-                  },
-                  width: '320px',
-                }).afterClosed().subscribe(result => {
-                  if(result == 'more'){
-                    this.openQuestionDialog();
-                  }
-                });
+            this.dialogService.open(AlertDialogComponent, {
+              data: {
+                title: "Question submitted",
+                comment: " ",
+                dialog_type: "ask" 
+              },
+              width: '320px',
+            }).afterClosed().subscribe(result => {
+              if(result == 'more'){
+                this.openQuestionDialog();
+              }
+            });
           }
         });
     } else {
@@ -130,28 +129,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchBoxAction(){
     if(this.newQuestionFlag){
-      this.newQuestionFlag = false;
       this.openQuestionDialog(this.form.value.search);
-    }
-    else{
-      this.getQuestions();
+      this.newQuestionFlag = false;
+    } else {
+      this.sendData.emit({searchValue: this.form.value.search});
     }
   }
-
-  getQuestions() {
-    this.blockUIService.setBlockStatus(true);
-  
-    this.autocomplete.splice(0);
-    this.commonService.getQuestions(null, null, this.form.value.search).subscribe(
-      (res: any) => {
-        this.totalQuestionsCount = res.data.count;
-        this.questions = res.data.questions;
-        this.blockUIService.setBlockStatus(false);
-      },
-      (err: HttpErrorResponse) => {
-        this.snackBar.open(err.error.msg, 'Dismiss');
-      }
-    );
-  }
- 
+   
 }

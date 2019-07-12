@@ -19,17 +19,13 @@ import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public form: FormGroup;
   public questions: any[] = [];
   public totalQuestionsCount: number;
-  public autocomplete: any[];
-  private autocompleteSubscription: Subscription;
   private socketEventsSubscription: Subscription;
   private pageSize: number = 10;
   public pageIndex: number = 0;
-  public newQuestionFlag: boolean;
   public returnUrl: string = '';
-  public defaultCredits: any;
+  private searchValue: string = '';
 
  
   constructor(
@@ -57,104 +53,33 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.router.navigate(['/questions/home'], {queryParams: {}});
       }
     });
-    this.commonService.getDefaultCredits().subscribe((res: any) => {
-      if(res.data) {
-        this.defaultCredits = res.data;
-      }
-    });  
-    this.newQuestionFlag = false;
-    this.autocomplete = [];
-    this.form = this.fb.group({
-      search: ''
-    });
-    this.autocompleteSubscription = this.form
-      .get('search')
-      .valueChanges.pipe(debounceTime(100))
-      .subscribe(text => {
-        if (text.trim()) {
-          this.commonService
-            .getQuestions(null, null, text)
-            .subscribe((res: any) => {
-              this.autocomplete = res.data.questions;
-              if (!this.autocomplete.length) {
-                this.newQuestionFlag = true;
-              } else {
-                this.newQuestionFlag = false;
-              }
-            });
-        } else {
-          this.autocomplete = [];
-          this.newQuestionFlag = false;
-        }
-      });
-    this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+  
+    this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
     this.listenToSocket();
   }
 
   ngOnDestroy() {
-    if(this.autocompleteSubscription){
-      // this.autocompleteSubscription.unsubscribe();
-    }
     if(this.socketEventsSubscription){
       // this.socketEventsSubscription.unsubscribe();
     }
   }
 
-  openQuestionDialog(newTitle?: String, question?: any) {
-    if (this.authenticationService.isAuthenticated()) {
-      this.dialogService
-        .open(QuestionDialogComponent, {
-          data: {
-            question,
-            newTitle,
-          },
-          width: '600px'
-        })
-        .afterClosed()
-        .subscribe(newQuestion => {
-          if (newQuestion) {
-            this.dialogService.open(AlertDialogComponent, {
-              data: {
-                title: "Question submitted",
-                comment: " ",
-                dialog_type: "ask" 
-              },
-              width: '320px',
-            }).afterClosed().subscribe(result => {
-              if (result == 'more') {
-                this.openQuestionDialog();
-              }
-            });
-          }
-        });
-    } else {
-      this.router.navigateByUrl('/extra/login');
-    }
-  }
-
-  searchBoxAction() {
-    if (this.newQuestionFlag) {
-      this.newQuestionFlag = false;
-      this.openQuestionDialog(this.form.value.search);
-    } else {
+  getDataFromSearch(data) {
+    if(data) {
+      this.searchValue = data.searchValue;
       this.questions = [];
       this.pageIndex = 0;
-      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
-      this.autocomplete = [];
+      this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
     }
   }
 
   getQuestions(pageSize, pageIndex, search) {
-    this.commonService.getQuestions(pageSize, pageIndex, search).subscribe(
-      (res: any) => {
-        this.totalQuestionsCount = res.data.count;
-        res.data.questions.forEach(element => {
-          this.questions.push(element);
-        });
-      },
-      (err: HttpErrorResponse) => {
-      }
-    );
+    this.commonService.getQuestions(pageSize, pageIndex, search).subscribe((res: any) => {
+      this.totalQuestionsCount = res.data.count;
+      res.data.questions.forEach(element => {
+        this.questions.push(element);
+      });
+    });
   }
 
   private listenToSocket() {
@@ -228,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   onScroll() {
     if((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount){
       this.pageIndex = this.pageIndex + 1;
-      this.getQuestions(this.pageSize, this.pageIndex, this.form.value.search);
+      this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
     } 
   }  
   
