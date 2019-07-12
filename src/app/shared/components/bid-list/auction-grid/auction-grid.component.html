@@ -1,7 +1,8 @@
-<div *ngIf="auction" class="auction-list-box" fxLayout="column" fxLayoutAlign="start none">
+<div *ngIf="auction" class="auction-list-box" fxLayout="column" fxLayoutAlign="start none"
+  [ngClass]="{'selected-auction': bidService.detailAuction?.index == auction.index}">
   <div class="catagory-header-wrap">BidBlab Price:&nbsp;{{auction.bidblabPrice | currency:'USD':'symbol':'1.2-2'}}</div>
 
-  <div class="catagory-content-wrap" [ngClass]="{'selected-auction': bidService.detailAuction?.index == auction.index}">
+  <div class="catagory-content-wrap">
     <div class="row no-gutters">
       <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 auction-image-wrap">
         <div class="auction-image" [ngClass]="{'closed-auction': auction.role == bidService.auctionRole.closed}"

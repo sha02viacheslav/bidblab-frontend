@@ -1,5 +1,5 @@
 <div *ngIf="question" class="question-list-w">
-  <div class="question-block ">
+  <div class="question-block main-box-shadow">
     <div class="row no-gutters">
       <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
         <app-question-image [question]="question" [detailLinkFlag]="false"></app-question-image>
@@ -53,7 +53,7 @@
   </div>
   <div *ngIf="question.answers.length; else noAnswers" class="answers stretch">
     <div *ngFor="let answer of question.answers">
-      <div class="question-block " fxLayout="row">
+      <div class="question-block main-box-shadow" fxLayout="row">
         <div fxFlex class="question-answer" fxLayout="column">
           <div fxLayout="row">
             <div class="avatar-image">

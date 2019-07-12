@@ -1,7 +1,7 @@
 @import "../../assets/scss/theme.scss";
+
 .user-wrap {
-  margin-bottom: 0.5rem;
-  border: solid 1px rgb(240, 240, 240);
+  margin-bottom: 1rem;
   border-radius: 4px;
 }
 
@@ -19,7 +19,7 @@
   }
 }
 
-.filter-wrap{
+.filter-wrap {
   margin-right: 1rem;
 }
 
@@ -33,44 +33,145 @@
 }
 
 .button-wrap {
-  button{
+  button {
     margin-left: 1rem;
   }
 }
 
 .answer-page-wrap {
-  border: solid 1px rgb(240, 240, 240);
   border-radius: 4px;
   margin-bottom: 1rem;
 
-  .answer-block-wrap {
-    margin: 0.5rem;
-  }
-
   .answer-header-wrap {
     padding: 0.5rem;
-    border-bottom: solid 1px rgb(240, 240, 240);
   }
 }
 
 .question-page-wrap {
-  border: solid 1px rgb(240, 240, 240);
   border-radius: 4px;
-
-  .question-block-wrap {
-    margin: 0.5rem;
-  }
 
   .question-header-wrap {
     padding: 0.5rem;
-    border-bottom: solid 1px rgb(240, 240, 240);
+    margin-bottom: 0.5rem;
+  }
+
+  .question-block-wrap {
+    margin: 0 -0.5rem;
+
+    .question-box {
+      margin: 0.5rem;
+    }
+  }
+
+}
+
+.card-grid-wrap {
+  margin: 0.5rem;
+
+  .card-image-wrap {
+    height: 160px;
+    overflow: hidden;
+
+    img {
+      vertical-align: middle;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-style: none;
+    }
+  }
+
+  .card-title {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    height: 32px;
+    overflow: hidden;
+    text-align: center !important;
+  }
+
+  .card-body {
+    padding: 1rem;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    font-weight: 300;
+
+    .card-body-content {
+      height: 70px;
+      overflow: hidden;
+    }
+
+    .question-category.mat-standard-chip {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+
+  }
+
+  .card-action-wrap {
+    padding: 0.5rem 0.5rem;
+    border-top: solid 1px rgba(64,64,65, 0.2);
+    button {
+      width: 100%;
+      margin: 0.5rem 0.5rem;
+    }
   }
 }
 
-.catagory-title-wrap {
-  text-align: center;
-}
+.card-list-wrap {
+  margin: 0.5rem;
+  padding: 1rem;
 
-.question-grid-wrap:hover {
-  box-shadow: 0px 0px 7px 0px $accent;
+  .card-image-wrap {
+    height: 200px;
+    width: 100%;
+    border-radius: 4px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 1;
+
+
+    img {
+      vertical-align: middle;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-style: none;
+    }
+  }
+
+  .card-title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center !important;
+  }
+
+  .card-body {
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    max-height: 200px;
+    overflow: hidden;
+    line-height: 1.7;
+    font-size: 0.9rem;
+    font-weight: 300;
+
+    .card-body-content {
+      max-height: 160px;
+      overflow: hidden;
+    }
+
+    .answer-text {
+      height: 52px;
+    }
+
+    .question-category.mat-standard-chip {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+  }
+  
 }
