@@ -10,15 +10,12 @@
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
                 'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button mat-icon-button color="primary" class="no-hover-effect"
-                matTooltip="Go to user detail page" matTooltipClass="example-tooltip-color"
-                routerLink="/user/{{question.asker?._id}}">
+              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
               </button>
             </div>
           </div>
           <div class="text-block-wrap pointer h-100" fxFlex fxLayout="row" 
-            routerLink="/questions/question-detail/{{question._id}}"
-            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
+            routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>

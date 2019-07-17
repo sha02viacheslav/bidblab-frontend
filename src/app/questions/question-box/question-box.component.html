@@ -9,14 +9,11 @@
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button mat-icon-button color="primary" class="no-hover-effect"
-                matTooltip="Go to user detail page" matTooltipClass="example-tooltip-color"
-                routerLink="/user/{{question.asker?._id}}">
+              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
               </button>
             </div>
           </div>
-          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}"
-            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
+          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>
@@ -31,19 +28,16 @@
               [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
               <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" mat-icon-button color="primary"
-                class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}"
-                matTooltip="Go to user detail page" matTooltipClass="example-tooltip-color">
+                class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}">
               </button>
               <ng-template #noPublic>
-                <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()"
-                  matTooltip="This is a private answer" matTooltipClass="example-tooltip-color">
+                <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
                   <mat-icon>security</mat-icon>
                 </button>
               </ng-template>
             </div>
           </div>
-          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}"
-            matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
+          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
