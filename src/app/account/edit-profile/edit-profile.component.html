@@ -96,7 +96,7 @@
             Add Custom Tag
           </button>
         </div>
-        <mat-form-field class="date-picker-wrap" appearance="outline">
+        <!-- <mat-form-field class="date-picker-wrap" appearance="outline">
           <mat-label>Birthday</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="birthday" placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -108,7 +108,23 @@
             *ngIf="checkError(infoForm, 'birthday', ['notAdault']) && !checkError(infoForm, 'birthday', ['required'])">
             Required 18 years of age or older.
           </mat-error>
+        </mat-form-field> -->
+
+        <mat-form-field appearance="outline">
+          <mat-label>Birthday</mat-label>
+          <div class="cont-datetime">
+            <input #dateinput matInput readonly formControlName="birthday" type="text" data-field="date" id="input-date">
+          </div>
+          <div #datepicker></div>
+          <mat-error *ngIf="checkError(infoForm, 'birthday', ['required'])">
+            Required.
+          </mat-error>
+          <mat-error *ngIf="checkError(infoForm, 'birthday', ['notAdault']) && !checkError(infoForm, 'birthday', ['required'])">
+            Required 18 years of age or older.
+          </mat-error>
         </mat-form-field>
+
+
         <div class="gender-wrap">
           <mat-label>Gender </mat-label>
           <mat-radio-group formControlName="gender">

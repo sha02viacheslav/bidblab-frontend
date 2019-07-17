@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ElementRef, AfterViewInit, ViewChild, PLATFORM_ID  } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,13 +9,15 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 import { DialogService } from '../../shared/services/dialog.service';
 import { CommonService } from '../../shared/services/common.service';
 import { environment } from '../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
+declare var $: any;
 
 @Component({
 	selector: 'app-edit-profile',
 	templateUrl: './edit-profile.component.html',
 	styleUrls: ['./edit-profile.component.scss']
 })
-export class EditProfileComponent implements OnInit, OnDestroy {
+export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 	public user: any;
 	public submitted: boolean;
 	public disabledShippingAddress: boolean = false;
@@ -30,6 +32,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 	public selectedFileIndex: number = -1;
 	public uploadFile: any;
 	private userUpdatesSubscription: Subscription;
+	@ViewChild('datepicker') datepicker: ElementRef;
+	@ViewChild('dateinput') dateinput: ElementRef;
 
 
 	constructor(
@@ -38,7 +42,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 		private formValidationService: FormValidationService,
 		private authenticationService: AuthenticationService,
 		private blockUIService: BlockUIService,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		@Inject(PLATFORM_ID) private platformId: Object
 	) { }
 
 	ngOnInit() {
@@ -110,6 +115,51 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		// this.userUpdatesSubscription.unsubscribe();
+	}
+
+	ngAfterViewInit() {
+		if (isPlatformBrowser(this.platformId)) {
+			var self = this;
+			var date = new Date(self.user.birthday);
+			var timeTemp = ('00' + date.getMonth() + 1).slice(-2) + '-' + ('00' + date.getDate()).slice(-2) + '-' +  date.getFullYear()
+			self.dateinput.nativeElement.value = timeTemp;
+			$(this.datepicker.nativeElement).DateTimePicker({
+				dateFormat: "MM-dd-yyyy",
+				isPopup: false,
+				defaultDate: new Date(self.user.birthday),
+				parentElement: ".cont-datetime",
+				formatHumanDate: function (oDate, sMode, sFormat) {
+					var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+					if (timeTemp === "") {
+						self.infoForm.controls.birthday.setValue('');
+					} else {
+						self.infoForm.controls.birthday.setValue(new Date(timeTemp));
+						self.dateinput.nativeElement.value = timeTemp;
+					}
+					//This is to trigger form validation.
+					self.dateinput.nativeElement.click();
+					if (sMode === "date") {
+						return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy;
+					} else if (sMode === "time") {
+						return oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+					} else if (sMode === "datetime") {
+						return oDate.dayShort + ", " + oDate.dd + " " + oDate.month + ", " + oDate.yyyy + " " + oDate.HH + ":" + oDate.mm + ":" + oDate.ss;
+					}
+				},
+				settingValueOfElement: function (sValue, dDateTime, oInputElement) {
+					var timeTemp = oInputElement.val();
+					if (timeTemp === "") {
+						self.infoForm.controls.birthday.setValue('');
+					} else {
+						self.infoForm.controls.birthday.setValue(new Date(timeTemp));
+						self.dateinput.nativeElement.value = timeTemp;
+
+					}
+					//This is to trigger form validation.
+					self.dateinput.nativeElement.click();
+				}
+			})
+		}
 	}
 
 	getInitialImage(index) {
