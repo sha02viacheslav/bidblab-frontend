@@ -87,8 +87,15 @@ export class CommonService {
   }
 
   updateProfile(body) {
-    return this.httpClient.patch(
+    return this.httpClient.post(
       `${environment.apiUrl}/api/auth/updateProfile`,
+      body
+    );
+  }
+
+  changeProfilePicture(body) {
+    return this.httpClient.patch(
+      `${environment.apiUrl}/api/auth/changeProfilePicture`,
       body,
       {
         reportProgress: true,

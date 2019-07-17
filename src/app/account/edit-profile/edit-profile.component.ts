@@ -156,6 +156,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 			this.uploadFiles.splice(this.selectedFileIndex, 1);
 		}
 		this.selectedFileIndex = -1;
+		this.changeProfilePicture();
 	}
 
 	openCrop(index) {
@@ -176,7 +177,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	submitInfoForm() {
+	changeProfilePicture() {
 		if (this.infoForm.valid) {
 			var tags = this.standardInterests.filter((x, i) => !!this.infoForm.value.tags[i]);
 			let uploadData = new FormData();
@@ -185,27 +186,28 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 					uploadData.append('file', element.croppedFile, element.croppedFile.name);
 				}
 			});
-			uploadData.append('firstName', this.infoForm.value.firstName);
-			uploadData.append('lastName', this.infoForm.value.lastName);
-			uploadData.append('username', this.infoForm.value.username);
-			uploadData.append('email', this.infoForm.value.email);
-			uploadData.append('aboutme', this.infoForm.value.aboutme);
-			uploadData.append('phone', this.infoForm.value.phone);
-			uploadData.append('tags', JSON.stringify(tags));
-			uploadData.append('birthday', this.infoForm.value.birthday);
-			uploadData.append('gender', this.infoForm.value.gender);
-			uploadData.append('physicaladdress', this.infoForm.value.physicaladdress);
-			uploadData.append('physicalcity', this.infoForm.value.physicalcity);
-			uploadData.append('physicalstate', this.infoForm.value.physicalstate);
-			uploadData.append('physicalzipcode', this.infoForm.value.physicalzipcode);
-			uploadData.append('shippingaddress', this.infoForm.value.shippingaddress);
-			uploadData.append('shippingcity', this.infoForm.value.shippingcity);
-			uploadData.append('shippingstate', this.infoForm.value.shippingstate);
-			uploadData.append('shippingzipcode', this.infoForm.value.shippingzipcode);
-
 			this.submitted = true;
 			this.blockUIService.setBlockStatus(true);
-			this.commonService.updateProfile(uploadData).subscribe((res: any) => {
+			this.commonService.changeProfilePicture(uploadData).subscribe((res: any) => {
+				this.authenticationService.setToken(res.data);
+				this.blockUIService.setBlockStatus(false);
+				this.submitted = false;
+				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
+			}, (err: HttpErrorResponse) => {
+				this.submitted = false;
+				this.blockUIService.setBlockStatus(false);
+				this.snackBar.open(err.error.msg, 'Dismiss', { duration: 4000 });
+			});
+		}
+	}
+
+	submitInfoForm() {
+		if (this.infoForm.valid) {
+			var tags = this.standardInterests.filter((x, i) => !!this.infoForm.value.tags[i]);
+			this.infoForm.value.tags = tags;
+			this.submitted = true;
+			this.blockUIService.setBlockStatus(true);
+			this.commonService.updateProfile(this.infoForm.value).subscribe((res: any) => {
 				this.authenticationService.setToken(res.data);
 				this.blockUIService.setBlockStatus(false);
 				this.submitted = false;
