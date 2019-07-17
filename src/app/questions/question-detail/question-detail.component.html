@@ -65,7 +65,7 @@
         <div fxFlex class="question-answer" fxLayout="column">
           <div fxLayout="row">
             <div class="avatar-image">
-              <div class="avatar" [style.background-image]="answer?.answerer?.profilePicture?.path?
+              <div class="avatar" [style.background-image]="(answer?.answerer?.profilePicture?.path && answer.answertype == 'public')?
                   'url(' + serverUrl +'/' + answer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
                 <button *ngIf="answer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
                   class="no-hover-effect" routerLink="/user/{{answer.answerer?._id}}">
