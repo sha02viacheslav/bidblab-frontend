@@ -195,9 +195,6 @@ export class BidListComponent implements OnInit, OnDestroy {
           if (event.name === 'createdData') {
           } else if (event.name === 'updatedData') {
             this.getAuction(event.payload.data.auctionId);
-            this.snackBar.open('Auction was updated.', 'Dismiss', {
-              duration: 2000
-            });
           }
         }
       });

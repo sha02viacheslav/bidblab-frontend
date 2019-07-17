@@ -94,7 +94,6 @@ export class BlabComponent implements OnInit, OnDestroy {
 		.getSocketEvents()
 		.pipe(filter((event: any) => event.payload))
 		.subscribe((event: any) => {
-			this.snackBar.open('Questions were updated.', 'Dismiss', { duration: 2000 });
 			if (event.payload.type === 'question') {
 				if (event.name === 'createdData') {
 					this.totalQuestionsCount++;

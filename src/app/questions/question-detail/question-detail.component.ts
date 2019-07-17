@@ -202,7 +202,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 			.subscribe((event: any) => {
 				if (event.payload.type === 'answer') {
 					if (event.payload.data.questionId === this.question._id) {
-						this.snackBar.open('Answers were updated.', 'Dismiss', { duration: 2000 });
 						if (event.name === 'createdData') {
 							this.question.answers.push(event.payload.data.answer);
 						}
@@ -223,12 +222,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 				else if (event.payload.type === 'question') {
 					if (event.name === 'updatedData') {
 						this.question = event.payload.data;
-						this.snackBar.open('Question was updated.', 'Dismiss', {
-							duration: 2000
-						});
 					}
 					else if (event.name === 'deletedData') {
-						this.snackBar.open('Question was deleted.', 'Dismiss');
 						this.router.navigateByUrl('/');
 					}
 				}
@@ -308,10 +303,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 	}
 
 	alert() {
-		this.snackBar
-			.open("You can't see private answerer", 'Dismiss', {
-				duration: 4000
-			})
+		this.snackBar.open("You can't see private answerer", 'Dismiss', { duration: 4000 });
 	}
 
 }
