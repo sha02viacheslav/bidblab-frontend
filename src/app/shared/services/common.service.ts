@@ -246,9 +246,9 @@ export class CommonService {
     );
   }
 
-  addReport(questionId, answerId, body) {
+  addReport(body) {
     return this.httpClient.post(
-      `${environment.apiUrl}/api/common/addReport/${questionId}/${answerId}`,
+      `${environment.apiUrl}/api/common/addReport`,
       body
     );
   }  

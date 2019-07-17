@@ -61,16 +61,12 @@ export class ReportDialogComponent implements OnInit {
     if (this.form.valid) {
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
-      this.commonService.addReport(this.data.questionId, this.data.answerId, this.form.value).subscribe(
+      this.form.value.questionId = this.data.questionId;
+      this.form.value.answerId = this.data.answerId;
+      this.commonService.addReport(this.form.value).subscribe(
         (res: any) => {
-            // this.socketsService.notify('createdData', {
-            //   type: 'reports',
-            //   data: res.data
-            // });
             this.blockUIService.setBlockStatus(false);
-            this.snackBar.open(res.msg, 'Dismiss', {
-              duration: 1500
-            })
+            this.snackBar.open(res.msg, 'Dismiss', {duration: 1500})
             .afterOpened()
             .subscribe(() => {
               this.dialogRef.close(res.data);
@@ -79,14 +75,7 @@ export class ReportDialogComponent implements OnInit {
         (err: HttpErrorResponse) => {
           this.submitted = false;
           this.blockUIService.setBlockStatus(false);
-          this.snackBar
-            .open(err.error.msg, 'Dismiss', {
-              duration: 4000
-            })
-            .afterDismissed()
-            .subscribe(() => {
-              this.dialogRef.close(); 
-            });
+          this.snackBar.open(err.error.msg, 'Dismiss', { duration: 4000 });
         }
       );
     }

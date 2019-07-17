@@ -72,12 +72,12 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	openReportDialog(answerId) {
+	openReportDialog(questionId, answerId?) {
 		if (this.authenticationService.isAuthenticated()) {
 			this.dialogService.open(ReportDialogComponent, {
 				data: {
 					questionId: this.question._id,
-					answerId: answerId,
+					answerId: answerId? answerId: '',
 				}
 			}).afterClosed()
 			.subscribe(newRport => {
@@ -113,17 +113,37 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	noReport(answerId) {
+	noAnswerReport(questionId, answerId) {
 		if (!this.authenticationService.isAuthenticated()) {
 			return true;
 		}
 		return (
 			!this.reports.some(
 				report =>
-					report.answerId === answerId &&
+				report.questionId === questionId && report.answerId === answerId &&
 					report.reporter === this.authenticationService.getUser()._id
 			)
 		);
+	}
+
+	noQuestionReport(questionId) {
+		if (!this.authenticationService.isAuthenticated()) {
+			return true;
+		}
+		return (
+			!this.reports.some(
+				report =>
+					!report.answerId && report.questionId === questionId &&
+					report.reporter === this.authenticationService.getUser()._id
+			)
+		);
+	}
+
+	isMyQuestion(askerId) {
+		if (!this.authenticationService.isAuthenticated()) {
+			return false;
+		}
+		return (this.authenticationService.getUser()._id === askerId);
 	}
 
 	isMyAnswer(answererId) {

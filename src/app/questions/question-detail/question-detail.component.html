@@ -23,6 +23,14 @@
                 {{question.title}}
               </div>
             </div>
+            <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
+              <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)" color="accent">
+                flag
+              </mat-icon>
+              <mat-icon *ngIf="!noQuestionReport(question._id)" color="primary" style="opacity: 0.5">
+                flag
+              </mat-icon>
+            </div>
           </div>
           <div class="button-wrap">
             <button mat-raised-button color="primary" (click)="addFollow('question')"
@@ -78,10 +86,10 @@
               </div>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyAnswer(answer.answerer?._id)">
-              <mat-icon *ngIf="noReport(answer._id)" (click)="openReportDialog(answer._id)" color="accent">
+              <mat-icon *ngIf="noAnswerReport(question._id, answer._id)" (click)="openReportDialog(question._id, answer._id)" color="accent">
                 flag
               </mat-icon>
-              <mat-icon *ngIf="!noReport(answer._id)" color="primary" style="opacity: 0.5">
+              <mat-icon *ngIf="!noAnswerReport(question._id, answer._id)" color="primary" style="opacity: 0.5">
                 flag
               </mat-icon>
             </div>
