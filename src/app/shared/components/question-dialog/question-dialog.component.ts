@@ -21,7 +21,7 @@ export class QuestionDialogComponent implements OnInit {
 	@ViewChild('inputForTag') inputForTag: ElementRef;
 	public submitted: boolean;
 	public infoForm: FormGroup;
-	public standardInterests: string[];
+	public allTags: string[];
 	public uploadFiles: any[] = [];
 	public defaultCredits: any;
 	public selectedFileIndex: number = -1;
@@ -61,15 +61,15 @@ export class QuestionDialogComponent implements OnInit {
 		.valueChanges.pipe(debounceTime(100))
 		.subscribe(text => {
 			if (text.trim()) {
-				this.autocomplete = this.standardInterests.filter(element => element.match(new RegExp("(" + text + ")", "i")));
+				this.autocomplete = this.allTags.filter(element => element.match(new RegExp("(" + text + ")", "i")));
 			} else {
 				this.autocomplete = [];
 			}
 		});
 
-		this.commonService.getStandardInterests().subscribe((res: any) => {
+		this.commonService.getAllTags().subscribe((res: any) => {
 			if(res.data) {
-				this.standardInterests = res.data;
+				this.allTags = res.data;
 			}
 		});
 

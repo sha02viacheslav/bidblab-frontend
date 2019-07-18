@@ -23,8 +23,6 @@ import { AlertDialogComponent } from '../../../shared/components/alert-dialog/al
 export class SearchComponent implements OnInit, OnDestroy {
   @Output() sendData : EventEmitter <any> = new EventEmitter<any>();
   form: FormGroup;
-  questions: any[];
-  totalQuestionsCount: number;
   autocomplete: any[];
   private autocompleteSubscription: Subscription;
   private socketEventsSubscription: Subscription;
@@ -98,16 +96,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe(newQuestion => {
           if (newQuestion) {
-            if (question) {
-              const index = this.questions.findIndex(
-                currentQuestion => currentQuestion._id === question._id
-              );
-              if (index !== -1) {
-                this.questions[index] = newQuestion;
-              }
-            } else {
-              this.questions.push(newQuestion);
-            }
             this.dialogService.open(AlertDialogComponent, {
               data: {
                 title: "Question submitted",

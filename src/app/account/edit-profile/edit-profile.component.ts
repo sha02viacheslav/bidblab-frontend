@@ -93,7 +93,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.formArray = this.infoForm.get('tags') as FormArray;
 		this.blockUIService.setBlockStatus(true);
-		this.commonService.getStandardInterests().subscribe((res: any) => {
+		this.commonService.getAllInterests().subscribe((res: any) => {
 			if(res.data) {
 				this.standardInterests = res.data;
 				this.user.tags.forEach(item => {

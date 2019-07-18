@@ -89,9 +89,9 @@ export class ViewProfileComponent implements OnInit {
     );
   }
 
-  getUserAnswerByuserId(userId, interestFilter){
+  getUserAnswerByuserId(userId, tagFilter){
     this.blockUIService.setBlockStatus(true);
-    this.commonService.getUserAnswerByuserId(userId, interestFilter).subscribe(
+    this.commonService.getUserAnswerByuserId(userId, tagFilter).subscribe(
       (res: any) => {
         this.answers = res.data.answers;
         this.total_answers = res.data.total_answers;
@@ -112,9 +112,9 @@ export class ViewProfileComponent implements OnInit {
     );
   }
 
-  getUserQuestionByuserId(userId, interestFilter){
+  getUserQuestionByuserId(userId, tagFilter){
     this.blockUIService.setBlockStatus(true);
-    this.commonService.getUserQuestionByuserId(userId, interestFilter).subscribe(
+    this.commonService.getUserQuestionByuserId(userId, tagFilter).subscribe(
       (res: any) => {
         this.total_questions = res.data.total_questions;
         this.questions = res.data.questions;

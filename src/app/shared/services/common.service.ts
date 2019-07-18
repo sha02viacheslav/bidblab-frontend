@@ -136,15 +136,15 @@ export class CommonService {
     );
   }
 
-  getUserAnswerByuserId(userId, interestFilter?) {
+  getUserAnswerByuserId(userId, tagFilter?) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getUserAnswerByuserId?userId=${userId || ''}&interestFilter=${interestFilter || ''}`
+      `${environment.apiUrl}/api/common/getUserAnswerByuserId?userId=${userId || ''}&tagFilter=${tagFilter || ''}`
     );
   }
 
-  getUserQuestionByuserId(userId, interestFilter?) {
+  getUserQuestionByuserId(userId, tagFilter?) {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getUserQuestionByuserId?userId=${userId || ''}&interestFilter=${interestFilter || ''}`
+      `${environment.apiUrl}/api/common/getUserQuestionByuserId?userId=${userId || ''}&tagFilter=${tagFilter || ''}`
     );
   }
 
@@ -259,9 +259,16 @@ export class CommonService {
       body
     );
   }  
-  getStandardInterests() {
+  
+  getAllTags() {
     return this.httpClient.get(
-      `${environment.apiUrl}/api/common/getStandardInterests`
+      `${environment.apiUrl}/api/common/getAllTags`
+    );
+  }
+
+  getAllInterests() {
+    return this.httpClient.get(
+      `${environment.apiUrl}/api/common/getAllInterests`
     );
   }
 
