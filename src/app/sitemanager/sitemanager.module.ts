@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { QuillModule } from 'ngx-quill';
 import { HowComponent } from './how/how.component';
 import { TermsComponent } from './terms/terms.component';
 import { CookieComponent } from './cookie/cookie.component';
@@ -29,6 +30,7 @@ export const routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    QuillModule,
   ],
   declarations: [
     HowComponent, 

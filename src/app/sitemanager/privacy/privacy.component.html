@@ -1,1 +1,5 @@
-<div *ngIf="privacyPageContent" [innerHTML]="privacyPageContent"></div>
+<div quill-editor-element="" class="ql-container ql-snow ql-disabled" style="border: 0px;">
+  <div class="ql-editor" data-gramm="false" contenteditable="false" data-placeholder="Insert text here ...">
+    <div *ngIf="privacyPageContent" [innerHTML]="privacyPageContent"></div>
+  </div>
+</div>

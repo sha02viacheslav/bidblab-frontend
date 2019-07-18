@@ -201,12 +201,20 @@ header {
   text-transform: uppercase;
 }
 
+@media (max-width: 599px) {
+  footer {
+    mat-toolbar {
+      padding-bottom: 60px !important;
+    }
+  }
+}
+
 footer {
   box-shadow: 0px 0px 5px 0px #ccc;
 
   mat-toolbar {
     padding-top: 0.5rem;
-    padding-bottom: 60px !important;
+    padding-bottom: 0px;
     height: fit-content !important;
   }
 

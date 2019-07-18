@@ -1,1 +1,8 @@
-<div *ngIf="termsPageContent" [innerHTML]="termsPageContent"></div>
+<!-- <quill-editor [ngModel]="termsPageContent" [readOnly]="true" [modules]="{toolbar:false}" [style]="{border: '0px'}">
+</quill-editor> -->
+
+<div quill-editor-element="" class="ql-container ql-snow ql-disabled" style="border: 0px;">
+  <div class="ql-editor" data-gramm="false" contenteditable="false" data-placeholder="Insert text here ...">
+        <div *ngIf="termsPageContent" [innerHTML]="termsPageContent"></div>
+  </div>
+</div>
