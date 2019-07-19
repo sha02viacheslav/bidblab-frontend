@@ -58,12 +58,6 @@ export class AnswerDialogComponent implements OnInit {
       this.blockUIService.setBlockStatus(true);
       this.commonService.skipAnswer(this.data.question._id).subscribe((res: any) => {
         if(res.data) {
-          this.socketsService.notify('createdData', {
-            type: 'answer',
-            data: Object.assign(
-              { questionId: this.data.question._id, answer: res.data },
-            )
-          });
           this.blockUIService.setBlockStatus(false);
           this.snackBar.open(res.msg, 'Dismiss', {duration: 1500}).afterOpened().subscribe(() => {
             this.dialogRef.close(true);
