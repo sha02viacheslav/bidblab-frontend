@@ -34,6 +34,7 @@
   overflow: hidden;
   transition: border-color 0.25s ease;
   width: 100%;
+  height: 50px;
 }
 
 .sq-input--focus {
@@ -80,17 +81,17 @@
   border-color: #e02e2f;
 }
 
-.sq-button {
-  background: #4A90E2;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
+// .sq-button {
+//   background: #4A90E2;
+//   border-radius: 4px;
+//   font-size: 16px;
+//   font-weight: 600;
+//   letter-spacing: 1px;
+// }
 
-.sq-button:active {
-  background: #4A90E2;
-}
+// .sq-button:active {
+//   background: #4A90E2;
+// }
 .sq-wallet-divider {
   margin: 24px 0;
   position: relative;
@@ -165,10 +166,10 @@
   display: none;
 }
 
-.sq-button:hover {
-  cursor: pointer;
-  background-color: #4281CB;
-}
+// .sq-button:hover {
+//   cursor: pointer;
+//   background-color: #4281CB;
+// }
 
 #error {
   width: 100%;
