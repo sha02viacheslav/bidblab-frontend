@@ -201,6 +201,12 @@ export class CommonService {
     );
   }
 
+  skipAnswer(questionId) {
+    return this.httpClient.get(
+      `${environment.apiUrl}/api/common/skipAnswer/${questionId}`
+    );
+  }
+
   updateQuestion(questionId, body) {
     return this.httpClient.patch(
       `${environment.apiUrl}/api/admin/updateQuestion/${questionId}`,

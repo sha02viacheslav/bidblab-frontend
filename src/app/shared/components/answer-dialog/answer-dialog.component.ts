@@ -54,7 +54,26 @@ export class AnswerDialogComponent implements OnInit {
 
   submitForm(answertype) {
     if(answertype == 'skip') {
-      this.dialogRef.close(true);
+      this.submitted = true;
+      this.blockUIService.setBlockStatus(true);
+      this.commonService.skipAnswer(this.data.question._id).subscribe((res: any) => {
+        if(res.data) {
+          this.socketsService.notify('createdData', {
+            type: 'answer',
+            data: Object.assign(
+              { questionId: this.data.question._id, answer: res.data },
+            )
+          });
+          this.blockUIService.setBlockStatus(false);
+          this.snackBar.open(res.msg, 'Dismiss', {duration: 1500}).afterOpened().subscribe(() => {
+            this.dialogRef.close(true);
+          });
+        } else {
+          this.submitted = false;
+          this.blockUIService.setBlockStatus(false);
+          this.snackBar.open(res.msg, 'Dismiss', {duration: 4000});
+        }
+      });
     } else if (this.form.valid) {
       this.submitted = true;
       this.blockUIService.setBlockStatus(true);
