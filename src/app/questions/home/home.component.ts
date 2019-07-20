@@ -93,7 +93,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 						// if (this.questions.length < this.pageSize) {
 						//   this.questions.push(event.payload.data);
 						// }
-						this.snackBar.open('Question was created.', 'Dismiss', { duration: 2000 });
 					} else {
 						const index = this.questions.findIndex(
 							currentQuestion => currentQuestion._id === event.payload.data._id
@@ -101,15 +100,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 						if (index !== -1) {
 							if (event.name === 'updatedData') {
 								this.questions[index] = event.payload.data;
-								this.snackBar.open('Question was updated.', 'Dismiss', {
-									duration: 2000
-								});
 							} else {
 								this.questions.splice(index, 1);
 								this.totalQuestionsCount--;
-								this.snackBar.open('Question was deleted.', 'Dismiss', {
-									duration: 2000
-								});
 							}
 						}
 					}
@@ -122,9 +115,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 						const question = this.questions[index];
 						if (event.name === 'createdData') {
 							question.answers.push(event.payload.data.answer);
-							this.snackBar.open('Answer was created.', 'Dismiss', {
-								duration: 2000
-							});
 						} else {
 							index = question.answers.findIndex(
 								currentAnswer => currentAnswer._id === event.payload.data.answer._id
@@ -132,14 +122,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 							if (index !== -1) {
 								if (event.name === 'updatedData') {
 									question.answers[index] = event.payload.data.answer;
-									this.snackBar.open('Answer was updated.', 'Dismiss', {
-										duration: 2000
-									});
 								} else {
 									question.answers.splice(index, 1);
-									this.snackBar.open('Answer was deleted.', 'Dismiss', {
-										duration: 2000
-									});
 								}
 							}
 						}
