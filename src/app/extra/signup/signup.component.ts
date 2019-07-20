@@ -100,12 +100,13 @@ export class SignupComponent implements OnInit, AfterViewInit {
 				isPopup: false,
 				parentElement: ".cont-datetime",
 				formatHumanDate: function (oDate, sMode, sFormat) {
-					var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
-					if (timeTemp === "") {
+					var timeTempForDisp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+					var timeTempForSet = oDate.MM + "/" + oDate.dd + "/" + oDate.yyyy;
+					if (timeTempForDisp === "") {
 						self.form.controls.birthday.setValue('');
 					} else {
-						self.form.controls.birthday.setValue(new Date(timeTemp));
-						self.dateinput.nativeElement.value = timeTemp;
+						self.form.controls.birthday.setValue(new Date(timeTempForSet));
+						self.dateinput.nativeElement.value = timeTempForDisp;
 					}
 					//This is to trigger form validation.
 					self.dateinput.nativeElement.click();
@@ -118,12 +119,13 @@ export class SignupComponent implements OnInit, AfterViewInit {
 					}
 				},
 				settingValueOfElement: function (sValue, dDateTime, oInputElement) {
-					var timeTemp = oInputElement.val();
-					if (timeTemp === "") {
+					var timeTempForDisp = oInputElement.val();
+					var timeTempForSet = timeTempForDisp.replace(new RegExp("-", "g"), "/");
+					if (timeTempForDisp === "") {
 						self.form.controls.birthday.setValue('');
 					} else {
-						self.form.controls.birthday.setValue(new Date(timeTemp));
-						self.dateinput.nativeElement.value = timeTemp;
+						self.form.controls.birthday.setValue(new Date(timeTempForSet));
+						self.dateinput.nativeElement.value = timeTempForDisp;
 
 					}
 					//This is to trigger form validation.

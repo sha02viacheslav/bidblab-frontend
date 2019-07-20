@@ -129,12 +129,13 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 				defaultDate: new Date(self.user.birthday),
 				parentElement: ".cont-datetime",
 				formatHumanDate: function (oDate, sMode, sFormat) {
-					var timeTemp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+					var timeTempForDisp = oDate.MM + "-" + oDate.dd + "-" + oDate.yyyy;
+					var timeTempForSet = oDate.MM + "/" + oDate.dd + "/" + oDate.yyyy;
 					if (timeTemp === "") {
 						self.infoForm.controls.birthday.setValue('');
 					} else {
-						self.infoForm.controls.birthday.setValue(new Date(timeTemp));
-						self.dateinput.nativeElement.value = timeTemp;
+						self.infoForm.controls.birthday.setValue(new Date(timeTempForSet));
+						self.dateinput.nativeElement.value = timeTempForDisp;
 					}
 					//This is to trigger form validation.
 					self.dateinput.nativeElement.click();
@@ -147,12 +148,13 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 					}
 				},
 				settingValueOfElement: function (sValue, dDateTime, oInputElement) {
-					var timeTemp = oInputElement.val();
+					var timeTempForDisp = oInputElement.val();
+					var timeTempForSet = timeTempForDisp.replace(new RegExp("-", "g"), "/");
 					if (timeTemp === "") {
 						self.infoForm.controls.birthday.setValue('');
 					} else {
-						self.infoForm.controls.birthday.setValue(new Date(timeTemp));
-						self.dateinput.nativeElement.value = timeTemp;
+						self.infoForm.controls.birthday.setValue(new Date(timeTempForSet));
+						self.dateinput.nativeElement.value = timeTempForDisp;
 
 					}
 					//This is to trigger form validation.
