@@ -16,8 +16,8 @@
       .auction-image {
         position: relative;
         width: 100%;
-        padding: 0;
-        padding-top: 75%;
+        padding: 0 !important;
+        padding-top: 75% !important;
         border-radius: 4px;
         background-position: center;
         background-size: cover;
@@ -25,8 +25,12 @@
         transition: all .4s ease;
       }
 
-      .closed-auction {
-        opacity: 0.6;
+      .auction-image-opacity {
+        position: absolute;
+        margin-top: -75%;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(255,255,255,0.3);
       }
 
       .gavel-image {
