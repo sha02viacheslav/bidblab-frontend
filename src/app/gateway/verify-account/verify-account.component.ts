@@ -66,39 +66,17 @@ export class VerifyAccountComponent implements OnInit {
     });
   }
 
-
   private verifyAccount(token) {
-    this.commonService.verifyAccount(token).subscribe(
-      (res: any) => {
-        this.snackBar
-          .open(res.msg, 'Dismiss', {
-            duration: 1500
-          })
-          .afterOpened()
-          .subscribe(() => {
-            this.authenticationService.setToken(res.data);
-            // this.authenticationService.setUser(jwtDecode(res.data).user);
-            // localStorage.setItem('jwt', res.data);
-            // localStorage.setItem(
-            //   'user',
-            //   JSON.stringify(this.authenticationService.getUser())
-            // );
-            this.blockUIService.setBlockStatus(false);
-            this.commonService.goHome();
-          });
-      },
-      (err: HttpErrorResponse) => {
-        this.snackBar
-          .open(err.error.msg, 'Dismiss', {
-            duration: 4000
-          })
-          .afterDismissed()
-          .subscribe(() => {
-            this.blockUIService.setBlockStatus(false);
-            this.commonService.goHome();
-          });
-      }
-    );
+    this.commonService.verifyAccount(token).subscribe((res: any) => {
+      this.snackBar.open(res.msg, 'Dismiss', { duration: 3000 }).afterOpened()
+      .subscribe(() => {
+        this.blockUIService.setBlockStatus(false);
+        if(res.data) {
+          this.authenticationService.setToken(res.data);
+        } 
+        this.commonService.goHome();
+      });
+    });
   }
 }
 
