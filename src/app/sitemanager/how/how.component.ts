@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-how',
@@ -9,17 +10,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./how.component.scss']
 })
 export class HowComponent implements OnInit {
-  howPageContent: string = '';
+  howPageContent: any;
   constructor(
     public commonService: CommonService,
     private snackBar: MatSnackBar,
+    protected sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
     this.commonService.getHowPageContent().subscribe(
     (res: any) => {
       if(res.data){
-        this.howPageContent = res.data.quillContent;
+        var result = this.commonService.processQuill(res.data.quillContent);
+        this.howPageContent = this.sanitizer.bypassSecurityTrustHtml(result.innerHtml);
       }
       else{
         this.snackBar.open(res.msg, 'Dismiss', {duration: 1500});

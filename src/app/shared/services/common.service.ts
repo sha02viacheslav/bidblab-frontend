@@ -30,6 +30,7 @@ export class CommonService {
     originQuill = originQuill.replace(new RegExp("\n", "g"), "");
     originQuill = originQuill.replace(new RegExp("&gt;", "g"), ">");
     originQuill = originQuill.replace(new RegExp("&lt;", "g"), "<");
+    originQuill = originQuill.replace(new RegExp("&nbsp;", "g"), " ");
     var a = document.createElement('div');
     a.innerHTML = originQuill
     while(a.querySelector('pre')){
