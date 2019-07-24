@@ -10,6 +10,7 @@ import { AuctionDialogComponent } from '../auction-dialog/auction-dialog.compone
 import { SquareDialogComponent } from '../../../../shared/components/square-dialog/square-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-auction-layer',
@@ -33,6 +34,7 @@ export class AuctionLayerComponent implements OnInit {
 
   constructor(
     private bidService: BidService,
+    public commonService: CommonService,
 		public dialog: MatDialog,
     private dialogService: DialogService,
     private authenticationService: AuthenticationService,

@@ -7,11 +7,10 @@ import { CommonService } from '../../../shared/services/common.service';
 export class BidService {
 
   public auctionRole = {
-    pending: 1,
-    process: 2,
-    closed: 4,
-    deleted: 8,
-    all: 15
+    pending: 0,
+    process: 1,
+    closed: 2,
+    sold: 3
   };
   public detailAuction: any;
   public questionCredits: number = 0;

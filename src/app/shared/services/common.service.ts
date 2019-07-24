@@ -49,6 +49,10 @@ export class CommonService {
     return result;
   }
 
+  checkBit(val, pos) {
+    return !!(val & (1 << pos));
+  }
+
   userLogin(body) {
     return this.httpClient.post(
       `${environment.apiUrl}/api/auth/userLogin`,

@@ -10,8 +10,8 @@
           <div class="auction-image container" [style.background-image]="auction?.auctionPicture?.length?
           'url(' + serverUrl +'/' + auction.auctionPicture[0] + ')' :
           'url(assets/imgs/empty-image.png)'">
-            <div *ngIf="auction.role == bidService.auctionRole.closed" class="auction-image-opacity"></div>
-            <div *ngIf="auction.role == bidService.auctionRole.closed" class="gavel-image"
+            <div *ngIf="commonService.checkBit(auction.role, bidService.auctionRole.closed)" class="auction-image-opacity"></div>
+            <div *ngIf="commonService.checkBit(auction.role, bidService.auctionRole.closed)" class="gavel-image"
               [style.background-image]="'url(assets/imgs/gavel-red.png)'">
             </div>
           </div>
@@ -50,13 +50,13 @@
           <div>#{{("0000000" + auction.auctionSerial).slice(-7)}}</div>
         </div>
         <div class="auction-description-wrap">
-          <div>{{auction.role == bidService.auctionRole.closed? 'Winner:': 'High
+          <div>{{commonService.checkBit(auction.role, bidService.auctionRole.closed)? 'Winner:': 'High
             Bidder:'}}</div>
           <div *ngIf="auction.maxUniqueBid else noHighBidder" routerLink="/user/{{auction.maxUniqueBid._id}}">
             {{auction.maxUniqueBid.username}}
           </div>
           <ng-template #noHighBidder>
-            <div>{{auction.role == bidService.auctionRole.closed? 'No Winner':
+            <div>{{commonService.checkBit(auction.role, bidService.auctionRole.closed)? 'No Winner':
               'No High Bidder'}}</div>
           </ng-template>
         </div>
