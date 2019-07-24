@@ -3,12 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormValidationService } from '../../shared/services/form-validation.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
+import { FormValidationService } from '$/services/form-validation.service';
+import { BlockUIService } from '$/services/block-ui.service';
 import { MatSnackBar } from '@angular/material';
-import { CommonService } from '../../shared/services/common.service';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
-import { DialogService } from '../../shared/services/dialog.service';
+import { CommonService } from '$/services/common.service';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
+import { DialogService } from '$/services/dialog.service';
 import { isPlatformBrowser } from '@angular/common';
 declare var $: any;
 

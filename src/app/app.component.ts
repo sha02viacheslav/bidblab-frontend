@@ -9,7 +9,7 @@ import { CommonService } from './shared/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
-import { environment } from '../environments/environment';
+import { environment } from '@environments/environment';
 import { MenuService } from './shared/components/menu/menu.service';
 import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
 import { AuthenticationService } from './shared/services/authentication.service';

@@ -7,7 +7,7 @@ import { BlockUIService } from '../../services/block-ui.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@angular/material';
 import { CommonService } from '../../services/common.service';
 import { SocketsService } from '../../services/sockets.service';
-import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { AuthenticationService } from '$/services/authentication.service';
 
 @Component({
   selector: 'app-report-dialog',

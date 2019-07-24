@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { UserGuard } from '../shared/guards/user.guard';
-import { SharedModule } from '../shared/shared.module';
+import { UserGuard } from '$/guards/user.guard';
+import { SharedModule } from '$/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';

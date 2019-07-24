@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '$/shared.module';
 import { GatewayRoutingModule } from './gateway-routing.module';
 import { VerifyAccountComponent } from './verify-account/verify-account.component';
 import { GatewayComponent } from './gateway.component';

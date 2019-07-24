@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { environment } from '../../../environments/environment';
+import { AuthenticationService } from '$/services/authentication.service';
+import { environment } from '@environments/environment';
 @Component({
   selector: 'app-question-box',
   templateUrl: './question-box.component.html',

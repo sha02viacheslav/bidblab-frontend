@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '$/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { HowComponent } from './how/how.component';
 import { TermsComponent } from './terms/terms.component';

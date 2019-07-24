@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CommonService } from '../../../shared/services/common.service';
-import { BlockUIService } from '../../../shared/services/block-ui.service';
+import { CommonService } from '$/services/common.service';
+import { BlockUIService } from '$/services/block-ui.service';
 
 @Component({
   selector: 'app-nocredit-dialog',

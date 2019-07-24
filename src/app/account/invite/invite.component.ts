@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute  } from '@angular/router';
-import { AuthenticationService } from '../../shared/services/authentication.service';
+import { AuthenticationService } from '$/services/authentication.service';
 import { MatSnackBar } from '@angular/material';
-import { CommonService } from '../../shared/services/common.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
+import { CommonService } from '$/services/common.service';
+import { BlockUIService } from '$/services/block-ui.service';
 
 @Component({
   selector: 'app-invite',

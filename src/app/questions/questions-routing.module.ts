@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UserGuard } from '../shared/guards/user.guard';
+import { UserGuard } from '$/guards/user.guard';
 import { QuestionsComponent } from './questions.component';
 import { HomeComponent } from './home/home.component';
 import { BidComponent } from './bid/bid.component';

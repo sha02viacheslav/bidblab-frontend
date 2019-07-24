@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuService } from '../shared/components/menu/menu.service';
-import { CommonService } from '../shared/services/common.service';
+import { MenuService } from '$/components/menu/menu.service';
+import { CommonService } from '$/services/common.service';
 
 @Component({
   selector: 'app-account',

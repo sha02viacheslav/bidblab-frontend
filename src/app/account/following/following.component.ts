@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DialogService } from '../../shared/services/dialog.service';
-import { CommonService } from '../../shared/services/common.service';
+import { DialogService } from '$/services/dialog.service';
+import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
-import { environment } from '../../../environments/environment';
+import { AuthenticationService } from '$/services/authentication.service';
+import { BlockUIService } from '$/services/block-ui.service';
+import { environment } from '@environments/environment';
 
 
 @Component({

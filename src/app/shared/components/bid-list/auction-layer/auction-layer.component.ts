@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthenticationService } from '../../../../shared/services/authentication.service';
+import { AuthenticationService } from '$/services/authentication.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { DialogService } from '../../../../shared/services/dialog.service';
-import { AlertDialogComponent } from '../../../../shared/components/alert-dialog/alert-dialog.component';
-import { NocreditDialogComponent } from '../../../../shared/components/nocredit-dialog/nocredit-dialog.component';
-import { environment } from '../../../../../environments/environment';
-import { BidService } from '../bid.service';
+import { DialogService } from '$/services/dialog.service';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
+import { NocreditDialogComponent } from '$/components/nocredit-dialog/nocredit-dialog.component';
+import { environment } from '@environments/environment';
+import { BidService } from '$/services/bid.service';
 import { AuctionDialogComponent } from '../auction-dialog/auction-dialog.component';
-import { SquareDialogComponent } from '../../../../shared/components/square-dialog/square-dialog.component';
+import { SquareDialogComponent } from '$/components/square-dialog/square-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from '$/services/common.service';
 
 @Component({
   selector: 'app-auction-layer',

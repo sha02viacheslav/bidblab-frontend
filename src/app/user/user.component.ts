@@ -3,18 +3,18 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
-import { FormValidationService } from '../shared/services/form-validation.service';
-import { BlockUIService } from '../shared/services/block-ui.service';
-import { AuthenticationService } from '../shared/services/authentication.service';
-import { AnswerDialogComponent } from '../shared/components/answer-dialog/answer-dialog.component';
-import { DialogService } from '../shared/services/dialog.service';
-import { CommonService } from '../shared/services/common.service';
+import { FormValidationService } from '$/services/form-validation.service';
+import { BlockUIService } from '$/services/block-ui.service';
+import { AuthenticationService } from '$/services/authentication.service';
+import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
+import { DialogService } from '$/services/dialog.service';
+import { CommonService } from '$/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionDialogComponent } from '../shared/components/question-dialog/question-dialog.component';
-import { SocketsService } from '../shared/services/sockets.service';
+import { QuestionDialogComponent } from '$/components/question-dialog/question-dialog.component';
+import { SocketsService } from '$/services/sockets.service';
 import { debounceTime, filter } from 'rxjs/operators';
-import { AlertDialogComponent } from '../shared/components/alert-dialog/alert-dialog.component';
-import { environment } from '../../environments/environment';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
+import { environment } from '@environments/environment';
 import { MatOption } from '@angular/material';
 
 @Component({

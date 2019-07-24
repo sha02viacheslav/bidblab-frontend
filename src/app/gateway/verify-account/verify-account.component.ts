@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../../shared/services/common.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
+import { CommonService } from '$/services/common.service';
+import { BlockUIService } from '$/services/block-ui.service';
 import { MatSnackBar } from '@angular/material';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from '../../shared/services/authentication.service';
+import { AuthenticationService } from '$/services/authentication.service';
 import * as jwtDecode from 'jwt-decode';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Subscription } from 'rxjs';
 import { SwUpdate } from '@angular/service-worker';
 import { takeWhile, filter } from 'rxjs/operators';
-import { DialogService } from '../../shared/services/dialog.service';
+import { DialogService } from '$/services/dialog.service';
 
 @Component({
   selector: 'app-verify-account',

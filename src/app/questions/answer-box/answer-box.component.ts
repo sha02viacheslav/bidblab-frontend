@@ -2,16 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../shared/services/common.service';
-import { SocketsService } from '../../shared/services/sockets.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
-import { AuthenticationService } from '../../shared/services/authentication.service';
+import { CommonService } from '$/services/common.service';
+import { SocketsService } from '$/services/sockets.service';
+import { BlockUIService } from '$/services/block-ui.service';
+import { AuthenticationService } from '$/services/authentication.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { DialogService } from '../../shared/services/dialog.service';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
+import { DialogService } from '$/services/dialog.service';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 import { Subscriber } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { AnswerDialogComponent } from '../../shared/components/answer-dialog/answer-dialog.component';
+import { environment } from '@environments/environment';
+import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 
 @Component({

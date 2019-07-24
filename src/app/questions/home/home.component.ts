@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonService } from '../../shared/services/common.service';
+import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
-import { DialogService } from '../../shared/services/dialog.service';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
-import { QuestionDialogComponent } from '../../shared/components/question-dialog/question-dialog.component';
+import { DialogService } from '$/services/dialog.service';
+import { AuthenticationService } from '$/services/authentication.service';
+import { BlockUIService } from '$/services/block-ui.service';
+import { QuestionDialogComponent } from '$/components/question-dialog/question-dialog.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { SocketsService } from '../../shared/services/sockets.service';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
+import { SocketsService } from '$/services/sockets.service';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 
 @Component({
 	selector: 'app-home-questions',

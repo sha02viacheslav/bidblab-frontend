@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { BidService } from '../bid.service';
+import { environment } from '@environments/environment';
+import { BidService } from '$/services/bid.service';
 import { MatTableDataSource, MatOption, MatSort } from '@angular/material';
-import { CommonService } from '../../../services/common.service';
+import { CommonService } from '$/services/common.service';
 
 @Component({
   selector: 'app-auction-grid',

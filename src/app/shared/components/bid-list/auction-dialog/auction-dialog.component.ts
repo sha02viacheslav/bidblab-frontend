@@ -1,15 +1,15 @@
 import { Component, OnDestroy, Inject, OnInit, Optional } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FormArray, FormBuilder, FormGroup, Validators,  FormControl  } from '@angular/forms';
-import { BlockUIService } from '../../../../shared/services/block-ui.service';
+import { BlockUIService } from '$/services/block-ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormValidationService } from '../../../../shared/services/form-validation.service';
+import { FormValidationService } from '$/services/form-validation.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@angular/material';
-import { CommonService } from '../../../../shared/services/common.service';
-import { SocketsService } from '../../../../shared/services/sockets.service';
-import { AuthenticationService } from '../../../../shared/services/authentication.service';
-import { BidService } from '../bid.service';
-import { environment } from '../../../../../environments/environment';
+import { CommonService } from '$/services/common.service';
+import { SocketsService } from '$/services/sockets.service';
+import { AuthenticationService } from '$/services/authentication.service';
+import { BidService } from '$/services/bid.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-auction-dialog',

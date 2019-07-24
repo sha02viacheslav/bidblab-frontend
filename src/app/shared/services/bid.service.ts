@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CommonService } from '../../../shared/services/common.service';
+import { CommonService } from '$/services/common.service';
 
 @Injectable({
   providedIn: 'root'

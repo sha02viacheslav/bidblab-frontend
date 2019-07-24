@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as jwtDecode from 'jwt-decode';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { FormValidationService } from '../../shared/services/form-validation.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
+import { AuthenticationService } from '$/services/authentication.service';
+import { FormValidationService } from '$/services/form-validation.service';
+import { BlockUIService } from '$/services/block-ui.service';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
-import { CommonService } from '../../shared/services/common.service';
+import { CommonService } from '$/services/common.service';
 import { Location } from '@angular/common';
 
 @Component({

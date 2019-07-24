@@ -3,12 +3,12 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
-import { FormValidationService } from '../../shared/services/form-validation.service';
-import { BlockUIService } from '../../shared/services/block-ui.service';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { DialogService } from '../../shared/services/dialog.service';
-import { CommonService } from '../../shared/services/common.service';
-import { environment } from '../../../environments/environment';
+import { FormValidationService } from '$/services/form-validation.service';
+import { BlockUIService } from '$/services/block-ui.service';
+import { AuthenticationService } from '$/services/authentication.service';
+import { DialogService } from '$/services/dialog.service';
+import { CommonService } from '$/services/common.service';
+import { environment } from '@environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 declare var $: any;
 

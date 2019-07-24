@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
-import { CommonService } from '../../shared/services/common.service';
+import { CommonService } from '$/services/common.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 import { MatDialog } from '@angular/material';
-import { AlertDialogComponent } from '../../shared/components/alert-dialog/alert-dialog.component';
+import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-mailbox',
