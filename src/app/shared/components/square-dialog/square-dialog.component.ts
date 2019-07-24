@@ -14,9 +14,9 @@ declare var SqPaymentForm: any; //magic to allow us to access the SquarePaymentF
 	styleUrls: ['./square-dialog.component.scss']
 })
 export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
-	submitted: boolean;
-	form: FormGroup;
-	public defaultCredits: any;
+	public submitted: boolean = true;
+	public validationError: any = {};
+	private paymentForm;
 
 	constructor(
 		private fb: FormBuilder,
@@ -27,26 +27,30 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 		private snackBar: MatSnackBar,
 		private dialogRef: MatDialogRef<SquareDialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any
-	) { }
-
-	paymentForm; //this is our payment form object
+	) { }	
 
 	ngOnInit() {
-		// Set the application ID
-		var applicationId = "sq0idp-pgtYItOt5ukOhAf3XVPULw";
-
-		var parent = this;
+		var self = this;
 		if (SqPaymentForm.isSupportedBrowser()) {
 			this.paymentForm = new SqPaymentForm({
 
 				// Initialize the payment form elements
-				applicationId: applicationId,
+				applicationId: 'sq0idp-pgtYItOt5ukOhAf3XVPULw',
 				inputClass: 'sq-input',
 				autoBuild: false,
 
 				// Customize the CSS for SqPaymentForm iframe elements
 				inputStyles: [{
-					fontSize: '.9em'
+					backgroundColor: 'transparent',
+					color: '#333333',
+					fontFamily: '"Helvetica Neue", "Helvetica", sans-serif',
+					fontSize: '16px',
+					fontWeight: '400',
+					placeholderColor: '#8594A7',
+					placeholderFontWeight: '400',
+					padding: '16px',
+					_webkitFontSmoothing: 'antialiased',
+					_mozOsxFontSmoothing: 'grayscale'
 				}],
 
 				// Initialize the credit card placeholders
@@ -68,102 +72,23 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
 				// SqPaymentForm callback functions
 				callbacks: {
-
-					/*
-					* callback function: methodsSupported
-					* Triggered when: the page is loaded.
-					*/
-					methodsSupported: function (methods) {
-
-						var applePayBtn = document.getElementById('sq-apple-pay');
-						var applePayLabel = document.getElementById('sq-apple-pay-label');
-						var masterpassBtn = document.getElementById('sq-masterpass');
-						var masterpassLabel = document.getElementById('sq-masterpass-label');
-
-						// Only show the button if Apple Pay for Web is enabled
-						// Otherwise, display the wallet not enabled message.
-						if (methods.applePay === true) {
-							applePayBtn.style.display = 'inline-block';
-							applePayLabel.style.display = 'none';
-						}
-						// Only show the button if Masterpass is enabled
-						// Otherwise, display the wallet not enabled message.
-						if (methods.masterpass === true) {
-							masterpassBtn.style.display = 'inline-block';
-							masterpassLabel.style.display = 'none';
-						}
-					},
-
-					/*
-					* callback function: createPaymentRequest
-					* Triggered when: a digital wallet payment button is clicked.
-					*/
-					createPaymentRequest: function () {
-						// The payment request below is provided as
-						// guidance. You should add code to create the object
-						// programmatically.
-						return {
-							requestShippingAddress: true,
-							currencyCode: "USD",
-							countryCode: "US",
-							total: {
-								label: "Hakuna",
-								amount: "{{REPLACE_ME}}",
-								pending: false,
-							},
-							lineItems: [
-								{
-									label: "Subtotal",
-									amount: "{{REPLACE_ME}}",
-									pending: false,
-								},
-								{
-									label: "Shipping",
-									amount: "{{REPLACE_ME}}",
-									pending: true,
-								},
-								{
-									label: "Tax",
-									amount: "{{REPLACE_ME}}",
-									pending: false,
-								}
-							]
-						};
-					},
-
 					/*
 					* callback function: cardNonceResponseReceived
 					* Triggered when: SqPaymentForm completes a card nonce request
 					*/
 					cardNonceResponseReceived: function (errors, nonce, cardData) {
+						self.validationError = {};
 						if (errors) {
-							// Log errors from nonce generation to the Javascript console
-							errors.forEach(function (error) {
-							});
+							for (var i = 0; i < errors.length; i++) {
+								self.validationError[errors[i].field] = errors[i].message;
+							}
+							self.submitted = false;
+							self.blockUIService.setBlockStatus(false);
+
 							return;
 						}
 
-						alert('Nonce received: ' + nonce); /* FOR TESTING ONLY */
-						parent.submitForm(nonce);
-
-						// Assign the nonce value to the hidden form field
-						// document.getElementById('card-nonce').value = nonce;
-						//needs to be extracted from the
-						// (<HTMLInputElement>document.getElementById('card-nonce')).value = nonce; //casting so .value will work
-						//get this value from the database when the user is logged in
-						// (<HTMLInputElement>document.getElementById('sq-id')).value = "CBASEC8F-Phq5_pV7UNi64_kX_4gAQ";
-
-						// POST the nonce form to the payment processing page
-						// (<HTMLFormElement>document.getElementById('nonce-form')).submit();
-
-					},
-
-					/*
-					* callback function: unsupportedBrowserDetected
-					* Triggered when: the page loads and an unsupported browser is detected
-					*/
-					unsupportedBrowserDetected: function () {
-						/* PROVIDE FEEDBACK TO SITE VISITORS */
+						self.submitForm(nonce);
 					},
 
 					/*
@@ -178,12 +103,12 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 							case 'focusClassRemoved':
 								/* HANDLE AS DESIRED */
 								break;
-							case 'errorClassAdded':
-								/* HANDLE AS DESIRED */
+							case 'errorClassAdded': {
 								break;
-							case 'errorClassRemoved':
-								/* HANDLE AS DESIRED */
+							}
+							case 'errorClassRemoved': {
 								break;
+							}
 							case 'cardBrandChanged':
 								/* HANDLE AS DESIRED */
 								break;
@@ -198,14 +123,11 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 					* Triggered when: SqPaymentForm is fully loaded
 					*/
 					paymentFormLoaded: function () {
-						/* HANDLE AS DESIRED */
+						self.submitted = false;
 					}
 				}
 			});
-		} else {
-			// browser not supported
 		}
-
 
 	}
 
@@ -222,6 +144,8 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 		// Don't submit the form until SqPaymentForm returns with a nonce
 		event.preventDefault();
 
+		this.submitted = true;
+		this.blockUIService.setBlockStatus(true);
 		// Request a nonce from the SqPaymentForm object
 		this.paymentForm.requestCardNonce();
 	}
@@ -231,18 +155,16 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	submitForm(nonce) {
-		this.submitted = true;
-		this.blockUIService.setBlockStatus(true);
-		this.commonService.squarePay({ nonce: nonce }).subscribe((res: any) => {
-			this.blockUIService.setBlockStatus(false);
+		this.commonService.squarePay({ nonce: nonce, auctionId: this.data.auction._id }).subscribe((res: any) => {
 			this.submitted = false;
+			this.blockUIService.setBlockStatus(false);
 			if (res.data) {
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 15000 }).afterOpened().subscribe(() => {
+				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 }).afterOpened().subscribe(() => {
 					this.dialogRef.close(res.data);
 				});
 			}
 			else {
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 15000 });
+				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 			}
 		});
 	}

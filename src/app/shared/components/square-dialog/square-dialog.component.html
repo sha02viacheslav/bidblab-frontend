@@ -10,51 +10,31 @@
       <div class="sq-field">
         <label class="sq-label" for="sq-card-number">Card Number:</label>
         <div id="sq-card-number"></div>
+        <div class="inline-error" *ngIf="validationError.cardNumber">{{validationError.cardNumber}}</div>
       </div>
       <div class="sq-field-wrapper">
         <div class="sq-field sq-field--in-wrapper">
           <label for="sq-cvv">CVV:</label>
           <div id="sq-cvv"></div>
+          <div class="inline-error" *ngIf="validationError.cvv">{{validationError.cvv}}</div>
         </div>
         <div class="sq-field sq-field--in-wrapper">
-          <label for="sq-expiration-date">Expiration Date:</label>
+          <label for="sq-expiration-date">Expiration:</label>
           <div id="sq-expiration-date"></div>
+          <div class="inline-error" *ngIf="validationError.expirationDate">{{validationError.expirationDate}}</div>
         </div>
         <div class="sq-field sq-field--in-wrapper">
           <label for="sq-postal-code">Postal Code:</label>
           <div id="sq-postal-code"></div>
+          <div class="inline-error" *ngIf="validationError.postalCode">{{validationError.postalCode}}</div>
         </div>
       </div>
       <div class="sq-field">
         <button id="sq-creditcard" mat-raised-button color="accent" class="sq-button"
-          (click)="this.requestCardNonce($event)">
+          (click)="this.requestCardNonce($event)" [disabled]="submitted">
           Pay with card
         </button>
       </div>
-      <input type="hidden" id="sq-id" name="sq-id">
-      <input type="hidden" id="card-nonce" name="nonce">
     </form>
   </div>
 </div>
-<!-- 
-div(id="sq-ccbox")
-form(id="nonce-form-temp" novalidate action="process-payment" method="post")
-  div(class="sq-field")
-    label(class="sq-label") Card Number
-    div(id="sq-card-number-temp")
-  div(class="sq-field-wrapper")
-    div(class="sq-field sq-field--in-wrapper")
-      label(class="sq-label") CVV
-      div(id="sq-cvv")
-    div(class="sq-field sq-field--in-wrapper")
-      label(class="sq-label") Expiration
-      div(id="sq-expiration-date")
-    div(class="sq-field sq-field--in-wrapper")
-      label(class="sq-label") Postal Code
-      div(id="sq-postal-code")
-  div(class="sq-field")
-      button(id="sq-creditcard-temp" class="sq-button" onclick="onGetCardNonce(event)").
-        Pay $1.00 Now
-
-  div(id="error")
-  input(type="hidden" id="card-nonce" name="nonce") -->

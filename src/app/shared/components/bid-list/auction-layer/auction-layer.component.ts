@@ -90,21 +90,21 @@ export class AuctionLayerComponent implements OnInit {
     if (this.authenticationService.isAuthenticated()) {
       this.dialog
         .open(SquareDialogComponent, {
-          data: '',
+          data: {auction: this.auction},
           width: '400px'
         })
         .afterClosed()
         .subscribe(newBid => {
-          if (newBid) {
-            this.dialog.open(AlertDialogComponent, {
-              data: {
-                title: "Pay successfully submitted!",
-                comment: "",
-                dialog_type: "alert" 
-              },
-              width: '320px',
-            });
-          }
+          // if (newBid) {
+          //   this.dialog.open(AlertDialogComponent, {
+          //     data: {
+          //       title: "Pay successfully submitted!",
+          //       comment: "",
+          //       dialog_type: "alert" 
+          //     },
+          //     width: '320px',
+          //   });
+          // }
         });
     }
     else{

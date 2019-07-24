@@ -34,7 +34,6 @@
   overflow: hidden;
   transition: border-color 0.25s ease;
   width: 100%;
-  height: 50px;
 }
 
 .sq-input--focus {
@@ -49,11 +48,13 @@
   color: #fff;
   padding: 16px;
   width: 100%;
+  height: 52px;
 }
 
 .sq-button:active {
   color: #fff;
 }
+
 .sq-payment-form {
   max-width: 100%;
   padding: 20px 20px 5px;
@@ -99,7 +100,10 @@
   width: 100%;
 }
 
-.sq-wallet-divider:after, .sq-wallet-divider::after, .sq-wallet-divider:before, .sq-wallet-divider::before {
+.sq-wallet-divider:after,
+.sq-wallet-divider::after,
+.sq-wallet-divider:before,
+.sq-wallet-divider::before {
   background: #bbb;
   content: '';
   display: block;
@@ -110,11 +114,13 @@
   top: 9px;
 }
 
-.sq-wallet-divider:after, .sq-wallet-divider::after {
+.sq-wallet-divider:after,
+.sq-wallet-divider::after {
   right: 65%;
 }
 
-.sq-wallet-divider:before, .sq-wallet-divider::before {
+.sq-wallet-divider:before,
+.sq-wallet-divider::before {
   left: 65%;
 }
 
@@ -153,6 +159,7 @@
   width: 100%;
   display: none;
 }
+
 .sq-masterpass {
   background-color: #000;
   background-image: url(https://masterpass.com/dyn/img/btn/global/mp_chk_btn_384x048px.svg);
@@ -171,12 +178,10 @@
 //   background-color: #4281CB;
 // }
 
-#error {
+.inline-error {
   width: 100%;
-  margin-top: 16px;
-  font-size: 14px;
-  color: red;
-  font-weight: 500;
-  text-align: center;
-  opacity: 0.8;
+  font-size: 75%;
+  color: #f44336;
+  font-weight: 400;
+  line-height: 1.125;
 }
