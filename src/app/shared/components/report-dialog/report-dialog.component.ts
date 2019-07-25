@@ -1,12 +1,10 @@
 import { Component, OnDestroy, Inject, OnInit, Optional } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormValidationService } from '../../services/form-validation.service';
 import { BlockUIService } from '../../services/block-ui.service';
-import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatChipInputEvent } from '@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonService } from '../../services/common.service';
-import { SocketsService } from '../../services/sockets.service';
 import { AuthenticationService } from '$/services/authentication.service';
 
 @Component({
@@ -24,7 +22,6 @@ export class ReportDialogComponent implements OnInit {
     private formValidationService: FormValidationService,
     private blockUIService: BlockUIService,
     public commonService: CommonService,
-    private socketsService: SocketsService,
     private authenticationService: AuthenticationService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<ReportDialogComponent>,

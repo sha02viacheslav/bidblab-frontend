@@ -1,19 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FormValidationService } from '$/services/form-validation.service';
 import { BlockUIService } from '$/services/block-ui.service';
 import { AuthenticationService } from '$/services/authentication.service';
-import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
 import { DialogService } from '$/services/dialog.service';
 import { CommonService } from '$/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionDialogComponent } from '$/components/question-dialog/question-dialog.component';
-import { SocketsService } from '$/services/sockets.service';
-import { debounceTime, filter } from 'rxjs/operators';
-import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 import { environment } from '@environments/environment';
 import { MatOption } from '@angular/material';
 
@@ -28,7 +22,6 @@ export class UserComponent implements OnInit, OnDestroy {
 	passwordVisibility: boolean;
 	infoForm: FormGroup;
 	passwordForm: FormGroup;
-	private userUpdatesSubscription: Subscription;
 	selected_tag: string[];
 	questions: any[];
 	total_questions: number;
@@ -47,7 +40,6 @@ export class UserComponent implements OnInit, OnDestroy {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private socketsService: SocketsService,
 		public commonService: CommonService,
 		private dialogService: DialogService,
 		private fb: FormBuilder,
@@ -63,8 +55,6 @@ export class UserComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.isInit) {
-		}
 	}
 
 	initialize() {
@@ -145,10 +135,7 @@ export class UserComponent implements OnInit, OnDestroy {
 				this.total_questions = res.data.total_questions;
 				this.questions = res.data.questions;
 				this.questionTags = res.data.questionTags;
-				this.snackBar
-					.open(res.msg, 'Dismiss', {
-						duration: 1500
-					})
+				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 })
 					.afterOpened()
 					.subscribe(() => {
 						this.blockUIService.setBlockStatus(false);
@@ -233,24 +220,6 @@ export class UserComponent implements OnInit, OnDestroy {
 					this.followed = true;
 				}
 			});
-		}
-	}
-
-	async deleteUser() {
-		try {
-			const res = (await this.commonService.deleteUser(
-				this.user._id
-			)) as any;
-			this.socketsService.notify('deletedData', {
-				type: 'user',
-				data: res.data
-			});
-			this.snackBar.open(res.msg, 'Dismiss', {
-				duration: 1500
-			});
-			this.router.navigateByUrl('/');
-		} catch (err) {
-			this.snackBar.open(err.error.msg, 'Dismiss');
 		}
 	}
 

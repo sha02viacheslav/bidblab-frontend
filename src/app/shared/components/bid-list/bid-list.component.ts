@@ -9,12 +9,8 @@ import { BlockUIService } from '$/services/block-ui.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
 import { SocketsService } from '$/services/sockets.service';
-import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
-import { resource } from 'selenium-webdriver/http';
 import { environment } from '@environments/environment';
-// import { MatSelect } from '@angular/material';
 import { BidService } from '$/services/bid.service';
 
 @Component({
@@ -79,7 +75,9 @@ export class BidListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.socketEventsSubscription.unsubscribe();
+    if(this.socketEventsSubscription) {
+      this.socketEventsSubscription.unsubscribe();
+    }
   }
 
   getAuctions() {

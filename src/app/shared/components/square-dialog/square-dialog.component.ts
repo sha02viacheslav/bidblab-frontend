@@ -5,7 +5,6 @@ import { FormValidationService } from '../../services/form-validation.service';
 import { BlockUIService } from '../../services/block-ui.service';
 import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonService } from '../../services/common.service';
-import { SocketsService } from '../../services/sockets.service';
 declare var SqPaymentForm: any; //magic to allow us to access the SquarePaymentForm lib
 
 @Component({
@@ -21,7 +20,6 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 	constructor(
 		private fb: FormBuilder,
 		private formValidationService: FormValidationService,
-		private socketsService: SocketsService,
 		private blockUIService: BlockUIService,
 		public commonService: CommonService,
 		private snackBar: MatSnackBar,

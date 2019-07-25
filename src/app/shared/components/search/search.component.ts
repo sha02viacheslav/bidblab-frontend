@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { DialogService } from '$/services/dialog.service';
@@ -11,8 +9,6 @@ import { QuestionDialogComponent } from '$/components/question-dialog/question-d
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
-import { SocketsService } from '$/services/sockets.service';
 import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 
 @Component({
@@ -33,7 +29,6 @@ export class SearchComponent implements OnInit, OnDestroy {
  
   constructor(
     private fb: FormBuilder,
-    private socketsService: SocketsService,
     private blockUIService: BlockUIService,
     public commonService: CommonService,
     private snackBar: MatSnackBar,
@@ -80,7 +75,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.autocompleteSubscription.unsubscribe();
+    if(this.autocompleteSubscription) {
+      this.autocompleteSubscription.unsubscribe();
+    }
   }
 
   openQuestionDialog(newTitle?: String, question?: any) {

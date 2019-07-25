@@ -21,7 +21,6 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
   submitted: boolean;
   infoForm: FormGroup;
   catagories: string[];
-  private userUpdatesSubscription: Subscription;
   auction: any;
   formArray: FormArray;
   serverUrl = environment.apiUrl;
@@ -53,7 +52,6 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.userUpdatesSubscription.unsubscribe();
   }
 
   checkError(form, field, error) {
@@ -66,8 +64,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
         this.snackBar.open("You have already bid this price", 'Dismiss', {
           duration: 1500
         })
-      }
-      else{
+      } else{
         this.blockUIService.setBlockStatus(true);
         this.commonService.addBid(this.auction._id, this.infoForm.value).subscribe((res: any) => {
           this.socketsService.notify('updatedData', {

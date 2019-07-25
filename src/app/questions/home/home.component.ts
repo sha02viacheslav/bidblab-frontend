@@ -10,8 +10,6 @@ import { QuestionDialogComponent } from '$/components/question-dialog/question-d
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { SocketsService } from '$/services/sockets.service';
-import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 
 @Component({
 	selector: 'app-home-questions',
@@ -30,7 +28,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private fb: FormBuilder,
-		private socketsService: SocketsService,
 		private blockUIService: BlockUIService,
 		public commonService: CommonService,
 		private snackBar: MatSnackBar,
@@ -55,13 +52,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 		});
 
 		this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
-		this.listenToSocket();
 	}
 
 	ngOnDestroy() {
-		if (this.socketEventsSubscription) {
-			// this.socketEventsSubscription.unsubscribe();
-		}
 	}
 
 	getDataFromSearch(data) {
@@ -80,56 +73,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 				this.questions.push(element);
 			});
 		});
-	}
-
-	private listenToSocket() {
-		this.socketEventsSubscription = this.socketsService
-			.getSocketEvents()
-			.pipe(filter((event: any) => event.payload))
-			.subscribe((event: any) => {
-				if (event.payload.type === 'question') {
-					if (event.name === 'createdData') {
-						// this.totalQuestionsCount++;
-						// if (this.questions.length < this.pageSize) {
-						//   this.questions.push(event.payload.data);
-						// }
-					} else {
-						const index = this.questions.findIndex(
-							currentQuestion => currentQuestion._id === event.payload.data._id
-						);
-						if (index !== -1) {
-							if (event.name === 'updatedData') {
-								this.questions[index] = event.payload.data;
-							} else {
-								this.questions.splice(index, 1);
-								this.totalQuestionsCount--;
-							}
-						}
-					}
-				} else if (event.payload.type === 'answer') {
-					let index = this.questions.findIndex(
-						currentQuestion =>
-							currentQuestion._id === event.payload.data.questionId
-					);
-					if (index !== -1) {
-						const question = this.questions[index];
-						if (event.name === 'createdData') {
-							question.answers.push(event.payload.data.answer);
-						} else {
-							index = question.answers.findIndex(
-								currentAnswer => currentAnswer._id === event.payload.data.answer._id
-							);
-							if (index !== -1) {
-								if (event.name === 'updatedData') {
-									question.answers[index] = event.payload.data.answer;
-								} else {
-									question.answers.splice(index, 1);
-								}
-							}
-						}
-					}
-				}
-			});
 	}
 
 	onScroll() {

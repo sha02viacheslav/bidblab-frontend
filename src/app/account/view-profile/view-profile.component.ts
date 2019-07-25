@@ -1,18 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FormValidationService } from '$/services/form-validation.service';
 import { BlockUIService } from '$/services/block-ui.service';
 import { AuthenticationService } from '$/services/authentication.service';
-import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
 import { DialogService } from '$/services/dialog.service';
 import { CommonService } from '$/services/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionDialogComponent } from '$/components/question-dialog/question-dialog.component';
-import { SocketsService } from '$/services/sockets.service';
-import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
 import { environment } from '@environments/environment';
 import { MatOption } from '@angular/material';
 
@@ -27,7 +22,6 @@ export class ViewProfileComponent implements OnInit {
   passwordVisibility: boolean;
   infoForm: FormGroup;
   passwordForm: FormGroup;
-  private userUpdatesSubscription: Subscription;
   selected_tag: string[];
   questions: any[];
   total_questions: number;
@@ -46,7 +40,6 @@ export class ViewProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private socketsService: SocketsService,
     public commonService: CommonService,
     private dialogService: DialogService,
     private fb: FormBuilder,

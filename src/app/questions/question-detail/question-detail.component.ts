@@ -30,12 +30,10 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 	public submitted: boolean;
 	public thumbstate: number;
 	public followed: boolean;
-	public isInit: boolean;
 	public serverUrl = environment.apiUrl;
 	public defaultCredits: any;
 	public user: any = null;
 	private socketEventsSubscription: Subscription;
-	private pageSize: number;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -50,11 +48,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.user = this.authenticationService.getUser();
-		this.isInit = false;
-		this.isInit = true;
 		this.getQuestion();
 		this.listenToSocket();
-		this.pageSize = 25;
 		this.autocomplete = [];
 		this.submitted = false;
 		this.thumbstate = 0;
@@ -67,8 +62,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		if (this.isInit) {
-			// this.socketEventsSubscription.unsubscribe();
+		if(this.socketEventsSubscription) {
+			this.socketEventsSubscription.unsubscribe();
 		}
 	}
 
