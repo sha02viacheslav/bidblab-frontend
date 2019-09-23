@@ -49,6 +49,28 @@ export class CommonService {
     return result;
   }
 
+  calcPastTime(createdAt) {
+		if (createdAt) {
+      var nowDate = new Date();
+      createdAt = new Date(createdAt);
+      var ageDifMs = nowDate.getTime() - createdAt.getTime();
+      if (ageDifMs < 1000 * 60) {
+        return '1 minute ago';
+      } else if (ageDifMs < 1000 * 60 * 60 ) {
+        var difMin = nowDate.getMinutes() - createdAt.getMinutes();
+        return  difMin <= 1? '1 minutes ago': difMin + ' minutes ago';
+      } else if (ageDifMs < 1000 * 60 * 60 * 24) {
+        var difHour = nowDate.getHours() - createdAt.getHours();
+        return difHour <= 1? '1 hour ago': difHour + ' hours ago';
+      } else if(ageDifMs < 1000 * 60 * 60 * 24 * 7) {
+        var difDay = nowDate.getDate() - createdAt.getDate();
+        return difDay <= 1? '1 day ago': difDay + ' days ago';
+      } else {
+        return false;
+      }
+		}
+	}
+
   checkBit(val, pos) {
     return !!(val & (1 << pos));
   }

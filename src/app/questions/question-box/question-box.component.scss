@@ -7,6 +7,17 @@
     margin-right: 1rem;
   }
 
+  .user-info {
+    h4 {
+      margin: 0 0 0 0;
+      font-size: 18px;
+
+    }
+    p {
+      margin: 0 0 0 0;
+    }
+  }
+
   .question-label {
     margin-right: 5px;
   }
@@ -17,10 +28,10 @@
 
   .question-answer {
     padding: 1rem;
+  }
 
-    &>div:first-child {
-      margin-bottom: 1rem;
-    }
+  .user-wrap {
+    margin-bottom: 0.5rem;
   }
 
   .button-wrap {

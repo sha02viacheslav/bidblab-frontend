@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { AuthenticationService } from '$/services/authentication.service';
+import { CommonService } from '$/services/common.service';
 import { environment } from '@environments/environment';
 @Component({
   selector: 'app-question-box',
@@ -19,6 +20,7 @@ export class QuestionBoxComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
+    public commonService: CommonService,
   ) {
   }
 

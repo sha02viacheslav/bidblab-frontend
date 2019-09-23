@@ -15,13 +15,12 @@
                 </button>
               </div>
             </div>
-            <div class="text-block-wrap h-100" fxFlex fxLayout="row">
-              <div>
-                <span class="accent">Q:&nbsp;</span>
-              </div>
-              <div class="text-wrapper mute-text">
-                {{question.title}}
-              </div>
+            <div class="user-info" fxFlex>
+              <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
+              <p class="mute-text">
+                {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
+                  (question.createdAt| date:"MMMM, dd yyyy") }}
+              </p>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
               <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)" color="accent">
@@ -30,6 +29,14 @@
               <mat-icon *ngIf="!noQuestionReport(question._id)" color="primary" style="opacity: 0.5">
                 flag
               </mat-icon>
+            </div>
+          </div>
+          <div class="text-block-wrap h-100" fxLayout="row">
+            <div>
+              <span class="accent">Q:&nbsp;</span>
+            </div>
+            <div class="text-wrapper mute-text">
+              {{question.title}}
             </div>
           </div>
           <div class="button-wrap">
@@ -77,13 +84,17 @@
                 </ng-template>
               </div>
             </div>
-            <div class="text-block-wrap" fxFlex fxLayout="row">
-              <div>
-                <span class="accent">A:&nbsp;</span>
-              </div>
-              <div class="text-wrapper mute-text">
-                {{answer.content}}
-              </div>
+            <div class="user-info" fxFlex>
+              <h4 *ngIf="answer.answertype == 'public'" class="mute-text">
+                {{question?.answers[0]?.answerer?.username? question?.answers[0]?.answerer?.username: 'unknown'}}
+              </h4>
+              <h4 *ngIf="answer.answertype != 'public'" class="mute-text">
+                Private
+              </h4>
+              <p class="mute-text">
+                {{commonService.calcPastTime(answer.createdAt)? commonService.calcPastTime(answer.createdAt):
+                  (answer.createdAt| date:"MMMM, dd yyyy") }}
+              </p>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyAnswer(answer.answerer?._id)">
               <mat-icon *ngIf="noAnswerReport(question._id, answer._id)" (click)="openReportDialog(question._id, answer._id)" color="accent">
@@ -92,6 +103,14 @@
               <mat-icon *ngIf="!noAnswerReport(question._id, answer._id)" color="primary" style="opacity: 0.5">
                 flag
               </mat-icon>
+            </div>
+          </div>
+          <div class="text-block-wrap" fxLayout="row">
+            <div>
+              <span class="accent">A:&nbsp;</span>
+            </div>
+            <div class="text-wrapper mute-text">
+              {{answer.content}}
             </div>
           </div>
           <div fxLayout="row" fxLayoutAlign="start none" class="credit-wrap">

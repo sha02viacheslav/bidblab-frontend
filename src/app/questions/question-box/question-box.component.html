@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
       <div class="question-answer" fxLayout="column">
-        <div fxLayout="row">
+        <div class="user-wrap" fxLayout="row">
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
@@ -13,31 +13,52 @@
               </button>
             </div>
           </div>
-          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
-            <div>
-              <span class="accent">Q:&nbsp;</span>
-            </div>
-            <div class="text-wrapper mute-text">
-              {{question.title}}
-            </div>
+          <div class="user-info">
+            <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
+            <p class="mute-text">
+              {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
+                (question.createdAt| date:"MMMM, dd yyyy") }}
+            </p>
           </div>
         </div>
-        <div *ngIf="question.answers.length" fxLayout="row">
-          <div class="avatar-image">
-            <div class="avatar"
-              [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
-              'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" mat-icon-button color="primary"
-                class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}">
-              </button>
-              <ng-template #noPublic>
-                <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
-                  <mat-icon>security</mat-icon>
+        <div class="text-block-wrap pointer" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+          <div>
+            <span class="accent">Q:&nbsp;</span>
+          </div>
+          <div class="text-wrapper mute-text">
+            {{question.title}}
+          </div>
+        </div>
+        <ng-container *ngIf="question.answers.length" >
+          <div class="user-wrap" fxLayout="row">
+            <div class="avatar-image">
+              <div class="avatar"
+                [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
+                'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                  class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}">
                 </button>
-              </ng-template>
+                <ng-template #noPublic>
+                  <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
+                    <mat-icon>security</mat-icon>
+                  </button>
+                </ng-template>
+              </div>
+            </div>
+            <div class="user-info">
+              <h4 *ngIf="question.answers[0].answertype == 'public'" class="mute-text">
+                {{question?.answers[0]?.answerer?.username? question?.answers[0]?.answerer?.username: 'unknown'}}
+              </h4>
+              <h4 *ngIf="question.answers[0].answertype != 'public'" class="mute-text">
+                Private
+              </h4>
+              <p class="mute-text">
+                {{commonService.calcPastTime(question.answers[0].createdAt)? commonService.calcPastTime(question.answers[0].createdAt):
+                  (question.answers[0].createdAt| date:"MMMM, dd yyyy") }}
+              </p>
             </div>
           </div>
-          <div class="text-block-wrap pointer" fxFlex fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+          <div class="text-block-wrap pointer" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
@@ -45,7 +66,7 @@
               {{question.answers[0].content}}
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
       <!-- <div class="button-wrap" fxLayout="row" fxLayoutAlign="end center">
         <button mat-icon-button routerLink="/questions/question-detail/{{question._id}}"
