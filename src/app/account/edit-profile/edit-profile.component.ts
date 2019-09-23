@@ -79,7 +79,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 			phone: [this.user.phone? this.user.phone: ''],
 			tags: this.fb.array([]),
 			birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
-			gender: [this.user.gender? this.user.gender: 'male'],
+			gender: [this.user.gender? this.user.gender: ''],
 			physicaladdress: [this.user.physicaladdress? this.user.physicaladdress: ''],
 			physicalcity: [this.user.physicalcity? this.user.physicalcity: ''],
 			physicalstate: [this.user.physicalstate? this.user.physicalstate: ''],
