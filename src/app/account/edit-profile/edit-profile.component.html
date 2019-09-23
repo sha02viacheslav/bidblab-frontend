@@ -73,10 +73,6 @@
           <textarea matInput formControlName="aboutme" matTextareaAutosize matAutosizeMinRows=2
             matAutosizeMaxRows=100></textarea>
         </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Phone</mat-label>
-          <input matInput type="text" ng-minlength="10" ng-maxlength="10" formControlName="phone">
-        </mat-form-field>
         <div class="tags-check-wrap" appearance="outline">
           <ng-container formArrayName="tags">
             <div class="interest-label-wrap">Interests</div>
@@ -125,6 +121,10 @@
             <mat-radio-button value="female">Female</mat-radio-button>
           </mat-radio-group>
         </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput type="text" ng-minlength="10" ng-maxlength="10" formControlName="phone">
+        </mat-form-field>
         <div>
           <div class="address-label">Physical Address</div>
           <mat-form-field class="address-wrap" appearance="outline">
