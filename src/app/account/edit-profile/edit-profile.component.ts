@@ -120,7 +120,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 		if (isPlatformBrowser(this.platformId)) {
 			var self = this;
 			var date = new Date(self.user.birthday);
-			var timeTemp = ('00' + date.getMonth() + 1).slice(-2) + '-' + ('00' + date.getDate()).slice(-2) + '-' +  date.getFullYear()
+			var timeTemp = ('00' + (Number(date.getMonth()) + 1)).slice(-2) + '-' + ('00' + date.getDate()).slice(-2) + '-' +  date.getFullYear()
 			self.dateinput.nativeElement.value = timeTemp;
 			$(this.datepicker.nativeElement).DateTimePicker({
 				dateFormat: "MM-dd-yyyy",
