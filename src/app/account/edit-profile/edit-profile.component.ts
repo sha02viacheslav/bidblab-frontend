@@ -77,7 +77,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 			],
 			aboutme: [this.user.aboutme? this.user.aboutme: ''],
 			phone: [this.user.phone? this.user.phone: ''],
-			customTag: [''],
 			tags: this.fb.array([]),
 			birthday: [new Date(this.user.birthday), [Validators.required, this.formValidationService.isAdault]],
 			gender: [this.user.gender? this.user.gender: 'male'],
@@ -179,17 +178,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 		}, (err: HttpErrorResponse) => {
 			this.showImageFlag = true;
 		});
-	}
-
-	addCustomTag() {
-		event.preventDefault();
-		if (this.infoForm.value.customTag) {
-			if (!this.standardInterests.find(x => x == this.infoForm.value.customTag)) {
-				this.standardInterests.push(this.infoForm.value.customTag);
-				this.formArray.push(new FormControl(true));
-			}
-			this.infoForm.controls.customTag.setValue('');
-		}
 	}
 
 	checkError(form, field, error) {
