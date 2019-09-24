@@ -6,6 +6,7 @@ import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.com
 import { NocreditDialogComponent } from '$/components/nocredit-dialog/nocredit-dialog.component';
 import { environment } from '@environments/environment';
 import { BidService } from '$/services/bid.service';
+import { SocketsService } from '$/services/sockets.service';
 import { AuctionDialogComponent } from '../auction-dialog/auction-dialog.component';
 import { SquareDialogComponent } from '$/components/square-dialog/square-dialog.component';
 import { MatDialog } from '@angular/material';
@@ -37,6 +38,7 @@ export class AuctionLayerComponent implements OnInit {
     public commonService: CommonService,
 		public dialog: MatDialog,
     private dialogService: DialogService,
+    private socketsService: SocketsService,
     private authenticationService: AuthenticationService,
     private router: Router,
   ) {
@@ -96,17 +98,15 @@ export class AuctionLayerComponent implements OnInit {
           width: '400px'
         })
         .afterClosed()
-        .subscribe(newBid => {
-          // if (newBid) {
-          //   this.dialog.open(AlertDialogComponent, {
-          //     data: {
-          //       title: "Pay successfully submitted!",
-          //       comment: "",
-          //       dialog_type: "alert" 
-          //     },
-          //     width: '320px',
-          //   });
-          // }
+        .subscribe(res => {
+          if(this.commonService.checkBit(res.auctionRole, this.bidService.auctionRole.sold)) {
+            this.socketsService.notify('updatedData', {
+              type: 'auction',
+              data: Object.assign(
+                { auctionId: this.auction._id },
+              )
+            });
+          }
         });
     }
     else{

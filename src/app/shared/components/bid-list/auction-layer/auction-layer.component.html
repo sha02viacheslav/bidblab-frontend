@@ -77,12 +77,22 @@
             Bid Now
           </button>
           <ng-template #closedAuction>
-            <button *ngIf="!!auction.maxUniqueBid && !!user &&
-              auction.maxUniqueBid._id == user._id else otherWinner"
-              class="bid-btn"
-              (click)="openSquareDialog()" mat-raised-button color="accent">
-              WON IT
-            </button>
+            <ng-container *ngIf="!!auction.maxUniqueBid && !!user &&
+                auction.maxUniqueBid._id == user._id else otherWinner">
+              <button *ngIf="!commonService.checkBit(auction.role,
+                bidService.auctionRole.sold) else soldAuction"
+                class="bid-btn"
+                (click)="openSquareDialog()" mat-raised-button color="accent">
+                WON IT
+              </button>
+              <ng-template #soldAuction>
+                <button
+                  class="bid-btn"
+                  mat-raised-button color="accent">
+                  PAID
+                </button>
+              </ng-template>
+            </ng-container>
             <ng-template #otherWinner>
               <button
                 class="bid-btn"
