@@ -17,11 +17,6 @@
   }
 
   .user-info {
-    h4 {
-      margin: 0 0 0 0;
-      font-size: 18px;
-
-    }
     p {
       margin: 0 0 0 0;
     }
@@ -84,13 +79,14 @@
   }
 
   .button-wrap {
-    margin: auto;
     text-align: center;
+    &>:first-child {
+      margin-bottom: 0.5rem;
+    }
 
     button {
-      margin: .5rem 0;
       width: 100%;
-      max-width: 300px;
+      max-width: 360px;
     }
   }
 

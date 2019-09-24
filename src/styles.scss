@@ -140,7 +140,7 @@ span.accent {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
-  height: 5rem;
+  max-height: 5rem;
   text-align: justify;
   overflow-wrap: break-word;
 }
@@ -153,7 +153,6 @@ span.accent {
   .text-block-wrap {
     font: 14px sans-serif;
     text-overflow: ellipsis;
-    height: 6.0rem;
   }
 
   .container {
@@ -191,7 +190,7 @@ mat-dialog-content {
 
 //Style for datetimepicker
 .dtpicker-cont {
-  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 
   .dtpicker-buttonSet {
     background: $accent !important;
