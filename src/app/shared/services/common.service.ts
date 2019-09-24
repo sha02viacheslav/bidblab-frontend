@@ -4,6 +4,7 @@ import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subject, TimeoutError } from 'rxjs';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -54,19 +55,10 @@ export class CommonService {
       var nowDate = new Date();
       createdAt = new Date(createdAt);
       var ageDifMs = nowDate.getTime() - createdAt.getTime();
-      if (ageDifMs < 1000 * 60) {
-        return '1 minute ago';
-      } else if (ageDifMs < 1000 * 60 * 60 ) {
-        var difMin = nowDate.getMinutes() - createdAt.getMinutes();
-        return  difMin <= 1? '1 minutes ago': difMin + ' minutes ago';
-      } else if (ageDifMs < 1000 * 60 * 60 * 24) {
-        var difHour = nowDate.getHours() - createdAt.getHours();
-        return difHour <= 1? '1 hour ago': difHour + ' hours ago';
-      } else if(ageDifMs < 1000 * 60 * 60 * 24 * 7) {
-        var difDay = nowDate.getDate() - createdAt.getDate();
-        return difDay <= 1? '1 day ago': difDay + ' days ago';
+      if(ageDifMs < 1000 * 60 * 60 * 24 * 7) {
+        return moment(createdAt, "YYYYMMDD").fromNow();
       } else {
-        return false;
+        return moment(createdAt).format('MMMM DD, YYYY');
       }
 		}
 	}
