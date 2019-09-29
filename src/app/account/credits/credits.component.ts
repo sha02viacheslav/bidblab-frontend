@@ -45,9 +45,6 @@ export class CreditsComponent implements OnInit {
         this.loseCredits = res.data.credits.loseCredits;
         this.availableCredits = this.totalCredits - this.loseCredits;
         this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(res.msg, 'Dismiss', {
-          duration: 1500
-        });
       },
       (err: HttpErrorResponse) => {
         this.blockUIService.setBlockStatus(false);
