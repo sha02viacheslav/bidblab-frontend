@@ -31,7 +31,7 @@
       enable_page_level_ads: true
     });
   </script>
-  <script data-cfasync="false">
+  <!-- <script data-cfasync="false">
     var w = window;
     w._onetag = w._onetag || {};
     (function(o,n,e,t,a,g) {
@@ -44,6 +44,14 @@
         !o.loaded && n.head.appendChild(g),
         o.loaded = true
     })(w._onetag, document);
+  </script> -->
+
+  <script data-cfasync="false">
+    (function(o,n,e,t,a,g){
+        if(o.onetag) return; g = o.onetag = function(){ g.cmd.push(arguments) };
+        a = n.createElement(e); a.async = true; g.cmd = [];
+        a.src = "//onetag-sys/main.js"; n.head.appendChild(a);
+    }(window, document, "script"));
   </script>
 </head>
 
