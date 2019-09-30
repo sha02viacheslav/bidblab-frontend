@@ -64,6 +64,9 @@ import { AuctionResultComponent } from './components/bid-list/auction-result/auc
 import { SearchComponent } from './components/search/search.component';
 import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
+import {AppShellNoRenderDirective} from './directives/app-shell-no-render.directive';
+import {AppShellRenderDirective} from './directives/app-shell-render.directive';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -131,6 +134,8 @@ import { ReportDialogComponent } from './components/report-dialog/report-dialog.
     NumericDirective,
     SearchComponent,
     ReportDialogComponent,
+    AppShellNoRenderDirective,
+    AppShellRenderDirective
   ],
   entryComponents: [
     // ResetPasswordComponent,
