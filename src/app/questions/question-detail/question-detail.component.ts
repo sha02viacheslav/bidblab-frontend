@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DialogService } from '$/services/dialog.service';
 import { CommonService } from '$/services/common.service';
@@ -15,6 +15,7 @@ import { ReportDialogComponent } from '$/components/report-dialog/report-dialog.
 import { environment } from '@environments/environment';
 import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
 import {Meta, Title} from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
 	selector: 'app-question-detail',
@@ -46,17 +47,25 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		private authenticationService: AuthenticationService,
 		private dialogService: DialogService,
 		private title: Title,
-		private meta: Meta
+		private meta: Meta,
+		@Inject(PLATFORM_ID) private platformId: Object
 	) { }
 
 	ngOnInit() {
-		this.user = this.authenticationService.getUser();
+		this.route.paramMap.subscribe(params => {
+			if (params.has('title')) {
+				this.title.setTitle(params.get('title'));
+			}
+		});
+		if (isPlatformBrowser(this.platformId)) {
+			this.user = this.authenticationService.getUser();
+		}
 		this.getQuestion();
 		this.listenToSocket();
 		this.autocomplete = [];
 		this.submitted = false;
 		this.thumbstate = 0;
-		this.followed = true;
+		this.followed = false;
 		this.commonService.getDefaultCredits().subscribe((res: any) => {
 			if (res.data) {
 				this.defaultCredits = res.data;
@@ -68,10 +77,6 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		if(this.socketEventsSubscription) {
 			this.socketEventsSubscription.unsubscribe();
 		}
-	}
-	
-	setSeoData(question) {
-		this.title.setTitle(question.title);
 	}
 
 	openReportDialog(questionId, answerId?) {
@@ -105,11 +110,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		this.blockUIService.setBlockStatus(true);
 		this.commonService.getQuestionByQuestionId(questionId, userId).subscribe((res: any) => {
 			this.question = res.data.question;
-			this.setSeoData(this.question.title);
+			this.title.setTitle(this.question.title);
 			this.sortAnswers(this.question.answers);
-			this.setSeoData(this.question);
 			this.reports = res.data.reports;
-			this.followed = !this.canFollow();
 			this.blockUIService.setBlockStatus(false);
 		}, (err: HttpErrorResponse) => {
 			this.snackBar.open(err.error.msg, 'Dismiss');

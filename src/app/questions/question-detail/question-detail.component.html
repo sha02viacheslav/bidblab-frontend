@@ -41,7 +41,7 @@
           </div>
           <div class="button-wrap">
             <button mat-raised-button color="primary" (click)="addFollow('question')"
-              [disabled]="followed">Follow</button>
+              [disabled]="followed || !canFollow()">Follow</button>
             <button *ngIf="question.answers.length" mat-raised-button color="accent"
               (click)="openAnswerDialog(question)" [disabled]="!canAnswer(question)">
               ANSWER&nbsp;
