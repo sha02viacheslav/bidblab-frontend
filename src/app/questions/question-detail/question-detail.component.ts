@@ -14,6 +14,7 @@ import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.com
 import { ReportDialogComponent } from '$/components/report-dialog/report-dialog.component';
 import { environment } from '@environments/environment';
 import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
+import {Meta, Title} from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-question-detail',
@@ -44,6 +45,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		private snackBar: MatSnackBar,
 		private authenticationService: AuthenticationService,
 		private dialogService: DialogService,
+		private title: Title,
+		private meta: Meta
 	) { }
 
 	ngOnInit() {
@@ -65,6 +68,10 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		if(this.socketEventsSubscription) {
 			this.socketEventsSubscription.unsubscribe();
 		}
+	}
+	
+	setSeoData(question) {
+		this.title.setTitle(question.title);
 	}
 
 	openReportDialog(questionId, answerId?) {
@@ -98,7 +105,9 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		this.blockUIService.setBlockStatus(true);
 		this.commonService.getQuestionByQuestionId(questionId, userId).subscribe((res: any) => {
 			this.question = res.data.question;
+			this.setSeoData(this.question.title);
 			this.sortAnswers(this.question.answers);
+			this.setSeoData(this.question);
 			this.reports = res.data.reports;
 			this.followed = !this.canFollow();
 			this.blockUIService.setBlockStatus(false);
