@@ -80,6 +80,7 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
           }).afterOpened().subscribe(() => {
             this.submitted = true;
             this.dialogRef.close(res.data);
+            this.commonService.showOutstreamAds();
           });
         },(err: HttpErrorResponse) => {
           this.submitted = false;

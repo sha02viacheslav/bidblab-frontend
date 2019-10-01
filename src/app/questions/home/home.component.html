@@ -1,14 +1,13 @@
 <app-search (sendData)="getDataFromSearch($event)"></app-search>
-<p><b>Example of AD</b></p>
-<div class='onetag' data-name='parallax' data-pub='40e575d352d7ea0'></div>
-<div class='onetag' data-name='300x250' data-pub='40e575d352d7ea0'></div>
 <div class='onetag' data-name='header' data-pub='40e575d352d7ea0'></div>
-<div class='onetag' data-name='player' data-pub='40e575d352d7ea0'></div>
 <div>
   <div *ngIf="questions" class="questions">
     <ng-container *ngIf="questions.length">
-      <div *ngFor="let question of questions" fxLayout="column">
+      <div *ngFor="let question of questions; let i = index;" fxLayout="column">
         <app-question-box [question]="question"></app-question-box>
+        <div *ngIf="i % 5 == 4">
+          <div class='onetag' data-name='parallax' data-pub='40e575d352d7ea0'></div>
+        </div>
       </div>
     </ng-container>
   </div>

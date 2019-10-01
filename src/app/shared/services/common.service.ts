@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subject, TimeoutError } from 'rxjs';
 import * as moment from 'moment';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class CommonService {
     private router: Router,
     private httpClient: HttpClient,
     private mediaObserver: MediaObserver,
+    @Inject(DOCUMENT) private doc
   ) {}
 
   private scrollEventEmitter = new Subject();
@@ -65,6 +67,17 @@ export class CommonService {
 
   checkBit(val, pos) {
     return !!(val & (1 << pos));
+  }
+
+  showOutstreamAds() {
+    let adsDiv = this.doc.querySelector("#outstream-ads-player");
+    if(adsDiv) {
+      adsDiv.remove();
+    }
+    let link = this.doc.createElement('div');
+    link.setAttribute('id', 'outstream-ads-player');
+    this.doc.body.appendChild(link);
+    link.innerHTML = '<div class="onetag" data-name="player" data-pub="40e575d352d7ea0"></div>';
   }
 
   userLogin(body) {
