@@ -4,6 +4,7 @@ import { DialogService } from '$/services/dialog.service';
 import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
 import { AuthenticationService } from '$/services/authentication.service';
+import { SeoService } from '$/services/seo.service';
 import { BlockUIService } from '$/services/block-ui.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketsService } from '$/services/sockets.service';
@@ -45,6 +46,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		public commonService: CommonService,
 		private snackBar: MatSnackBar,
 		private authenticationService: AuthenticationService,
+		private seoService: SeoService,
 		private dialogService: DialogService,
 		private title: Title,
 		private meta: Meta,
@@ -106,24 +108,29 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	setSeoData(question) {
+		this.seoService.setPageTitle(question.title);
+		let description = '';
+		if(question.answers.length) {
+			question.answers.forEach(function(item, index) {
+				if (index === 3) {
+				  return true;
+				}
+				description += (index + 1) + '. ';
+				description += item.content + ' ';
+			});
+		} else {
+			description = question.title;
+		}
+		this.seoService.updateMetaDescription(description);
+	}
+
 	getQuestionByQuestionId(questionId, userId) {
 		this.blockUIService.setBlockStatus(true);
 		this.commonService.getQuestionByQuestionId(questionId, userId).subscribe((res: any) => {
 			this.question = res.data.question;
-			this.title.setTitle(this.question.title);
-			let description = '';
-			if(this.question.answers.length) {
-				this.question.answers.forEach(function(item, index) {
-					if (index === 3) {
-					  return true;
-					}
-					description += (index + 1) + '. ';
-					description += item.content + ' ';
-				});
-			} else {
-				description = this.question.title;
-			}
-			this.meta.updateTag({ name: 'description', content: description });
+			this.setSeoData(this.question);
+			this.seoService.createLinkForCanonicalURL();
 			this.sortAnswers(this.question.answers);
 			this.reports = res.data.reports;
 			this.blockUIService.setBlockStatus(false);

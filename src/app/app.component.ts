@@ -14,6 +14,7 @@ import { MenuService } from './shared/components/menu/menu.service';
 import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { DialogService } from './shared/services/dialog.service';
+import { SeoService } from '$/services/seo.service';
 // import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { isPlatformBrowser } from '@angular/common';
 declare var $: any;
@@ -53,6 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private authenticationService: AuthenticationService,
     private dialogService: DialogService,
+		private seoService: SeoService,
     private location: Location,
     public menuService:MenuService,
 		@Inject(PLATFORM_ID) private platformId: Object
@@ -104,6 +106,9 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => window.scrollTo(0, 0));
     this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
     this.router.events.subscribe((res) => {
+      if(res instanceof NavigationEnd) {
+		    this.seoService.createLinkForCanonicalURL();
+      }
       this.activeLinkIndex = this.mainNavLinks.indexOf(this.mainNavLinks.find(tab => tab.link === '.' + this.router.url));
     });
   }
