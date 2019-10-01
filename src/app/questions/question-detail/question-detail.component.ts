@@ -14,7 +14,7 @@ import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.com
 import { ReportDialogComponent } from '$/components/report-dialog/report-dialog.component';
 import { environment } from '@environments/environment';
 import { AnswerDialogComponent } from '$/components/answer-dialog/answer-dialog.component';
-import {Meta, Title} from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -111,6 +111,19 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 		this.commonService.getQuestionByQuestionId(questionId, userId).subscribe((res: any) => {
 			this.question = res.data.question;
 			this.title.setTitle(this.question.title);
+			let description = '';
+			if(this.question.answers.length) {
+				this.question.answers.forEach(function(item, index) {
+					if (index === 3) {
+					  return true;
+					}
+					description += (index + 1) + '. ';
+					description += item.content + ' ';
+				});
+			} else {
+				description = this.question.title;
+			}
+			this.meta.updateTag({ name: 'description', content: description });
 			this.sortAnswers(this.question.answers);
 			this.reports = res.data.reports;
 			this.blockUIService.setBlockStatus(false);
