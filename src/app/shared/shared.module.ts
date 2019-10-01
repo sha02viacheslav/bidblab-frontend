@@ -192,6 +192,12 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     HorizontalMenuComponent,
     BidListComponent,
     NumericDirective,
+    AppShellNoRenderDirective,
+    AppShellRenderDirective
+  ],
+  providers: [
+    AppShellNoRenderDirective,
+    AppShellRenderDirective
   ]
 })
 export class SharedModule {}
