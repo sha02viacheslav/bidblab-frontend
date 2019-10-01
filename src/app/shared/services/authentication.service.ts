@@ -20,6 +20,9 @@ export class AuthenticationService {
       this.token = localStorage.getItem('jwt');
       const user = localStorage.getItem('jwt') ? jwtDecode(localStorage.getItem('jwt')).user : null;
       this.userSubject = new BehaviorSubject<any>(user);
+    } else {
+      this.token = null;
+      this.userSubject = new BehaviorSubject<any>(null);
     }
   }
 
@@ -41,18 +44,9 @@ export class AuthenticationService {
     return this.userSubject.asObservable();
   }
 
-  // setUser(user) {
-  //   localStorage.setItem('user', JSON.stringify(user));
-  //   this.userSubject.next(user);
-  // }
-
   isAuthenticated() {
     return this.token != null;
   }
-
-  // isAdmin() {
-  //   return this.isAuthenticated() && jwtDecode(this.token).admin;
-  // }
 
   logout() {
     this.token = null;
