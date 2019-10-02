@@ -5,30 +5,30 @@ import { AuthenticationService } from '$/services/authentication.service';
 import { CommonService } from '$/services/common.service';
 import { environment } from '@environments/environment';
 @Component({
-  selector: 'app-question-box',
-  templateUrl: './question-box.component.html',
-  styleUrls: ['./question-box.component.scss']
+	selector: 'app-question-box',
+	templateUrl: './question-box.component.html',
+	styleUrls: ['./question-box.component.scss']
 })
 export class QuestionBoxComponent implements OnInit {
 
-  @Input() question: any;
-  
-  form: FormGroup;
-  currentState = true;
-  serverUrl = environment.apiUrl;
+	@Input() question: any;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private authenticationService: AuthenticationService,
-    public commonService: CommonService,
-  ) {
-  }
+	form: FormGroup;
+	currentState = true;
+	serverUrl = environment.apiUrl;
 
-  ngOnInit() {
-  }
+	constructor(
+		private snackBar: MatSnackBar,
+		private authenticationService: AuthenticationService,
+		public commonService: CommonService,
+	) {
+	}
 
-  alert(){
-    this.snackBar.open("You can't see private answerer", 'Dismiss', {duration: 4000});
-  }
+	ngOnInit() {
+	}
+
+	alert() {
+		this.snackBar.open("You can't see private answerer", 'Dismiss', { duration: 4000 });
+	}
 
 }

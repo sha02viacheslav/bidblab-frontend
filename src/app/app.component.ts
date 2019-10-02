@@ -19,220 +19,213 @@ import { SeoService } from '$/services/seo.service';
 import { isPlatformBrowser } from '@angular/common';
 declare var $: any;
 
-
-
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers: [ MenuService ],
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss'],
+	encapsulation: ViewEncapsulation.None,
+	providers: [MenuService],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild('sidenav') sidenav:any;
-  @ViewChild('sidenavPS') sidenavPS: PerfectScrollbarComponent;
-  private blockingSubscription: Subscription;
-  private routerSubscription: Subscription;
-  @BlockUI() blockUI: NgBlockUI;
-  user: any;
-  // private userUpdatesSubscription: Subscription;
-  serverUrl = environment.apiUrl;
+	@ViewChild('sidenav') sidenav: any;
+	@ViewChild('sidenavPS') sidenavPS: PerfectScrollbarComponent;
+	private blockingSubscription: Subscription;
+	private routerSubscription: Subscription;
+	@BlockUI() blockUI: NgBlockUI;
+	user: any;
+	// private userUpdatesSubscription: Subscription;
+	serverUrl = environment.apiUrl;
 
-  mainNavLinks: any[];
-  activeLinkIndex = -1;
-  mobileQuery: MediaQueryList;
-  public menuItems:Array<any>;
+	mainNavLinks: any[];
+	activeLinkIndex = -1;
+	mobileQuery: MediaQueryList;
+	public menuItems: Array<any>;
 
-  menuHidden = false;
+	menuHidden = false;
 
-  constructor(
-    private blockUIService: BlockUIService,
-    private swUpdate: SwUpdate,
-    private router: Router,
-    private route: ActivatedRoute,
-    public commonService: CommonService,
-    private snackBar: MatSnackBar,
-    private authenticationService: AuthenticationService,
-    private dialogService: DialogService,
+	constructor(
+		private blockUIService: BlockUIService,
+		private swUpdate: SwUpdate,
+		private router: Router,
+		private route: ActivatedRoute,
+		public commonService: CommonService,
+		private snackBar: MatSnackBar,
+		private authenticationService: AuthenticationService,
+		private dialogService: DialogService,
 		private seoService: SeoService,
-    private location: Location,
-    public menuService:MenuService,
+		private location: Location,
+		public menuService: MenuService,
 		@Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    this.mainNavLinks = [
-      {
-        label: 'Home',
-        link: '/questions/home',
-        index: 0
-      }, {
-        label: 'Bid',
-        link: '/questions/bid',
-        index: 1
-      }, {
-        label: 'Blab',
-        link: '/questions/blab',
-        index: 2
-      }, {
-        label: 'About',
-        link: '/questions/about',
-        index: 3
-      }, 
-    ];
-  }
+	) {
+		this.mainNavLinks = [
+			{
+				label: 'Home',
+				link: '/questions/home',
+				index: 0
+			}, {
+				label: 'Bid',
+				link: '/questions/bid',
+				index: 1
+			}, {
+				label: 'Blab',
+				link: '/questions/blab',
+				index: 2
+			}, {
+				label: 'About',
+				link: '/questions/about',
+				index: 3
+			},
+		];
+	}
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      $("#main-nicescrollable").niceScroll({
-        cursorcolor: "#e91e63",
-        cursorborder: '#e91e63',
-        autohidemode: true,
-        background: "#aaa",
-        cursorminheight: 15,
-        cursorborderradius: 15,
-        cursorwidth: 3,
-        cursoropacitymin: 0.1,
-      });
+	ngOnInit() {
+		if (isPlatformBrowser(this.platformId)) {
+			$("#main-nicescrollable").niceScroll({
+				cursorcolor: "#e91e63",
+				cursorborder: '#e91e63',
+				autohidemode: true,
+				background: "#aaa",
+				cursorminheight: 15,
+				cursorborderradius: 15,
+				cursorwidth: 3,
+				cursoropacitymin: 0.1,
+			});
 
-      setInterval(() => {
-        $("#main-nicescrollable").getNiceScroll().resize();
-      }, 1000);
-    }
-    
-    this.menuItems = this.menuService.getVerticalMenuItems();
-    this.getBlockStatus();
-    this.checkForUpdates();
-    this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => window.scrollTo(0, 0));
-    this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
-    this.router.events.subscribe((res) => {
-      if(res instanceof NavigationEnd) {
-		    this.seoService.createLinkForCanonicalURL();
-      }
-      this.activeLinkIndex = this.mainNavLinks.indexOf(this.mainNavLinks.find(tab => tab.link === '.' + this.router.url));
-    });
-  }
+			setInterval(() => {
+				$("#main-nicescrollable").getNiceScroll().resize();
+			}, 1000);
+		}
 
-  ngOnDestroy() {
-    // this.routerSubscription.unsubscribe();
-    // this.blockingSubscription.unsubscribe();
-    // this.userUpdatesSubscription.unsubscribe();
-  }
+		this.menuItems = this.menuService.getVerticalMenuItems();
+		this.getBlockStatus();
+		this.checkForUpdates();
+		this.routerSubscription = this.router.events
+			.pipe(filter(event => event instanceof NavigationEnd))
+			.subscribe(() => window.scrollTo(0, 0));
+		this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
+		this.router.events.subscribe((res) => {
+			if (res instanceof NavigationEnd) {
+				this.seoService.createLinkForCanonicalURL();
+			}
+			this.activeLinkIndex = this.mainNavLinks.indexOf(this.mainNavLinks.find(tab => tab.link === '.' + this.router.url));
+		});
+	}
 
-  public toggleSidenav(){
-    this.sidenav.toggle();
-  }
+	ngOnDestroy() {
+		// this.routerSubscription.unsubscribe();
+		// this.blockingSubscription.unsubscribe();
+		// this.userUpdatesSubscription.unsubscribe();
+	}
 
-  private checkResetPasswordToken() {
-    this.route.paramMap.subscribe(params => {
-      if (params.has('resetPasswordToken')) {
-        if (!this.authenticationService.isAuthenticated()) {
-          const token = params.get('resetPasswordToken');
-          this.commonService.checkResetPasswordToken(token).subscribe(
-            (res: any) => {
-              this.openResetPasswordDialog(token, res.data);
-            },
-            (err: HttpErrorResponse) => {
-              this.snackBar.open(err.error.msg, 'Dismiss');
-              this.router.navigateByUrl('/');
-            }
-          );
-        } else {
-          this.snackBar.open('You are already logged in.', 'Dismiss');
-          this.router.navigateByUrl('/');
-        }
-      }
-    });
-  }
+	public toggleSidenav() {
+		this.sidenav.toggle();
+	}
 
-  isAuthenticated() {
-    return this.authenticationService.isAuthenticated();
-  }
+	private checkResetPasswordToken() {
+		this.route.paramMap.subscribe(params => {
+			if (params.has('resetPasswordToken')) {
+				if (!this.authenticationService.isAuthenticated()) {
+					const token = params.get('resetPasswordToken');
+					this.commonService.checkResetPasswordToken(token).subscribe((res: any) => {
+						this.openResetPasswordDialog(token, res.data);
+					}, (err: HttpErrorResponse) => {
+						this.snackBar.open(err.error.msg, 'Dismiss');
+						this.router.navigateByUrl('/');
+					});
+				} else {
+					this.snackBar.open('You are already logged in.', 'Dismiss');
+					this.router.navigateByUrl('/');
+				}
+			}
+		});
+	}
 
-  private openResetPasswordDialog(token, userId) {
-    // this.dialogService.open(ResetPasswordComponent, {
-    //   data: {
-    //     token,
-    //     userId
-    //   }
-    // });
-  }
+	isAuthenticated() {
+		return this.authenticationService.isAuthenticated();
+	}
 
-  getBlockStatus() {
-    this.blockingSubscription = this.blockUIService
-      .getBlockStatus()
-      .subscribe(status => {
-        if (status) {
-          this.blockUI.start();
-        } else {
-          this.blockUI.stop();
-        }
-      });
-  }
+	private openResetPasswordDialog(token, userId) {
+		// this.dialogService.open(ResetPasswordComponent, {
+		//   data: {
+		//     token,
+		//     userId
+		//   }
+		// });
+	}
 
-  private checkForUpdates() {
-    this.swUpdate.available
-      .pipe(takeWhile(() => this.swUpdate.isEnabled))
-      .subscribe(() => {
-        if (confirm('A new version of the app is available. Update Now?')) {
-          window.location.reload();
-        }
-      });
-  }
+	getBlockStatus() {
+		this.blockingSubscription = this.blockUIService
+			.getBlockStatus()
+			.subscribe(status => {
+				if (status) {
+					this.blockUI.start();
+				} else {
+					this.blockUI.stop();
+				}
+			});
+	}
 
-  toggleMenu() {
-    this.menuHidden = !this.menuHidden;
-  }
+	private checkForUpdates() {
+		this.swUpdate.available
+			.pipe(takeWhile(() => this.swUpdate.isEnabled))
+			.subscribe(() => {
+				if (confirm('A new version of the app is available. Update Now?')) {
+					window.location.reload();
+				}
+			});
+	}
 
-  closeMenu(){
-    this.menuHidden = false;
-  }
+	toggleMenu() {
+		this.menuHidden = !this.menuHidden;
+	}
 
-  openProfile() {
-    this.router.navigateByUrl(`/account`);
-  }
+	closeMenu() {
+		this.menuHidden = false;
+	}
 
-  goHome() {
-    this.router.navigateByUrl('/');
-  }
+	openProfile() {
+		this.router.navigateByUrl(`/account`);
+	}
 
-  goBack() {
-    this.location.back();
-  }
+	goHome() {
+		this.router.navigateByUrl('/');
+	}
 
-  isHome() {
-    const path = this.location.path(false);
-    return path === '' || path === '/questions/home';
-  }
+	goBack() {
+		this.location.back();
+	}
 
-  logout() {
-    this.authenticationService.logout();
-    this.closeMenu();
-  }
+	isHome() {
+		const path = this.location.path(false);
+		return path === '' || path === '/questions/home';
+	}
 
-  public closeSubMenus(){
-    let menu = document.querySelector(".sidenav-menu-outer");
-    if(menu){
-      for (let i = 0; i < menu.children[0].children.length; i++) {
-        let child = menu.children[0].children[i];
-        if(child){
-          if(child.children[0].classList.contains('expanded')){
-              child.children[0].classList.remove('expanded');
-              child.children[1].classList.remove('show');
-          }
-        }
-      }
-    }
-  }
+	logout() {
+		this.authenticationService.logout();
+		this.closeMenu();
+	}
 
-  public updatePS(e){
-    this.sidenavPS.directiveRef.update();
-  }
+	public closeSubMenus() {
+		let menu = document.querySelector(".sidenav-menu-outer");
+		if (menu) {
+			for (let i = 0; i < menu.children[0].children.length; i++) {
+				let child = menu.children[0].children[i];
+				if (child) {
+					if (child.children[0].classList.contains('expanded')) {
+						child.children[0].classList.remove('expanded');
+						child.children[1].classList.remove('show');
+					}
+				}
+			}
+		}
+	}
 
-  onScroll() {  
-    this.commonService.infiniteScrolled();
-  }  
+	public updatePS(e) {
+		this.sidenavPS.directiveRef.update();
+	}
+
+	onScroll() {
+		this.commonService.infiniteScrolled();
+	}
 
 }
-
-

@@ -112,14 +112,7 @@ export class UserComponent implements OnInit, OnDestroy {
 				this.answers = res.data.answers;
 				this.total_answers = res.data.total_answers;
 				this.answerTags = res.data.answerTags;
-				this.snackBar
-					.open(res.msg, 'Dismiss', {
-						duration: 1500
-					})
-					.afterOpened()
-					.subscribe(() => {
-						this.blockUIService.setBlockStatus(false);
-					});
+				this.blockUIService.setBlockStatus(false);
 			},
 			(err: HttpErrorResponse) => {
 				this.snackBar.open(err.error.msg, 'Dismiss');
@@ -130,22 +123,15 @@ export class UserComponent implements OnInit, OnDestroy {
 
 	getUserQuestionByuserId(userId, tagFilter) {
 		this.blockUIService.setBlockStatus(true);
-		this.commonService.getUserQuestionByuserId(userId, tagFilter).subscribe(
-			(res: any) => {
-				this.total_questions = res.data.total_questions;
-				this.questions = res.data.questions;
-				this.questionTags = res.data.questionTags;
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 })
-					.afterOpened()
-					.subscribe(() => {
-						this.blockUIService.setBlockStatus(false);
-					});
-			},
-			(err: HttpErrorResponse) => {
-				this.snackBar.open(err.error.msg, 'Dismiss');
-				this.blockUIService.setBlockStatus(false);
-			}
-		);
+		this.commonService.getUserQuestionByuserId(userId, tagFilter).subscribe((res: any) => {
+			this.total_questions = res.data.total_questions;
+			this.questions = res.data.questions;
+			this.questionTags = res.data.questionTags;
+			this.blockUIService.setBlockStatus(false);
+		}, (err: HttpErrorResponse) => {
+			this.snackBar.open(err.error.msg, 'Dismiss');
+			this.blockUIService.setBlockStatus(false);
+		});
 	}
 
 

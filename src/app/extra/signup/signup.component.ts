@@ -153,7 +153,6 @@ export class SignupComponent implements OnInit, AfterViewInit {
 			this.blockUIService.setBlockStatus(true);
 			this.commonService.signup(this.form.value).subscribe((res: any) => {
 				this.blockUIService.setBlockStatus(false);
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 				this.dialogService.open(AlertDialogComponent, {
 					data: {
 						title: "Welcome, " + res.data.user.username + ", your registration was successful.",

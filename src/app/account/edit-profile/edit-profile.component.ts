@@ -232,7 +232,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.authenticationService.setToken(res.data);
 				this.blockUIService.setBlockStatus(false);
 				this.submitted = false;
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 			}, (err: HttpErrorResponse) => {
 				this.submitted = false;
 				this.blockUIService.setBlockStatus(false);
@@ -251,7 +250,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 				this.authenticationService.setToken(res.data);
 				this.blockUIService.setBlockStatus(false);
 				this.submitted = false;
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 			}, (err: HttpErrorResponse) => {
 				this.submitted = false;
 				this.blockUIService.setBlockStatus(false);

@@ -7,42 +7,34 @@ import { AuthenticationService } from '$/services/authentication.service';
 import { BlockUIService } from '$/services/block-ui.service';
 
 @Component({
-  selector: 'app-myquestions',
-  templateUrl: './myquestions.component.html',
-  styleUrls: ['./myquestions.component.scss']
+	selector: 'app-myquestions',
+	templateUrl: './myquestions.component.html',
+	styleUrls: ['./myquestions.component.scss']
 })
 export class MyquestionsComponent implements OnInit {
 
-  public mytotalQuestionsCount: number;
-  public myquestions: any[] = [];
+	public mytotalQuestionsCount: number;
+	public myquestions: any[] = [];
 
-  constructor(
-    private blockUIService: BlockUIService,
-    public commonService: CommonService,
-    private snackBar: MatSnackBar,
-    private authenticationService: AuthenticationService,
-    private dialogService: DialogService,
-  ) {}
+	constructor(
+		private blockUIService: BlockUIService,
+		public commonService: CommonService,
+		private snackBar: MatSnackBar,
+		private authenticationService: AuthenticationService,
+		private dialogService: DialogService,
+	) { }
 
-  ngOnInit() {
-    this.mytotalQuestionsCount = 0;
-    this.blockUIService.setBlockStatus(true);
-    this.commonService.getQuestionsByAskerId().subscribe(
-      (res: any) => {
-        this.mytotalQuestionsCount = res.data.count;
-        this.myquestions = res.data.questions;
-        this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(res.msg, 'Dismiss', {
-          duration: 1500
-        });
-      },
-      (err: HttpErrorResponse) => {
-        this.blockUIService.setBlockStatus(false);
-        this.snackBar.open(err.error.msg, 'Dismiss', {
-          duration: 1500
-        });
-      }
-    );
-  }
+	ngOnInit() {
+		this.mytotalQuestionsCount = 0;
+		this.blockUIService.setBlockStatus(true);
+		this.commonService.getQuestionsByAskerId().subscribe((res: any) => {
+			this.mytotalQuestionsCount = res.data.count;
+			this.myquestions = res.data.questions;
+			this.blockUIService.setBlockStatus(false);
+		}, (err: HttpErrorResponse) => {
+			this.blockUIService.setBlockStatus(false);
+			this.snackBar.open(err.error.msg, 'Dismiss', { duration: 1500 });
+		});
+	}
 
 }

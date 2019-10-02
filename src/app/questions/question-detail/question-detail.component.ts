@@ -265,9 +265,10 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 				this.commonService.addFollow(followType, this.question._id).subscribe((res: any) => {
 					this.blockUIService.setBlockStatus(false);
 					this.submitted = false;
-					this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 					if(res.data) {
 						this.followed = true;
+					} else {
+						this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 					}
 				});
 			}
@@ -318,10 +319,11 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 					if (res.data) {
 						this.question = res.data;
 						this.sortAnswers(this.question.answers);
+					} else {
+						this.snackBar.open(res.msg, 'Dismiss', { duration: 4000 });
 					}
 					this.submitted = true;
 					this.blockUIService.setBlockStatus(false);
-					this.snackBar.open(res.msg, 'Dismiss', { duration: 4000 });
 				});
 			}
 		}

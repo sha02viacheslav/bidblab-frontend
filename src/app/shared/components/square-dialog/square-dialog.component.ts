@@ -157,9 +157,7 @@ export class SquareDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 			this.submitted = false;
 			this.blockUIService.setBlockStatus(false);
 			if (res.data) {
-				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 }).afterOpened().subscribe(() => {
-					this.dialogRef.close(res.data);
-				});
+				this.dialogRef.close(res.data);
 			}
 			else {
 				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
