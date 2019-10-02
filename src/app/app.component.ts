@@ -17,6 +17,7 @@ import { DialogService } from './shared/services/dialog.service';
 import { SeoService } from '$/services/seo.service';
 // import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -55,7 +56,8 @@ export class AppComponent implements OnInit, OnDestroy {
 		private seoService: SeoService,
 		private location: Location,
 		public menuService: MenuService,
-		@Inject(PLATFORM_ID) private platformId: Object
+		@Inject(PLATFORM_ID) private platformId: Object,
+		@Inject(DOCUMENT) private doc
 	) {
 		this.mainNavLinks = [
 			{
@@ -206,7 +208,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	public closeSubMenus() {
-		let menu = document.querySelector(".sidenav-menu-outer");
+		let menu = this.doc.querySelector(".sidenav-menu-outer");
 		if (menu) {
 			for (let i = 0; i < menu.children[0].children.length; i++) {
 				let child = menu.children[0].children[i];

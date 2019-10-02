@@ -15,7 +15,7 @@ export class CookieComponent implements OnInit {
 		public commonService: CommonService,
 		private snackBar: MatSnackBar,
 		private _renderer2: Renderer2,
-		@Inject(DOCUMENT) private _document: Document
+		@Inject(DOCUMENT) private doc: Document
 	) { }
 
 	ngOnInit() {
@@ -26,10 +26,10 @@ export class CookieComponent implements OnInit {
 				var scriptDiv = result.script;
 				scriptDiv.id = 'cookieScript';
 
-				if (document.body.querySelector('div#cookieScript')) {
-					document.body.querySelector('div#cookieScript').remove();
+				if (this.doc.body.querySelector('div#cookieScript')) {
+					this.doc.body.querySelector('div#cookieScript').remove();
 				}
-				this._renderer2.appendChild(this._document.body, scriptDiv);
+				this._renderer2.appendChild(this.doc.body, scriptDiv);
 			} else {
 				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 			}

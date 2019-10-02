@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewEncapsulation, EventEmitter, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MenuService } from '../menu.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-vertical-menu',
@@ -16,7 +17,8 @@ export class VerticalMenuComponent implements OnInit {
   parentMenu:Array<any>;
   constructor(
     public menuService:MenuService, 
-    public router:Router
+    public router:Router,
+		@Inject(DOCUMENT) private doc
   ) { }
 
   ngOnInit() {
@@ -26,15 +28,10 @@ export class VerticalMenuComponent implements OnInit {
   ngAfterViewInit(){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // if(this.settings.fixedHeader){
-          let mainContent = document.getElementById('main-content');
-          if(mainContent){
-            mainContent.scrollTop = 0;
-          }
-        // }
-        // else{
-        //   document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0;
-        // }
+        let mainContent = this.doc.getElementById('main-content');
+        if(mainContent){
+          mainContent.scrollTop = 0;
+        }
       }                
     });
   }

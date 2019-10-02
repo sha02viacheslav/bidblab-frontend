@@ -15,7 +15,7 @@ export class PrivacyComponent implements OnInit {
 		public commonService: CommonService,
 		private snackBar: MatSnackBar,
 		private _renderer2: Renderer2,
-		@Inject(DOCUMENT) private _document: Document
+		@Inject(DOCUMENT) private doc: Document
 	) { }
 
 	ngOnInit() {
@@ -25,10 +25,10 @@ export class PrivacyComponent implements OnInit {
 				this.privacyPageContent = result.innerHtml;
 				var scriptDiv = result.script;
 				scriptDiv.id = 'privacyScript';
-				if (document.body.querySelector('div#privacyScript')) {
-					document.body.querySelector('div#privacyScript').remove();
+				if (this.doc.body.querySelector('div#privacyScript')) {
+					this.doc.body.querySelector('div#privacyScript').remove();
 				}
-				this._renderer2.appendChild(this._document.body, scriptDiv);
+				this._renderer2.appendChild(this.doc.body, scriptDiv);
 			} else {
 				this.snackBar.open(res.msg, 'Dismiss', { duration: 1500 });
 			}

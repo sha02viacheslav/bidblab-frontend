@@ -27,15 +27,6 @@ export class HorizontalMenuComponent implements OnInit {
   ngAfterViewInit(){
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // if(this.settings.fixedHeader){
-        //   let mainContent = document.getElementById('main-content');
-        //   if(mainContent){
-        //     mainContent.scrollTop = 0;
-        //   }
-        // }
-        // else{
-        //   document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0;
-        // }
       }                
     });
   } 

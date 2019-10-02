@@ -34,15 +34,15 @@ export class CommonService {
     originQuill = originQuill.replace(new RegExp("&gt;", "g"), ">");
     originQuill = originQuill.replace(new RegExp("&lt;", "g"), "<");
     originQuill = originQuill.replace(new RegExp("&nbsp;", "g"), " ");
-    var a = document.createElement('div');
+    var a = this.doc.createElement('div');
     a.innerHTML = originQuill
     while(a.querySelector('pre')){
       a.querySelector('pre').outerHTML = a.querySelector('pre').innerHTML;
     }
     
-    let scriptDiv = document.createElement('div');
+    let scriptDiv = this.doc.createElement('div');
     while(a.querySelector('script')){
-      let s = document.createElement('script');
+      let s = this.doc.createElement('script');
       s.type = `text/javascript`;
       s.text = a.querySelector('script').innerHTML;
       scriptDiv.appendChild(s);

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 import { Menu } from './menu.model';
 import { verticalMenuItems, horizontalMenuItems } from './menu';
@@ -10,7 +11,9 @@ import { verticalMenuItems, horizontalMenuItems } from './menu';
 export class MenuService {
 
   constructor(private location: Location,
-    private router: Router) {}
+    private router: Router,
+    @Inject(DOCUMENT) private doc
+  ) {}
 
   public getVerticalMenuItems(): Array < Menu > {
     return verticalMenuItems;
@@ -35,8 +38,8 @@ export class MenuService {
   }
 
   public toggleMenuItem(menuId) {
-    let menuItem = document.getElementById('menu-item-' + menuId);
-    let subMenu = document.getElementById('sub-menu-' + menuId);
+    let menuItem = this.doc.getElementById('menu-item-' + menuId);
+    let subMenu = this.doc.getElementById('sub-menu-' + menuId);
     if (subMenu) {
       if (subMenu.classList.contains('show')) {
         subMenu.classList.remove('show');
@@ -53,8 +56,8 @@ export class MenuService {
     if (currentMenuItem.parentId == 0 && !currentMenuItem.target) {
       menu.forEach(item => {
         if (item.id != menuId) {
-          let subMenu = document.getElementById('sub-menu-' + item.id);
-          let menuItem = document.getElementById('menu-item-' + item.id);
+          let subMenu = this.doc.getElementById('sub-menu-' + item.id);
+          let menuItem = this.doc.getElementById('menu-item-' + item.id);
           if (subMenu) {
             if (subMenu.classList.contains('show')) {
               subMenu.classList.remove('show');
