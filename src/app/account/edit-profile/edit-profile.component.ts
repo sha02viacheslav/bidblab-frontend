@@ -31,7 +31,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 	public showImageFlag: boolean = false;
 	public selectedFileIndex: number = -1;
 	public uploadFile: any;
-	private userUpdatesSubscription: Subscription;
 	@ViewChild('datepicker') datepicker: ElementRef;
 	@ViewChild('dateinput') dateinput: ElementRef;
 
@@ -113,7 +112,6 @@ export class EditProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		// this.userUpdatesSubscription.unsubscribe();
 	}
 
 	ngAfterViewInit() {

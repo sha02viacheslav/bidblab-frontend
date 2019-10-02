@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { environment } from '@environments/environment';
 import { MatDialog } from '@angular/material';
 import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.component';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
 	selector: 'app-mailbox',
@@ -50,23 +51,21 @@ export class MailboxComponent implements OnInit {
 		public snackBar: MatSnackBar,
 		public commonService: CommonService,
 		public dialog: MatDialog,
+		@Inject(PLATFORM_ID) private platformId: Object,
 	) { }
 
 	ngOnInit() {
 		this.getMails();
-		if (window.innerWidth <= 992) {
-			this.sidenavOpen = false;
+		if(isPlatformBrowser(this.platformId)) {
+			if (window.innerWidth <= 992) {
+				this.sidenavOpen = false;
+			}
 		}
 		this.form = this.formBuilder.group({
 			'recievers': ['Admin', Validators.required],
 			'subject': '',
 			'message': ''
 		});
-	}
-
-	@HostListener('window:resize')
-	public onWindowResize(): void {
-		(window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
 	}
 
 	getMails(event?) {
@@ -122,10 +121,11 @@ export class MailboxComponent implements OnInit {
 			this.form.controls.subject.setValue(this.mail.subject);
 			this.form.controls.message.setValue('');
 		}
-		// this.mail.unread = false;
 		this.newMail = false;
-		if (window.innerWidth <= 992) {
-			this.sidenav.close();
+		if(isPlatformBrowser(this.platformId)) {
+			if (window.innerWidth <= 992) {
+				this.sidenav.close();
+			}
 		}
 	}
 

@@ -2,7 +2,6 @@ import { Component, OnDestroy, Inject, OnInit, HostListener, ViewChild, ViewEnca
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Subscription } from 'rxjs';
 import { BlockUIService } from './shared/services/block-ui.service';
-import { SwUpdate } from '@angular/service-worker';
 import { takeWhile, filter } from 'rxjs/operators';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from './shared/services/common.service';
@@ -15,7 +14,6 @@ import { PerfectScrollbarComponent } from 'ngx-perfect-scrollbar';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { DialogService } from './shared/services/dialog.service';
 import { SeoService } from '$/services/seo.service';
-// import { ResetPasswordComponent } from './shared/components/reset-password/reset-password.component';
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 declare var $: any;
@@ -30,23 +28,21 @@ declare var $: any;
 export class AppComponent implements OnInit, OnDestroy {
 	@ViewChild('sidenav') sidenav: any;
 	@ViewChild('sidenavPS') sidenavPS: PerfectScrollbarComponent;
+	private userUpdatesSubscription: Subscription;
 	private blockingSubscription: Subscription;
 	private routerSubscription: Subscription;
 	@BlockUI() blockUI: NgBlockUI;
-	user: any;
-	// private userUpdatesSubscription: Subscription;
-	serverUrl = environment.apiUrl;
+	public user: any;
+	public serverUrl = environment.apiUrl;
 
-	mainNavLinks: any[];
-	activeLinkIndex = -1;
-	mobileQuery: MediaQueryList;
+	public mainNavLinks: any[];
+	public activeLinkIndex = -1;
+	public mobileQuery: MediaQueryList;
 	public menuItems: Array<any>;
-
-	menuHidden = false;
+	public menuHidden = false;
 
 	constructor(
 		private blockUIService: BlockUIService,
-		private swUpdate: SwUpdate,
 		private router: Router,
 		private route: ActivatedRoute,
 		public commonService: CommonService,
@@ -100,59 +96,36 @@ export class AppComponent implements OnInit, OnDestroy {
 
 		this.menuItems = this.menuService.getVerticalMenuItems();
 		this.getBlockStatus();
-		this.checkForUpdates();
 		this.routerSubscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))
-			.subscribe(() => window.scrollTo(0, 0));
-		this.authenticationService.getUserUpdates().subscribe(user => (this.user = user));
-		this.router.events.subscribe((res) => {
-			if (res instanceof NavigationEnd) {
+			.subscribe(() => {
 				this.seoService.createLinkForCanonicalURL();
-			}
+				if (isPlatformBrowser(this.platformId)) {
+					window.scrollTo(0, 0);
+				}
+			});
+		this.userUpdatesSubscription = this.authenticationService
+			.getUserUpdates()
+			.subscribe(user => (this.user = user));
+		this.router.events.subscribe((res) => {
 			this.activeLinkIndex = this.mainNavLinks.indexOf(this.mainNavLinks.find(tab => tab.link === '.' + this.router.url));
 		});
 	}
 
 	ngOnDestroy() {
-		// this.routerSubscription.unsubscribe();
-		// this.blockingSubscription.unsubscribe();
-		// this.userUpdatesSubscription.unsubscribe();
+		if(this.userUpdatesSubscription) {
+			this.userUpdatesSubscription.unsubscribe();
+		}
+		this.routerSubscription.unsubscribe();
+		this.blockingSubscription.unsubscribe();
 	}
 
 	public toggleSidenav() {
 		this.sidenav.toggle();
 	}
 
-	private checkResetPasswordToken() {
-		this.route.paramMap.subscribe(params => {
-			if (params.has('resetPasswordToken')) {
-				if (!this.authenticationService.isAuthenticated()) {
-					const token = params.get('resetPasswordToken');
-					this.commonService.checkResetPasswordToken(token).subscribe((res: any) => {
-						this.openResetPasswordDialog(token, res.data);
-					}, (err: HttpErrorResponse) => {
-						this.snackBar.open(err.error.msg, 'Dismiss');
-						this.router.navigateByUrl('/');
-					});
-				} else {
-					this.snackBar.open('You are already logged in.', 'Dismiss');
-					this.router.navigateByUrl('/');
-				}
-			}
-		});
-	}
-
 	isAuthenticated() {
 		return this.authenticationService.isAuthenticated();
-	}
-
-	private openResetPasswordDialog(token, userId) {
-		// this.dialogService.open(ResetPasswordComponent, {
-		//   data: {
-		//     token,
-		//     userId
-		//   }
-		// });
 	}
 
 	getBlockStatus() {
@@ -167,30 +140,12 @@ export class AppComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	private checkForUpdates() {
-		this.swUpdate.available
-			.pipe(takeWhile(() => this.swUpdate.isEnabled))
-			.subscribe(() => {
-				if (confirm('A new version of the app is available. Update Now?')) {
-					window.location.reload();
-				}
-			});
-	}
-
 	toggleMenu() {
 		this.menuHidden = !this.menuHidden;
 	}
 
 	closeMenu() {
 		this.menuHidden = false;
-	}
-
-	openProfile() {
-		this.router.navigateByUrl(`/account`);
-	}
-
-	goHome() {
-		this.router.navigateByUrl('/');
 	}
 
 	goBack() {

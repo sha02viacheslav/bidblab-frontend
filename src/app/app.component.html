@@ -40,7 +40,7 @@
             <mat-toolbar>
               <div class="container" fxLayout="row" fxLayoutAlign="start center">
                 <div class="fill-remaining-space">
-                  <button (click)="goHome()" color="primary" class="no-hover-effect" mat-button>
+                  <button routerLink="/question/home" color="primary" class="no-hover-effect" mat-button>
                     <img class="logo-wrap" src="assets/icons/logo.svg" />
                   </button>
                 </div>
@@ -48,7 +48,7 @@
                 </app-horizontal-menu>
                 <ng-container *ngIf="isAuthenticated(); else notAuthenticated">
                   <mat-menu #userMenu="matMenu">
-                    <button (click)="openProfile()" mat-menu-item>Account Information</button>
+                    <button routerLink="/account" mat-menu-item>Account Information</button>
                     <button (click)="logout()" mat-menu-item>Logout</button>
                   </mat-menu>
                   <button *ngIf="commonService.isMediaActive('gt-xs')" color="primary" class="no-hover-effect"
