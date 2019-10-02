@@ -4,6 +4,7 @@
 html,
 body {
   height: 100%;
+  margin: 0;
 }
 
 body {
@@ -11,6 +12,10 @@ body {
   font-size: 14px;
   line-height: 1.5;
   overflow-x: hidden;
+}
+
+* {
+  font-family: $font-family;
 }
 
 a {
@@ -339,9 +344,9 @@ mat-card.no-content {
   color: #747373 !important;
 }
 
-.active-link{
+.active-link {
   border-radius: 0;
-  background-color: #ccc; 
+  background-color: #ccc;
   color: #fff;
 }
 
@@ -364,11 +369,11 @@ mat-card.no-content {
 }
 
 .main-box-shadow {
-  box-shadow: 0 4px 8px 0 rgba(64,64,65,0.2);
-  transition: all ease 0.25s ;
+  box-shadow: 0 4px 8px 0 rgba(64, 64, 65, 0.2);
+  transition: all ease 0.25s;
 
   &:hover {
-    box-shadow: 0 4px 8px 0 rgba(64,64,65,0.4);
+    box-shadow: 0 4px 8px 0 rgba(64, 64, 65, 0.4);
   }
 }
 
