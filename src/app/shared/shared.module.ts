@@ -49,6 +49,7 @@ import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.com
 import { NocreditDialogComponent } from './components/nocredit-dialog/nocredit-dialog.component';
 import { SquareDialogComponent } from './components/square-dialog/square-dialog.component';
 import { UploadImageComponent } from './components/upload-image/upload-image.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { NumericDirective } from './directives/number.directive';
 
 //import { QuillModule } from 'ngx-quill';
@@ -124,6 +125,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     NocreditDialogComponent,
     SquareDialogComponent,
     UploadImageComponent,
+    UserDetailComponent,
     HorizontalMenuComponent,
     BidListComponent,
     AuctionDetailComponent,
@@ -188,6 +190,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     InfiniteScrollModule,
     SearchComponent,
     UploadImageComponent,
+    UserDetailComponent,
     VerticalMenuComponent,
     HorizontalMenuComponent,
     BidListComponent,

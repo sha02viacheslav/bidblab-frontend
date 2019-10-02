@@ -4,7 +4,6 @@
   margin: 0.5rem;
   border: solid 1px rgb(240, 240, 240);
   border-radius: 5px;
-  //width: calc(100vw - 4rem);
   z-index: 1000;
 
   * {
@@ -13,12 +12,7 @@
 }
 
   .bid-result-title {
-    height: 40px;
-    display: flex;
-    align-items: center;
     padding-left: 1rem;
-    font-size: 20px;
-    color: $accent;
     border-bottom: solid 1px rgb(240, 240, 240);
     border-radius: 5px 5px 0px 0px;
   }
@@ -26,7 +20,6 @@
 @media (max-width: 599px) {
   .bid-result-box {
     padding: 0.5rem !important;
-    //width: calc(100vw - 2rem) !important;
   }
 }
 

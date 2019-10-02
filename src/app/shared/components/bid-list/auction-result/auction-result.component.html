@@ -1,35 +1,7 @@
-<!-- <div *ngIf="auction.bids.length" class="bid-result-box mute-text">
-  <div class="bid-result-title">
-    {{auction.role == 'closed'? 'Bid result' : 'Bid Progress'}}
-  </div>
-  <div class="bid-result-content row no-gutters">
-    <div class="bid-result-wrap" *ngFor="let bid of auction.bids">
-      <div class="bid-price-box">
-        <div class="bid-price-wrap" [ngClass]="{'unique-mark': bid.bidStatus == 0, 'highst-mark': bid.bidStatus == 2, 
-            'deplicate-mark': bid.bidStatus == 1 || bid.bidStatus == 3}">
-        </div>
-        <div class="bid-price">{{bid.bidPrice | currency:'USD':'':'1.2-2'}}</div>
-      </div>
-      <div class="bid-content-wrap" fxLayout="row wrap" fxLayoutAlign="start center">
-        <div fxFlex="50" fxFlex.xs="100">
-          <div *ngIf="bid.bidStatus == 0">Unique Bid</div>
-          <div *ngIf="bid.bidStatus == 2">Highest Unique Bid</div>
-          <div *ngIf="bid.bidStatus == 1 || bid.bidStatus == 3">Duplicate Bid</div>
-        </div>
-        <div class="username-wrap" fxFlex="20" fxFlex.xs="100">
-          <button mat-icon-button class="no-hover-effect" routerLink="/user/{{bid.bidder._id}}">
-            <mat-icon>person</mat-icon>{{bid.bidder.username}}
-          </button>
-        </div>
-        <div class="bid-time-wrap" fxFlex="30" fxFlex.xs="100">{{bid.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}}</div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div *ngIf="dataSource.data.length" class="bid-result-box mute-text">
-  <div class="bid-result-title">
+  <h3 class="bid-result-title accent">
     {{auction.role == 'closed'? 'Bid result' : 'Bid Progress'}}
-  </div>
+  </h3>
   <div class="bid-result-content row no-gutters">
     <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="w-100">
       <ng-container matColumnDef="bidPrice">

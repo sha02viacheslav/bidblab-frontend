@@ -11,9 +11,7 @@
       <div fxLayout="column" fxLayoutAlign="start center" class="user-info-wrapper">
         <img [src]="user?.profilePicture?.path? serverUrl +'/' + user.profilePicture.path : 'assets/imgs/user.svg'"
           alt="user-image">
-        <div class="user-info">
-          <p class="name">{{user?.username}}</p>
-        </div>
+        <h4>{{user?.username}}</h4>
       </div>
     </div>
 

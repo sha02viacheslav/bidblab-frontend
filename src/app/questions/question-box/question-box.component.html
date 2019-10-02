@@ -1,10 +1,10 @@
-<div class="question-block main-box-shadow">
+<div class="mb-1 main-box-shadow">
   <div class="row no-gutters">
     <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
       <app-question-image [question]="question" [detailLinkFlag]="true"></app-question-image>
     </div>
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
-      <div class="question-answer" fxLayout="column">
+      <div class="p-1" fxLayout="column">
         <div class="user-wrap" fxLayout="row">
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
@@ -68,12 +68,6 @@
           </div>
         </ng-container>
       </div>
-      <!-- <div class="button-wrap" fxLayout="row" fxLayoutAlign="end center">
-        <button mat-icon-button routerLink="/questions/question-detail/{{question._id}}"
-          matTooltip="Go to question detail page" matTooltipClass="example-tooltip-color">
-          <i class="fa fa-info-circle mute-text strong"></i>
-        </button>
-      </div> -->
     </div>
   </div>
 </div>

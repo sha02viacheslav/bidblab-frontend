@@ -1,55 +1,49 @@
 <div class="credits-sticky-wrap">Credits: {{bidService.availuableCredits}}</div>
-<div fxLayout="row wrap">
-  <div fxFlex="100">
-    <mat-card class="custom-card no-content">
-      <mat-card-header fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
-        <mat-card-title class="m-0">
-          <h3 class="live-auction-title mute-text">{{auctionType == bidService.auctionRole.process? 'Live' : 'Closed'}}&nbsp;Auctions</h3>
-        </mat-card-title>
-        <div fxLayoutAlign="space-between start">
-          <div class="sort-item-wrap">
-            <mat-form-field>
-              <mat-select #select [(ngModel)]="selectedSortField" (closed)="applySort()">
-                <mat-option *ngFor="let sortField of sortFields" [value]="sortField.value">{{sortField.viewValue}}
-                </mat-option>
-              </mat-select>
-              <button class="direction-btn" mat-button *ngIf="selectedSortField" matSuffix mat-icon-button
-                aria-label="Clear" (click)="changeSortDirection($event)">
-                <mat-icon *ngIf="sortDirection == 1">arrow_upward</mat-icon>
-                <mat-icon *ngIf="sortDirection == -1">arrow_downward</mat-icon>
-                <mat-icon *ngIf="sortDirection == 0">close</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-          <div class="mobile-display-none margin-right-1rem">
-            <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy">
-              <mat-button-toggle value="grid" checked="true">
-                <mat-icon>view_module</mat-icon>
-              </mat-button-toggle>
-              <mat-button-toggle value="list">
-                <mat-icon>view_list</mat-icon>
-              </mat-button-toggle>
-            </mat-button-toggle-group>
-          </div>
-
-          <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-
-          <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
-            <span (mouseleave)="moreMenuTrigger.closeMenu()">
-              <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.process)">
-                Live Auctions
-              </button>
-              <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.closed)">
-                Closed Auctions
-              </button>
-            </span>
-          </mat-menu>
+<div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
+      <h1 class="title-color">
+        {{auctionType == bidService.auctionRole.process? 'Live' : 'Closed'}}&nbsp;Auctions
+      </h1>
+      <div fxLayoutAlign="space-between start">
+        <div class="sort-item-wrap">
+          <mat-form-field>
+            <mat-select #select [(ngModel)]="selectedSortField" (closed)="applySort()">
+              <mat-option *ngFor="let sortField of sortFields" [value]="sortField.value">{{sortField.viewValue}}
+              </mat-option>
+            </mat-select>
+            <button class="direction-btn" mat-button *ngIf="selectedSortField" matSuffix mat-icon-button
+              aria-label="Clear" (click)="changeSortDirection($event)">
+              <mat-icon *ngIf="sortDirection == 1">arrow_upward</mat-icon>
+              <mat-icon *ngIf="sortDirection == -1">arrow_downward</mat-icon>
+              <mat-icon *ngIf="sortDirection == 0">close</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
-      </mat-card-header>
-    </mat-card>
-  </div>
+        <div class="mobile-display-none margin-right-1rem">
+          <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy">
+            <mat-button-toggle value="grid" checked="true">
+              <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="list">
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <button mat-icon-button [matMenuTriggerFor]="moreMenu" #moreMenuTrigger="matMenuTrigger">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
+          <span (mouseleave)="moreMenuTrigger.closeMenu()">
+            <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.process)">
+              Live Auctions
+            </button>
+            <button mat-menu-item (click)="changeAuctinType(bidService.auctionRole.closed)">
+              Closed Auctions
+            </button>
+          </span>
+        </mat-menu>
+      </div>
 </div>
 <div class="auction-list-wrap" fxLayout="column" fxLayoutAlign=" none">
   <div *ngIf="auctions" class="auction-list-content">

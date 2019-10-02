@@ -1,0 +1,236 @@
+<div *ngIf="user">
+  <div class="mb-3 main-box-shadow">
+    <div class="row no-gutters">
+      <div class="col-sm-12 col-md-4">
+        <div class="profile-wrap" fxLayout="column" fxLayoutAlign=" center">
+          <div class="avatar" [style.background-image]="user?.profilePicture?.path?
+            'url(' + serverUrl +'/' + user.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+          </div>
+          <h3 class="username-wrap margin-top-1rem">{{user.username}}</h3>
+          <h4 class="address-wrap">
+            {{user.physicalcity? user.physicalcity: '*****'}}, {{user.physicalstate? user.physicalstate: '*****'}}
+          </h4>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-8">
+        <div class="introduction-wrap" fxLayout="column" fxLayoutAlign=" none">
+          <div class="mb-1">
+            <h3><span class="accent">About {{user.username}}:</span></h3>
+            <div>{{user.aboutme}}</div>
+          </div>
+          <div class="mb-1">
+            <h3><span class="accent">Interests:</span></h3>
+            <mat-chip-list>
+              <mat-chip *ngFor="let tag of user.tags" color="primary" selected>{{tag}}</mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="divider"></div>
+          <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+            <div style="width: 160px;" class="mb-1">
+              <div class="mb-05">
+                <span class="accent">{{total_questions}}&nbsp;</span>
+                Submitted Questions
+              </div>
+              <div>
+                <span class="accent">{{total_answers}}&nbsp;</span>
+                Answered Questions
+              </div>
+            </div>
+            <button mat-raised-button 
+                style="max-width: 300px;" class="w-100" color="accent" (click)="addFollow('user')"
+                [disabled]="followed"><mat-icon>favorite_border</mat-icon> Follow <mat-icon>favorite_border</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-page-wrap mb-3" fxLayout="column" fxLayoutAlign=" none">
+    <div class="mb-1" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div class="block-title mb-1">
+        <div class="small mute-text">Questions</div>
+        <div class="large title-color">
+          <span class="accent">{{user.username}}</span> has answered
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign=" center">
+        <form class="mr-1" [formGroup]="tagsOfAnswerForm" autocomplete="off">
+          <mat-form-field class="no-padding" appearance="outline">
+            <mat-select multiple placeholder="Interests" formControlName="tagsOfAnswer" (closed)="changeAnswerTag()"
+              required>
+              <mat-option #allAnswerTagsSelected (click)="toggleAllSelectionOfAnswer()" [value]="0">All</mat-option>
+              <mat-option *ngFor="let tag of answerTags" [value]="tag"
+                (click)="tosslePerOneOfAnswer(allAnswerTagsSelected.viewValue)">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+        <div class="mobile-display-none">
+          <mat-button-toggle-group #answersViewType="matButtonToggleGroup" appearance="legacy">
+            <mat-button-toggle [ngClass]="{'display-none': answersViewType.value != 'list'}" value="grid" checked="true">
+              <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [ngClass]="{'display-none': answersViewType.value == 'list'}" value="list">
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="answers; else noAnswers" class="question-block-wrap">
+      <div *ngIf="answersViewType.value == 'grid' || !commonService.isMediaActive('gt-xs') else answerListView"
+        fxLayout="row wrap">
+        <div *ngFor="let answer of answers" fxFlex="100" fxFlex.sm="50" fxFlex.md="33.33" fxFlex.lg="33.33">
+          <div class="card-grid-wrap main-box-shadow">
+            <div class="card-image-wrap">
+              <img [src]="answer?.questionPicture?.path?
+                  serverUrl +'/' + answer.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
+            </div>
+            <div>
+              <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let tag of answer.tags" class="question-category" color="accent" selected>
+                    {{ tag }}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+              <div class="card-body">
+                <div class="mute-text card-body-content">
+                  <span class="accent">Q:&nbsp;</span>
+                  {{answer.title}}
+                </div>
+                <div class="mute-text card-body-content">
+                  <span class="accent">A:&nbsp;</span>
+                  {{answer.content}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #answerListView>
+        <div fxLayout="column">
+          <div *ngFor="let answer of answers" fxFlex="100">
+            <div class="card-list-wrap main-box-shadow" fxLayout="row">
+              <div class="card-left-wrap" fxFlex="25" fxFlex.sm="50" fxFlex.md="33.33">
+                <div class="card-image-wrap" [style.background-image]="answer?.questionPicture?.path?
+                    'url(' + serverUrl +'/' + answer.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+                </div>
+              </div>
+              <div fxLayout="column" fxFlex="*" fxLayoutAlign="start stretch">
+                <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let tag of answer.tags" class="question-category" color="accent" selected>
+                      {{ tag }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+                <div class="card-body" fxFlex="*">
+                  <div class="mute-text card-body-content answer-text">
+                    <span class="accent">Q:&nbsp;</span>
+                    {{answer.title}}
+                  </div>
+                  <div class="mute-text card-body-content answer-text">
+                    <span class="accent">A:&nbsp;</span>
+                    {{answer.content}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <ng-template #noAnswers>
+      <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+    </ng-template>
+  </div>
+
+  <div class="question-page-wrap mb-3" fxLayout="column" fxLayoutAlign=" none">
+    <div class="mb-1" fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div class="block-title mb-1">
+        <div class="small mute-text">Questions</div>
+        <div class="large title-color">
+          <span class="accent">{{user.username}}</span> has submitted
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign=" center">
+        <form class="mr-1" [formGroup]="tagsOfQuestionForm" autocomplete="off">
+          <mat-form-field class="no-padding" appearance="outline">
+            <mat-select multiple placeholder="Interests" formControlName="tagsOfQuestion"
+              (closed)="changeQuestionTag()">
+              <mat-option #allQuestionTagsSelected (click)="toggleAllSelectionOfQuestion()" [value]="0">All</mat-option>
+              <mat-option *ngFor="let tag of questionTags" [value]="tag"
+                (click)="tosslePerOneOfQuestion(allQuestionTagsSelected.viewValue)">{{tag}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form> 
+        <div class="mobile-display-none">
+          <mat-button-toggle-group #questionsViewType="matButtonToggleGroup" appearance="legacy">
+            <mat-button-toggle [ngClass]="{'display-none': questionsViewType.value != 'list'}" value="grid" checked="true">
+              <mat-icon>view_module</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [ngClass]="{'display-none': questionsViewType.value == 'list'}" value="list">
+              <mat-icon>view_list</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="questions; else noQuestions" class="question-block-wrap">
+      <div *ngIf="questionsViewType.value == 'grid' || !commonService.isMediaActive('gt-xs') else questionListView"
+        fxLayout="row wrap">
+        <div *ngFor="let question of questions" fxFlex="100" fxFlex.sm="50" fxFlex.md="33.33" fxFlex.lg="33.33">
+          <div class="card-grid-wrap main-box-shadow">
+            <div class="card-image-wrap">
+              <img [src]="question?.questionPicture?.path?
+                serverUrl +'/' + question.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
+            </div>
+            <div>
+              <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let tag of question.tags" class="question-category" color="accent" selected>
+                    {{ tag }}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+              <div class="card-body">
+                <div class="mute-text card-body-content">{{question.title}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #questionListView>
+        <div fxLayout="column">
+          <div *ngFor="let question of questions" fxFlex="100">
+            <div class="card-list-wrap main-box-shadow" fxLayout="row">
+              <div class="card-left-wrap" fxFlex="25" fxFlex.sm="50" fxFlex.md="33.33">
+                <div class="card-image-wrap" [style.background-image]="question?.questionPicture?.path?
+                  'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+                </div>
+              </div>
+              <div fxLayout="column" fxFlex="*" fxLayoutAlign="start stretch">
+                <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let tag of question.tags" class="question-category" color="accent" selected>
+                      {{ tag }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+                <div class="card-body" fxFlex="*">
+                  <div class="mute-text card-body-content">{{question.title}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <ng-template #noQuestions>
+      <h3 class="accent stretch" style="text-align: center">No questions submitted</h3>
+    </ng-template>
+  </div>
+</div>

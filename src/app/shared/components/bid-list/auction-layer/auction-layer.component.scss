@@ -3,16 +3,13 @@
 @media (max-width: 599px) {
   .auction-detail-box {
     padding: 0.5rem !important;
-    //width: calc(100vw - 2rem) !important;
   }
 }
 
 .auction-detail-box {
   padding: 1rem;
   margin: 0.5rem;
-  border: solid 1px rgb(240, 240, 240);
-  border-radius: 5px;
-  //width: calc(100vw - 4rem);
+  margin-bottom: 1rem;
   z-index: 1000;
 
   * {
@@ -48,12 +45,6 @@
     }
   }
 
-  .production-name-wrap {
-    font-size: 20px;
-    font-weight: 600;
-    color: $accent;
-  }
-
   @media (max-width: 599px) {
     .auction-description-block {
       padding-left: 0rem !important;
@@ -70,9 +61,7 @@
       align-items: center;
 
       div:first-child {
-        width: 100px;
-        font-size: 14px;
-        font-weight: 700;
+        width: 110px;
       }
 
       div:last-child {

@@ -1,20 +1,7 @@
 @import "theme";
 
-.top-auction-block {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: solid 1px rgb(240, 240, 240);
-  border-radius: 4px;
-}
-
-// @media (max-width: 600px) {
-//   .auction-list-header {
-//     display: none !important;
-//   }
-// }
-
-
 .auction-list-wrap {
+  margin: 0px -8px;
   @media (max-width: 599px) {
     .auction-list-content {
       border: unset !important;
@@ -51,8 +38,4 @@
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.live-auction-title {
-  font-size: 24px;
 }

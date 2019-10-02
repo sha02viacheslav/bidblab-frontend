@@ -1,4 +1,4 @@
-<div *ngIf="auction" [@flyInOut] class="row no-gutters auction-detail-box">
+<div *ngIf="auction" [@flyInOut] class="row no-gutters auction-detail-box main-box-shadow">
   <div class="col-sm-5 col-md-5 col-lg-3 col-xl-3 auction-image-wrap">
     <div class="auction-image"
       [class.closed-auction]="commonService.checkBit(auction.role,
@@ -14,7 +14,7 @@
   </div>
   <div class="col-sm-7 col-md-7 col-lg-9 col-xl-9 auction-description-block">
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div class="production-name-wrap">{{auction.auctionTitle}}</div>
+      <h3 class="accent">{{auction.auctionTitle}}</h3>
       <button *ngIf="auctionType == 'detail'" mat-icon-button tabindex="-1"
         color="accent"
         (click)="bidService.detailAuction= ''">

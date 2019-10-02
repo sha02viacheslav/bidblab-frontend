@@ -4,10 +4,7 @@ import { UserComponent } from './user.component';
 
 const routes: Routes = [
   {
-    path: ':userId', component: UserComponent,
-    children: [
-      { path: '**', redirectTo: '' },
-    ],
+    path: ':userId', component: UserComponent
   }
 ];
 

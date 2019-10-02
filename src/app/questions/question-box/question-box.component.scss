@@ -1,55 +1,9 @@
-.question-block {
-  margin-bottom: 1rem;
-  border-radius: 4px;
-
-  .avatar-image {
-    width: 50px;
-    margin-right: 1rem;
+.user-info {
+  p {
+    margin: 0 0 0 0;
   }
+}
 
-  .user-info {
-    p {
-      margin: 0 0 0 0;
-    }
-  }
-
-  .question-label {
-    margin-right: 5px;
-  }
-
-  .answer-label {
-    margin-right: 5px;
-  }
-
-  .question-answer {
-    padding: 1rem;
-  }
-
-  .user-wrap {
-    margin-bottom: 0.5rem;
-  }
-
-  .button-wrap {
-    padding: 1rem;
-    padding-top: 0;
-
-    &>div {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .button-wrapper {
-    font: 14px sans-serif;
-    padding: 10px 0;
-
-    button {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    .description-credits {
-      padding: 0 1rem;
-      color: #666;
-    }
-  }
+.user-wrap {
+  margin-bottom: 0.5rem;
 }

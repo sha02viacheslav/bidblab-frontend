@@ -1,12 +1,12 @@
 <div *ngIf="question" class="question-list-w">
-  <div class="question-block main-box-shadow">
+  <div class="mb-1 main-box-shadow">
     <div class="row no-gutters">
       <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
         <app-question-image [question]="question" [detailLinkFlag]="false"></app-question-image>
       </div>
       <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8">
-        <div fxFlex class="question-answer" fxLayout="column">
-          <div fxLayout="row">
+        <div fxFlex class="p-1" fxLayout="column">
+          <div class="mb-1" fxLayout="row">
             <div class="avatar-image">
               <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
                   'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
@@ -68,9 +68,9 @@
   </div>
   <div *ngIf="question.answers.length; else noAnswers" class="answers stretch">
     <div *ngFor="let answer of question.answers">
-      <div class="question-block main-box-shadow" fxLayout="row">
-        <div fxFlex class="question-answer" fxLayout="column">
-          <div fxLayout="row">
+      <div class="mb-1 main-box-shadow" fxLayout="row">
+        <div fxFlex class="p-1" fxLayout="column">
+          <div class="mb-1" fxLayout="row">
             <div class="avatar-image">
               <div class="avatar" [style.background-image]="(answer?.answerer?.profilePicture?.path && answer.answertype == 'public')?
                   'url(' + serverUrl +'/' + answer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
