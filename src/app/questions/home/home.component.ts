@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 	public questions: any[] = [];
+	public defaultCredits: any;
 	public totalQuestionsCount: number;
 	private socketEventsSubscription: Subscription;
 	private pageSize: number = 10;
@@ -51,6 +52,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 			}
 		});
 
+		this.commonService.getDefaultCredits().subscribe((res: any) => {
+			if (res.data) {
+				this.defaultCredits = res.data;
+			}
+		});
 		this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
 	}
 

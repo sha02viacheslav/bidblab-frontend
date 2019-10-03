@@ -21,7 +21,7 @@
             </p>
           </div>
         </div>
-        <div class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+        <div class="text-block-wrap pointer" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
           <div>
             <span class="accent">Q:&nbsp;</span>
           </div>
@@ -29,7 +29,10 @@
             {{question.title}}
           </div>
         </div>
-        <ng-container *ngIf="question.answers.length" >
+
+        <div class="divider"></div>
+
+        <ng-container *ngIf="question.answers.length else noAnswer" >
           <div class="mb-05" fxLayout="row">
             <div class="avatar-image">
               <div class="avatar"
@@ -58,7 +61,7 @@
               </p>
             </div>
           </div>
-          <div class="text-block-wrap pointer" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+          <div class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
@@ -67,6 +70,15 @@
             </div>
           </div>
         </ng-container>
+        <ng-template #noAnswer>
+          <div class="mb-1 mute-text text-block-wrap">There are no submitted answers. Please answer this question, then you will get 
+              {{ question.answerCredit? question.answerCredit : 
+                (defaultCredits?.defaultPublicAnswerCredit? defaultCredits.defaultPublicAnswerCredit : 8)
+              }}&nbsp;Credits *
+              {{defaultCredits?.defaultFirstAnswerCredit? defaultCredits.defaultFirstAnswerCredit : 2}}.
+          </div>
+        </ng-template>
+        
       </div>
     </div>
   </div>

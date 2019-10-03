@@ -4,7 +4,7 @@
   <div *ngIf="questions" class="questions">
     <ng-container *ngIf="questions.length">
       <div *ngFor="let question of questions; let i = index;" fxLayout="column">
-        <app-question-box [question]="question"></app-question-box>
+        <app-question-box [question]="question" [defaultCredits]="defaultCredits"></app-question-box>
         <div *ngIf="i % 5 == 4">
           <div class='onetag' data-name='parallax' data-pub='40e575d352d7ea0'></div>
         </div>
