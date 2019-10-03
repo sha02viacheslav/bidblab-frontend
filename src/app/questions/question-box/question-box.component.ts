@@ -12,6 +12,7 @@ import { environment } from '@environments/environment';
 export class QuestionBoxComponent implements OnInit {
 
 	@Input() question: any;
+	@Input() defaultCredits: any;
 
 	form: FormGroup;
 	currentState = true;
