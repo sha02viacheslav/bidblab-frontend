@@ -115,7 +115,19 @@ export class AuctionLayerComponent implements OnInit {
   }
 
   displayDetail(){
+    this.lessDetail();
+    setTimeout(() => { 
+      this.viewDetail();
+    }, 100);
+    
+  }
+
+  viewDetail(){
     this.bidService.detailAuction = this.auction;
+  }
+  
+  lessDetail(){
+    this.bidService.detailAuction = null;
   }
   
 }

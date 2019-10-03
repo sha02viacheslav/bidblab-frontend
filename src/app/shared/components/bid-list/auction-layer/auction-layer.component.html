@@ -64,11 +64,20 @@
       </div>
       <div fxFlex="100" fxFlex.gt-sm="30" class="btn-wrap" fxLayout="column"
         fxLayoutAlign="end end">
-        <button *ngIf="auctionType == 'layer' else detailLayer" class="bid-btn"
-          (click)="displayDetail()" mat-raised-button
-          color="accent">
-          Detail
-        </button>
+        <ng-container *ngIf="auctionType == 'layer' else detailLayer ">
+          <button class="bid-btn"
+            *ngIf="bidService?.detailAuction?.index != auction.index"  
+            (click)="displayDetail()" mat-raised-button
+            color="accent">
+            Detail
+          </button>
+          <button class="bid-btn"
+            *ngIf="bidService?.detailAuction?.index == auction.index"  
+            (click)="lessDetail()" mat-stroked-button
+            color="accent">
+            Less Details
+          </button>
+        </ng-container>
         <ng-template #detailLayer>
           <button *ngIf="!commonService.checkBit(auction.role,
             bidService.auctionRole.closed) else closedAuction"

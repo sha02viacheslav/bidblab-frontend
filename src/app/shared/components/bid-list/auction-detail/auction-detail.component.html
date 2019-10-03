@@ -1,4 +1,4 @@
-<div class="m-05 p-1 mute-text main-box-shadow">
+<div class="m-05 p-1 mute-text main-box-shadow" style="transition: all .4s ease-in-out">
   <div *ngIf="auction.auctionDetail; else noDetail" [innerHTML]="auction.auctionDetail"></div>
   <ng-template #noDetail>There are no detail description.</ng-template>
 </div>

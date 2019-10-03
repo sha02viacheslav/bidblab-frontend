@@ -70,10 +70,9 @@
     </div>
     <div *ngIf="viewType.value == 'list'">
       <div *ngFor="let auction of auctions">
-        <app-auction-layer *ngIf="!(bidService.detailAuction && bidService.detailAuction?.display 
-        && auction.index == bidService.detailAuction?.index)" [auction]=auction [auctionType]="'layer'">
+        <app-auction-layer [auction]=auction [auctionType]="'layer'">
         </app-auction-layer>
-        <div *ngIf="bidService.detailAuction && bidService.detailAuction?.display 
+        <div *ngIf="bidService.detailAuction
           && auction.index == bidService.detailAuction?.index">
           <app-auction-layer [auction]=bidService.detailAuction [auctionType]="'detail'"></app-auction-layer>
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
