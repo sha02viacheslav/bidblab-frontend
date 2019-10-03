@@ -66,8 +66,8 @@
                 <ng-template #notAuthenticated>
                   <ng-container *ngIf="commonService.isMediaActive('gt-xs')">
                     <div fxLayout="row" fxLayoutAlign="start center">
-                      <button routerLink="/extra/signup" mat-button>SIGNUP</button>
-                      <button routerLink="/extra/login" mat-button>LOGIN</button>
+                      <button class="mr-1" routerLink="/extra/login" mat-button>Log in</button>
+                      <button routerLink="/extra/signup" color="accent" mat-stroked-button>Sign Up</button>
                     </div>
                   </ng-container>
                   <mat-menu #authMenu="matMenu">

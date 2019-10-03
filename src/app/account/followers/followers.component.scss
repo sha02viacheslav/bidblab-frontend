@@ -1,33 +1,63 @@
-.follow-page {}
-
-.follow-box-wrap {
+.card-box-wrap {
   margin: 0.5rem;
-  padding: 1rem;
 
-  border: solid 1px rgb(240, 240, 240);
-  border-radius: 4px;
-}
+  .card-image-wrap {
+    height: 160px;
+    overflow: hidden;
 
-div.avatar {
-  width: 100px;
-  height: 100px;
-  max-width: 100px;
-  max-height: 100px;
-  border-radius: 50%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-bottom: 1rem;
-}
+    img {
+      vertical-align: middle;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-style: none;
+    }
+  }
 
-button {
-  margin: 0.5rem 0.5rem;
-}
+  .card-up-bg {
+    background-color: #F96ABD;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
 
-.title-wrap {
-  margin-bottom: 1rem;
-  width: 8rem;
-  overflow: hidden;
-  height: 1.3rem;
-  text-align: center;
+  .card-avatar-wrap {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    background-color: #fff !important;
+    display: block;
+    margin-top: -60px;
+    overflow: hidden;
+    width: 120px;
+    border-radius: 50%;
+
+    img {
+      border: 5px solid #fff;
+      border-radius: 50% !important;
+      background: none repeat scroll 0 0 #fff;
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+
+  .card-body {
+    padding: 1rem;
+    padding-top: 0.5rem;
+    text-align: center !important;
+    
+    .card-body-content {
+      height: 24px;
+      overflow: hidden;
+    }
+
+    .question-category.mat-standard-chip {
+      opacity: 0.9;
+    }
+
+    .card-action-wrap {
+      button {
+        width: 100%; 
+        margin: 0.5rem 0.5rem;
+      }
+    }
+  }
 }

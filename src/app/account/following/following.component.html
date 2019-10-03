@@ -1,5 +1,5 @@
 <div *ngIf="isInit">
-  <div *ngIf="(followingQuestionsCount || followingUsersCount); else noFollowingQuestion" class="follow-page">
+  <div *ngIf="(followingQuestionsCount || followingUsersCount); else noFollowingQuestion">
     <div class="row no-gutters">
       <div *ngFor="let question of followingQuestions" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
         <div class="card-box-wrap main-box-shadow">
@@ -37,9 +37,9 @@
               serverUrl +'/' + user.profilePicture.path : 'assets/imgs/user.svg'" alt="">
             </div>
             <div class="card-body">
-              <div class="card-body-title mute-text" fxLayout="column" fxLayoutAlign="space-between center">
+              <h4 class="card-body-title mute-text" fxLayout="column" fxLayoutAlign="space-between center">
                 {{user.username}}
-              </div>
+              </h4>
               <div class="mute-text card-body-content">
                 {{user.physicaladdress? user.physicaladdress: '*****'}}&nbsp;{{user.physicalstate? user.physicalstate: '*****'}}
               </div>
@@ -50,8 +50,6 @@
               </div>
             </div>
           </div>
-
-
       </div>
     </div>
   </div>

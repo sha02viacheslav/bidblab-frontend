@@ -3,22 +3,28 @@
   width: 100%;
 }
 
-.question-image {
+.question-image-wrap {
   height: 228px;
   width: 100%;
   border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.question-image-wrap:hover {
+  .question-image {
+    transform: scale(1.1);
+  }
+}
+.question-image {
+  height: 100%;
+  width: 100%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  margin-bottom: 1rem;
-  opacity: 1;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 
-  &:hover {
-    opacity: 0.8;
-    background-size: 105%;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-  }
+  
 }
 .question-category.mat-standard-chip{
   font-size: 12px;

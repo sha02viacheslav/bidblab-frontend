@@ -19,9 +19,8 @@
 @import "assets/scss/sq-payment-form";
 @import "../node_modules/datetimepicker/dist/DateTimePicker.css";
 
-
-body {
-  background-color: #F4F4F7;
+.mat-drawer-container {
+  background-color: #F4F4F4;
 }
 div.avatar {
   width: 50px;
@@ -141,11 +140,6 @@ span.accent {
 @media (max-width: 599px) {
   .mat-calendar {
     zoom: 0.8;
-  }
-
-  .text-block-wrap {
-    font: 14px sans-serif;
-    text-overflow: ellipsis;
   }
 
   .container {

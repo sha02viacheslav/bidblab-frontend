@@ -1,18 +1,20 @@
 <div class="image-block" fxLayout="column" fxLayoutAlign="space-between center">
-  <ng-container *ngIf="question?.questionPicture?.path else ads">
-    <div *ngIf="detailLinkFlag" class="question-image pointer" [style.background-image]="question?.questionPicture?.path?
-      'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'"
-      routerLink="/questions/question-detail/{{question._id}}">
-    </div>
-    <div *ngIf="!detailLinkFlag"  class="question-image" [style.background-image]="question?.questionPicture?.path?
-      'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
-    </div>
-  </ng-container>
-  <ng-template #ads>
-    <div class="question-image">
-      <div class='onetag' data-name='300x250' data-pub='40e575d352d7ea0'></div>
-    </div>
-  </ng-template>
+  <div class="question-image-wrap">
+    <ng-container *ngIf="question?.questionPicture?.path else ads">
+      <div *ngIf="detailLinkFlag" class="question-image pointer" [style.background-image]="question?.questionPicture?.path?
+        'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'"
+        routerLink="/questions/question-detail/{{question._id}}">
+      </div>
+      <div *ngIf="!detailLinkFlag"  class="question-image" [style.background-image]="question?.questionPicture?.path?
+        'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+      </div>
+    </ng-container>
+    <ng-template #ads>
+      <div class="question-image">
+        <div class='onetag' data-name='300x250' data-pub='40e575d352d7ea0'></div>
+      </div>
+    </ng-template>
+  </div>
   
   <div>
     <mat-chip-list>

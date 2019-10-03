@@ -1,19 +1,24 @@
 <div *ngIf="follows; else noFollower" class="follow-page">
   <div class="row no-gutters">
-    <div *ngFor="let follow of follows" class="col-sm-12 col-md-6 col-lg-4">
-      <div class="follow-box-wrap" fxLayout="column" fxLayoutAlign="space-around center">
-        <div class="avatar" [style.background-image]="follow?.follower?.profilePicture?.path?
-              'url(' + serverUrl +'/' + follow.follower.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+    <div *ngFor="let follow of follows" class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+      <div class="card-box-wrap main-box-shadow">
+        <div class="card-image-wrap card-up-bg">
         </div>
-        <div class="username-wrap main-font">{{follow?.follower?.username}}</div>
-        <div class="title-wrap main-font">{{follow?.follower?.physicaladdress}},{{follow?.follower?.physicalstate}}</div>
-        <div class="row">
-          <div class="col-6">
-            <button mat-raised-button color="accent" routerLink="/user/{{follow?.follower?._id}}">View</button>
+        <div class="card-avatar-wrap">
+          <img [src]="follow?.follower?.profilePicture?.path?
+              serverUrl +'/' + follow?.follower.profilePicture.path : 'assets/imgs/user.svg'" alt="">
+        </div>
+        <div class="card-body">
+          <h4 class="card-body-title mute-text mb-1" fxLayout="column" fxLayoutAlign="space-between center">
+            {{follow?.follower.username}}
+          </h4>
+          <div class="mute-text card-body-content mb-1">
+            {{follow?.follower.physicaladdress? follow?.follower.physicaladdress: '*****'}}&nbsp;
+            {{follow?.follower.physicalstate? follow?.follower.physicalstate: '*****'}}
           </div>
-          <!-- <div class="col-6">
-              <button mat-raised-button color="accent" (click)="deleteFollow('user', user._id)">Unfollow</button>
-            </div> -->
+          <div class="card-action-wrap" fxLayout="row" fxLayoutAlign="space-between space-between">
+            <button mat-raised-button color="accent" routerLink="/user/{{follow?.follower._id}}">View</button>
+          </div>
         </div>
       </div>
     </div>

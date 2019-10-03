@@ -105,10 +105,6 @@ mat-toolbar {
   }
 }
 
-.mat-button {
-  text-transform: uppercase;
-}
-
 header {
   position: fixed;
   top: 0;
@@ -128,10 +124,6 @@ header {
 .tab-nav-wrap {
   margin-top: 0.5rem;
   margin-bottom: 0rem;
-}
-
-.mat-button {
-  text-transform: uppercase;
 }
 
 @media (max-width: 599px) {
