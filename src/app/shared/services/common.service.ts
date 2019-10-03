@@ -60,7 +60,7 @@ export class CommonService {
       if(ageDifMs < 1000 * 60 * 60 * 24 * 7) {
         return moment(createdAt, "YYYYMMDD").fromNow();
       } else {
-        return moment(createdAt).format('MMMM DD, YYYY');
+        return moment(createdAt).format('MMM DD, YYYY');
       }
 		}
 	}

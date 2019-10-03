@@ -36,7 +36,7 @@
       <ng-container matColumnDef="createdAt">
         <th class="mobile-display-none" mat-header-cell *matHeaderCellDef mat-sort-header> Submitted </th>
         <td class="mobile-display-none mute-text" mat-cell *matCellDef="let element">
-          {{element.createdAt | date:"dd MMMM, yyyy hh:mm:ss a"}} </td>
+          {{element.createdAt | date:"dd MMM, yyyy hh:mm:ss a"}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

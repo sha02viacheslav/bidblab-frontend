@@ -19,7 +19,7 @@
               <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
               <p class="mute-text">
                 {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
-                  (question.createdAt| date:"MMMM, dd yyyy") }}
+                  (question.createdAt| date:"MMM, dd yyyy") }}
               </p>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
@@ -93,7 +93,7 @@
               </h4>
               <p class="mute-text">
                 {{commonService.calcPastTime(answer.createdAt)? commonService.calcPastTime(answer.createdAt):
-                  (answer.createdAt| date:"MMMM, dd yyyy") }}
+                  (answer.createdAt| date:"MMM, dd yyyy") }}
               </p>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyAnswer(answer.answerer?._id)">

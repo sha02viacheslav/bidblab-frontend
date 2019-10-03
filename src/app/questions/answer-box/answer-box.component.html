@@ -18,7 +18,7 @@
             <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
             <p class="mute-text">
               {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
-                (question.createdAt| date:"MMMM, dd yyyy") }}
+                (question.createdAt| date:"MMM, dd yyyy") }}
             </p>
           </div>
         </div>
