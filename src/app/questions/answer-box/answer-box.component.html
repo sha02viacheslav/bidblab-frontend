@@ -6,29 +6,31 @@
     </div>
     <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8" fxLayout="column" fxLayoutAlign="space-between space-between">
       <div fxFlex class="p-1" fxLayout="column" fxLayoutAlign="space-between space-between">
-        <div class="user-wrap" fxLayout="row">
-          <div class="avatar-image">
-            <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
-                'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
-              </button>
+        <div class="mb-1">
+          <div class="mb-05" fxLayout="row">
+            <div class="avatar-image">
+              <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
+                  'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
+                </button>
+              </div>
+            </div>
+            <div>
+              <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
+              <p class="mute-text">
+                {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
+                  (question.createdAt| date:"MMM, dd yyyy") }}
+              </p>
             </div>
           </div>
-          <div class="user-info">
-            <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
-            <p class="mute-text">
-              {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
-                (question.createdAt| date:"MMM, dd yyyy") }}
-            </p>
-          </div>
-        </div>
-        <div class="text-block-wrap pointer h-100 mb-1" fxLayout="row" 
-          routerLink="/questions/question-detail/{{question._id}}">
-          <div>
-            <span class="accent">Q:&nbsp;</span>
-          </div>
-          <div class="text-wrapper mute-text">
-            {{question.title}}
+          <div class="text-block-wrap pointer h-100 mb-1" fxLayout="row" 
+            routerLink="/questions/question-detail/{{question._id}}">
+            <div>
+              <span class="accent">Q:&nbsp;</span>
+            </div>
+            <div class="text-wrapper mute-text">
+              {{question.title}}
+            </div>
           </div>
         </div>
         <div class="answer-button-wrap">

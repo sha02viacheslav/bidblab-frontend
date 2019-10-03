@@ -5,38 +5,40 @@
         <app-question-image [question]="question" [detailLinkFlag]="false"></app-question-image>
       </div>
       <div class="col-sm-12 col-md-7 col-lg-8 col-xl-8">
-        <div fxFlex class="p-1" fxLayout="column">
-          <div class="mb-1" fxLayout="row">
-            <div class="avatar-image">
-              <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
-                  'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                <button mat-icon-button color="primary" class="no-hover-effect"
-                  routerLink="/user/{{question?.asker?._id}}">
-                </button>
+        <div fxFlex class="p-1" fxLayout="column" fxLayoutAlign="space-between">
+          <div class="mb-1">
+            <div class="mb-05" fxLayout="row">
+              <div class="avatar-image">
+                <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
+                    'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                  <button mat-icon-button color="primary" class="no-hover-effect"
+                    routerLink="/user/{{question?.asker?._id}}">
+                  </button>
+                </div>
+              </div>
+              <div fxFlex>
+                <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
+                <p class="mute-text">
+                  {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
+                    (question.createdAt| date:"MMM, dd yyyy") }}
+                </p>
+              </div>
+              <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
+                <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)" color="accent">
+                  flag
+                </mat-icon>
+                <mat-icon *ngIf="!noQuestionReport(question._id)" color="primary" style="opacity: 0.5">
+                  flag
+                </mat-icon>
               </div>
             </div>
-            <div class="user-info" fxFlex>
-              <h4 class="mute-text">{{question?.asker?.username? question?.asker?.username: 'unknown'}}</h4>
-              <p class="mute-text">
-                {{commonService.calcPastTime(question.createdAt)? commonService.calcPastTime(question.createdAt):
-                  (question.createdAt| date:"MMM, dd yyyy") }}
-              </p>
-            </div>
-            <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
-              <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)" color="accent">
-                flag
-              </mat-icon>
-              <mat-icon *ngIf="!noQuestionReport(question._id)" color="primary" style="opacity: 0.5">
-                flag
-              </mat-icon>
-            </div>
-          </div>
-          <div class="text-block-wrap h-100 mb-1" fxLayout="row">
-            <div>
-              <span class="accent">Q:&nbsp;</span>
-            </div>
-            <div class="text-wrapper mute-text">
-              {{question.title}}
+            <div class="text-block-wrap h-100 mb-1" fxLayout="row">
+              <div>
+                <span class="accent">Q:&nbsp;</span>
+              </div>
+              <div class="text-wrapper mute-text">
+                {{question.title}}
+              </div>
             </div>
           </div>
           <div class="button-wrap">
@@ -70,7 +72,7 @@
     <div *ngFor="let answer of question.answers">
       <div class="mb-1 main-box-shadow" fxLayout="row">
         <div fxFlex class="p-1" fxLayout="column">
-          <div class="mb-1" fxLayout="row">
+          <div class="mb-05" fxLayout="row">
             <div class="avatar-image">
               <div class="avatar" [style.background-image]="(answer?.answerer?.profilePicture?.path && answer.answertype == 'public')?
                   'url(' + serverUrl +'/' + answer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
@@ -84,7 +86,7 @@
                 </ng-template>
               </div>
             </div>
-            <div class="user-info" fxFlex>
+            <div fxFlex>
               <h4 *ngIf="answer.answertype == 'public'" class="mute-text">
                 {{answer?.answerer?.username? answer?.answerer?.username: 'unknown'}}
               </h4>
@@ -105,7 +107,7 @@
               </mat-icon>
             </div>
           </div>
-          <div class="text-block-wrap" fxLayout="row">
+          <div class="text-block-wrap mb-1" fxLayout="row">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
