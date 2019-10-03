@@ -101,6 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			.subscribe(() => {
 				this.seoService.createLinkForCanonicalURL();
 				if (isPlatformBrowser(this.platformId)) {
+					this.toggleSidenav();
 					window.scrollTo(0, 0);
 				}
 			});
