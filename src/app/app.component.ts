@@ -16,7 +16,6 @@ import { DialogService } from './shared/services/dialog.service';
 import { SeoService } from '$/services/seo.service';
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
-declare var $: any;
 
 @Component({
 	selector: 'app-root',
@@ -77,23 +76,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		if (isPlatformBrowser(this.platformId)) {
-			$("#main-nicescrollable").niceScroll({
-				cursorcolor: "#e91e63",
-				cursorborder: '#e91e63',
-				autohidemode: true,
-				background: "#aaa",
-				cursorminheight: 15,
-				cursorborderradius: 15,
-				cursorwidth: 3,
-				cursoropacitymin: 0.1,
-			});
-
-			setInterval(() => {
-				$("#main-nicescrollable").getNiceScroll().resize();
-			}, 1000);
-		}
-
 		this.menuItems = this.menuService.getVerticalMenuItems();
 		this.getBlockStatus();
 		this.routerSubscription = this.router.events
