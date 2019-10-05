@@ -70,14 +70,16 @@
                   <ng-container *ngIf="commonService.isMediaActive('gt-xs')">
                     <div fxLayout="row" fxLayoutAlign="start center">
                       <button class="mr-1" routerLink="/extra/login" mat-button>Log in</button>
-                      <button routerLink="/extra/signup" color="accent" mat-stroked-button>Sign Up</button>
+                      <button class="mr-1" routerLink="/extra/signup" color="accent" mat-stroked-button>Sign Up</button>
+                      <button routerLink="/sitemanager/how" mat-button>How it works</button>
                     </div>
                   </ng-container>
                   <mat-menu #authMenu="matMenu">
-                    <button routerLink="/questions/bid" mat-menu-item>BID</button>
-                    <button routerLink="/questions/blab" mat-menu-item>BLAB</button>
-                    <button routerLink="/extra/signup" mat-menu-item>SIGNUP</button>
-                    <button routerLink="/extra/login" mat-menu-item>LOGIN</button>
+                    <button routerLink="/questions/bid" mat-menu-item>Bid</button>
+                    <button routerLink="/questions/blab" mat-menu-item>Blab</button>
+                    <button routerLink="/extra/signup" mat-menu-item>Sign Up</button>
+                    <button routerLink="/extra/login" mat-menu-item>Log in</button>
+                    <button routerLink="/sitemanager/how" mat-menu-item>How it works</button>
                   </mat-menu>
                   <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
                     <mat-icon>more_vert</mat-icon>
