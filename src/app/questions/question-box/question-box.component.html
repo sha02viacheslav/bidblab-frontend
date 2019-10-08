@@ -34,10 +34,10 @@
           <div class="mb-05" fxLayout="row">
             <div class="avatar-image">
               <div class="avatar"
-                [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
-                'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                <button *ngIf="question.answers[0].answertype == 'public'; else noPublic" mat-icon-button color="primary"
-                  class="no-hover-effect" routerLink="/user/{{question.answers[0].answerer?._id}}">
+                [style.background-image]="question?.latestAnswer?.answerer?.profilePicture?.path?
+                'url(' + serverUrl +'/' + question.latestAnswer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+                <button *ngIf="question.latestAnswer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                  class="no-hover-effect" routerLink="/user/{{question.latestAnswer.answerer?._id}}">
                 </button>
                 <ng-template #noPublic>
                   <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
@@ -47,15 +47,15 @@
               </div>
             </div>
             <div>
-              <h4 *ngIf="question.answers[0].answertype == 'public'" class="mute-text">
-                {{question?.answers[0]?.answerer?.username? question?.answers[0]?.answerer?.username: 'unknown'}}
+              <h4 *ngIf="question.latestAnswer.answertype == 'public'" class="mute-text">
+                {{question?.latestAnswer?.answerer?.username? question?.latestAnswer?.answerer?.username: 'unknown'}}
               </h4>
-              <h4 *ngIf="question.answers[0].answertype != 'public'" class="mute-text">
+              <h4 *ngIf="question.latestAnswer.answertype != 'public'" class="mute-text">
                 Private
               </h4>
               <p class="mute-text">
-                {{commonService.calcPastTime(question.answers[0].createdAt)? commonService.calcPastTime(question.answers[0].createdAt):
-                  (question.answers[0].createdAt| date:"MMM, dd yyyy") }}
+                {{commonService.calcPastTime(question.latestAnswer.createdAt)? commonService.calcPastTime(question.latestAnswer.createdAt):
+                  (question.latestAnswer.createdAt| date:"MMM, dd yyyy") }}
               </p>
             </div>
           </div>
@@ -64,7 +64,7 @@
               <span class="accent">A:&nbsp;</span>
             </div>
             <div class="text-wrapper mute-text">
-              {{question.answers[0].content}}
+              {{question.latestAnswer.content}}
             </div>
           </div>
         </ng-container>

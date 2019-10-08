@@ -26,6 +26,12 @@ export class QuestionBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		if(this.question.answers && this.question.answers.length) {
+			this.question.latestAnswer = this.question.answers
+				.reduce((max, item) => max.createdAt > item.createdAt ? max : item);
+		} else {
+			this.question.latestAnswer = null;
+		}
 	}
 
 	alert() {
