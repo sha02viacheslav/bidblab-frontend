@@ -80,7 +80,7 @@
     <div *ngIf="answers; else noAnswers" class="question-block-wrap">
       <div *ngIf="answersViewType.value == 'grid' || !commonService.isMediaActive('gt-xs') else answerListView"
         fxLayout="row wrap">
-        <div *ngFor="let answer of answers" fxFlex="100" fxFlex.sm="50" fxFlex.md="33.33" fxFlex.lg="33.33">
+        <div *ngFor="let answer of answers" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="33.33">
           <div class="card-grid-wrap main-box-shadow">
             <div class="card-image-wrap">
               <img [src]="answer?.questionPicture?.path?
@@ -181,7 +181,7 @@
     <div *ngIf="questions; else noQuestions" class="question-block-wrap">
       <div *ngIf="questionsViewType.value == 'grid' || !commonService.isMediaActive('gt-xs') else questionListView"
         fxLayout="row wrap">
-        <div *ngFor="let question of questions" fxFlex="100" fxFlex.sm="50" fxFlex.md="33.33" fxFlex.lg="33.33">
+        <div *ngFor="let question of questions" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="33.33">
           <div class="card-grid-wrap main-box-shadow">
             <div class="card-image-wrap">
               <img [src]="question?.questionPicture?.path?
