@@ -52,10 +52,10 @@
         <div class="auction-description-wrap">
           <div>{{commonService.checkBit(auction.role,
             bidService.auctionRole.closed)? 'Winner:': 'High Bidder:'}}</div>
-          <div *ngIf="auction.maxUniqueBid else noHighBidder"
+          <a *ngIf="auction.maxUniqueBid else noHighBidder"
             routerLink="/user/{{auction.maxUniqueBid._id}}">
             {{auction.maxUniqueBid.username}}
-          </div>
+          </a>
           <ng-template #noHighBidder>
             <div>{{commonService.checkBit(auction.role,
               bidService.auctionRole.closed)? 'No Winner': 'No High Bidder'}}</div>

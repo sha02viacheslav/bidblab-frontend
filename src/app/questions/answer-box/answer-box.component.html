@@ -11,8 +11,9 @@
             <div class="avatar-image">
               <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
                   'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
-                </button>
+                <a mat-icon-button color="primary" class="no-hover-effect w-100 h-100" 
+                  routerLink="/user/{{question.asker?._id}}">
+                </a>
               </div>
             </div>
             <div>
@@ -23,7 +24,7 @@
               </p>
             </div>
           </div>
-          <div class="text-block-wrap pointer h-100 mb-1" fxLayout="row" 
+          <a class="text-block-wrap pointer h-100 mb-1" fxLayout="row" 
             routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">Q:&nbsp;</span>
@@ -31,7 +32,7 @@
             <div class="text-wrapper mute-text">
               {{question.title}}
             </div>
-          </div>
+          </a>
         </div>
         <div class="answer-button-wrap">
           <button *ngIf="question.answers.length" mat-raised-button color="accent" (click)="openAnswerDialog(question)">

@@ -65,9 +65,13 @@
         font-size: 14px;
       }
 
-      div:last-child {
+      div:last-child, a {
         font-size: 12px;
         color: $primary;
+      }
+
+      a:hover {
+        cursor: pointer;
       }
     }
   }

@@ -1,9 +1,10 @@
 <div class="image-block" fxLayout="column" fxLayoutAlign="space-between center">
   <div class="question-image-wrap">
-    <div *ngIf="detailLinkFlag" class="question-image pointer" [style.background-image]="question?.questionPicture?.path?
-      'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'"
-      routerLink="/questions/question-detail/{{question._id}}">
-    </div>
+    <a *ngIf="detailLinkFlag" routerLink="/questions/question-detail/{{question._id}}">
+      <div class="question-image pointer" [style.background-image]="question?.questionPicture?.path?
+        'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'" >
+      </div>
+    </a>
     <div *ngIf="!detailLinkFlag"  class="question-image" [style.background-image]="question?.questionPicture?.path?
       'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
     </div>

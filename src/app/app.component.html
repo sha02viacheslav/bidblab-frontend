@@ -41,9 +41,9 @@
             <mat-toolbar>
               <div class="container" fxLayout="row" fxLayoutAlign="start center">
                 <div class="fill-remaining-space">
-                  <button routerLink="/question/home" color="primary" class="no-hover-effect" mat-button>
+                  <a routerLink="/question/home" color="primary" class="no-hover-effect" mat-button>
                     <img class="logo-wrap" src="assets/icons/logo.svg" />
-                  </button>
+                  </a>
                 </div>
                 <app-horizontal-menu [menuParentId]="0" *ngIf="commonService.isMediaActive('gt-xs')" class="pr-4">
                 </app-horizontal-menu>
@@ -71,15 +71,15 @@
                     <div fxLayout="row" fxLayoutAlign="start center">
                       <button class="mr-1" routerLink="/extra/login" mat-button>Log in</button>
                       <button class="mr-1" routerLink="/extra/signup" color="accent" mat-stroked-button>Sign Up</button>
-                      <button routerLink="/sitemanager/how" mat-button>How it works</button>
+                      <a routerLink="/sitemanager/how" mat-button>How it works</a>
                     </div>
                   </ng-container>
                   <mat-menu #authMenu="matMenu">
-                    <button routerLink="/questions/bid" mat-menu-item>Bid</button>
-                    <button routerLink="/questions/blab" mat-menu-item>Blab</button>
+                    <a routerLink="/questions/bid" mat-menu-item>Bid</a>
+                    <a routerLink="/questions/blab" mat-menu-item>Blab</a>
                     <button routerLink="/extra/signup" mat-menu-item>Sign Up</button>
                     <button routerLink="/extra/login" mat-menu-item>Log in</button>
-                    <button routerLink="/sitemanager/how" mat-menu-item>How it works</button>
+                    <a routerLink="/sitemanager/how" mat-menu-item>How it works</a>
                   </mat-menu>
                   <button *ngIf="!commonService.isMediaActive('gt-xs')" mat-icon-button [matMenuTriggerFor]="authMenu">
                     <mat-icon>more_vert</mat-icon>
@@ -98,7 +98,7 @@
               <mat-toolbar fxLayout="column" fxLayoutAlign="center" color="primary">
                 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="center center">
                   <div class="footer-main" fxLayout="row wrap" fxLayoutAlign="center center">
-                    <div><a class="" routerLink="/sitemanager/about">About</a></div>
+                    <div><a routerLink="/sitemanager/about">About</a></div>
                     <div><a routerLink="/sitemanager/how">How it works</a></div>
                     <div><a routerLink="/sitemanager/investor"
                         [ngClass]="{'border-none': !commonService.isMediaActive('gt-xs')}">Investor Relations</a></div>

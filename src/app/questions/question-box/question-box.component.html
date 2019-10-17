@@ -9,8 +9,9 @@
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
               'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-              <button mat-icon-button color="primary" class="no-hover-effect" routerLink="/user/{{question.asker?._id}}">
-              </button>
+              <a mat-icon-button color="primary" class="no-hover-effect w-100 h-100" 
+                routerLink="/user/{{question.asker?._id}}">
+              </a>
             </div>
           </div>
           <div>
@@ -21,14 +22,14 @@
             </p>
           </div>
         </div>
-        <div class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+        <a class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
           <div>
             <span class="accent">Q:&nbsp;</span>
           </div>
           <div class="text-wrapper mute-text">
             {{question.title}}
           </div>
-        </div>
+        </a>
 
         <ng-container *ngIf="question.answers.length else noAnswer" >
           <div class="mb-05" fxLayout="row">
@@ -36,9 +37,9 @@
               <div class="avatar"
                 [style.background-image]="question?.latestAnswer?.answerer?.profilePicture?.path?
                 'url(' + serverUrl +'/' + question.latestAnswer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                <button *ngIf="question.latestAnswer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
-                  class="no-hover-effect" routerLink="/user/{{question.latestAnswer.answerer?._id}}">
-                </button>
+                <a *ngIf="question.latestAnswer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                  class="no-hover-effect w-100 h-100" routerLink="/user/{{question.latestAnswer.answerer?._id}}">
+                </a>
                 <ng-template #noPublic>
                   <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
                     <mat-icon>security</mat-icon>
@@ -59,14 +60,14 @@
               </p>
             </div>
           </div>
-          <div class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
+          <a class="text-block-wrap pointer mb-1" fxLayout="row" routerLink="/questions/question-detail/{{question._id}}">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
             <div class="text-wrapper mute-text">
               {{question.latestAnswer.content}}
             </div>
-          </div>
+          </a>
         </ng-container>
         <ng-template #noAnswer>
           <div class="mb-1 mute-text text-block-wrap">There are no submitted answers. Please answer this question, then you will get 

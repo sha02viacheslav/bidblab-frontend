@@ -11,9 +11,9 @@
               <div class="avatar-image">
                 <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
                     'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                  <button mat-icon-button color="primary" class="no-hover-effect"
+                  <a mat-icon-button color="primary" class="no-hover-effect w-100 h-100"
                     routerLink="/user/{{question?.asker?._id}}">
-                  </button>
+                  </a>
                 </div>
               </div>
               <div fxFlex>
@@ -76,9 +76,9 @@
             <div class="avatar-image">
               <div class="avatar" [style.background-image]="(answer?.answerer?.profilePicture?.path && answer.answertype == 'public')?
                   'url(' + serverUrl +'/' + answer.answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
-                <button *ngIf="answer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
-                  class="no-hover-effect" routerLink="/user/{{answer.answerer?._id}}">
-                </button>
+                <a *ngIf="answer.answertype == 'public'; else noPublic" mat-icon-button color="primary"
+                  class="no-hover-effect w-100 h-100" routerLink="/user/{{answer.answerer?._id}}">
+                </a>
                 <ng-template #noPublic>
                   <button mat-icon-button color="primary" class="no-hover-effect" (click)="alert()">
                     <mat-icon>security</mat-icon>
