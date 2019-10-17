@@ -4,7 +4,6 @@ export const verticalMenuItems = [
   new Menu(10, 'Home', '/questions/home', null, 'home', null, false, 0),
   new Menu(20, 'Bid', '/questions/bid', null, 'motorcycle', null, false, 0),
   new Menu(30, 'Blab', '/questions/blab', null, 'question_answer', null, false, 0),
-  new Menu(40, 'About', '/questions/about', null, 'live_help', null, false, 0),
 
   new Menu(50, 'Questions', '/account/myquestions', null, 'live_help', null, false, 1),
   new Menu(60, 'Answers', '/account/myanswers', null, 'receipt', null, false, 1),
