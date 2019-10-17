@@ -10,7 +10,7 @@
         </mat-card-header>
         <mat-card-content fxLayout="column">
           <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
+            <mat-label>Username or Email</mat-label>
             <input type="text" matInput formControlName="username" required>
             <mat-error *ngIf="checkError(loginForm, 'username', ['required', 'blank'])">
               Required.
