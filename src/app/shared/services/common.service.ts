@@ -69,17 +69,6 @@ export class CommonService {
     return !!(val & (1 << pos));
   }
 
-  showOutstreamAds() {
-    let adsDiv = this.doc.querySelector("#outstream-ads-player");
-    if(adsDiv) {
-      adsDiv.remove();
-    }
-    let link = this.doc.createElement('div');
-    link.setAttribute('id', 'outstream-ads-player');
-    this.doc.body.appendChild(link);
-    link.innerHTML = '<div class="onetag" data-name="player" data-pub="40e575d352d7ea0"></div>';
-  }
-
   userLogin(body) {
     return this.httpClient.post(
       `${environment.apiUrl}/api/auth/userLogin`,

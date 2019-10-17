@@ -65,7 +65,6 @@ export class AnswerDialogComponent implements OnInit {
 					this.blockUIService.setBlockStatus(false);
 					this.snackBar.open(res.msg, 'Dismiss', { duration: 4000 });
 				}
-				this.commonService.showOutstreamAds();
 			});
 		} else if (this.form.valid) {
 			this.submitted = true;

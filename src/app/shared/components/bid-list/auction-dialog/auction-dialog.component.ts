@@ -77,7 +77,6 @@ export class AuctionDialogComponent implements OnInit, OnDestroy {
 					this.bidService.getMyCredits();
 					this.submitted = true;
 					this.dialogRef.close(res.data);
-					this.commonService.showOutstreamAds();
 				}, (err: HttpErrorResponse) => {
 					this.submitted = false;
 					this.blockUIService.setBlockStatus(false);
