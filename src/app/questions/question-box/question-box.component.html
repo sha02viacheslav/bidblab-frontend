@@ -27,7 +27,7 @@
             <span class="accent">Q:&nbsp;</span>
           </div>
           <div class="text-wrapper mute-text">
-            {{question.title}}
+            <app-read-more [content]="question.title" [maxLength]="100"></app-read-more>
           </div>
         </a>
 
@@ -65,7 +65,7 @@
               <span class="accent">A:&nbsp;</span>
             </div>
             <div class="text-wrapper mute-text">
-              {{question.latestAnswer.content}}
+              <app-read-more [content]="question.latestAnswer.content" [maxLength]="100"></app-read-more>
             </div>
           </a>
         </ng-container>

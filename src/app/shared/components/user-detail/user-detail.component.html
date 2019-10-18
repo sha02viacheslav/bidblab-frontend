@@ -16,7 +16,7 @@
         <div class="introduction-wrap" fxLayout="column" fxLayoutAlign=" none">
           <div class="mb-1">
             <h3><span class="accent">About {{user.username}}:</span></h3>
-            <div>{{user.aboutme}}</div>
+            <app-read-more [content]="user.aboutme" [maxLength]="200"></app-read-more>
           </div>
           <div class="mb-1">
             <h3><span class="accent">Interests:</span></h3>
@@ -97,11 +97,11 @@
               <div class="card-body">
                 <div class="mute-text card-body-content mb-1">
                   <span class="accent">Q:&nbsp;</span>
-                  {{answer.title}}
+                  <app-read-more [content]="answer.title" [maxLength]="80"></app-read-more>
                 </div>
                 <div class="mute-text card-body-content mb-1">
                   <span class="accent">A:&nbsp;</span>
-                  {{answer.content}}
+                  <app-read-more [content]="answer.content" [maxLength]="80"></app-read-more>
                 </div>
               </div>
             </div>
@@ -129,11 +129,11 @@
                 <div class="card-body" fxFlex="*">
                   <div class="mute-text card-body-content answer-text">
                     <span class="accent">Q:&nbsp;</span>
-                    {{answer.title}}
+                    <app-read-more [content]="answer.title" [maxLength]="180"></app-read-more>
                   </div>
                   <div class="mute-text card-body-content answer-text">
                     <span class="accent">A:&nbsp;</span>
-                    {{answer.content}}
+                    <app-read-more [content]="answer.content" [maxLength]="180"></app-read-more>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,9 @@
                 </mat-chip-list>
               </div>
               <div class="card-body">
-                <div class="mute-text card-body-content">{{question.title}}</div>
+                <div class="mute-text card-body-content">
+                  <app-read-more [content]="question.title" [maxLength]="80"></app-read-more>
+                </div>
               </div>
             </div>
           </div>
@@ -221,7 +223,9 @@
                   </mat-chip-list>
                 </div>
                 <div class="card-body" fxFlex="*">
-                  <div class="mute-text card-body-content mb-1">{{question.title}}</div>
+                  <div class="mute-text card-body-content mb-1">
+                    <app-read-more [content]="question.title" [maxLength]="400"></app-read-more>
+                  </div>
                 </div>
               </div>
             </div>

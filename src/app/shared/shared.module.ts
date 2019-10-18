@@ -63,6 +63,7 @@ import { AuctionGridComponent } from './components/bid-list/auction-grid/auction
 import { AuctionLayerComponent } from './components/bid-list/auction-layer/auction-layer.component';
 import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
 import { SearchComponent } from './components/search/search.component';
+import { ReadMoreComponent } from './components/read-more/read-more.component';
 import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
 import {AppShellNoRenderDirective} from './directives/app-shell-no-render.directive';
@@ -135,6 +136,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     AuctionResultComponent,
     NumericDirective,
     SearchComponent,
+    ReadMoreComponent,
     ReportDialogComponent,
     AppShellNoRenderDirective,
     AppShellRenderDirective
@@ -189,6 +191,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     MatTreeModule,
     InfiniteScrollModule,
     SearchComponent,
+    ReadMoreComponent,
     UploadImageComponent,
     UserDetailComponent,
     VerticalMenuComponent,

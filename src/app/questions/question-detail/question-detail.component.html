@@ -37,7 +37,7 @@
                 <span class="accent">Q:&nbsp;</span>
               </div>
               <div class="text-wrapper mute-text">
-                {{question.title}}
+                <app-read-more [content]="question.title" [maxLength]="300"></app-read-more>
               </div>
             </div>
           </div>
@@ -112,7 +112,7 @@
               <span class="accent">A:&nbsp;</span>
             </div>
             <div class="text-wrapper mute-text">
-              {{answer.content}}
+              <app-read-more [content]="answer.content" [maxLength]="100"></app-read-more>
             </div>
           </div>
           <div fxLayout="row" fxLayoutAlign="start none" class="credit-wrap">

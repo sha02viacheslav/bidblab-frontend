@@ -18,7 +18,9 @@
                 </mat-chip>
               </mat-chip-list>
             </div>
-            <div class="mute-text card-body-content">{{question.title}}</div>
+            <div class="mute-text card-body-content">
+              <app-read-more [content]="question.title" [maxLength]="40"></app-read-more>
+            </div>
             <div class="card-action-wrap" fxLayout="row" fxLayoutAlign="space-between space-between">
               <button mat-raised-button color="accent"
                 routerLink="/questions/question-detail/{{question._id}}">View</button>

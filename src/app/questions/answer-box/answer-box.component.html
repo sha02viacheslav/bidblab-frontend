@@ -30,7 +30,7 @@
               <span class="accent">Q:&nbsp;</span>
             </div>
             <div class="text-wrapper mute-text">
-              {{question.title}}
+              <app-read-more [content]="question.title" [maxLength]="500"></app-read-more>
             </div>
           </a>
         </div>

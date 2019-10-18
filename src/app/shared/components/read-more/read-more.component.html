@@ -1,0 +1,16 @@
+<ng-container *ngIf="content && content.length > maxLength; else origin">
+  <div *ngIf="!contentVisibility else showAll">
+    {{(content| slice:0:maxLength) + '...'}}&nbsp;&nbsp;&nbsp;
+    <a (click)="toggleContent(true, $event);">Read more >></a>
+  </div>
+  <ng-template #showAll>
+    <div>
+      {{content}}&nbsp;&nbsp;&nbsp;
+      <a (click)="toggleContent(false, $event);">Read less >></a>
+    </div>
+  </ng-template>
+</ng-container>
+<ng-template #origin>
+  <div>{{content}}</div>
+</ng-template>
+
