@@ -16,6 +16,18 @@
     <ng-container *ngIf="questions.length">
       <div *ngFor="let question of questions; let i = index;" fxLayout="column">
         <app-question-box [question]="question" [defaultCredits]="defaultCredits"></app-question-box>
+        <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-fb+5w+4e-db+86"
+                data-ad-client="ca-pub-6458833313549661"
+                data-ad-slot="8894143315"></ins>
+          <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </ng-container>
       </div>
     </ng-container>
   </div>
