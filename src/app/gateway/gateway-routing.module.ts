@@ -10,8 +10,7 @@ const routes: Routes = [
     component: GatewayComponent,
     children: [
       { path: 'verifyAccount/:verificationToken', component: VerifyAccountComponent },
-      { path: 'resetPassword/:resetPasswordToken', component: VerifyAccountComponent },
-      { path: '**', redirectTo: '' }
+      { path: 'resetPassword/:resetPasswordToken', component: VerifyAccountComponent }
     ]
   }
 ];

@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 			if (params['returnUrl']) {
 				this.router.navigateByUrl('/extra/login');
 			} else {
-				this.router.navigate(['/questions/home'], { queryParams: {} });
+				this.router.navigate(['/'], { queryParams: {} });
 			}
 		});
 

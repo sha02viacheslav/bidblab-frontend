@@ -26,7 +26,7 @@ export class UserGuard implements CanLoad, CanActivate, CanActivateChild {
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
     if (!this.authenticationService.isAuthenticated()) {
-      this.router.navigate(['/questions/home'], {
+      this.router.navigate(['/'], {
         queryParams: {
           returnUrl: state.url
         }

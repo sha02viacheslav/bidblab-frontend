@@ -12,11 +12,10 @@ const routes: Routes = [
     path: '',
     component: QuestionsComponent,
     children: [
-      { path: 'home', component: HomeComponent },
+      { path: '', component: HomeComponent },
       { path: 'bid', component: BidComponent },
       { path: 'blab', component: BlabComponent },
-      { path: 'question-detail/:questionId', component: QuestionDetailComponent },
-      { path: '**', redirectTo: 'home' }
+      { path: 'question-detail/:questionId', component: QuestionDetailComponent }
     ]
   }
 ];

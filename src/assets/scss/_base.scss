@@ -399,3 +399,50 @@ h1, h2, h3, h4, h5, h6 {
 .primary {
   color: $primary;
 }
+
+
+//Login, Register, Errors box
+.box{
+  border-radius: 0;
+  .box-header{
+      height: 186px;
+      .mat-fab{
+          margin-bottom: 8px;
+      }
+      .error{
+          font-size: 46px;
+      }
+  }
+  .box-content{
+      position: relative;
+      height: $box-height;     
+      .box-content-inner{
+          position: absolute;
+          top: -$box-position;
+          left: $box-position;
+          right: $box-position;
+          height: $box-height;
+      }
+      .box-content-header{
+          font-size: 16px; 
+          text-transform: uppercase;
+          font-weight:500;
+          &.server-error{
+              margin-bottom: 36px;
+          }
+      }
+      .box-text{
+          margin-bottom: 10px;
+          &::last-child{
+              margin-bottom: 15px;
+          }
+      }
+      .box-button{
+          bottom: 16px;
+          width: 40%;
+          border-radius: 20px;
+          overflow: hidden; 
+      }
+  }
+
+}

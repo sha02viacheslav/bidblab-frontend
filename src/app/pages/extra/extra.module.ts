@@ -18,7 +18,7 @@ const routes = [
       { path: 'signup/:friendEmail', component: SignupComponent },
       { path: 'login', component: LoginComponent },
       { path: 'resetpassword/:token/:userId', component: ResetPasswordComponent },
-      { path: '**', redirectTo: 'login' }
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   }
 ];
