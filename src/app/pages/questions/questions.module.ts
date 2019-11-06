@@ -14,6 +14,7 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DfpModule } from 'ngx-dfp';
 import { QuestionsComponent } from './questions.component';
 import { HomeComponent } from './home/home.component';
 import { QuestionBoxComponent } from './question-box/question-box.component';
@@ -22,8 +23,6 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
 import { BlabComponent } from './blab/blab.component';
 import { AnswerBoxComponent } from './answer-box/answer-box.component';
 import { BidComponent } from './bid/bid.component';
-// import { BidComponent } from './bid/bid.component';
-// import { AboutComponent } from './about/about.component';
 
 @NgModule({
   imports: [
@@ -32,7 +31,14 @@ import { BidComponent } from './bid/bid.component';
     ReactiveFormsModule,
     MatAutocompleteModule,
     SharedModule,
-    QuestionsRoutingModule
+    QuestionsRoutingModule,
+    DfpModule.forRoot({
+      idleLoad: true,
+      enableVideoAds: true,
+      personalizedAds: false, // Request non-personalized ads
+      singleRequestMode: true,
+      onSameNavigation: 'refresh'
+    })
   ],
   entryComponents:[
   ],

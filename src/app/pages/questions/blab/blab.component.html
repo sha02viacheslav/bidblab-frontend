@@ -1,33 +1,31 @@
 <app-search (sendData)="getDataFromSearch($event)"></app-search>
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-fb+5w+4e-db+86"
-     data-ad-client="ca-pub-6458833313549661"
-     data-ad-slot="8894143315"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<div class="mb-1 center-content" *appShellNoRender>
+  <dfp-ad *ngIf="commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Blab_Page_All">
+    <dfp-size [width]="728" [height]="90"></dfp-size>
+  </dfp-ad>
+  <dfp-ad *ngIf="!commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Blab_Page_All">
+    <dfp-size [width]="320" [height]="50"></dfp-size>
+  </dfp-ad>
+</div>
 
 <div>
   <div *ngIf="questions" class="questions">
     <ng-container *ngIf="questions.length">
       <div *ngFor="let question of questions; let i = index;" fxLayout="column">
         <app-answer-box [question]="question"></app-answer-box>
+        <ng-container *appShellNoRender>
           <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <ins class="adsbygoogle"
-                  style="display:block"
-                  data-ad-format="fluid"
-                  data-ad-layout-key="-fb+5w+4e-db+86"
-                  data-ad-client="ca-pub-6458833313549661"
-                  data-ad-slot="8894143315"></ins>
-            <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+            <div class="mb-1 center-content">
+              <dfp-ad *ngIf="commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Blab_Page_All">
+                <dfp-size [width]="970" [height]="250"></dfp-size>
+              </dfp-ad>
+              <dfp-ad *ngIf="!commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Blab_Page_All">
+                <dfp-size [width]="300" [height]="250"></dfp-size>
+              </dfp-ad>
+            </div>
           </ng-container>
+        </ng-container>
       </div>
     </ng-container>
   </div>

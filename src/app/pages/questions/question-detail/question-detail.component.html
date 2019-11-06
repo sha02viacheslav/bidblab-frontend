@@ -1,4 +1,14 @@
 <div *ngIf="question" class="question-list-w">
+
+  <div class="mb-1 center-content">
+    <dfp-ad *ngIf="commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Question_Detail_All">
+      <dfp-size [width]="970" [height]="250"></dfp-size>
+    </dfp-ad>
+    <dfp-ad *ngIf="!commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Question_Detail_All">
+      <dfp-size [width]="300" [height]="250"></dfp-size>
+    </dfp-ad>
+  </div>
+
   <div class="mb-1 main-box-shadow">
     <div class="row no-gutters">
       <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4">
@@ -24,7 +34,8 @@
                 </p>
               </div>
               <div class="report-flag-wrap" *ngIf="!isMyQuestion(question.asker?._id)">
-                <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)" color="accent">
+                <mat-icon *ngIf="noQuestionReport(question._id)" (click)="openReportDialog(question._id)"
+                  color="accent">
                   flag
                 </mat-icon>
                 <mat-icon *ngIf="!noQuestionReport(question._id)" color="primary" style="opacity: 0.5">
@@ -68,6 +79,16 @@
       </div>
     </div>
   </div>
+
+  <div class="mb-1 center-content" *appShellNoRender>
+    <dfp-ad *ngIf="commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Question_Detail_All">
+      <dfp-size [width]="728" [height]="90"></dfp-size>
+    </dfp-ad>
+    <dfp-ad *ngIf="!commonService.isMediaActive('gt-xs')" adUnit="/21864042387/Question_Detail_All">
+      <dfp-size [width]="320" [height]="50"></dfp-size>
+    </dfp-ad>
+  </div>
+
   <div *ngIf="question.answers.length; else noAnswers" class="answers stretch">
     <div *ngFor="let answer of question.answers">
       <div class="mb-1 main-box-shadow" fxLayout="row">
@@ -99,7 +120,8 @@
               </p>
             </div>
             <div class="report-flag-wrap" *ngIf="!isMyAnswer(answer.answerer?._id)">
-              <mat-icon *ngIf="noAnswerReport(question._id, answer._id)" (click)="openReportDialog(question._id, answer._id)" color="accent">
+              <mat-icon *ngIf="noAnswerReport(question._id, answer._id)"
+                (click)="openReportDialog(question._id, answer._id)" color="accent">
                 flag
               </mat-icon>
               <mat-icon *ngIf="!noAnswerReport(question._id, answer._id)" color="primary" style="opacity: 0.5">

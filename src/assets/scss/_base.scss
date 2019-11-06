@@ -400,6 +400,11 @@ h1, h2, h3, h4, h5, h6 {
   color: $primary;
 }
 
+.center-content {
+  width: 100%; 
+  display: flex; 
+  justify-content: center;
+}
 
 //Login, Register, Errors box
 .box{
