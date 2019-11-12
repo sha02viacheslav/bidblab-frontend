@@ -232,6 +232,7 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 					if (event.payload.data.questionId === this.question._id) {
 						if (event.name === 'createdData') {
 							this.question.answers.push(event.payload.data.answer);
+							this.sortAnswers(this.question.answers);
 						}
 						else {
 							const index = this.question.answers.findIndex(
@@ -280,12 +281,8 @@ export class QuestionDetailComponent implements OnInit, OnDestroy {
 
 	sortAnswers(answers) {
 		answers.sort((a: any, b: any) => {
-			a.thumbupcnt = a.thumbupcnt ? a.thumbupcnt : 0;
-			b.thumbupcnt = b.thumbupcnt ? b.thumbupcnt : 0;
-			a.thumbdowncnt = a.thumbdowncnt ? a.thumbdowncnt : 0;
-			b.thumbdowncnt = b.thumbdowncnt ? b.thumbdowncnt : 0;
-			const temp1 = a.thumbupcnt - a.thumbdowncnt;
-			const temp2 = b.thumbupcnt - b.thumbdowncnt;
+			const temp1 = a.updatedAt? a.updatedAt : a.createdAt;
+			const temp2 = b.updatedAt? b.updatedAt : b.createdAt;
 			if (temp1 < temp2) {
 				return 1;
 			} else if (temp1 > temp2) {
