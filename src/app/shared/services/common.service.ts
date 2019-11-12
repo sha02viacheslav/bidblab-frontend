@@ -117,10 +117,7 @@ export class CommonService {
   changeProfilePicture(body) {
     return this.httpClient.patch(
       `${environment.apiUrl}/api/auth/changeProfilePicture`,
-      body,
-      {
-        reportProgress: true,
-      }
+      body
     );
   }
 

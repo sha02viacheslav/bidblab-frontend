@@ -1,8 +1,8 @@
 <div *ngIf="isInit">
   <div *ngIf="totalQuestionsCount; else nomyAnswers" class="page">
     <div *ngFor="let question of questionsWithYourAnswers">
-      <div class="question-answer-block" fxLayout="column" fxLayoutAlign=" none">
-        <div class="question-block" fxLayout="row">
+      <div class="main-box-shadow mb-1 p-1" fxLayout="column" fxLayoutAlign=" none">
+        <div class="mb-1" fxLayout="row">
           <div class="avatar-image">
             <div class="avatar" [style.background-image]="question?.asker?.profilePicture?.path?
                 'url(' + serverUrl +'/' + question.asker.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
@@ -14,27 +14,25 @@
             <div>
               <span class="accent">Q:&nbsp;</span>
             </div>
-            <div routerLink="/question-detail/{{question._id}}" class="text-wrapper question-title">
-              {{question.title}}
-            </div>
+            <a routerLink="/question-detail/{{question._id}}" class="mute-text">
+              <app-read-more [content]="question.title" [maxLength]="100"></app-read-more>
+            </a>
           </div>
         </div>
-        <div class="question-block" fxLayout="row">
+        <div class="mb-1" fxLayout="row">
           <div class="avatar-image">
-            <div class="avatar">
-              <mat-icon *ngIf="question.answers[0].answertype == 'public'; else privateAnswer">publish</mat-icon>
-              <ng-template #privateAnswer>
-              <mat-icon>security</mat-icon>
-              </ng-template>
+            <div class="avatar" [style.background-image]="question?.answers[0]?.answerer?.profilePicture?.path?
+            'url(' + serverUrl +'/' + question.answers[0].answerer.profilePicture.path + ')' : 'url(assets/imgs/user.svg)'">
+              <mat-icon *ngIf="question.answers[0].answertype != 'public'">security</mat-icon>
             </div>
           </div>
-          <div class="text-block-wrap" fxLayout="row">
+          <div class="" fxLayout="row">
             <div>
               <span class="accent">A:&nbsp;</span>
             </div>
-            <div class="content">
-              {{question.answers[0].content}}
-            </div>
+            <a routerLink="/question-detail/{{question._id}}" class="mute-text">
+              <app-read-more [content]="question.answers[0].content" [maxLength]="100"></app-read-more>
+            </a>
           </div>
         </div>
         <div class="credit-wrap">

@@ -1,15 +1,15 @@
 <app-search></app-search>
 <div *ngIf="mytotalQuestionsCount; else nomyQuestions" class="page mute-text">
   <div *ngFor="let question of myquestions">
-    <div [className]="commonService.isMediaActive('gt-xs')? 'desktop-block' : 'mobile-block'" fxLayout="column"
+    <div class="mb-1 p-1 main-box-shadow" fxLayout="column"
       fxLayoutAlign=" none">
       <div class="text-block-wrap" fxLayout="row">
         <div>
           <span class="accent">Q:&nbsp;</span>
         </div>
-        <div class="content">
-          {{question.title}}
-        </div>
+        <a routerLink="/question-detail/{{question._id}}" class="mute-text">
+          <app-read-more [content]="question.title" [maxLength]="90"></app-read-more>
+        </a>
       </div>
       <div class="main-pt pl-1">
         Earned <span class="accent">{{question.credit}}</span> BidBlab Credits
