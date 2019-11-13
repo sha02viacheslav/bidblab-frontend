@@ -82,10 +82,10 @@
         fxLayout="row wrap">
         <div *ngFor="let answer of answers" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="33.33">
           <div class="card-grid-wrap main-box-shadow">
-            <div class="card-image-wrap">
+            <a class="card-image-wrap" routerLink="/question-detail/{{answer._id}}">
               <img [src]="answer?.questionPicture?.path?
                   serverUrl +'/' + answer.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
-            </div>
+            </a>
             <div>
               <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
                 <mat-chip-list>
@@ -95,14 +95,14 @@
                 </mat-chip-list>
               </div>
               <div class="card-body">
-                <div class="mute-text card-body-content mb-1">
+                <a class="mute-text card-body-content mb-1" routerLink="/question-detail/{{answer._id}}">
                   <span class="accent">Q:&nbsp;</span>
                   <app-read-more [content]="answer.title" [maxLength]="80"></app-read-more>
-                </div>
-                <div class="mute-text card-body-content mb-1">
+                </a>
+                <a class="mute-text card-body-content mb-1" routerLink="/question-detail/{{answer._id}}">
                   <span class="accent">A:&nbsp;</span>
                   <app-read-more [content]="answer.content" [maxLength]="80"></app-read-more>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -114,9 +114,11 @@
           <div *ngFor="let answer of answers" fxFlex="100">
             <div class="card-list-wrap main-box-shadow" fxLayout="row">
               <div class="card-left-wrap" fxFlex="25" fxFlex.sm="50" fxFlex.md="33.33">
-                <div class="card-image-wrap" [style.background-image]="answer?.questionPicture?.path?
-                    'url(' + serverUrl +'/' + answer.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
-                </div>
+                <a routerLink="/question-detail/{{answer._id}}">
+                  <div class="card-image-wrap" [style.background-image]="answer?.questionPicture?.path?
+                      'url(' + serverUrl +'/' + answer.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+                  </div>
+                </a>
               </div>
               <div fxLayout="column" fxFlex="*" fxLayoutAlign="start stretch">
                 <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
@@ -127,14 +129,14 @@
                   </mat-chip-list>
                 </div>
                 <div class="card-body" fxFlex="*">
-                  <div class="mute-text card-body-content answer-text">
+                  <a class="mute-text card-body-content answer-text" routerLink="/question-detail/{{answer._id}}">
                     <span class="accent">Q:&nbsp;</span>
                     <app-read-more [content]="answer.title" [maxLength]="180"></app-read-more>
-                  </div>
-                  <div class="mute-text card-body-content answer-text">
+                  </a>
+                  <a class="mute-text card-body-content answer-text" routerLink="/question-detail/{{answer._id}}">
                     <span class="accent">A:&nbsp;</span>
                     <app-read-more [content]="answer.content" [maxLength]="180"></app-read-more>
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -183,10 +185,10 @@
         fxLayout="row wrap">
         <div *ngFor="let question of questions" fxFlex="100" fxFlex.sm="50" fxFlex.gt-sm="33.33">
           <div class="card-grid-wrap main-box-shadow">
-            <div class="card-image-wrap">
+            <a class="card-image-wrap" routerLink="/question-detail/{{question._id}}">
               <img [src]="question?.questionPicture?.path?
                 serverUrl +'/' + question.questionPicture.path : 'assets/imgs/empty-image.png'" alt="">
-            </div>
+            </a>
             <div>
               <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
                 <mat-chip-list>
@@ -196,9 +198,9 @@
                 </mat-chip-list>
               </div>
               <div class="card-body">
-                <div class="mute-text card-body-content">
+                <a class="mute-text card-body-content" routerLink="/question-detail/{{question._id}}">
                   <app-read-more [content]="question.title" [maxLength]="80"></app-read-more>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -210,9 +212,11 @@
           <div *ngFor="let question of questions" fxFlex="100">
             <div class="card-list-wrap main-box-shadow" fxLayout="row">
               <div class="card-left-wrap" fxFlex="25" fxFlex.sm="50" fxFlex.md="33.33">
-                <div class="card-image-wrap" [style.background-image]="question?.questionPicture?.path?
-                  'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
-                </div>
+                <a  routerLink="/question-detail/{{question._id}}">
+                  <div class="card-image-wrap" [style.background-image]="question?.questionPicture?.path?
+                    'url(' + serverUrl +'/' + question.questionPicture.path + ')' : 'url(assets/imgs/empty-image.png)'">
+                  </div>
+                </a>
               </div>
               <div fxLayout="column" fxFlex="*" fxLayoutAlign="start stretch">
                 <div class="card-title" fxLayout="column" fxLayoutAlign="space-between center">
@@ -223,9 +227,9 @@
                   </mat-chip-list>
                 </div>
                 <div class="card-body" fxFlex="*">
-                  <div class="mute-text card-body-content mb-1">
+                  <a class="mute-text card-body-content mb-1" routerLink="/question-detail/{{question._id}}">
                     <app-read-more [content]="question.title" [maxLength]="400"></app-read-more>
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>
