@@ -1,3 +1,12 @@
+<div class="mb-1 center-content" *appShellNoRender>
+  <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
+    <dfp-size [width]="320" [height]="50"></dfp-size>
+    <dfp-size [width]="320" [height]="100"></dfp-size>
+    <dfp-size [width]="728" [height]="90"></dfp-size>
+    <dfp-size [width]="970" [height]="90"></dfp-size>
+  </dfp-ad>
+</div>
+
 <div class="credits-sticky-wrap">Credits: {{bidService.availuableCredits}}</div>
 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
       <h1 class="title-color">
@@ -48,7 +57,7 @@
 <div class="auction-list-wrap" fxLayout="column" fxLayoutAlign=" none">
   <div *ngIf="auctions" class="auction-list-content">
     <div *ngIf="viewType.value == 'grid'" fxLayout="column" fxLayout.gt-sm="row wrap">
-      <ng-container *ngFor="let auction of auctions;">
+      <ng-container *ngFor="let auction of auctions; let i = index;">
         <app-auction-grid fxFlex.gt-sm="50" [auction]=auction></app-auction-grid>
         <div fxFlex="100" *ngIf="bidService.detailAuction && 
             (
@@ -66,10 +75,23 @@
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
           <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
+        <ng-container *ngIf="i == 1">
+          <div class="mb-1 center-content" *appShellNoRender>
+            <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
+              <dfp-size [width]="320" [height]="50"></dfp-size>
+              <dfp-size [width]="320" [height]="100"></dfp-size>
+              <dfp-size [width]="300" [height]="250"></dfp-size>
+              <dfp-size [width]="336" [height]="280"></dfp-size>
+              <dfp-size [width]="728" [height]="90"></dfp-size>
+              <dfp-size [width]="970" [height]="90"></dfp-size>
+              <dfp-size [width]="970" [height]="250"></dfp-size>
+            </dfp-ad>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
     <div *ngIf="viewType.value == 'list'">
-      <div *ngFor="let auction of auctions">
+      <div *ngFor="let auction of auctions; let i = index;">
         <app-auction-layer [auction]=auction [auctionType]="'layer'">
         </app-auction-layer>
         <div *ngIf="bidService.detailAuction
@@ -78,6 +100,19 @@
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
           <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
+        <ng-container *ngIf="i == 0">
+          <div class="mb-1 center-content" *appShellNoRender>
+            <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
+              <dfp-size [width]="320" [height]="50"></dfp-size>
+              <dfp-size [width]="320" [height]="100"></dfp-size>
+              <dfp-size [width]="300" [height]="250"></dfp-size>
+              <dfp-size [width]="336" [height]="280"></dfp-size>
+              <dfp-size [width]="728" [height]="90"></dfp-size>
+              <dfp-size [width]="970" [height]="90"></dfp-size>
+              <dfp-size [width]="970" [height]="250"></dfp-size>
+            </dfp-ad>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

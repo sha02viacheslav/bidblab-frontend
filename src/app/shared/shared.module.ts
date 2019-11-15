@@ -52,8 +52,9 @@ import { UploadImageComponent } from './components/upload-image/upload-image.com
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { NumericDirective } from './directives/number.directive';
 
-//import { QuillModule } from 'ngx-quill';
 
+//import { QuillModule } from 'ngx-quill';
+import { DfpModule } from 'ngx-dfp';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HorizontalMenuComponent } from './components/menu/horizontal-menu/horizontal-menu.component';
 import { BidListComponent } from './components/bid-list/bid-list.component';
@@ -115,7 +116,13 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     ImageCropperModule,
     PerfectScrollbarModule,
     InfiniteScrollModule,
-    // QuillModule
+    DfpModule.forRoot({
+      idleLoad: true,
+      enableVideoAds: true,
+      personalizedAds: false, // Request non-personalized ads
+      singleRequestMode: true,
+      onSameNavigation: 'refresh'
+    })
   ],
   declarations: [
     // ResetPasswordComponent,
