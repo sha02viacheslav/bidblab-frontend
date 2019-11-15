@@ -15,7 +15,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AuthInterceptor } from './auth.interceptor';
 import { BlockUIModule } from 'ng-block-ui';
 import { MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -44,9 +43,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgtUniversalModule,
     SharedModule,
     BlockUIModule.forRoot(),
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production
-    }),
     PerfectScrollbarModule,
   ],
   providers: [
