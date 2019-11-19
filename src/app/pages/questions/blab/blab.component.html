@@ -1,4 +1,4 @@
-<app-search (sendData)="getDataFromSearch($event)"></app-search>
+<app-search [searchValue]="commonService.blabState.searchValue" (sendData)="getDataFromSearch($event)"></app-search>
 
 <div class="mb-1 center-content" *appShellNoRender>
   <dfp-ad adUnit="/21864042387/Blab_Page_All" collapse-if-empty responsive>
@@ -9,27 +9,23 @@
   </dfp-ad>
 </div>
 
-<div>
-  <div *ngIf="questions" class="questions">
-    <ng-container *ngIf="questions.length">
-      <div *ngFor="let question of questions; let i = index;" fxLayout="column">
-        <app-answer-box [question]="question"></app-answer-box>
-        <ng-container *appShellNoRender>
-          <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
-            <div class="mb-1 center-content" *appShellNoRender>
-              <dfp-ad adUnit="/21864042387/Blab_Page_All" collapse-if-empty responsive>
-                <dfp-size [width]="320" [height]="50"></dfp-size>
-                <dfp-size [width]="320" [height]="100"></dfp-size>
-                <dfp-size [width]="300" [height]="250"></dfp-size>
-                <dfp-size [width]="336" [height]="280"></dfp-size>
-                <dfp-size [width]="728" [height]="90"></dfp-size>
-                <dfp-size [width]="970" [height]="90"></dfp-size>
-                <dfp-size [width]="970" [height]="250"></dfp-size>
-              </dfp-ad>
-            </div>
-          </ng-container>
-        </ng-container>
-      </div>
+<ng-container *ngIf="commonService.blabState.questions.length">
+  <div *ngFor="let question of commonService.blabState.questions; let i = index;" fxLayout="column" id="{{'blab-question-' + i}}">
+    <app-answer-box [questionIndex]="i"></app-answer-box>
+    <ng-container *appShellNoRender>
+      <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
+        <div class="mb-1 center-content" *appShellNoRender>
+          <dfp-ad adUnit="/21864042387/Blab_Page_All" collapse-if-empty responsive>
+            <dfp-size [width]="320" [height]="50"></dfp-size>
+            <dfp-size [width]="320" [height]="100"></dfp-size>
+            <dfp-size [width]="300" [height]="250"></dfp-size>
+            <dfp-size [width]="336" [height]="280"></dfp-size>
+            <dfp-size [width]="728" [height]="90"></dfp-size>
+            <dfp-size [width]="970" [height]="90"></dfp-size>
+            <dfp-size [width]="970" [height]="250"></dfp-size>
+          </dfp-ad>
+        </div>
+      </ng-container>
     </ng-container>
   </div>
-</div>
+</ng-container>

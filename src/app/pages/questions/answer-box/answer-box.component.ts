@@ -25,8 +25,9 @@ import { Router } from '@angular/router';
 })
 export class AnswerBoxComponent implements OnInit {
 
-	@Input() question: any;
+	@Input() questionIndex: any;
 
+	public question: any;
 	form: FormGroup;
 	pre_answer: any;
 	visibleState = true;
@@ -45,6 +46,7 @@ export class AnswerBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.question = this.commonService.blabState.questions[this.questionIndex];
 		this.form = this.fb.group({
 			content: '',
 		});
@@ -87,6 +89,10 @@ export class AnswerBoxComponent implements OnInit {
 				this.question.answers.push(newAnswer);
 			}
 		}
+	}
+
+	public saveScrollTarget() {
+		this.commonService.blabState.currentScrollTarget = this.questionIndex;
 	}
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
@@ -7,19 +7,16 @@ import { AuthenticationService } from '$/services/authentication.service';
 import { BlockUIService } from '$/services/block-ui.service';
 import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
 	selector: 'app-blab',
 	templateUrl: './blab.component.html',
 	styleUrls: ['./blab.component.scss']
 })
-export class BlabComponent implements OnInit, OnDestroy {
-	public questions: any[] = [];
-	public totalQuestionsCount: number;
-	public pageIndex: number = 0;
+export class BlabComponent implements OnInit, OnDestroy, AfterViewInit {
 	private socketEventsSubscription: Subscription;
-	private pageSize: number = 10;
-	private searchValue: string = '';
 
 	constructor(
 		private fb: FormBuilder,
@@ -28,7 +25,9 @@ export class BlabComponent implements OnInit, OnDestroy {
 		private snackBar: MatSnackBar,
 		private authenticationService: AuthenticationService,
 		private dialogService: DialogService,
-		private router: Router
+		private router: Router,
+		private pageScrollService: PageScrollService, 
+		@Inject(DOCUMENT) private document: any
 	) {
 		commonService.scrollEventReciver$.subscribe(params => {
 			this.onScroll();
@@ -36,41 +35,53 @@ export class BlabComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+		if(!this.commonService.blabState.questions.length) {
+			this.getQuestions();
+		}
 	}
 
 	ngOnDestroy() {
 	}
 
-	getDataFromSearch(data) {
-		if (data) {
-			this.searchValue = data.searchValue;
-			this.questions = [];
-			this.pageIndex = 0;
-			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+	ngAfterViewInit() {
+		if(this.commonService.blabState.questions.length && this.commonService.blabState.currentScrollTarget) {
+			console.log('Go to target ', this.commonService.blabState.currentScrollTarget)
+			this.pageScrollService.scroll({
+				document: this.document,
+				scrollTarget: '#blab-question-' + this.commonService.blabState.currentScrollTarget,
+			});
 		}
 	}
 
-	getQuestions(pageSize, pageIndex, search) {
+	getDataFromSearch(data) {
+		if (data) {
+			this.commonService.blabState.searchValue = data.searchValue;
+			this.commonService.blabState.questions = [];
+			this.commonService.blabState.pageIndex = 0;
+			this.getQuestions();
+		}
+	}
+
+	getQuestions() {
 		if (this.authenticationService.isAuthenticated()) {
-			this.commonService.getQuestionsCanAnswer(pageSize, pageIndex, search).subscribe((res: any) => {
-				this.totalQuestionsCount = res.data.count;
+			this.commonService.getQuestionsCanAnswer(this.commonService.blabState.pageSize,  this.commonService.blabState.pageIndex, this.commonService.blabState.searchValue).subscribe((res: any) => {
+				this.commonService.blabState.totalQuestionsCount = res.data.count;
 				res.data.questions.forEach(element => {
-					this.questions.push(element);
+					this.commonService.blabState.questions.push(element);
 				});
 			});
 		} else {
-			this.commonService.getQuestions(pageSize, pageIndex, search).subscribe((res: any) => {
-				this.totalQuestionsCount = res.data.count;
+			this.commonService.getQuestions(this.commonService.blabState.pageSize,  this.commonService.blabState.pageIndex, this.commonService.blabState.searchValue).subscribe((res: any) => {
+				this.commonService.blabState.totalQuestionsCount = res.data.count;
 				res.data.questions.forEach(element => {
-					this.questions.push(element);
+					this.commonService.blabState.questions.push(element);
 				});
 			});
 		}
 	}
 
 	isAsker(questionId) {
-		const question = this.questions.find(
+		const question = this.commonService.blabState.questions.find(
 			currentQuestion => currentQuestion._id === questionId
 		);
 		return (
@@ -81,9 +92,9 @@ export class BlabComponent implements OnInit, OnDestroy {
 	}
 
 	onScroll() {
-		if ((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount) {
-			this.pageIndex = this.pageIndex + 1;
-			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+		if ((this.commonService.blabState.pageIndex + 1) * this.commonService.blabState.pageSize < this.commonService.blabState.totalQuestionsCount) {
+			this.commonService.blabState.pageIndex = this.commonService.blabState.pageIndex + 1;
+			this.getQuestions();
 		}
 	}
 

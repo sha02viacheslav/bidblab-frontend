@@ -27,12 +27,29 @@ export class CommonService {
     searchValue: ''
   }
 
+  public blabState = {
+    questions: [],
+    totalQuestionsCount: 0,
+    pageSize: 10,
+    pageIndex: 0,
+    currentScrollTarget: 0,
+    searchValue: ''
+  }
+
   public initHomeState() {
     this.homeState.questions = [];
     this.homeState.totalQuestionsCount = 0;
     this.homeState.pageIndex = 0;
     this.homeState.currentScrollTarget = 0;
     this.homeState.searchValue = '';
+  }
+
+  public initBlabState() {
+    this.blabState.questions = [];
+    this.blabState.totalQuestionsCount = 0;
+    this.blabState.pageIndex = 0;
+    this.blabState.currentScrollTarget = 0;
+    this.blabState.searchValue = '';
   }
 
   private scrollEventEmitter = new Subject();

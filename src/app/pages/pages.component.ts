@@ -77,6 +77,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 		this.menuItems = this.menuService.getVerticalMenuItems();
 		this.getBlockStatus();
 		this.commonService.initHomeState();
+		this.commonService.initBlabState();
 		this.routerSubscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))
 			.subscribe(() => {
