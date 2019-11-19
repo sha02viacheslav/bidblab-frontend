@@ -18,6 +18,23 @@ export class CommonService {
     @Inject(DOCUMENT) private doc
   ) {}
 
+  public homeState = {
+    questions: [],
+    totalQuestionsCount: 0,
+    pageSize: 10,
+    pageIndex: 0,
+    currentScrollTarget: 0,
+    searchValue: ''
+  }
+
+  public initHomeState() {
+    this.homeState.questions = [];
+    this.homeState.totalQuestionsCount = 0;
+    this.homeState.pageIndex = 0;
+    this.homeState.currentScrollTarget = 0;
+    this.homeState.searchValue = '';
+  }
+
   private scrollEventEmitter = new Subject();
   scrollEventReciver$ = this.scrollEventEmitter.asObservable();
 

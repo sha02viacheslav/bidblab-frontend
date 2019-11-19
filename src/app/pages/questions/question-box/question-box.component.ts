@@ -11,9 +11,10 @@ import { environment } from '@environments/environment';
 })
 export class QuestionBoxComponent implements OnInit {
 
-	@Input() question: any;
+	@Input() questionIndex: any;
 	@Input() defaultCredits: any;
 
+	public question: any;
 	form: FormGroup;
 	currentState = true;
 	serverUrl = environment.apiUrl;
@@ -26,12 +27,17 @@ export class QuestionBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.question = this.commonService.homeState.questions[this.questionIndex];
 		if(this.question.answers && this.question.answers.length) {
 			this.question.latestAnswer = this.question.answers
 				.reduce((max, item) => max.createdAt > item.createdAt ? max : item);
 		} else {
 			this.question.latestAnswer = null;
 		}
+	}
+
+	public saveScrollTarget() {
+		this.commonService.homeState.currentScrollTarget = this.questionIndex;
 	}
 
 	alert() {

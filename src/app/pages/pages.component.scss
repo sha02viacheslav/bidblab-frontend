@@ -80,7 +80,7 @@ mat-toolbar {
 }
 
 .app-wrapper {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -156,9 +156,4 @@ footer {
       border-right: solid 1px white;
     }
   }
-}
-
-.infiniteScroll-area {
-  height: 100vh !important;
-  overflow-y: scroll;
 }

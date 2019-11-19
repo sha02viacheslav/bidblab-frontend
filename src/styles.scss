@@ -19,6 +19,7 @@
 @import "assets/scss/sq-payment-form";
 @import "../node_modules/datetimepicker/dist/DateTimePicker.css";
 
+body,
 .mat-drawer-container {
   background-color: #F4F4F4;
 }
@@ -224,4 +225,9 @@ mat-dialog-content {
   margin-top: 16px;
   margin-bottom: 16px;
   opacity: 0.5;
+}
+
+// For page scroll
+.mat-drawer-content, .mat-drawer-container {
+  overflow: unset !important;
 }

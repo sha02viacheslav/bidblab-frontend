@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '$/services/common.service';
 import { MatSnackBar } from '@angular/material';
@@ -17,6 +17,7 @@ import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.com
 	styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+	@Input() searchValue: string;
 	@Output() sendData: EventEmitter<any> = new EventEmitter<any>();
 	form: FormGroup;
 	autocomplete: any[];
@@ -42,7 +43,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 		this.pageSize = 10;
 		this.autocomplete = [];
 		this.form = this.fb.group({
-			search: ''
+			search: this.searchValue || ''
 		});
 
 		this.commonService.getDefaultCredits().subscribe((res: any) => {

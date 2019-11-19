@@ -16,6 +16,7 @@ import { DialogService } from '../shared/services/dialog.service';
 import { SeoService } from '$/services/seo.service';
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
 	selector: 'app-pages',
@@ -52,7 +53,8 @@ export class PagesComponent implements OnInit, OnDestroy {
 		private location: Location,
 		public menuService: MenuService,
 		@Inject(PLATFORM_ID) private platformId: Object,
-		@Inject(DOCUMENT) private doc
+		@Inject(DOCUMENT) private doc,
+		private pageScrollService: PageScrollService,
 	) {
 		this.mainNavLinks = [
 			{
@@ -74,6 +76,7 @@ export class PagesComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.menuItems = this.menuService.getVerticalMenuItems();
 		this.getBlockStatus();
+		this.commonService.initHomeState();
 		this.routerSubscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))
 			.subscribe(() => {

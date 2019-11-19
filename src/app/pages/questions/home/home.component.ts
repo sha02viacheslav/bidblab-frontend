@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, AfterViewInit, AfterContentInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from '$/services/common.service';
@@ -10,21 +10,17 @@ import { QuestionDialogComponent } from '$/components/question-dialog/question-d
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { PageScrollService } from 'ngx-page-scroll-core';
 
 @Component({
 	selector: 'app-home-questions',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-	public questions: any[] = [];
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
 	public defaultCredits: any;
-	public totalQuestionsCount: number;
-	private socketEventsSubscription: Subscription;
-	private pageSize: number = 10;
-	public pageIndex: number = 0;
 	public returnUrl: string = '';
-	private searchValue: string = '';
 
 
 	constructor(
@@ -35,7 +31,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 		private authenticationService: AuthenticationService,
 		private dialogService: DialogService,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private pageScrollService: PageScrollService, 
+		@Inject(DOCUMENT) private document: any
 	) {
 		commonService.scrollEventReciver$.subscribe(params => {
 			this.onScroll();
@@ -57,34 +55,51 @@ export class HomeComponent implements OnInit, OnDestroy {
 				this.defaultCredits = res.data;
 			}
 		});
-		this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+		if(!this.commonService.homeState.questions.length) {
+			this.getQuestions();
+		}
 	}
 
 	ngOnDestroy() {
 	}
 
-	getDataFromSearch(data) {
-		if (data) {
-			this.searchValue = data.searchValue;
-			this.questions = [];
-			this.pageIndex = 0;
-			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+	ngAfterViewInit() {
+		if(this.commonService.homeState.questions.length && this.commonService.homeState.currentScrollTarget) {
+			console.log('Go to target ', this.commonService.homeState.currentScrollTarget)
+			this.pageScrollService.scroll({
+				document: this.document,
+				scrollTarget: '#home-question-' + this.commonService.homeState.currentScrollTarget,
+			});
 		}
 	}
 
-	getQuestions(pageSize, pageIndex, search) {
-		this.commonService.getQuestions(pageSize, pageIndex, search).subscribe((res: any) => {
-			this.totalQuestionsCount = res.data.count;
+	ngAfterContentInit() {
+		
+	}
+
+	getDataFromSearch(data) {
+		if (data) {
+			this.commonService.homeState.searchValue = data.searchValue;
+			this.commonService.homeState.questions = [];
+			this.commonService.homeState.pageIndex = 0;
+			this.getQuestions();
+		}
+	}
+
+	getQuestions() {
+		this.commonService.getQuestions(this.commonService.homeState.pageSize,  this.commonService.homeState.pageIndex, this.commonService.homeState.searchValue).subscribe((res: any) => {
+			this.commonService.homeState.totalQuestionsCount = res.data.count;
 			res.data.questions.forEach(element => {
-				this.questions.push(element);
+				this.commonService.homeState.questions.push(element);
 			});
 		});
 	}
 
 	onScroll() {
-		if ((this.pageIndex + 1) * this.pageSize < this.totalQuestionsCount) {
-			this.pageIndex = this.pageIndex + 1;
-			this.getQuestions(this.pageSize, this.pageIndex, this.searchValue);
+		console.log('on scroll', (this.commonService.homeState.pageIndex + 1) * this.commonService.homeState.pageSize, this.commonService.homeState.totalQuestionsCount)
+		if ((this.commonService.homeState.pageIndex + 1) * this.commonService.homeState.pageSize < this.commonService.homeState.totalQuestionsCount) {
+			this.commonService.homeState.pageIndex = this.commonService.homeState.pageIndex + 1;
+			this.getQuestions();
 		}
 	}
 

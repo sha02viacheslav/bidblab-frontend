@@ -21,6 +21,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
   suppressScrollX: true               
@@ -44,6 +46,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     BlockUIModule.forRoot(),
     PerfectScrollbarModule,
+    NgxPageScrollCoreModule.forRoot({duration: 10, scrollOffset: 120, _logLevel: 0}),
+    NgxPageScrollModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

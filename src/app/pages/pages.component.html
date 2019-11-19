@@ -31,11 +31,7 @@
     </mat-sidenav>
     <mat-sidenav-content id="main">
       <block-ui>
-        <div class="infiniteScroll-area" 
-          infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50"
-          (scrolled)="onScroll()" 
-          [scrollWindow]="true" 
-          id="main-nicescrollable">
+        <div infiniteScroll (scrolled)="onScroll()" [scrollWindow]="true">
           <div class="app-wrapper">
             <header>
               <mat-toolbar>
