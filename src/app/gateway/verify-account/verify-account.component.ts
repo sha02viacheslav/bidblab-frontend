@@ -25,7 +25,6 @@ export class VerifyAccountComponent implements OnInit {
 		private blockUIService: BlockUIService,
 		private snackBar: MatSnackBar,
 		private authenticationService: AuthenticationService,
-		private swUpdate: SwUpdate,
 		private router: Router,
 		private dialogService: DialogService,
 	) { }
