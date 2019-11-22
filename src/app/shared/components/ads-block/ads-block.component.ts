@@ -19,7 +19,7 @@ import { AlertDialogComponent } from '$/components/alert-dialog/alert-dialog.com
 export class AdsBlockComponent implements OnInit {
 	@Input() adsUnit: any;
 
-	public visibleState: boolean = true;
+	public visibleState: boolean = false;
 	public myInnerHeight: number = 0;
 
 	constructor(
@@ -48,6 +48,8 @@ export class AdsBlockComponent implements OnInit {
 		}
 	}
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.checkScroll();
+	 }
 
 }
