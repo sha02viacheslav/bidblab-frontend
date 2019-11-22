@@ -1,5 +1,7 @@
-<div [style.height.px]="myInnerHeight" class="mb-1 center-content">
-  <dfp-ad *ngIf="visibleState" [adUnit]="adsUnit" collapse-if-empty responsive (afterRefresh)="refreshed($event)">
+
+<div class="center-content p-1 mb-1 main-box-shadow">
+  <dfp-ad *ngIf="visibleState" [adUnit]="adsUnit" collapse-if-empty responsive  [style.height.px]="myInnerHeight"
+    (afterRefresh)="refreshed($event)">
     <dfp-size [width]="320" [height]="50"></dfp-size>
     <dfp-size [width]="320" [height]="100"></dfp-size>
     <dfp-size [width]="300" [height]="250"></dfp-size>
