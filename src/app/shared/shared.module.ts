@@ -65,6 +65,7 @@ import { AuctionLayerComponent } from './components/bid-list/auction-layer/aucti
 import { AuctionResultComponent } from './components/bid-list/auction-result/auction-result.component';
 import { SearchComponent } from './components/search/search.component';
 import { ReadMoreComponent } from './components/read-more/read-more.component';
+import { AdsBlockComponent } from './components/ads-block/ads-block.component';
 import { ReportDialogComponent } from './components/report-dialog/report-dialog.component';
 
 import {AppShellNoRenderDirective} from './directives/app-shell-no-render.directive';
@@ -144,6 +145,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     NumericDirective,
     SearchComponent,
     ReadMoreComponent,
+    AdsBlockComponent,
     ReportDialogComponent,
     AppShellNoRenderDirective,
     AppShellRenderDirective
@@ -199,6 +201,7 @@ import {AppShellRenderDirective} from './directives/app-shell-render.directive';
     InfiniteScrollModule,
     SearchComponent,
     ReadMoreComponent,
+    AdsBlockComponent,
     UploadImageComponent,
     UserDetailComponent,
     VerticalMenuComponent,

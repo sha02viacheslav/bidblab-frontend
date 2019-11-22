@@ -1,5 +1,4 @@
 <app-search [searchValue]="commonService.blabState.searchValue" (sendData)="getDataFromSearch($event)"></app-search>
-
 <div class="mb-1 center-content" *appShellNoRender>
   <dfp-ad adUnit="/21864042387/Blab_Page_All" collapse-if-empty responsive>
     <dfp-size [width]="320" [height]="50"></dfp-size>
@@ -14,17 +13,7 @@
     <app-answer-box [questionIndex]="i"></app-answer-box>
     <ng-container *appShellNoRender>
       <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
-        <div class="mb-1 center-content" *appShellNoRender>
-          <dfp-ad adUnit="/21864042387/Blab_Page_All" collapse-if-empty responsive>
-            <dfp-size [width]="320" [height]="50"></dfp-size>
-            <dfp-size [width]="320" [height]="100"></dfp-size>
-            <dfp-size [width]="300" [height]="250"></dfp-size>
-            <dfp-size [width]="336" [height]="280"></dfp-size>
-            <dfp-size [width]="728" [height]="90"></dfp-size>
-            <dfp-size [width]="970" [height]="90"></dfp-size>
-            <dfp-size [width]="970" [height]="250"></dfp-size>
-          </dfp-ad>
-        </div>
+        <app-ads-block adsUnit="/21864042387/Blab_Page_All"></app-ads-block>
       </ng-container>
     </ng-container>
   </div>
