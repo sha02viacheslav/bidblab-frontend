@@ -1,11 +1,11 @@
-<div class="center-content p-1 mb-1 main-box-shadow" *appShellNoRender>
+<!-- <div class="center-content p-1 mb-1 main-box-shadow" *appShellNoRender>
   <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
     <dfp-size [width]="320" [height]="50"></dfp-size>
     <dfp-size [width]="320" [height]="100"></dfp-size>
     <dfp-size [width]="728" [height]="90"></dfp-size>
     <dfp-size [width]="970" [height]="90"></dfp-size>
   </dfp-ad>
-</div>
+</div> -->
 
 <div class="credits-sticky-wrap">Credits: {{bidService.availuableCredits}}</div>
 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center">
@@ -75,7 +75,7 @@
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
           <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
-        <ng-container *ngIf="i == 1">
+        <!-- <ng-container *ngIf="i == 1">
           <div class="center-content p-1 m-05 main-box-shadow" *appShellNoRender>
             <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
               <dfp-size [width]="320" [height]="50"></dfp-size>
@@ -87,7 +87,7 @@
               <dfp-size [width]="970" [height]="250"></dfp-size>
             </dfp-ad>
           </div>
-        </ng-container>
+        </ng-container> -->
       </ng-container>
     </div>
     <div *ngIf="viewType.value == 'list'">
@@ -100,7 +100,7 @@
           <app-auction-result [auction]=bidService.detailAuction></app-auction-result>
           <app-auction-detail [auction]=bidService.detailAuction></app-auction-detail>
         </div>
-        <ng-container *ngIf="i == 0">
+        <!-- <ng-container *ngIf="i == 0">
           <div class="center-content p-1 mb-1 main-box-shadow" *appShellNoRender>
             <dfp-ad adUnit="/21864042387/Bid_Page_All" collapse-if-empty responsive>
               <dfp-size [width]="320" [height]="50"></dfp-size>
@@ -112,7 +112,7 @@
               <dfp-size [width]="970" [height]="250"></dfp-size>
             </dfp-ad>
           </div>
-        </ng-container>
+        </ng-container> -->
       </div>
     </div>
   </div>

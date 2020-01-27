@@ -1,21 +1,21 @@
 <app-search [searchValue]="commonService.homeState.searchValue" (sendData)="getDataFromSearch($event)"></app-search>
 
-<div class="center-content p-1 mb-1 main-box-shadow" *appShellNoRender>
+<!-- <div class="center-content p-1 mb-1 main-box-shadow" *appShellNoRender>
   <dfp-ad adUnit="/21864042387/Home_Page_All" collapse-if-empty responsive>
     <dfp-size [width]="320" [height]="50"></dfp-size>
     <dfp-size [width]="320" [height]="100"></dfp-size>
     <dfp-size [width]="728" [height]="90"></dfp-size>
     <dfp-size [width]="970" [height]="90"></dfp-size>
   </dfp-ad>
-</div>
+</div> -->
 
 <ng-container *ngIf="commonService.homeState.questions.length">
   <div *ngFor="let question of commonService.homeState.questions; let i = index;" fxLayout="column" id="{{'home-question-' + i}}">
     <app-question-box [questionIndex]="i" [defaultCredits]="defaultCredits"></app-question-box>
-    <ng-container *appShellNoRender>
+    <!-- <ng-container *appShellNoRender>
       <ng-container *ngIf="i == 1 || i % 9 == 1 || i % 9 == 5">
         <app-ads-block adsUnit="/21864042387/Home_Page_All"></app-ads-block>
       </ng-container>
-    </ng-container>
+    </ng-container> -->
   </div>
 </ng-container>
